@@ -1,20 +1,22 @@
-import 'package:intl/intl.dart';
-
 class DateTimeHelper {
   static String formatDate(DateTime date) {
-    return DateFormat('dd/MM/yyyy').format(date);
+    return '${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year}';
   }
 
   static String formatTime(DateTime time) {
-    return DateFormat('hh:mm a').format(time);
+    final hour = time.hour == 0
+        ? 12
+        : (time.hour > 12 ? time.hour - 12 : time.hour);
+    final period = time.hour >= 12 ? 'PM' : 'AM';
+    return '${hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')} $period';
   }
 
   static String formatDateTime(DateTime dateTime) {
-    return DateFormat('dd/MM/yyyy hh:mm a').format(dateTime);
+    return '${formatDate(dateTime)} ${formatTime(dateTime)}';
   }
 
   static String formatDateTimeForAPI(DateTime dateTime) {
-    return DateFormat('yyyy-MM-ddTHH:mm:ss').format(dateTime);
+    return '${dateTime.year}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')}T${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}:${dateTime.second.toString().padLeft(2, '0')}';
   }
 
   static DateTime? parseDate(String? dateString) {

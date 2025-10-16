@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../data/repositories/auth_repository.dart';
-import '../../../data/models/user_model.dart';
 import '../../../utils/validators.dart';
+import '../../main_navigation/main_navigation_view.dart';
+import '../../main_navigation/main_navigation_binding.dart';
 
 class LoginController extends GetxController {
   final AuthRepository _authRepository = AuthRepository();
@@ -28,16 +29,16 @@ class LoginController extends GetxController {
   String? get emailError => _emailError.value;
   String? get passwordError => _passwordError.value;
 
-  // Check if form is valid
-  bool get isFormValid =>
-      emailController.text.isNotEmpty &&
-      passwordController.text.isNotEmpty &&
-      _emailError.value == null &&
-      _passwordError.value == null;
+  // Check if form is valid (reactive)
+  final _isFormValid = false.obs;
+  bool get isFormValid => _isFormValid.value;
 
   @override
   void onInit() {
     super.onInit();
+    // Prefill for testing
+    emailController.text = 'customer4@email.com';
+    passwordController.text = 'password123';
     _setupValidation();
   }
 
@@ -57,6 +58,7 @@ class LoginController extends GetxController {
       } else {
         _emailError.value = Validators.validateEmail(email);
       }
+      _updateFormValidity();
     });
 
     // Real-time password validation
@@ -67,7 +69,16 @@ class LoginController extends GetxController {
       } else {
         _passwordError.value = Validators.validatePassword(password);
       }
+      _updateFormValidity();
     });
+  }
+
+  void _updateFormValidity() {
+    _isFormValid.value =
+        emailController.text.isNotEmpty &&
+        passwordController.text.isNotEmpty &&
+        _emailError.value == null &&
+        _passwordError.value == null;
   }
 
   void togglePasswordVisibility() {
@@ -107,8 +118,11 @@ class LoginController extends GetxController {
           await _storeUserCredentials();
         }
 
-        // Navigate to home
-        Get.offAllNamed('/home');
+        // Navigate to home with bottom navigation
+        Get.off(
+          () => const MainNavigationView(),
+          binding: MainNavigationBinding(),
+        );
       } else {
         _handleLoginError(response.error);
       }

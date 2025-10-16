@@ -1,18 +1,44 @@
 import 'package:get/get.dart';
+import '../../../data/repositories/auth_repository.dart';
 
 class HomeController extends GetxController {
+  final AuthRepository _authRepository = AuthRepository();
+
   // Observable variables
   final _isLoading = false.obs;
   final _selectedIndex = 0.obs;
+  final _walletBalance = 0.0.obs;
+  final _currency = 'MYR'.obs;
+  final _userName = 'User'.obs;
 
   // Getters
   bool get isLoading => _isLoading.value;
   int get selectedIndex => _selectedIndex.value;
+  double get walletBalance => _walletBalance.value;
+  String get currency => _currency.value;
+  String get userName => _userName.value;
 
   @override
   void onInit() {
     super.onInit();
-    // Initialize any data needed for the home screen
+    loadUserData();
+  }
+
+  Future<void> loadUserData() async {
+    try {
+      _isLoading.value = true;
+      final response = await _authRepository.getUserProfile();
+      if (response.isSuccess && response.data != null) {
+        final user = response.data!;
+        _userName.value = user.name ?? 'User';
+        _walletBalance.value = user.wallet?.balance?.toDouble() ?? 0.0;
+        _currency.value = user.wallet?.currency ?? 'MYR';
+      }
+    } catch (e) {
+      print('Error loading user data: $e');
+    } finally {
+      _isLoading.value = false;
+    }
   }
 
   @override
@@ -36,15 +62,23 @@ class HomeController extends GetxController {
     _selectedIndex.value = index;
   }
 
-  void navigateToServices() {
-    Get.toNamed('/services');
+  void navigateToFindStore() {
+    Get.snackbar(
+      'Find Store',
+      'Feature coming soon! You will be able to find nearby stores and book.',
+      snackPosition: SnackPosition.BOTTOM,
+    );
+    // TODO: Navigate to store finder page
+    // Get.toNamed('/stores');
   }
 
-  void navigateToBooking() {
-    Get.toNamed('/booking');
-  }
-
-  void navigateToProfile() {
-    Get.toNamed('/profile');
+  void navigateToFindTherapist() {
+    Get.snackbar(
+      'Find Therapist',
+      'Feature coming soon! You will be able to book a therapist to visit your home.',
+      snackPosition: SnackPosition.BOTTOM,
+    );
+    // TODO: Navigate to therapist finder page
+    // Get.toNamed('/therapists');
   }
 }

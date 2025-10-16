@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 
-import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/bindings/login_binding.dart';
-import '../modules/auth/views/auth_view.dart';
 import '../modules/auth/views/login_view.dart';
 import '../modules/booking/bindings/booking_binding.dart';
 import '../modules/booking/views/booking_view.dart';
@@ -38,11 +36,11 @@ class AppPages {
       page: () => const HomeView(),
       binding: HomeBinding(),
     ),
-    GetPage(
-      name: _Paths.AUTH,
-      page: () => const AuthView(),
-      binding: AuthBinding(),
-    ),
+    // GetPage(
+    //   name: _Paths.AUTH,
+    //   page: () => const AuthView(),
+    //   binding: AuthBinding(),
+    // ),
     GetPage(
       name: _Paths.BOOKING,
       page: () => const BookingView(),

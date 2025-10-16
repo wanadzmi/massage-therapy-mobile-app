@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../l10n/app_localizations.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -9,119 +10,235 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF0A0A0A),
       appBar: AppBar(
-        title: const Text('Therapy & Massage'),
-        backgroundColor: Colors.blue.shade300,
+        backgroundColor: const Color(0xFF0A0A0A),
         elevation: 0,
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: const Color(0xFFD4AF37).withOpacity(0.2),
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: const Color(0xFFD4AF37).withOpacity(0.3),
+                width: 1.5,
+              ),
+            ),
+            child: const Icon(Icons.person, color: Color(0xFFD4AF37), size: 20),
+          ),
+        ),
+        actions: [
+          IconButton(
+            icon: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: const Color(0xFF1A1A1A),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: const Color(0xFF2A2A2A)),
+              ),
+              child: const Icon(Icons.menu, color: Color(0xFFD4AF37), size: 20),
+            ),
+            onPressed: () {
+              Get.snackbar(
+                'Menu',
+                'Menu options',
+                snackPosition: SnackPosition.BOTTOM,
+                backgroundColor: const Color(0xFF1E1E1E),
+                colorText: const Color(0xFFE0E0E0),
+              );
+            },
+          ),
+          const SizedBox(width: 8),
+        ],
       ),
       body: Obx(
         () => controller.isLoading
             ? const Center(child: CircularProgressIndicator())
             : SingleChildScrollView(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Welcome Section
-                    Container(
-                      padding: const EdgeInsets.all(16.0),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [Colors.blue.shade200, Colors.blue.shade100],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
+                    const SizedBox(height: 8),
+                    // Header
+                    RichText(
+                      text: TextSpan(
+                        style: const TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.w300,
+                          color: Color(0xFFE0E0E0),
+                          height: 1.2,
                         ),
-                        borderRadius: BorderRadius.circular(12),
+                        children: [
+                          const TextSpan(text: 'Discover\n'),
+                          TextSpan(
+                            text: 'wellness ',
+                            style: TextStyle(
+                              color: const Color(0xFFD4AF37),
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const TextSpan(text: 'with us!'),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 32),
+
+                    // Wallet Balance Card
+                    Container(
+                      padding: const EdgeInsets.all(20.0),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF1A1A1A),
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: const Color(0xFF2A2A2A),
+                          width: 1,
+                        ),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            'Welcome to Wellness',
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Hello, ${controller.userName}',
+                                style: const TextStyle(
+                                  color: Color(0xFF808080),
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                  letterSpacing: 0.5,
+                                ),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 4,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: const Color(
+                                    0xFFD4AF37,
+                                  ).withOpacity(0.15),
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                child: const Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(
+                                      Icons.account_balance_wallet,
+                                      color: Color(0xFFD4AF37),
+                                      size: 14,
+                                    ),
+                                    SizedBox(width: 4),
+                                    Text(
+                                      'Wallet',
+                                      style: TextStyle(
+                                        color: Color(0xFFD4AF37),
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            '${controller.currency} ${controller.walletBalance.toStringAsFixed(2)}',
+                            style: const TextStyle(
+                              color: Color(0xFFD4AF37),
+                              fontSize: 32,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 0.5,
                             ),
                           ),
-                          const SizedBox(height: 8),
+                          const SizedBox(height: 4),
                           const Text(
-                            'Your journey to relaxation begins here',
-                            style: TextStyle(fontSize: 16, color: Colors.grey),
+                            'Available Balance',
+                            style: TextStyle(
+                              color: Color(0xFF606060),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: _buildActionButton(
+                                  'Top Up',
+                                  Icons.add,
+                                  true,
+                                  () {
+                                    final l10n = AppLocalizations.of(context)!;
+                                    Get.snackbar(
+                                      l10n.topUp,
+                                      'Top up feature coming soon!',
+                                      snackPosition: SnackPosition.BOTTOM,
+                                      backgroundColor: const Color(0xFF1E1E1E),
+                                      colorText: const Color(0xFFD4AF37),
+                                    );
+                                  },
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: _buildActionButton(
+                                  'History',
+                                  Icons.receipt_long,
+                                  false,
+                                  () {
+                                    final l10n = AppLocalizations.of(context)!;
+                                    Get.snackbar(
+                                      l10n.history,
+                                      'Transaction history coming soon!',
+                                      snackPosition: SnackPosition.BOTTOM,
+                                      backgroundColor: const Color(0xFF1E1E1E),
+                                      colorText: const Color(0xFFD4AF37),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 32),
 
-                    // Quick Actions
-                    const Text(
-                      'Quick Actions',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    // Section Header with tabs
+                    Row(
+                      children: [
+                        _buildTabButton('Most Viewed', true),
+                        const SizedBox(width: 8),
+                        _buildTabButton('Popular', false),
+                        const SizedBox(width: 8),
+                        _buildTabButton('Nearby', false),
+                      ],
                     ),
                     const SizedBox(height: 16),
 
-                    Row(
-                      children: [
-                        Expanded(
-                          child: _buildQuickActionCard(
-                            'Services',
-                            Icons.spa,
-                            Colors.green,
-                            () => controller.navigateToServices(),
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: _buildQuickActionCard(
-                            'Book Now',
-                            Icons.calendar_today,
-                            Colors.orange,
-                            () => controller.navigateToBooking(),
-                          ),
-                        ),
-                      ],
+                    _buildQuickActionCard(
+                      AppLocalizations.of(context)!.findStore,
+                      Icons.store,
+                      Colors.blue,
+                      AppLocalizations.of(context)!.discoverNearestStores,
+                      () => controller.navigateToFindStore(),
                     ),
-
                     const SizedBox(height: 16),
 
-                    Row(
-                      children: [
-                        Expanded(
-                          child: _buildQuickActionCard(
-                            'Profile',
-                            Icons.person,
-                            Colors.purple,
-                            () => controller.navigateToProfile(),
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Container(), // Empty space for symmetry
-                        ),
-                      ],
+                    _buildQuickActionCard(
+                      AppLocalizations.of(context)!.findTherapist,
+                      Icons.home_work,
+                      Colors.purple,
+                      AppLocalizations.of(context)!.browseAvailableTherapists,
+                      () => controller.navigateToFindTherapist(),
                     ),
                   ],
                 ),
               ),
-      ),
-      bottomNavigationBar: Obx(
-        () => BottomNavigationBar(
-          currentIndex: controller.selectedIndex,
-          onTap: controller.changeTabIndex,
-          type: BottomNavigationBarType.fixed,
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-            BottomNavigationBarItem(icon: Icon(Icons.spa), label: 'Services'),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_today),
-              label: 'Bookings',
-            ),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-          ],
-        ),
       ),
     );
   }
@@ -130,26 +247,167 @@ class HomeView extends GetView<HomeController> {
     String title,
     IconData icon,
     Color color,
+    String description,
     VoidCallback onTap,
   ) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(16.0),
+        height: 200,
         decoration: BoxDecoration(
-          color: color.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: color.withOpacity(0.3)),
+          color: const Color(0xFF1A1A1A),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: const Color(0xFF2A2A2A), width: 1),
         ),
-        child: Column(
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: Stack(
+            children: [
+              // Gradient overlay
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  height: 120,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.transparent,
+                        Colors.black.withOpacity(0.7),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              // Content
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFD4AF37).withOpacity(0.15),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Icon(
+                        icon,
+                        color: const Color(0xFFD4AF37),
+                        size: 24,
+                      ),
+                    ),
+                    const Spacer(),
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFFE0E0E0),
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      description,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: Color(0xFF808080),
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ),
+              // Arrow indicator
+              Positioned(
+                top: 16,
+                right: 16,
+                child: Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.3),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Icon(
+                    Icons.arrow_forward,
+                    color: Color(0xFFD4AF37),
+                    size: 16,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildActionButton(
+    String label,
+    IconData icon,
+    bool isPrimary,
+    VoidCallback onTap,
+  ) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        decoration: BoxDecoration(
+          color: isPrimary ? const Color(0xFFD4AF37) : const Color(0xFF0A0A0A),
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: isPrimary
+                ? const Color(0xFFD4AF37)
+                : const Color(0xFF2A2A2A),
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 32, color: color),
-            const SizedBox(height: 8),
+            Icon(
+              icon,
+              color: isPrimary
+                  ? const Color(0xFF000000)
+                  : const Color(0xFF808080),
+              size: 18,
+            ),
+            const SizedBox(width: 6),
             Text(
-              title,
-              style: TextStyle(fontWeight: FontWeight.w600, color: color),
+              label,
+              style: TextStyle(
+                color: isPrimary
+                    ? const Color(0xFF000000)
+                    : const Color(0xFF808080),
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTabButton(String label, bool isActive) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      decoration: BoxDecoration(
+        color: isActive ? const Color(0xFF1A1A1A) : Colors.transparent,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: isActive ? const Color(0xFF2A2A2A) : Colors.transparent,
+        ),
+      ),
+      child: Text(
+        label,
+        style: TextStyle(
+          color: isActive ? const Color(0xFFE0E0E0) : const Color(0xFF606060),
+          fontSize: 13,
+          fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
         ),
       ),
     );

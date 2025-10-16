@@ -1,52 +1,83 @@
 import 'package:get/get.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class BookingController extends GetxController {
   // Observable variables
   final _isLoading = false.obs;
-  final _selectedService = ''.obs;
-  final _selectedDate = DateTime.now().obs;
-  final _selectedTime = ''.obs;
+  final _selectedDay = Rx<DateTime?>(DateTime.now());
+  final _focusedDay = DateTime.now().obs;
+  final _calendarFormat = CalendarFormat.month.obs;
+
+  // Mock appointments data
+  final _appointments = <DateTime, List<Map<String, dynamic>>>{};
+  final _selectedDayAppointments = <Map<String, dynamic>>[].obs;
 
   // Getters
   bool get isLoading => _isLoading.value;
-  String get selectedService => _selectedService.value;
-  DateTime get selectedDate => _selectedDate.value;
-  String get selectedTime => _selectedTime.value;
+  DateTime? get selectedDay => _selectedDay.value;
+  DateTime get focusedDay => _focusedDay.value;
+  CalendarFormat get calendarFormat => _calendarFormat.value;
+  List<Map<String, dynamic>> get selectedDayAppointments =>
+      _selectedDayAppointments;
 
   @override
   void onInit() {
     super.onInit();
-    // Check if service was passed as argument
-    if (Get.arguments != null) {
-      _selectedService.value = Get.arguments;
-    }
+    _loadMockAppointments();
+    _updateSelectedDayAppointments();
   }
 
-  void selectService(String service) {
-    _selectedService.value = service;
+  void _loadMockAppointments() {
+    // Mock data - replace with API call later
+    final today = DateTime.now();
+    final tomorrow = today.add(const Duration(days: 1));
+
+    _appointments[DateTime(today.year, today.month, today.day)] = [
+      {
+        'service': 'Swedish Massage',
+        'time': '10:00 AM',
+        'therapist': 'Sarah Johnson',
+        'location': 'Main Branch',
+        'status': 'confirmed',
+      },
+      {
+        'service': 'Deep Tissue Massage',
+        'time': '2:00 PM',
+        'therapist': 'Mike Chen',
+        'location': 'Home Service',
+        'status': 'pending',
+      },
+    ];
+
+    _appointments[DateTime(tomorrow.year, tomorrow.month, tomorrow.day)] = [
+      {
+        'service': 'Hot Stone Massage',
+        'time': '11:00 AM',
+        'therapist': 'Emma Wilson',
+        'location': 'Spa Center',
+        'status': 'confirmed',
+      },
+    ];
   }
 
-  void selectDate(DateTime date) {
-    _selectedDate.value = date;
+  List<Map<String, dynamic>> getEventsForDay(DateTime day) {
+    final key = DateTime(day.year, day.month, day.day);
+    return _appointments[key] ?? [];
   }
 
-  void selectTime(String time) {
-    _selectedTime.value = time;
+  void onDaySelected(DateTime selectedDay, DateTime focusedDay) {
+    _selectedDay.value = selectedDay;
+    _focusedDay.value = focusedDay;
+    _updateSelectedDayAppointments();
   }
 
-  Future<void> confirmBooking() async {
-    try {
-      _isLoading.value = true;
+  void onFormatChanged(CalendarFormat format) {
+    _calendarFormat.value = format;
+  }
 
-      // Simulate booking API call
-      await Future.delayed(const Duration(seconds: 2));
-
-      Get.snackbar('Success', 'Booking confirmed!');
-      Get.back();
-    } catch (e) {
-      Get.snackbar('Error', 'Booking failed: ${e.toString()}');
-    } finally {
-      _isLoading.value = false;
+  void _updateSelectedDayAppointments() {
+    if (_selectedDay.value != null) {
+      _selectedDayAppointments.value = getEventsForDay(_selectedDay.value!);
     }
   }
 }

@@ -100,7 +100,8 @@ class AuthService extends BaseServices {
 
     if (response.isSuccess && response.data != null) {
       try {
-        final user = User.fromJson(response.data);
+        final userData = response.data['data'] ?? response.data;
+        final user = User.fromJson(userData);
         return MyResponse.complete(user);
       } catch (e) {
         return MyResponse.error('Failed to parse user data: $e');

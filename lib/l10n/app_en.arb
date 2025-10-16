@@ -1,0 +1,159 @@
+{
+    "@@locale": "en",
+    "appTitle": "Therapy & Massage App",
+    "@appTitle": {
+        "description": "The title of the application"
+    },
+    "home": "Home",
+    "@home": {
+        "description": "Home navigation label"
+    },
+    "activity": "Activity",
+    "@activity": {
+        "description": "Activity navigation label"
+    },
+    "profile": "Profile",
+    "@profile": {
+        "description": "Profile navigation label"
+    },
+    "login": "Login",
+    "@login": {
+        "description": "Login page title"
+    },
+    "email": "Email",
+    "@email": {
+        "description": "Email field label"
+    },
+    "password": "Password",
+    "@password": {
+        "description": "Password field label"
+    },
+    "signIn": "Sign In",
+    "@signIn": {
+        "description": "Sign in button text"
+    },
+    "welcomeBack": "Welcome Back!",
+    "@welcomeBack": {
+        "description": "Welcome message on login page"
+    },
+    "pleaseSignIn": "Please sign in to continue",
+    "@pleaseSignIn": {
+        "description": "Login instruction text"
+    },
+    "enterEmail": "Enter your email",
+    "@enterEmail": {
+        "description": "Email field hint"
+    },
+    "enterPassword": "Enter your password",
+    "@enterPassword": {
+        "description": "Password field hint"
+    },
+    "walletBalance": "Wallet Balance",
+    "@walletBalance": {
+        "description": "Wallet balance label"
+    },
+    "topUp": "Top Up",
+    "@topUp": {
+        "description": "Top up button text"
+    },
+    "history": "History",
+    "@history": {
+        "description": "History button text"
+    },
+    "quickActions": "Quick Actions",
+    "@quickActions": {
+        "description": "Quick actions section title"
+    },
+    "findStore": "Find Store",
+    "@findStore": {
+        "description": "Find store card title"
+    },
+    "findTherapist": "Find Therapist",
+    "@findTherapist": {
+        "description": "Find therapist card title"
+    },
+    "discoverNearestStores": "Discover the nearest massage therapy stores",
+    "@discoverNearestStores": {
+        "description": "Find store card description"
+    },
+    "browseAvailableTherapists": "Browse available therapists and book appointments",
+    "@browseAvailableTherapists": {
+        "description": "Find therapist card description"
+    },
+    "yourAppointments": "Your Appointments",
+    "@yourAppointments": {
+        "description": "Appointments list title"
+    },
+    "filter": "Filter",
+    "@filter": {
+        "description": "Filter button text"
+    },
+    "filterOptions": "Filter options coming soon!",
+    "@filterOptions": {
+        "description": "Filter snackbar message"
+    },
+    "noAppointments": "No appointments for selected date",
+    "@noAppointments": {
+        "description": "Empty appointments message"
+    },
+    "appointmentDetails": "Appointment Details",
+    "@appointmentDetails": {
+        "description": "Appointment details title"
+    },
+    "viewDetails": "View details coming soon!",
+    "@viewDetails": {
+        "description": "View details snackbar message"
+    },
+    "confirmed": "CONFIRMED",
+    "@confirmed": {
+        "description": "Confirmed appointment status"
+    },
+    "pending": "PENDING",
+    "@pending": {
+        "description": "Pending appointment status"
+    },
+    "cancelled": "CANCELLED",
+    "@cancelled": {
+        "description": "Cancelled appointment status"
+    },
+    "logout": "Logout",
+    "@logout": {
+        "description": "Logout button text"
+    },
+    "settings": "Settings",
+    "@settings": {
+        "description": "Settings section title"
+    },
+    "language": "Language",
+    "@language": {
+        "description": "Language setting label"
+    },
+    "loading": "Loading...",
+    "@loading": {
+        "description": "Loading message"
+    },
+    "error": "Error",
+    "@error": {
+        "description": "Error title"
+    },
+    "success": "Success",
+    "@success": {
+        "description": "Success title"
+    },
+    "loginSuccess": "Login successful!",
+    "@loginSuccess": {
+        "description": "Login success message"
+    },
+    "loginError": "Login failed. Please try again.",
+    "@loginError": {
+        "description": "Login error message"
+    },
+    "logoutSuccess": "Logged out successfully",
+    "@logoutSuccess": {
+        "description": "Logout success message"
+    },
+    "roleError": "Only customers can login to this app",
+    "@roleError": {
+        "description": "Role validation error message"
+    }
+}
