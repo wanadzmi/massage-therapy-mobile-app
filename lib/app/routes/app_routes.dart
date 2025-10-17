@@ -9,6 +9,7 @@ abstract class Routes {
   static const BOOKING = _Paths.BOOKING;
   static const SERVICES = _Paths.SERVICES;
   static const PROFILE = _Paths.PROFILE;
+  static const FIND_STORE = _Paths.FIND_STORE;
 }
 
 abstract class _Paths {
@@ -20,4 +21,5 @@ abstract class _Paths {
   static const BOOKING = '/booking';
   static const SERVICES = '/services';
   static const PROFILE = '/profile';
+  static const FIND_STORE = '/find-store';
 }

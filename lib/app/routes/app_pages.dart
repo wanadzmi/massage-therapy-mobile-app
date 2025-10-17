@@ -4,6 +4,8 @@ import '../modules/auth/bindings/login_binding.dart';
 import '../modules/auth/views/login_view.dart';
 import '../modules/booking/bindings/booking_binding.dart';
 import '../modules/booking/views/booking_view.dart';
+import '../modules/find_store/bindings/find_store_binding.dart';
+import '../modules/find_store/views/find_store_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
@@ -55,6 +57,11 @@ class AppPages {
       name: _Paths.PROFILE,
       page: () => const ProfileView(),
       binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.FIND_STORE,
+      page: () => const FindStoreView(),
+      binding: FindStoreBinding(),
     ),
   ];
 }

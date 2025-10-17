@@ -14,30 +14,21 @@ class HomeView extends GetView<HomeController> {
       appBar: AppBar(
         backgroundColor: const Color(0xFF0A0A0A),
         elevation: 0,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            decoration: BoxDecoration(
-              color: const Color(0xFFD4AF37).withOpacity(0.2),
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: const Color(0xFFD4AF37).withOpacity(0.3),
-                width: 1.5,
-              ),
-            ),
-            child: const Icon(Icons.person, color: Color(0xFFD4AF37), size: 20),
-          ),
-        ),
+
         actions: [
           IconButton(
             icon: Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 color: const Color(0xFF1A1A1A),
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(20),
                 border: Border.all(color: const Color(0xFF2A2A2A)),
               ),
-              child: const Icon(Icons.menu, color: Color(0xFFD4AF37), size: 20),
+              child: const Icon(
+                Icons.notifications,
+                color: Color(0xFFD4AF37),
+                size: 20,
+              ),
             ),
             onPressed: () {
               Get.snackbar(
@@ -208,15 +199,15 @@ class HomeView extends GetView<HomeController> {
                     ),
                     const SizedBox(height: 32),
 
-                    // Section Header with tabs
-                    Row(
-                      children: [
-                        _buildTabButton('Most Viewed', true),
-                        const SizedBox(width: 8),
-                        _buildTabButton('Popular', false),
-                        const SizedBox(width: 8),
-                        _buildTabButton('Nearby', false),
-                      ],
+                    // Section Header
+                    const Text(
+                      'Quick Menu',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFFE0E0E0),
+                        letterSpacing: 0.3,
+                      ),
                     ),
                     const SizedBox(height: 16),
 
@@ -236,6 +227,7 @@ class HomeView extends GetView<HomeController> {
                       AppLocalizations.of(context)!.browseAvailableTherapists,
                       () => controller.navigateToFindTherapist(),
                     ),
+                    const SizedBox(height: 32),
                   ],
                 ),
               ),
@@ -254,6 +246,7 @@ class HomeView extends GetView<HomeController> {
       onTap: onTap,
       child: Container(
         height: 200,
+        width: double.infinity,
         decoration: BoxDecoration(
           color: const Color(0xFF1A1A1A),
           borderRadius: BorderRadius.circular(16),
@@ -387,27 +380,6 @@ class HomeView extends GetView<HomeController> {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildTabButton(String label, bool isActive) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: BoxDecoration(
-        color: isActive ? const Color(0xFF1A1A1A) : Colors.transparent,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: isActive ? const Color(0xFF2A2A2A) : Colors.transparent,
-        ),
-      ),
-      child: Text(
-        label,
-        style: TextStyle(
-          color: isActive ? const Color(0xFFE0E0E0) : const Color(0xFF606060),
-          fontSize: 13,
-          fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
         ),
       ),
     );

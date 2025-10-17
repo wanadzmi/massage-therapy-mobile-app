@@ -63,13 +63,7 @@ class HomeController extends GetxController {
   }
 
   void navigateToFindStore() {
-    Get.snackbar(
-      'Find Store',
-      'Feature coming soon! You will be able to find nearby stores and book.',
-      snackPosition: SnackPosition.BOTTOM,
-    );
-    // TODO: Navigate to store finder page
-    // Get.toNamed('/stores');
+    Get.toNamed('/find-store');
   }
 
   void navigateToFindTherapist() {
