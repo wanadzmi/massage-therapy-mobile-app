@@ -20,6 +20,8 @@ import '../modules/therapist_selection/bindings/therapist_selection_binding.dart
 import '../modules/therapist_selection/views/therapist_selection_view.dart';
 import '../modules/booking_create/bindings/booking_create_binding.dart';
 import '../modules/booking_create/views/booking_create_view.dart';
+import '../modules/wallet_topup/bindings/wallet_topup_binding.dart';
+import '../modules/wallet_topup/views/wallet_topup_view.dart';
 
 part 'app_routes.dart';
 
@@ -83,6 +85,11 @@ class AppPages {
       name: _Paths.BOOKING_CREATE,
       page: () => const BookingCreateView(),
       binding: BookingCreateBinding(),
+    ),
+    GetPage(
+      name: _Paths.WALLET_TOPUP,
+      page: () => const WalletTopupView(),
+      binding: WalletTopupBinding(),
     ),
   ];
 }

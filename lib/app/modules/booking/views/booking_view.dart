@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../../../data/models/booking_model.dart';
 
 import '../controllers/booking_controller.dart';
 
@@ -77,7 +78,7 @@ class BookingView extends GetView<BookingController> {
                     const SizedBox(height: 4),
                     Obx(
                       () => Text(
-                        '${controller.appointments.length} ${controller.appointments.length == 1 ? "booking" : "bookings"}',
+                        '${controller.bookings.length} ${controller.bookings.length == 1 ? "booking" : "bookings"}',
                         style: const TextStyle(
                           fontSize: 13,
                           color: Color(0xFF808080),
@@ -93,13 +94,13 @@ class BookingView extends GetView<BookingController> {
           // Appointments List
           Expanded(
             child: Obx(
-              () => controller.isLoading
+              () => controller.isLoading && controller.bookings.isEmpty
                   ? const Center(
                       child: CircularProgressIndicator(
                         color: Color(0xFFD4AF37),
                       ),
                     )
-                  : controller.appointments.isEmpty
+                  : controller.bookings.isEmpty
                   ? Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -139,13 +140,18 @@ class BookingView extends GetView<BookingController> {
                         ],
                       ),
                     )
-                  : ListView.builder(
-                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-                      itemCount: controller.appointments.length,
-                      itemBuilder: (context, index) {
-                        final appointment = controller.appointments[index];
-                        return _buildAppointmentCard(appointment);
-                      },
+                  : RefreshIndicator(
+                      color: const Color(0xFFD4AF37),
+                      backgroundColor: const Color(0xFF1A1A1A),
+                      onRefresh: controller.refresh,
+                      child: ListView.builder(
+                        padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                        itemCount: controller.bookings.length,
+                        itemBuilder: (context, index) {
+                          final booking = controller.bookings[index];
+                          return _buildBookingCard(booking);
+                        },
+                      ),
                     ),
             ),
           ),
@@ -154,14 +160,14 @@ class BookingView extends GetView<BookingController> {
     );
   }
 
-  Widget _buildAppointmentCard(Map<String, dynamic> appointment) {
-    final status = appointment['status'] as String;
-    final date = appointment['date'] as DateTime;
-    final dateString = _formatDate(date);
+  Widget _buildBookingCard(Booking booking) {
+    final status = booking.status ?? 'unknown';
+    final date = booking.date;
+    final dateString = date != null ? _formatDate(date) : 'N/A';
     Color statusColor;
     String statusLabel;
 
-    switch (status) {
+    switch (status.toLowerCase()) {
       case 'confirmed':
         statusColor = const Color(0xFF4CAF50);
         statusLabel = 'Confirmed';
@@ -174,22 +180,21 @@ class BookingView extends GetView<BookingController> {
         statusColor = const Color(0xFFE53E3E);
         statusLabel = 'Cancelled';
         break;
+      case 'completed':
+        statusColor = const Color(0xFF2196F3);
+        statusLabel = 'Completed';
+        break;
+      case 'in_progress':
+        statusColor = const Color(0xFFD4AF37);
+        statusLabel = 'In Progress';
+        break;
       default:
         statusColor = const Color(0xFF808080);
         statusLabel = 'Unknown';
     }
 
     return GestureDetector(
-      onTap: () {
-        final l10n = AppLocalizations.of(Get.context!)!;
-        Get.snackbar(
-          l10n.appointmentDetails,
-          l10n.viewDetails,
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: const Color(0xFF1E1E1E),
-          colorText: const Color(0xFFE0E0E0),
-        );
-      },
+      onTap: () => controller.viewBookingDetails(booking),
       child: Container(
         margin: const EdgeInsets.only(bottom: 12),
         padding: const EdgeInsets.all(16),
@@ -221,7 +226,7 @@ class BookingView extends GetView<BookingController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        appointment['service'],
+                        booking.service?.name ?? 'Unknown Service',
                         style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
@@ -252,7 +257,7 @@ class BookingView extends GetView<BookingController> {
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            appointment['time'],
+                            booking.startTime ?? 'N/A',
                             style: const TextStyle(
                               fontSize: 12,
                               color: Color(0xFF808080),
@@ -310,12 +315,15 @@ class BookingView extends GetView<BookingController> {
                         ),
                       ),
                       const Spacer(),
-                      Text(
-                        appointment['therapist'],
-                        style: const TextStyle(
-                          fontSize: 12,
-                          color: Color(0xFFD4AF37),
-                          fontWeight: FontWeight.w600,
+                      Flexible(
+                        child: Text(
+                          booking.therapist?.name ?? 'N/A',
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Color(0xFFD4AF37),
+                            fontWeight: FontWeight.w600,
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ],
@@ -331,15 +339,45 @@ class BookingView extends GetView<BookingController> {
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
-                          appointment['location'],
+                          booking.store?.name ?? 'N/A',
                           style: const TextStyle(
                             fontSize: 12,
                             color: Color(0xFF808080),
                           ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ],
                   ),
+                  if (booking.pricing?.totalAmount != null) ...[
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.payments_outlined,
+                          size: 16,
+                          color: Color(0xFF808080),
+                        ),
+                        const SizedBox(width: 8),
+                        const Text(
+                          'Total',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Color(0xFF606060),
+                          ),
+                        ),
+                        const Spacer(),
+                        Text(
+                          'RM ${booking.pricing!.totalAmount!.toStringAsFixed(2)}',
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Color(0xFFD4AF37),
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ],
               ),
             ),

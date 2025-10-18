@@ -92,16 +92,7 @@ class BaseServices {
       QueuedInterceptorsWrapper(onRequest: _requestInterceptor),
     );
 
-    // Add logging interceptor for debugging
-    _dio?.interceptors.add(
-      LogInterceptor(
-        requestBody: true,
-        responseBody: true,
-        responseHeader: false,
-        logPrint: (obj) =>
-            debugPrint('🌐 DIO: $obj'), // Use print for easier debugging
-      ),
-    );
+    // Logging interceptor disabled - using custom minimal logging in callAPI
   }
 
   /// Standardized api calling with try-catch block
@@ -151,8 +142,7 @@ class BaseServices {
           );
       }
 
-      debugPrint('📥 Response status: ${response?.statusCode}');
-      debugPrint('📥 Response data: ${response?.data}');
+      debugPrint('✅ Response: ${response?.statusCode}');
 
       if (response?.statusCode == HttpStatus.ok ||
           response?.statusCode == HttpStatus.created) {

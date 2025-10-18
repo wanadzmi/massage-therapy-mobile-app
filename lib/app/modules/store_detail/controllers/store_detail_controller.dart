@@ -10,11 +10,17 @@ class StoreDetailController extends GetxController {
   final _isLoadingServices = false.obs;
   final Rx<Store?> _store = Rx<Store?>(null);
   final _services = <service_model.Service>[].obs;
+  final _therapists = <StoreTherapist>[].obs;
+  final _totalTherapists = 0.obs;
+  final _activeTherapists = 0.obs;
 
   bool get isLoading => _isLoading.value;
   bool get isLoadingServices => _isLoadingServices.value;
   Store? get store => _store.value;
   List<service_model.Service> get services => _services;
+  List<StoreTherapist> get therapists => _therapists;
+  int get totalTherapists => _totalTherapists.value;
+  int get activeTherapists => _activeTherapists.value;
 
   String? storeId;
 
@@ -51,10 +57,18 @@ class StoreDetailController extends GetxController {
 
     _isLoadingServices.value = true;
     final response = await _storeService.getStoreServices(storeId!);
-    _isLoadingServices.value = false;
 
     if (response.isSuccess && response.data != null) {
-      _services.value = response.data!;
+      final data = response.data!;
+      _services.value = data.services;
+      _therapists.value = data.therapists;
+      _totalTherapists.value = data.totalTherapists;
+      _activeTherapists.value = data.activeTherapists;
+
+      print('✅ Loaded ${data.services.length} services for store');
+      print(
+        '👥 ${data.activeTherapists}/${data.totalTherapists} therapists available',
+      );
     } else {
       Get.snackbar(
         'Error',
@@ -62,13 +76,19 @@ class StoreDetailController extends GetxController {
         snackPosition: SnackPosition.BOTTOM,
       );
     }
+
+    _isLoadingServices.value = false;
   }
 
   void navigateToServiceBooking(service_model.Service service) {
-    // Navigate to therapist selection with service and store details
+    // Navigate to therapist selection with service, store, and therapist details
     Get.toNamed(
       '/therapist-selection',
-      arguments: {'service': service, 'store': _store.value},
+      arguments: {
+        'service': service,
+        'store': _store.value,
+        'storeTherapists': _therapists,
+      },
     );
   }
 

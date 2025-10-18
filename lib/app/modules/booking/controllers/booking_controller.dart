@@ -1,59 +1,147 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../data/models/booking_model.dart';
+import '../../../data/services/booking_service.dart' as api;
 
 class BookingController extends GetxController {
+  final api.BookingService _bookingService = api.BookingService();
+
   // Observable variables
   final _isLoading = false.obs;
-  final _appointments = <Map<String, dynamic>>[].obs;
+  final _bookings = <Booking>[].obs;
+  final _currentPage = 1.obs;
+  final _totalPages = 1.obs;
+  final _hasMore = false.obs;
+  final _selectedFilter = 'all'.obs; // all, confirmed, completed, cancelled
 
   // Getters
   bool get isLoading => _isLoading.value;
-  List<Map<String, dynamic>> get appointments => _appointments;
+  List<Booking> get bookings => _bookings;
+  String get selectedFilter => _selectedFilter.value;
+  bool get hasMore => _hasMore.value;
 
   @override
   void onInit() {
     super.onInit();
-    _loadMockAppointments();
+    loadBookings();
   }
 
-  void _loadMockAppointments() {
-    // Mock data - replace with API call later
-    final today = DateTime.now();
-    final tomorrow = today.add(const Duration(days: 1));
-    final nextWeek = today.add(const Duration(days: 7));
+  Future<void> loadBookings({bool refresh = false}) async {
+    if (refresh) {
+      _currentPage.value = 1;
+      _bookings.clear();
+    }
 
-    _appointments.value = [
-      {
-        'service': 'Swedish Massage',
-        'date': today,
-        'time': '10:00 AM',
-        'therapist': 'Sarah Johnson',
-        'location': 'Main Branch',
-        'status': 'confirmed',
-      },
-      {
-        'service': 'Deep Tissue Massage',
-        'date': today,
-        'time': '2:00 PM',
-        'therapist': 'Mike Chen',
-        'location': 'Home Service',
-        'status': 'pending',
-      },
-      {
-        'service': 'Hot Stone Massage',
-        'date': tomorrow,
-        'time': '11:00 AM',
-        'therapist': 'Emma Wilson',
-        'location': 'Spa Center',
-        'status': 'confirmed',
-      },
-      {
-        'service': 'Aromatherapy Massage',
-        'date': nextWeek,
-        'time': '3:00 PM',
-        'therapist': 'Lisa Anderson',
-        'location': 'Downtown Branch',
-        'status': 'cancelled',
-      },
-    ];
+    _isLoading.value = true;
+
+    try {
+      final response = await _bookingService.getMyBookings(
+        status: _selectedFilter.value == 'all' ? null : _selectedFilter.value,
+        page: _currentPage.value,
+        limit: 20,
+      );
+
+      if (response.isSuccess && response.data != null) {
+        final myBookingsResponse = response.data!;
+
+        if (myBookingsResponse.bookings != null) {
+          if (refresh) {
+            _bookings.value = myBookingsResponse.bookings!;
+          } else {
+            _bookings.addAll(myBookingsResponse.bookings!);
+          }
+        }
+
+        if (myBookingsResponse.pagination != null) {
+          _totalPages.value = myBookingsResponse.pagination!.totalPages ?? 1;
+          _hasMore.value = myBookingsResponse.pagination!.hasNext ?? false;
+        }
+      } else {
+        Get.snackbar(
+          'Error',
+          response.error ?? 'Failed to load bookings',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: const Color(0xFF1E1E1E),
+          colorText: const Color(0xFFE53E3E),
+        );
+      }
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        'An error occurred: $e',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: const Color(0xFF1E1E1E),
+        colorText: const Color(0xFFE53E3E),
+      );
+    } finally {
+      _isLoading.value = false;
+    }
+  }
+
+  Future<void> loadMore() async {
+    if (_isLoading.value || !_hasMore.value) return;
+    _currentPage.value++;
+    await loadBookings();
+  }
+
+  Future<void> refresh() async {
+    await loadBookings(refresh: true);
+  }
+
+  void setFilter(String filter) {
+    if (_selectedFilter.value != filter) {
+      _selectedFilter.value = filter;
+      loadBookings(refresh: true);
+    }
+  }
+
+  void viewBookingDetails(Booking booking) {
+    // TODO: Navigate to booking details page
+    Get.snackbar(
+      'Booking Details',
+      'Booking ${booking.bookingCode}',
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: const Color(0xFF1E1E1E),
+      colorText: const Color(0xFFE0E0E0),
+    );
+  }
+
+  Future<void> cancelBooking(Booking booking, String reason) async {
+    try {
+      _isLoading.value = true;
+      final response = await _bookingService.cancelBooking(
+        booking.id!,
+        reason: reason,
+      );
+
+      if (response.isSuccess) {
+        Get.snackbar(
+          'Success',
+          'Booking cancelled successfully',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: const Color(0xFF1E1E1E),
+          colorText: const Color(0xFF4CAF50),
+        );
+        await loadBookings(refresh: true);
+      } else {
+        Get.snackbar(
+          'Error',
+          response.error ?? 'Failed to cancel booking',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: const Color(0xFF1E1E1E),
+          colorText: const Color(0xFFE53E3E),
+        );
+      }
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        'An error occurred: $e',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: const Color(0xFF1E1E1E),
+        colorText: const Color(0xFFE53E3E),
+      );
+    } finally {
+      _isLoading.value = false;
+    }
   }
 }

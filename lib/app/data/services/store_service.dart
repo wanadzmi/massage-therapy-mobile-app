@@ -110,8 +110,8 @@ class StoreService extends BaseServices {
     return MyResponse.error(response.error);
   }
 
-  /// Get store services
-  Future<MyResponse<List<service_model.Service>, dynamic>> getStoreServices(
+  /// Get store services with therapist availability
+  Future<MyResponse<StoreServicesData, dynamic>> getStoreServices(
     String storeId,
   ) async {
     final response = await callAPI(
@@ -123,18 +123,83 @@ class StoreService extends BaseServices {
     if (response.isSuccess && response.data != null) {
       try {
         final responseData = response.data['data'] ?? response.data;
+
+        // Parse services
         final List<dynamic> servicesData = responseData is List
             ? responseData
             : (responseData['services'] ?? []);
         final services = servicesData
             .map((s) => service_model.Service.fromJson(s))
             .toList();
-        return MyResponse.complete(services);
+
+        // Parse therapist availability
+        final therapistAvailability = responseData['therapistAvailability'];
+        final List<StoreTherapist> therapists = [];
+
+        if (therapistAvailability != null &&
+            therapistAvailability['therapists'] != null) {
+          therapists.addAll(
+            (therapistAvailability['therapists'] as List)
+                .map((t) => StoreTherapist.fromJson(t))
+                .toList(),
+          );
+        }
+
+        return MyResponse.complete(
+          StoreServicesData(
+            services: services,
+            therapists: therapists,
+            totalTherapists: therapistAvailability?['totalTherapists'] ?? 0,
+            activeTherapists: therapistAvailability?['activeTherapists'] ?? 0,
+          ),
+        );
       } catch (e) {
         return MyResponse.error('Failed to parse store services: $e');
       }
     }
 
     return MyResponse.error(response.error);
+  }
+}
+
+/// Store services response data
+class StoreServicesData {
+  final List<service_model.Service> services;
+  final List<StoreTherapist> therapists;
+  final int totalTherapists;
+  final int activeTherapists;
+
+  StoreServicesData({
+    required this.services,
+    required this.therapists,
+    required this.totalTherapists,
+    required this.activeTherapists,
+  });
+}
+
+/// Therapist info from store services
+class StoreTherapist {
+  final String id;
+  final String name;
+  final double? rating;
+  final List<String> specializations;
+  final bool isVerified;
+
+  StoreTherapist({
+    required this.id,
+    required this.name,
+    this.rating,
+    required this.specializations,
+    required this.isVerified,
+  });
+
+  factory StoreTherapist.fromJson(Map<String, dynamic> json) {
+    return StoreTherapist(
+      id: json['id'] ?? '',
+      name: json['name'] ?? '',
+      rating: json['rating']?.toDouble(),
+      specializations: List<String>.from(json['specializations'] ?? []),
+      isVerified: json['isVerified'] ?? false,
+    );
   }
 }

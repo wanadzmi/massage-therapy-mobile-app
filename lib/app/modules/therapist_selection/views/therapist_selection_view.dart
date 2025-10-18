@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:table_calendar/table_calendar.dart';
 import '../controllers/therapist_selection_controller.dart';
+import '../../../data/services/booking_discovery_service.dart';
 
 class TherapistSelectionView extends GetView<TherapistSelectionController> {
   const TherapistSelectionView({super.key});
@@ -17,41 +19,98 @@ class TherapistSelectionView extends GetView<TherapistSelectionController> {
           onPressed: () => controller.goBack(),
         ),
         title: Obx(() {
-          if (controller.selectedTherapist != null) {
-            return const Text(
-              'Confirm Selection',
-              style: TextStyle(
-                color: Color(0xFFD4AF37),
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            );
-          } else if (controller.selectedSlot != null) {
-            return const Text(
-              'Select Therapist',
-              style: TextStyle(
-                color: Color(0xFFD4AF37),
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+          // NEW ORDER: No selection -> Therapist -> Date -> Time
+          if (controller.selectedSlot != null) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Confirm Booking',
+                  style: TextStyle(
+                    color: Color(0xFFD4AF37),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                if (controller.store != null)
+                  Text(
+                    controller.store!.name ?? '',
+                    style: const TextStyle(
+                      color: Colors.white54,
+                      fontSize: 12,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+              ],
             );
           } else if (controller.selectedDate != null) {
-            return const Text(
-              'Select Time',
-              style: TextStyle(
-                color: Color(0xFFD4AF37),
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Select Time',
+                  style: TextStyle(
+                    color: Color(0xFFD4AF37),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                if (controller.store != null)
+                  Text(
+                    controller.store!.name ?? '',
+                    style: const TextStyle(
+                      color: Colors.white54,
+                      fontSize: 12,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+              ],
+            );
+          } else if (controller.selectedTherapist != null) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Select Date',
+                  style: TextStyle(
+                    color: Color(0xFFD4AF37),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                if (controller.store != null)
+                  Text(
+                    controller.store!.name ?? '',
+                    style: const TextStyle(
+                      color: Colors.white54,
+                      fontSize: 12,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+              ],
             );
           } else {
-            return const Text(
-              'Select Date',
-              style: TextStyle(
-                color: Color(0xFFD4AF37),
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Select Therapist',
+                  style: TextStyle(
+                    color: Color(0xFFD4AF37),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                if (controller.store != null)
+                  Text(
+                    controller.store!.name ?? '',
+                    style: const TextStyle(
+                      color: Colors.white54,
+                      fontSize: 12,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+              ],
             );
           }
         }),
@@ -64,19 +123,33 @@ class TherapistSelectionView extends GetView<TherapistSelectionController> {
             ),
           );
         }
-        if (controller.availabilityCalendar.isEmpty) {
-          return const Center(
-            child: Text(
-              'No availability found',
-              style: TextStyle(color: Colors.white70),
-            ),
-          );
+
+        // NEW ORDER: Therapist List -> Date -> Time -> Confirmation
+        if (controller.selectedSlot != null) {
+          return _buildBookingConfirmation();
         }
-        if (controller.selectedTherapist != null)
-          return _buildTherapistConfirmation();
-        if (controller.selectedSlot != null) return _buildTherapistSelection();
-        if (controller.selectedDate != null) return _buildTimeSlotSelection();
-        return _buildDateSelection();
+        if (controller.selectedDate != null) {
+          return _buildTimeSlotSelection();
+        }
+        if (controller.selectedTherapist != null) {
+          // Show calendar filtered by therapist
+          if (controller.availabilityCalendar.isEmpty) {
+            return const Center(
+              child: Padding(
+                padding: EdgeInsets.all(24.0),
+                child: Text(
+                  'No availability found for selected therapist in the next 30 days',
+                  style: TextStyle(color: Colors.white70),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            );
+          }
+          return _buildDateSelection();
+        }
+
+        // Default: Show therapist list
+        return _buildTherapistList();
       }),
     );
   }
@@ -84,86 +157,269 @@ class TherapistSelectionView extends GetView<TherapistSelectionController> {
   Widget _buildDateSelection() {
     final availability = controller.availabilityCalendar;
     if (availability.isEmpty) return const SizedBox();
-    return ListView.builder(
+
+    // Create a map of dates to availability info
+    final availabilityMap = <DateTime, DayAvailability>{};
+    DateTime? firstAvailable;
+    DateTime? lastAvailable;
+
+    for (var day in availability) {
+      if (day.date != null && (day.totalAvailableSlots ?? 0) > 0) {
+        final dateStr = day.date!;
+        final parts = dateStr.split('-');
+        if (parts.length == 3) {
+          final date = DateTime(
+            int.parse(parts[0]),
+            int.parse(parts[1]),
+            int.parse(parts[2]),
+          );
+          availabilityMap[date] = day;
+
+          if (firstAvailable == null) firstAvailable = date;
+          lastAvailable = date;
+        }
+      }
+    }
+
+    final focusedDay = firstAvailable ?? DateTime.now();
+    final firstDay = firstAvailable ?? DateTime.now();
+    final lastDay = lastAvailable ?? DateTime.now().add(Duration(days: 60));
+
+    return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
-      itemCount: availability.length,
-      itemBuilder: (context, index) {
-        final day = availability[index];
-        if ((day.totalAvailableSlots ?? 0) == 0) return const SizedBox();
-        return Card(
-          color: const Color(0xFF1A1A1A),
-          margin: const EdgeInsets.only(bottom: 12),
-          child: InkWell(
-            onTap: () => controller.selectDate(day),
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                children: [
-                  Container(
-                    width: 60,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFD4AF37).withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          (day.dayOfWeek ?? '').substring(0, 3),
-                          style: const TextStyle(
-                            color: Color(0xFFD4AF37),
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          (day.date ?? '').split('-')[2],
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          day.displayDate ?? '',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          '${day.totalAvailableSlots ?? 0} slot${(day.totalAvailableSlots ?? 0) > 1 ? 's' : ''} available',
-                          style: const TextStyle(
-                            color: Colors.white60,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Icon(
-                    Icons.arrow_forward_ios,
-                    color: Color(0xFFD4AF37),
-                    size: 16,
-                  ),
-                ],
-              ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Legend
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _buildLegendItem('Available', Color(0xFFD4AF37)),
+                SizedBox(width: 24),
+                _buildLegendItem('Not Available', Colors.white24),
+              ],
             ),
           ),
-        );
-      },
+
+          // Calendar
+          Container(
+            decoration: BoxDecoration(
+              color: const Color(0xFF1A1A1A),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: Color(0xFF2A2A2A)),
+            ),
+            child: TableCalendar(
+              firstDay: firstDay,
+              lastDay: lastDay,
+              focusedDay: focusedDay,
+              calendarFormat: CalendarFormat.month,
+              startingDayOfWeek: StartingDayOfWeek.monday,
+              availableGestures: AvailableGestures.horizontalSwipe,
+              selectedDayPredicate: (day) => false,
+              onDaySelected: (selectedDay, focusedDay) {
+                final normalizedDay = DateTime(
+                  selectedDay.year,
+                  selectedDay.month,
+                  selectedDay.day,
+                );
+                final dayAvailability = availabilityMap[normalizedDay];
+                if (dayAvailability != null) {
+                  controller.selectDate(dayAvailability);
+                }
+              },
+              calendarStyle: const CalendarStyle(
+                // Today
+                todayDecoration: BoxDecoration(
+                  color: Color(0x4DD4AF37),
+                  shape: BoxShape.circle,
+                ),
+                todayTextStyle: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+
+                // Default days
+                defaultTextStyle: TextStyle(color: Colors.white70),
+                weekendTextStyle: TextStyle(color: Colors.white70),
+
+                // Outside days (other months)
+                outsideTextStyle: TextStyle(color: Colors.white24),
+
+                // Disabled days
+                disabledTextStyle: TextStyle(color: Colors.white24),
+
+                // Remove default decorations
+                defaultDecoration: BoxDecoration(),
+                weekendDecoration: BoxDecoration(),
+                outsideDecoration: BoxDecoration(),
+                disabledDecoration: BoxDecoration(),
+              ),
+              calendarBuilders: CalendarBuilders(
+                defaultBuilder: (context, day, focusedDay) {
+                  final normalizedDay = DateTime(day.year, day.month, day.day);
+                  final dayAvailability = availabilityMap[normalizedDay];
+                  final isAvailable =
+                      dayAvailability != null &&
+                      (dayAvailability.totalAvailableSlots ?? 0) > 0;
+
+                  return Container(
+                    margin: EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      color: isAvailable
+                          ? Color(0xFFD4AF37).withOpacity(0.2)
+                          : Colors.transparent,
+                      shape: BoxShape.circle,
+                      border: isAvailable
+                          ? Border.all(color: Color(0xFFD4AF37), width: 1)
+                          : null,
+                    ),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '${day.day}',
+                            style: TextStyle(
+                              color: isAvailable
+                                  ? Colors.white
+                                  : Colors.white38,
+                              fontWeight: isAvailable
+                                  ? FontWeight.w600
+                                  : FontWeight.normal,
+                            ),
+                          ),
+                          if (isAvailable) ...[
+                            SizedBox(height: 2),
+                            Container(
+                              width: 4,
+                              height: 4,
+                              decoration: BoxDecoration(
+                                color: Color(0xFFD4AF37),
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+                  );
+                },
+                todayBuilder: (context, day, focusedDay) {
+                  final normalizedDay = DateTime(day.year, day.month, day.day);
+                  final dayAvailability = availabilityMap[normalizedDay];
+                  final isAvailable =
+                      dayAvailability != null &&
+                      (dayAvailability.totalAvailableSlots ?? 0) > 0;
+
+                  return Container(
+                    margin: EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      color: isAvailable
+                          ? Color(0xFFD4AF37).withOpacity(0.3)
+                          : Color(0xFF2A2A2A),
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: isAvailable ? Color(0xFFD4AF37) : Colors.white38,
+                        width: 2,
+                      ),
+                    ),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '${day.day}',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          if (isAvailable) ...[
+                            SizedBox(height: 2),
+                            Container(
+                              width: 4,
+                              height: 4,
+                              decoration: BoxDecoration(
+                                color: Color(0xFFD4AF37),
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+              headerStyle: const HeaderStyle(
+                formatButtonVisible: false,
+                titleCentered: true,
+                titleTextStyle: TextStyle(
+                  color: Color(0xFFD4AF37),
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+                leftChevronIcon: Icon(
+                  Icons.chevron_left,
+                  color: Color(0xFFD4AF37),
+                ),
+                rightChevronIcon: Icon(
+                  Icons.chevron_right,
+                  color: Color(0xFFD4AF37),
+                ),
+                headerPadding: EdgeInsets.symmetric(vertical: 16),
+              ),
+              daysOfWeekStyle: const DaysOfWeekStyle(
+                weekdayStyle: TextStyle(
+                  color: Color(0xFFD4AF37),
+                  fontWeight: FontWeight.w600,
+                ),
+                weekendStyle: TextStyle(
+                  color: Color(0xFFD4AF37),
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              enabledDayPredicate: (day) {
+                final normalizedDay = DateTime(day.year, day.month, day.day);
+                final dayAvailability = availabilityMap[normalizedDay];
+                return dayAvailability != null &&
+                    (dayAvailability.totalAvailableSlots ?? 0) > 0;
+              },
+            ),
+          ),
+
+          SizedBox(height: 16),
+
+          // Instruction text
+          Center(
+            child: Text(
+              'Tap on a highlighted date to view available time slots',
+              style: TextStyle(color: Colors.white54, fontSize: 14),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLegendItem(String label, Color color) {
+    return Row(
+      children: [
+        Container(
+          width: 16,
+          height: 16,
+          decoration: BoxDecoration(
+            color: color.withOpacity(0.3),
+            shape: BoxShape.circle,
+            border: Border.all(color: color, width: 1),
+          ),
+        ),
+        SizedBox(width: 8),
+        Text(label, style: TextStyle(color: Colors.white70, fontSize: 12)),
+      ],
     );
   }
 
@@ -245,122 +501,129 @@ class TherapistSelectionView extends GetView<TherapistSelectionController> {
     );
   }
 
-  Widget _buildTherapistSelection() {
-    final slot = controller.selectedSlot;
-    if (slot == null) return const SizedBox();
-    return Column(
-      children: [
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(16),
-          color: const Color(0xFF1A1A1A),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                controller.selectedDate?.displayDate ?? '',
-                style: const TextStyle(
-                  color: Color(0xFFD4AF37),
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                'Time: ${slot.time ?? ''}',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
+  // OLD METHOD REMOVED - using _buildBookingConfirmation below instead
+
+  /// NEW: Show therapist list first
+  Widget _buildTherapistList() {
+    if (controller.availableTherapists.isEmpty) {
+      return const Center(
+        child: Padding(
+          padding: EdgeInsets.all(24.0),
+          child: Text(
+            'No therapists available for this service',
+            style: TextStyle(color: Colors.white70),
+            textAlign: TextAlign.center,
           ),
         ),
-        Expanded(
-          child: ListView.builder(
-            padding: const EdgeInsets.all(16),
-            itemCount: slot.therapists?.length ?? 0,
-            itemBuilder: (context, index) {
-              final therapist = slot.therapists![index];
-              return Card(
-                color: const Color(0xFF1A1A1A),
-                margin: const EdgeInsets.only(bottom: 12),
-                child: InkWell(
-                  onTap: () => controller.selectTherapist(therapist),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Row(
+      );
+    }
+
+    return ListView.builder(
+      padding: const EdgeInsets.all(16),
+      itemCount: controller.availableTherapists.length,
+      itemBuilder: (context, index) {
+        final therapist = controller.availableTherapists[index];
+        return Card(
+          color: const Color(0xFF1A1A1A),
+          margin: const EdgeInsets.only(bottom: 12),
+          child: InkWell(
+            onTap: () => controller.selectTherapist(therapist),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                children: [
+                  // Avatar
+                  Container(
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFD4AF37).withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: const Icon(
+                      Icons.person,
+                      color: Color(0xFFD4AF37),
+                      size: 30,
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CircleAvatar(
-                          radius: 30,
-                          backgroundColor: const Color(
-                            0xFFD4AF37,
-                          ).withOpacity(0.2),
-                          child: Text(
-                            (therapist.name ?? 'U')
-                                .substring(0, 1)
-                                .toUpperCase(),
-                            style: const TextStyle(
-                              color: Color(0xFFD4AF37),
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            ),
+                        Text(
+                          therapist.name,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                therapist.name ?? 'Unknown',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
+                        const SizedBox(height: 4),
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.star,
+                              color: Color(0xFFD4AF37),
+                              size: 16,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              (therapist.rating ?? 0.0).toStringAsFixed(1),
+                              style: const TextStyle(
+                                color: Colors.white70,
+                                fontSize: 14,
+                              ),
+                            ),
+                            if (therapist.isVerified) ...[
+                              const SizedBox(width: 8),
+                              const Icon(
+                                Icons.verified,
+                                color: Color(0xFF4CAF50),
+                                size: 16,
+                              ),
+                              const SizedBox(width: 4),
+                              const Text(
+                                'Verified',
+                                style: TextStyle(
+                                  color: Color(0xFF4CAF50),
+                                  fontSize: 12,
                                 ),
                               ),
-                              Row(
-                                children: [
-                                  const Icon(
-                                    Icons.star,
-                                    color: Color(0xFFD4AF37),
-                                    size: 16,
-                                  ),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    (therapist.rating ?? 0.0).toStringAsFixed(
-                                      1,
-                                    ),
-                                    style: const TextStyle(
-                                      color: Colors.white70,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ],
-                              ),
                             ],
+                          ],
+                        ),
+                        if (therapist.specializations.isNotEmpty) ...[
+                          const SizedBox(height: 4),
+                          Text(
+                            therapist.specializations.take(2).join(', '),
+                            style: const TextStyle(
+                              color: Colors.white54,
+                              fontSize: 12,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                        ),
-                        const Icon(
-                          Icons.arrow_forward_ios,
-                          color: Color(0xFFD4AF37),
-                          size: 16,
-                        ),
+                        ],
                       ],
                     ),
                   ),
-                ),
-              );
-            },
+                  const Icon(
+                    Icons.arrow_forward_ios,
+                    color: Color(0xFFD4AF37),
+                    size: 16,
+                  ),
+                ],
+              ),
+            ),
           ),
-        ),
-      ],
+        );
+      },
     );
   }
 
-  Widget _buildTherapistConfirmation() {
+  /// Rename: _buildTherapistConfirmation -> _buildBookingConfirmation
+  Widget _buildBookingConfirmation() {
     final selectedDate = controller.selectedDate;
     final selectedSlot = controller.selectedSlot;
     final selectedTherapist = controller.selectedTherapist;
@@ -384,7 +647,7 @@ class TherapistSelectionView extends GetView<TherapistSelectionController> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: 16),
                 Card(
                   color: const Color(0xFF1A1A1A),
                   child: Padding(
@@ -421,9 +684,8 @@ class TherapistSelectionView extends GetView<TherapistSelectionController> {
                         Text(
                           selectedSlot.time ?? '',
                           style: const TextStyle(
-                            color: Color(0xFFD4AF37),
+                            color: Colors.white70,
                             fontSize: 16,
-                            fontWeight: FontWeight.w600,
                           ),
                         ),
                       ],
@@ -457,7 +719,7 @@ class TherapistSelectionView extends GetView<TherapistSelectionController> {
                         ),
                         const SizedBox(height: 12),
                         Text(
-                          selectedTherapist.name ?? 'Unknown',
+                          selectedTherapist.name,
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 18,
@@ -498,20 +760,7 @@ class TherapistSelectionView extends GetView<TherapistSelectionController> {
             child: SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {
-                  Get.toNamed(
-                    '/booking-create',
-                    arguments: {
-                      'service': controller.service,
-                      'store': controller.store,
-                      'date': selectedDate.date,
-                      'time': selectedSlot.time,
-                      'therapistId': selectedTherapist.id,
-                      'therapistName': selectedTherapist.name,
-                      'therapistGender': selectedTherapist.gender,
-                    },
-                  );
-                },
+                onPressed: controller.proceedToBooking,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFD4AF37),
                   padding: const EdgeInsets.symmetric(vertical: 16),

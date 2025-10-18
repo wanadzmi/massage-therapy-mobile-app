@@ -162,15 +162,15 @@ class HomeView extends GetView<HomeController> {
                                   'Top Up',
                                   Icons.add,
                                   true,
-                                  () {
-                                    final l10n = AppLocalizations.of(context)!;
-                                    Get.snackbar(
-                                      l10n.topUp,
-                                      'Top up feature coming soon!',
-                                      snackPosition: SnackPosition.BOTTOM,
-                                      backgroundColor: const Color(0xFF1E1E1E),
-                                      colorText: const Color(0xFFD4AF37),
+                                  () async {
+                                    final result = await Get.toNamed(
+                                      '/wallet-topup',
                                     );
+                                    // Refresh wallet balance when returning from top-up
+                                    if (result != null &&
+                                        result['success'] == true) {
+                                      controller.loadUserData();
+                                    }
                                   },
                                 ),
                               ),

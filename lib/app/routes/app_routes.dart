@@ -14,6 +14,7 @@ abstract class Routes {
   static const THERAPIST_SELECTION = _Paths.THERAPIST_SELECTION;
   static const BOOKING_CREATE = _Paths.BOOKING_CREATE;
   static const BOOKING_DETAIL = _Paths.BOOKING_DETAIL;
+  static const WALLET_TOPUP = _Paths.WALLET_TOPUP;
 }
 
 abstract class _Paths {
@@ -30,4 +31,5 @@ abstract class _Paths {
   static const THERAPIST_SELECTION = '/therapist-selection';
   static const BOOKING_CREATE = '/booking-create';
   static const BOOKING_DETAIL = '/booking-detail';
+  static const WALLET_TOPUP = '/wallet-topup';
 }
