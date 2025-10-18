@@ -51,9 +51,18 @@ class Store {
     Map<String, OperatingHour>? operatingHours;
     if (json['operatingHours'] != null) {
       operatingHours = {};
-      (json['operatingHours'] as Map<String, dynamic>).forEach((key, value) {
-        operatingHours![key] = OperatingHour.fromJson(value);
-      });
+      // Handle both array and map formats
+      if (json['operatingHours'] is List) {
+        for (var item in json['operatingHours'] as List) {
+          if (item is Map<String, dynamic> && item['day'] != null) {
+            operatingHours[item['day']] = OperatingHour.fromJson(item);
+          }
+        }
+      } else if (json['operatingHours'] is Map) {
+        (json['operatingHours'] as Map<String, dynamic>).forEach((key, value) {
+          operatingHours![key] = OperatingHour.fromJson(value);
+        });
+      }
     }
 
     return Store(

@@ -1,4 +1,5 @@
 import '../models/store_model.dart';
+import '../models/service_model.dart' as service_model;
 import 'base_services.dart';
 
 class StoreService extends BaseServices {
@@ -103,6 +104,34 @@ class StoreService extends BaseServices {
         return MyResponse.complete(storesData);
       } catch (e) {
         return MyResponse.error('Failed to parse nearby stores data: $e');
+      }
+    }
+
+    return MyResponse.error(response.error);
+  }
+
+  /// Get store services
+  Future<MyResponse<List<service_model.Service>, dynamic>> getStoreServices(
+    String storeId,
+  ) async {
+    final response = await callAPI(
+      HttpRequestType.GET,
+      '$_storesEndpoint/$storeId/services',
+      requiresAuth: false,
+    );
+
+    if (response.isSuccess && response.data != null) {
+      try {
+        final responseData = response.data['data'] ?? response.data;
+        final List<dynamic> servicesData = responseData is List
+            ? responseData
+            : (responseData['services'] ?? []);
+        final services = servicesData
+            .map((s) => service_model.Service.fromJson(s))
+            .toList();
+        return MyResponse.complete(services);
+      } catch (e) {
+        return MyResponse.error('Failed to parse store services: $e');
       }
     }
 

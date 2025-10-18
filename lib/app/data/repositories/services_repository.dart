@@ -54,7 +54,7 @@ class ServicesRepository {
     double maxPrice,
   ) {
     return services.where((service) {
-      final price = service.price ?? 0.0;
+      final price = service.pricing?.finalPrice ?? 0.0;
       return price >= minPrice && price <= maxPrice;
     }).toList();
   }
@@ -66,7 +66,7 @@ class ServicesRepository {
     int maxDuration,
   ) {
     return services.where((service) {
-      final duration = service.duration ?? 0;
+      final duration = service.duration?.minutes ?? 0;
       return duration >= minDuration && duration <= maxDuration;
     }).toList();
   }
@@ -78,8 +78,8 @@ class ServicesRepository {
   }) {
     final sortedServices = List<Service>.from(services);
     sortedServices.sort((a, b) {
-      final priceA = a.price ?? 0.0;
-      final priceB = b.price ?? 0.0;
+      final priceA = a.pricing?.finalPrice ?? 0.0;
+      final priceB = b.pricing?.finalPrice ?? 0.0;
       return ascending ? priceA.compareTo(priceB) : priceB.compareTo(priceA);
     });
     return sortedServices;
@@ -92,8 +92,8 @@ class ServicesRepository {
   }) {
     final sortedServices = List<Service>.from(services);
     sortedServices.sort((a, b) {
-      final durationA = a.duration ?? 0;
-      final durationB = b.duration ?? 0;
+      final durationA = a.duration?.minutes ?? 0;
+      final durationB = b.duration?.minutes ?? 0;
       return ascending
           ? durationA.compareTo(durationB)
           : durationB.compareTo(durationA);

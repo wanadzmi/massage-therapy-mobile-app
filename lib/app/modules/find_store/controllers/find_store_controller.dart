@@ -106,14 +106,8 @@ class FindStoreController extends GetxController {
   }
 
   void navigateToStoreDetail(Store store) {
-    // Navigate to store detail page
-    Get.snackbar(
-      'Store Details',
-      'Opening ${store.name}',
-      snackPosition: SnackPosition.BOTTOM,
-      backgroundColor: const Color(0xFF1E1E1E),
-      colorText: const Color(0xFFD4AF37),
-    );
+    // Navigate to store detail page with store ID
+    Get.toNamed('/store-detail', arguments: store.id);
   }
 
   String formatPrice(double? min, double? max, String? currency) {

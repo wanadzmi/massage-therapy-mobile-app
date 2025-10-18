@@ -14,6 +14,12 @@ import '../modules/services/bindings/services_binding.dart';
 import '../modules/services/views/services_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
+import '../modules/store_detail/bindings/store_detail_binding.dart';
+import '../modules/store_detail/views/store_detail_view.dart';
+import '../modules/therapist_selection/bindings/therapist_selection_binding.dart';
+import '../modules/therapist_selection/views/therapist_selection_view.dart';
+import '../modules/booking_create/bindings/booking_create_binding.dart';
+import '../modules/booking_create/views/booking_create_view.dart';
 
 part 'app_routes.dart';
 
@@ -62,6 +68,21 @@ class AppPages {
       name: _Paths.FIND_STORE,
       page: () => const FindStoreView(),
       binding: FindStoreBinding(),
+    ),
+    GetPage(
+      name: _Paths.STORE_DETAIL,
+      page: () => const StoreDetailView(),
+      binding: StoreDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.THERAPIST_SELECTION,
+      page: () => const TherapistSelectionView(),
+      binding: TherapistSelectionBinding(),
+    ),
+    GetPage(
+      name: _Paths.BOOKING_CREATE,
+      page: () => const BookingCreateView(),
+      binding: BookingCreateBinding(),
     ),
   ];
 }

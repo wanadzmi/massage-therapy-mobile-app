@@ -10,6 +10,10 @@ abstract class Routes {
   static const SERVICES = _Paths.SERVICES;
   static const PROFILE = _Paths.PROFILE;
   static const FIND_STORE = _Paths.FIND_STORE;
+  static const STORE_DETAIL = _Paths.STORE_DETAIL;
+  static const THERAPIST_SELECTION = _Paths.THERAPIST_SELECTION;
+  static const BOOKING_CREATE = _Paths.BOOKING_CREATE;
+  static const BOOKING_DETAIL = _Paths.BOOKING_DETAIL;
 }
 
 abstract class _Paths {
@@ -22,4 +26,8 @@ abstract class _Paths {
   static const SERVICES = '/services';
   static const PROFILE = '/profile';
   static const FIND_STORE = '/find-store';
+  static const STORE_DETAIL = '/store-detail';
+  static const THERAPIST_SELECTION = '/therapist-selection';
+  static const BOOKING_CREATE = '/booking-create';
+  static const BOOKING_DETAIL = '/booking-detail';
 }
