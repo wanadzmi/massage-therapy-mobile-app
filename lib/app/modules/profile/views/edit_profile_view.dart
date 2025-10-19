@@ -15,13 +15,6 @@ class _EditProfileViewState extends State<EditProfileView> {
 
   late final TextEditingController nameController;
   late final TextEditingController dateOfBirthController;
-  late final TextEditingController streetController;
-  late final TextEditingController cityController;
-  late final TextEditingController stateController;
-  late final TextEditingController postcodeController;
-  late final TextEditingController emergencyNameController;
-  late final TextEditingController emergencyPhoneController;
-  late final TextEditingController emergencyRelationshipController;
 
   late final Rx<String?> selectedGender;
   late final Rx<DateTime?> selectedDateOfBirth;
@@ -36,27 +29,6 @@ class _EditProfileViewState extends State<EditProfileView> {
       text: controller.dateOfBirth != null
           ? DateFormat('yyyy-MM-dd').format(controller.dateOfBirth!)
           : '',
-    );
-    streetController = TextEditingController(
-      text: controller.address?.street ?? '',
-    );
-    cityController = TextEditingController(
-      text: controller.address?.city ?? '',
-    );
-    stateController = TextEditingController(
-      text: controller.address?.state ?? '',
-    );
-    postcodeController = TextEditingController(
-      text: controller.address?.postcode ?? '',
-    );
-    emergencyNameController = TextEditingController(
-      text: controller.emergencyContact?.name ?? '',
-    );
-    emergencyPhoneController = TextEditingController(
-      text: controller.emergencyContact?.phone ?? '',
-    );
-    emergencyRelationshipController = TextEditingController(
-      text: controller.emergencyContact?.relationship ?? '',
     );
 
     selectedGender =
@@ -73,13 +45,6 @@ class _EditProfileViewState extends State<EditProfileView> {
     // Dispose controllers to prevent memory leaks
     nameController.dispose();
     dateOfBirthController.dispose();
-    streetController.dispose();
-    cityController.dispose();
-    stateController.dispose();
-    postcodeController.dispose();
-    emergencyNameController.dispose();
-    emergencyPhoneController.dispose();
-    emergencyRelationshipController.dispose();
     super.dispose();
   }
 
@@ -133,66 +98,6 @@ class _EditProfileViewState extends State<EditProfileView> {
                     _buildGenderDropdown(selectedGender),
                     const SizedBox(height: 32),
 
-                    // Address Section
-                    _buildSectionTitle('Address'),
-                    const SizedBox(height: 16),
-                    _buildTextField(
-                      controller: streetController,
-                      label: 'Street',
-                      icon: Icons.home_outlined,
-                    ),
-                    const SizedBox(height: 16),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: _buildTextField(
-                            controller: cityController,
-                            label: 'City',
-                            icon: Icons.location_city_outlined,
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: _buildTextField(
-                            controller: stateController,
-                            label: 'State',
-                            icon: Icons.map_outlined,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    _buildTextField(
-                      controller: postcodeController,
-                      label: 'Postcode',
-                      icon: Icons.pin_outlined,
-                      keyboardType: TextInputType.number,
-                    ),
-                    const SizedBox(height: 32),
-
-                    // Emergency Contact Section
-                    _buildSectionTitle('Emergency Contact'),
-                    const SizedBox(height: 16),
-                    _buildTextField(
-                      controller: emergencyNameController,
-                      label: 'Contact Name',
-                      icon: Icons.person_outline,
-                    ),
-                    const SizedBox(height: 16),
-                    _buildTextField(
-                      controller: emergencyPhoneController,
-                      label: 'Contact Phone',
-                      icon: Icons.phone_outlined,
-                      keyboardType: TextInputType.phone,
-                    ),
-                    const SizedBox(height: 16),
-                    _buildTextField(
-                      controller: emergencyRelationshipController,
-                      label: 'Relationship',
-                      icon: Icons.family_restroom_outlined,
-                    ),
-                    const SizedBox(height: 32),
-
                     // Save Button
                     SizedBox(
                       width: double.infinity,
@@ -205,33 +110,6 @@ class _EditProfileViewState extends State<EditProfileView> {
                                 : nameController.text.trim(),
                             dateOfBirth: selectedDateOfBirth.value,
                             gender: selectedGender.value,
-                            street: streetController.text.trim().isEmpty
-                                ? null
-                                : streetController.text.trim(),
-                            city: cityController.text.trim().isEmpty
-                                ? null
-                                : cityController.text.trim(),
-                            state: stateController.text.trim().isEmpty
-                                ? null
-                                : stateController.text.trim(),
-                            postcode: postcodeController.text.trim().isEmpty
-                                ? null
-                                : postcodeController.text.trim(),
-                            country: 'Malaysia',
-                            emergencyContactName:
-                                emergencyNameController.text.trim().isEmpty
-                                ? null
-                                : emergencyNameController.text.trim(),
-                            emergencyContactPhone:
-                                emergencyPhoneController.text.trim().isEmpty
-                                ? null
-                                : emergencyPhoneController.text.trim(),
-                            emergencyContactRelationship:
-                                emergencyRelationshipController.text
-                                    .trim()
-                                    .isEmpty
-                                ? null
-                                : emergencyRelationshipController.text.trim(),
                           );
                           Get.back();
                         },
