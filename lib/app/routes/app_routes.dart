@@ -15,6 +15,7 @@ abstract class Routes {
   static const BOOKING_CREATE = _Paths.BOOKING_CREATE;
   static const BOOKING_DETAIL = _Paths.BOOKING_DETAIL;
   static const WALLET_TOPUP = _Paths.WALLET_TOPUP;
+  static const TRANSACTION_HISTORY = _Paths.TRANSACTION_HISTORY;
 }
 
 abstract class _Paths {
@@ -32,4 +33,5 @@ abstract class _Paths {
   static const BOOKING_CREATE = '/booking-create';
   static const BOOKING_DETAIL = '/booking-detail';
   static const WALLET_TOPUP = '/wallet-topup';
+  static const TRANSACTION_HISTORY = '/transaction-history';
 }

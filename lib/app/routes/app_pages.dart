@@ -22,6 +22,8 @@ import '../modules/booking_create/bindings/booking_create_binding.dart';
 import '../modules/booking_create/views/booking_create_view.dart';
 import '../modules/wallet_topup/bindings/wallet_topup_binding.dart';
 import '../modules/wallet_topup/views/wallet_topup_view.dart';
+import '../modules/transaction_history/bindings/transaction_history_binding.dart';
+import '../modules/transaction_history/views/transaction_history_view.dart';
 
 part 'app_routes.dart';
 
@@ -90,6 +92,11 @@ class AppPages {
       name: _Paths.WALLET_TOPUP,
       page: () => const WalletTopupView(),
       binding: WalletTopupBinding(),
+    ),
+    GetPage(
+      name: _Paths.TRANSACTION_HISTORY,
+      page: () => const TransactionHistoryView(),
+      binding: TransactionHistoryBinding(),
     ),
   ];
 }
