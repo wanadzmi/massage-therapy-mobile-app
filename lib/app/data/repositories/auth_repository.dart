@@ -1,4 +1,5 @@
 import '../models/user_model.dart';
+import '../models/registration_response_model.dart';
 import '../services/auth_service.dart';
 import '../services/base_services.dart';
 
@@ -13,19 +14,30 @@ class AuthRepository {
     return await _authService.login(email: email, password: password);
   }
 
-  /// Register new user
-  Future<MyResponse<User?, dynamic>> register({
+  /// Register new user - returns registration response with OTP info
+  Future<MyResponse<RegistrationResponse?, dynamic>> register({
     required String name,
+    required String phone,
     required String email,
     required String password,
-    String? phone,
+    String? referralCode,
   }) async {
     return await _authService.register(
       name: name,
+      phone: phone,
       email: email,
       password: password,
-      phone: phone,
+      referralCode: referralCode,
     );
+  }
+
+  /// Verify OTP for phone verification
+  Future<MyResponse<OTPVerificationResponse?, dynamic>> verifyOTP({
+    required String phone,
+    required String code,
+    String type = 'phone_verification',
+  }) async {
+    return await _authService.verifyOTP(phone: phone, code: code, type: type);
   }
 
   /// Get current user profile

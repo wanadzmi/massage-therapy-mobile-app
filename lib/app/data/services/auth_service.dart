@@ -1,11 +1,13 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/user_model.dart';
+import '../models/registration_response_model.dart';
 import 'base_services.dart';
 
 class AuthService extends BaseServices {
   static const String _loginEndpoint = '/api/auth/login';
   static const String _registerEndpoint = '/api/auth/register';
+  static const String _verifyOTPEndpoint = '/api/auth/verify-otp';
   static const String _logoutEndpoint = '/api/auth/logout';
   static const String _refreshTokenEndpoint = '/api/auth/refresh';
   static const String _profileEndpoint = '/api/auth/profile';
@@ -56,38 +58,67 @@ class AuthService extends BaseServices {
     return MyResponse.error(response.error);
   }
 
-  /// Register new user
-  Future<MyResponse<User?, dynamic>> register({
+  /// Register new user - returns registration response with OTP info
+  Future<MyResponse<RegistrationResponse?, dynamic>> register({
     required String name,
+    required String phone,
     required String email,
     required String password,
-    String? phone,
+    String? referralCode,
   }) async {
     final response = await callAPI(
       HttpRequestType.POST,
       _registerEndpoint,
       postBody: {
         'name': name,
+        'phone': phone,
         'email': email,
         'password': password,
-        if (phone != null) 'phone': phone,
+        if (referralCode != null && referralCode.isNotEmpty)
+          'referralCode': referralCode,
       },
       requiresAuth: false,
     );
 
     if (response.isSuccess && response.data != null) {
       try {
-        final userData = response.data['user'] ?? response.data;
-        final user = User.fromJson(userData);
+        final registrationResponse = RegistrationResponse.fromJson(
+          response.data,
+        );
+        return MyResponse.complete(registrationResponse);
+      } catch (e) {
+        return MyResponse.error('Failed to parse registration data: $e');
+      }
+    }
+
+    return MyResponse.error(response.error);
+  }
+
+  /// Verify OTP for phone verification
+  Future<MyResponse<OTPVerificationResponse?, dynamic>> verifyOTP({
+    required String phone,
+    required String code,
+    String type = 'phone_verification',
+  }) async {
+    final response = await callAPI(
+      HttpRequestType.POST,
+      _verifyOTPEndpoint,
+      postBody: {'phone': phone, 'code': code, 'type': type},
+      requiresAuth: false,
+    );
+
+    if (response.isSuccess && response.data != null) {
+      try {
+        final otpResponse = OTPVerificationResponse.fromJson(response.data);
 
         // Store token if provided
-        if (response.data['token'] != null) {
-          await _storeToken(response.data['token']);
+        if (otpResponse.data?.token != null) {
+          await _storeToken(otpResponse.data!.token!);
         }
 
-        return MyResponse.complete(user);
+        return MyResponse.complete(otpResponse);
       } catch (e) {
-        return MyResponse.error('Failed to parse user data: $e');
+        return MyResponse.error('Failed to parse verification data: $e');
       }
     }
 

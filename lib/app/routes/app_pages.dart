@@ -1,7 +1,11 @@
 import 'package:get/get.dart';
 
 import '../modules/auth/bindings/login_binding.dart';
+import '../modules/auth/bindings/register_binding.dart';
+import '../modules/auth/bindings/otp_verification_binding.dart';
 import '../modules/auth/views/login_view.dart';
+import '../modules/auth/views/register_view.dart';
+import '../modules/auth/views/otp_verification_view.dart';
 import '../modules/booking/bindings/booking_binding.dart';
 import '../modules/booking/views/booking_view.dart';
 import '../modules/find_store/bindings/find_store_binding.dart';
@@ -42,6 +46,16 @@ class AppPages {
       name: _Paths.LOGIN,
       page: () => const LoginView(),
       binding: LoginBinding(),
+    ),
+    GetPage(
+      name: _Paths.REGISTER,
+      page: () => const RegisterView(),
+      binding: RegisterBinding(),
+    ),
+    GetPage(
+      name: _Paths.OTP_VERIFICATION,
+      page: () => const OTPVerificationView(),
+      binding: OTPVerificationBinding(),
     ),
     GetPage(
       name: _Paths.HOME,

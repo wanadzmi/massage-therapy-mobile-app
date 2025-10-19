@@ -41,6 +41,10 @@ class LoginView extends GetView<LoginController> {
               // Login Button
               _buildLoginButton(),
               const SizedBox(height: 24),
+
+              // Sign Up Link
+              _buildSignUpLink(),
+              const SizedBox(height: 24),
             ],
           ),
         ),
@@ -262,6 +266,36 @@ class LoginView extends GetView<LoginController> {
         width: double.infinity,
         height: 56,
         borderRadius: BorderRadius.circular(16),
+      ),
+    );
+  }
+
+  Widget _buildSignUpLink() {
+    return Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            'Don\'t have an account? ',
+            style: TextStyle(fontSize: 14, color: Color(0xFFB0B0B0)),
+          ),
+          TextButton(
+            onPressed: () => Get.toNamed('/register'),
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.zero,
+              minimumSize: Size.zero,
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            ),
+            child: const Text(
+              'Sign Up',
+              style: TextStyle(
+                fontSize: 14,
+                color: Color(0xFFD4AF37),
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
