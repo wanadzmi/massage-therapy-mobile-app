@@ -6,6 +6,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_en.dart';
+import 'app_localizations_ms.dart';
+import 'app_localizations_zh.dart';
 
 // ignore_for_file: type=lint
 
@@ -92,7 +94,11 @@ abstract class AppLocalizations {
       ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('en')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
+    Locale('ms'),
+    Locale('zh'),
+  ];
 
   /// The title of the application
   ///
@@ -327,6 +333,264 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Only customers can login to this app'**
   String get roleError;
+
+  /// Account settings section title
+  ///
+  /// In en, this message translates to:
+  /// **'Account Settings'**
+  String get accountSettings;
+
+  /// Preferences section title
+  ///
+  /// In en, this message translates to:
+  /// **'Preferences'**
+  String get preferences;
+
+  /// Support section title
+  ///
+  /// In en, this message translates to:
+  /// **'Support'**
+  String get support;
+
+  /// Personal information menu
+  ///
+  /// In en, this message translates to:
+  /// **'Personal Information'**
+  String get personalInformation;
+
+  /// Personal information description
+  ///
+  /// In en, this message translates to:
+  /// **'Update your personal details'**
+  String get updatePersonalDetails;
+
+  /// Booking history menu
+  ///
+  /// In en, this message translates to:
+  /// **'Booking History'**
+  String get bookingHistory;
+
+  /// Booking history description
+  ///
+  /// In en, this message translates to:
+  /// **'View all your past bookings'**
+  String get viewPastBookings;
+
+  /// Payment methods menu
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Methods'**
+  String get paymentMethods;
+
+  /// Payment methods description
+  ///
+  /// In en, this message translates to:
+  /// **'Manage your payment options'**
+  String get managePaymentOptions;
+
+  /// Payment methods snackbar
+  ///
+  /// In en, this message translates to:
+  /// **'Payment methods coming soon!'**
+  String get paymentMethodsComingSoon;
+
+  /// Notifications menu
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notifications;
+
+  /// Notifications description
+  ///
+  /// In en, this message translates to:
+  /// **'Manage notification settings'**
+  String get manageNotifications;
+
+  /// Notifications snackbar
+  ///
+  /// In en, this message translates to:
+  /// **'Notification settings coming soon!'**
+  String get notificationsComingSoon;
+
+  /// Language description
+  ///
+  /// In en, this message translates to:
+  /// **'Change language'**
+  String get changeLanguage;
+
+  /// Help center menu
+  ///
+  /// In en, this message translates to:
+  /// **'Help Center'**
+  String get helpCenter;
+
+  /// Help center description
+  ///
+  /// In en, this message translates to:
+  /// **'Get help with any issues'**
+  String get getHelpWithIssues;
+
+  /// Help center snackbar
+  ///
+  /// In en, this message translates to:
+  /// **'Help center coming soon!'**
+  String get helpCenterComingSoon;
+
+  /// Contact support menu
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Support'**
+  String get contactSupport;
+
+  /// Contact support description
+  ///
+  /// In en, this message translates to:
+  /// **'Reach out to our support team'**
+  String get reachSupportTeam;
+
+  /// Terms and privacy menu
+  ///
+  /// In en, this message translates to:
+  /// **'Terms & Privacy'**
+  String get termsAndPrivacy;
+
+  /// Terms and privacy description
+  ///
+  /// In en, this message translates to:
+  /// **'Read our terms and privacy policy'**
+  String get readTermsAndPrivacy;
+
+  /// Terms snackbar
+  ///
+  /// In en, this message translates to:
+  /// **'Terms and privacy policy coming soon!'**
+  String get termsComingSoon;
+
+  /// Total bookings label
+  ///
+  /// In en, this message translates to:
+  /// **'Total Bookings'**
+  String get totalBookings;
+
+  /// Completed label
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get completed;
+
+  /// Rating label
+  ///
+  /// In en, this message translates to:
+  /// **'Rating'**
+  String get rating;
+
+  /// Loyalty points title
+  ///
+  /// In en, this message translates to:
+  /// **'Loyalty Points'**
+  String get loyaltyPoints;
+
+  /// Earn rewards description
+  ///
+  /// In en, this message translates to:
+  /// **'Earn rewards with every booking'**
+  String get earnRewards;
+
+  /// Balance label
+  ///
+  /// In en, this message translates to:
+  /// **'Balance'**
+  String get balance;
+
+  /// Earned label
+  ///
+  /// In en, this message translates to:
+  /// **'Earned'**
+  String get earned;
+
+  /// Redeemed label
+  ///
+  /// In en, this message translates to:
+  /// **'Redeemed'**
+  String get redeemed;
+
+  /// Referral code title
+  ///
+  /// In en, this message translates to:
+  /// **'Referral Code'**
+  String get referralCode;
+
+  /// Successful label
+  ///
+  /// In en, this message translates to:
+  /// **'successful'**
+  String get successful;
+
+  /// Copied title
+  ///
+  /// In en, this message translates to:
+  /// **'Copied!'**
+  String get copied;
+
+  /// Referral code copied message
+  ///
+  /// In en, this message translates to:
+  /// **'Referral code copied to clipboard'**
+  String get referralCodeCopied;
+
+  /// Tier discount label
+  ///
+  /// In en, this message translates to:
+  /// **'Tier Discount'**
+  String get tierDiscount;
+
+  /// Referral earnings label
+  ///
+  /// In en, this message translates to:
+  /// **'Referral Earnings'**
+  String get referralEarnings;
+
+  /// Version label
+  ///
+  /// In en, this message translates to:
+  /// **'Version'**
+  String get version;
+
+  /// Select language dialog title
+  ///
+  /// In en, this message translates to:
+  /// **'Select Language'**
+  String get selectLanguage;
+
+  /// English language option
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get english;
+
+  /// Malay language option
+  ///
+  /// In en, this message translates to:
+  /// **'Bahasa Melayu'**
+  String get malay;
+
+  /// Chinese language option
+  ///
+  /// In en, this message translates to:
+  /// **'中文'**
+  String get chinese;
+
+  /// Language changed message
+  ///
+  /// In en, this message translates to:
+  /// **'Language changed to {language}'**
+  String languageChanged(String language);
+
+  /// Cancel button
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
 }
 
 class _AppLocalizationsDelegate
@@ -340,7 +604,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['en'].contains(locale.languageCode);
+      <String>['en', 'ms', 'zh'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -351,6 +615,10 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   switch (locale.languageCode) {
     case 'en':
       return AppLocalizationsEn();
+    case 'ms':
+      return AppLocalizationsMs();
+    case 'zh':
+      return AppLocalizationsZh();
   }
 
   throw FlutterError(

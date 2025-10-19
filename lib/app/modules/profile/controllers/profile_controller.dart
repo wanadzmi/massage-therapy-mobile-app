@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../data/repositories/auth_repository.dart';
+import '../../../services/locale_service.dart';
+import '../../../data/models/user_model.dart';
 import '../../auth/views/login_view.dart';
 import '../../auth/bindings/login_binding.dart';
+import '../views/edit_profile_view.dart';
 
 class ProfileController extends GetxController {
   final AuthRepository _authRepository = AuthRepository();
+  final LocaleService _localeService = Get.find<LocaleService>();
 
   // Observable variables
   final _isLoading = false.obs;
@@ -33,6 +37,10 @@ class ProfileController extends GetxController {
   final _totalSpent = 0.0.obs;
   final _averageRating = 0.0.obs;
   final _language = 'en'.obs;
+  final _dateOfBirth = Rx<DateTime?>(null);
+  final _gender = ''.obs;
+  final _address = Rx<Address?>(null);
+  final _emergencyContact = Rx<EmergencyContact?>(null);
 
   // Getters
   bool get isLoading => _isLoading.value;
@@ -60,14 +68,30 @@ class ProfileController extends GetxController {
   double get totalSpent => _totalSpent.value;
   double get averageRating => _averageRating.value;
   String get language => _language.value;
+  DateTime? get dateOfBirth => _dateOfBirth.value;
+  String get gender => _gender.value;
+  Address? get address => _address.value;
+  EmergencyContact? get emergencyContact => _emergencyContact.value;
 
   @override
   void onInit() {
     super.onInit();
+    _loadSavedLanguage();
     loadUserProfile();
   }
 
-  void loadUserProfile() async {
+  /// Load saved language from SharedPreferences
+  void _loadSavedLanguage() {
+    final savedLocale = _localeService.getSavedLocaleCode();
+    if (savedLocale != null) {
+      _language.value = savedLocale;
+    } else {
+      // Default to English
+      _language.value = 'en';
+    }
+  }
+
+  Future<void> loadUserProfile() async {
     try {
       _isLoading.value = true;
       final response = await _authRepository.getUserProfile();
@@ -111,9 +135,27 @@ class ProfileController extends GetxController {
         _averageRating.value = user.bookingStats?.averageRating ?? 0.0;
 
         // Preferences
-        _language.value = user.preferences?.language ?? 'en';
+        // Don't override language if user has saved a local preference
+        final savedLocale = _localeService.getSavedLocaleCode();
+        if (savedLocale == null) {
+          // Only use API language if no local preference exists
+          _language.value = user.preferences?.language ?? 'en';
+        }
+
+        // Personal Information
+        _dateOfBirth.value = user.dateOfBirth;
+        _gender.value = user.gender ?? '';
+        if (user.addresses != null && user.addresses!.isNotEmpty) {
+          _address.value = user.addresses!.firstWhere(
+            (addr) => addr.isDefault == true,
+            orElse: () => user.addresses!.first,
+          );
+        }
+        _emergencyContact.value = user.emergencyContact;
 
         print('✅ Profile loaded successfully');
+        print('👤 Gender loaded: ${_gender.value}');
+        print('📅 Date of Birth loaded: ${_dateOfBirth.value}');
       }
     } catch (e) {
       print('❌ Error loading profile: $e');
@@ -129,12 +171,244 @@ class ProfileController extends GetxController {
     }
   }
 
-  void editProfile() {
-    Get.snackbar('Info', 'Edit profile feature coming soon!');
+  Future<void> editProfile() async {
+    // Show loading dialog while fetching latest profile data
+    Get.dialog(
+      const Center(child: CircularProgressIndicator(color: Color(0xFFD4AF37))),
+      barrierDismissible: false,
+    );
+
+    try {
+      // Fetch latest profile data from API
+      await loadUserProfile();
+
+      // Close loading dialog
+      Get.back();
+
+      // Navigate to edit profile view with fresh data
+      Get.to(() => const EditProfileView());
+    } catch (e) {
+      // Close loading dialog
+      Get.back();
+
+      // Show error message
+      Get.snackbar(
+        'Error',
+        'Failed to load profile data',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red.withOpacity(0.8),
+        colorText: Colors.white,
+      );
+    }
+  }
+
+  /// Update user profile
+  Future<void> updateProfile({
+    String? name,
+    DateTime? dateOfBirth,
+    String? gender,
+    String? street,
+    String? city,
+    String? state,
+    String? postcode,
+    String? country,
+    String? emergencyContactName,
+    String? emergencyContactPhone,
+    String? emergencyContactRelationship,
+  }) async {
+    try {
+      _isLoading.value = true;
+
+      // Build address object if any address field is provided
+      Map<String, dynamic>? addressData;
+      if (street != null ||
+          city != null ||
+          state != null ||
+          postcode != null ||
+          country != null) {
+        addressData = {
+          if (street != null) 'street': street,
+          if (city != null) 'city': city,
+          if (state != null) 'state': state,
+          if (postcode != null) 'postcode': postcode,
+          if (country != null) 'country': country,
+        };
+      }
+
+      // Build emergency contact object if any field is provided
+      Map<String, dynamic>? emergencyContactData;
+      if (emergencyContactName != null ||
+          emergencyContactPhone != null ||
+          emergencyContactRelationship != null) {
+        emergencyContactData = {
+          if (emergencyContactName != null) 'name': emergencyContactName,
+          if (emergencyContactPhone != null) 'phone': emergencyContactPhone,
+          if (emergencyContactRelationship != null)
+            'relationship': emergencyContactRelationship,
+        };
+      }
+
+      final response = await _authRepository.updateProfile(
+        name: name,
+        dateOfBirth: dateOfBirth,
+        gender: gender,
+        address: addressData,
+        emergencyContact: emergencyContactData,
+      );
+
+      if (response.isSuccess && response.data != null) {
+        print(
+          '✅ PUT response received - user gender: ${response.data?.gender}',
+        );
+
+        // Reload profile to get updated data
+        await loadUserProfile();
+
+        print('🔄 After loadUserProfile - controller gender: $_gender.value');
+
+        Get.snackbar(
+          'Success',
+          'Profile updated successfully',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: const Color(0xFFD4AF37),
+          colorText: Colors.black,
+          duration: const Duration(seconds: 2),
+        );
+      } else {
+        Get.snackbar(
+          'Error',
+          response.error ?? 'Failed to update profile',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red.withOpacity(0.8),
+          colorText: Colors.white,
+        );
+      }
+    } catch (e) {
+      print('❌ Error updating profile: $e');
+      Get.snackbar(
+        'Error',
+        'Failed to update profile',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red.withOpacity(0.8),
+        colorText: Colors.white,
+      );
+    } finally {
+      _isLoading.value = false;
+    }
   }
 
   void viewBookingHistory() {
     Get.snackbar('Info', 'Booking history feature coming soon!');
+  }
+
+  void changeLanguage() {
+    Get.dialog(
+      Dialog(
+        backgroundColor: const Color(0xFF1A1A1A),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+          side: const BorderSide(color: Color(0xFF2A2A2A)),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Select Language',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFFE0E0E0),
+                ),
+              ),
+              const SizedBox(height: 20),
+              _buildLanguageOption('en', 'English'),
+              const SizedBox(height: 12),
+              _buildLanguageOption('ms', 'Bahasa Melayu'),
+              const SizedBox(height: 12),
+              _buildLanguageOption('zh', '中文'),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () => Get.back(),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF2A2A2A),
+                  foregroundColor: const Color(0xFFE0E0E0),
+                  minimumSize: const Size(double.infinity, 48),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                child: const Text('Cancel'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLanguageOption(String code, String name) {
+    final isSelected = _language.value == code;
+    return GestureDetector(
+      onTap: () => _setLanguage(code, name),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? const Color(0xFFD4AF37).withOpacity(0.15)
+              : const Color(0xFF0A0A0A),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: isSelected
+                ? const Color(0xFFD4AF37)
+                : const Color(0xFF2A2A2A),
+            width: isSelected ? 2 : 1,
+          ),
+        ),
+        child: Row(
+          children: [
+            Icon(
+              isSelected ? Icons.check_circle : Icons.circle_outlined,
+              color: isSelected
+                  ? const Color(0xFFD4AF37)
+                  : const Color(0xFF606060),
+              size: 20,
+            ),
+            const SizedBox(width: 12),
+            Text(
+              name,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+                color: isSelected
+                    ? const Color(0xFFD4AF37)
+                    : const Color(0xFFE0E0E0),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _setLanguage(String code, String name) async {
+    _language.value = code;
+
+    // Save to SharedPreferences
+    await _localeService.saveLocale(code);
+
+    Get.back();
+
+    Get.snackbar(
+      'Success',
+      'Language changed to $name',
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: const Color(0xFFD4AF37),
+      colorText: Colors.black,
+      duration: const Duration(seconds: 2),
+    );
   }
 
   Future<void> logout() async {

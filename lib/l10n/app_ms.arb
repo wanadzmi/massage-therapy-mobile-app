@@ -1,310 +1,310 @@
 {
-    "@@locale": "en",
-    "appTitle": "Therapy & Massage App",
+    "@@locale": "ms",
+    "appTitle": "Aplikasi Terapi & Urut",
     "@appTitle": {
         "description": "The title of the application"
     },
-    "home": "Home",
+    "home": "Laman Utama",
     "@home": {
         "description": "Home navigation label"
     },
-    "activity": "Activity",
+    "activity": "Aktiviti",
     "@activity": {
         "description": "Activity navigation label"
     },
-    "profile": "Profile",
+    "profile": "Profil",
     "@profile": {
         "description": "Profile navigation label"
     },
-    "login": "Login",
+    "login": "Log Masuk",
     "@login": {
         "description": "Login page title"
     },
-    "email": "Email",
+    "email": "Emel",
     "@email": {
         "description": "Email field label"
     },
-    "password": "Password",
+    "password": "Kata Laluan",
     "@password": {
         "description": "Password field label"
     },
-    "signIn": "Sign In",
+    "signIn": "Log Masuk",
     "@signIn": {
         "description": "Sign in button text"
     },
-    "welcomeBack": "Welcome Back!",
+    "welcomeBack": "Selamat Kembali!",
     "@welcomeBack": {
         "description": "Welcome message on login page"
     },
-    "pleaseSignIn": "Please sign in to continue",
+    "pleaseSignIn": "Sila log masuk untuk meneruskan",
     "@pleaseSignIn": {
         "description": "Login instruction text"
     },
-    "enterEmail": "Enter your email",
+    "enterEmail": "Masukkan emel anda",
     "@enterEmail": {
         "description": "Email field hint"
     },
-    "enterPassword": "Enter your password",
+    "enterPassword": "Masukkan kata laluan anda",
     "@enterPassword": {
         "description": "Password field hint"
     },
-    "walletBalance": "Wallet Balance",
+    "walletBalance": "Baki Dompet",
     "@walletBalance": {
         "description": "Wallet balance label"
     },
-    "topUp": "Top Up",
+    "topUp": "Tambah Nilai",
     "@topUp": {
         "description": "Top up button text"
     },
-    "history": "History",
+    "history": "Sejarah",
     "@history": {
         "description": "History button text"
     },
-    "quickActions": "Quick Actions",
+    "quickActions": "Tindakan Pantas",
     "@quickActions": {
         "description": "Quick actions section title"
     },
-    "findStore": "Find Store",
+    "findStore": "Cari Kedai",
     "@findStore": {
         "description": "Find store card title"
     },
-    "findTherapist": "Find Therapist",
+    "findTherapist": "Cari Ahli Terapi",
     "@findTherapist": {
         "description": "Find therapist card title"
     },
-    "discoverNearestStores": "Discover the nearest massage therapy stores",
+    "discoverNearestStores": "Temui kedai terapi urut terdekat",
     "@discoverNearestStores": {
         "description": "Find store card description"
     },
-    "browseAvailableTherapists": "Browse available therapists and book appointments",
+    "browseAvailableTherapists": "Lihat ahli terapi yang tersedia dan tempah temujanji",
     "@browseAvailableTherapists": {
         "description": "Find therapist card description"
     },
-    "yourAppointments": "Your Appointments",
+    "yourAppointments": "Temujanji Anda",
     "@yourAppointments": {
         "description": "Appointments list title"
     },
-    "filter": "Filter",
+    "filter": "Tapis",
     "@filter": {
         "description": "Filter button text"
     },
-    "filterOptions": "Filter options coming soon!",
+    "filterOptions": "Pilihan penapis akan datang!",
     "@filterOptions": {
         "description": "Filter snackbar message"
     },
-    "noAppointments": "No appointments for selected date",
+    "noAppointments": "Tiada temujanji untuk tarikh dipilih",
     "@noAppointments": {
         "description": "Empty appointments message"
     },
-    "appointmentDetails": "Appointment Details",
+    "appointmentDetails": "Butiran Temujanji",
     "@appointmentDetails": {
         "description": "Appointment details title"
     },
-    "viewDetails": "View details coming soon!",
+    "viewDetails": "Lihat butiran akan datang!",
     "@viewDetails": {
         "description": "View details snackbar message"
     },
-    "confirmed": "CONFIRMED",
+    "confirmed": "DISAHKAN",
     "@confirmed": {
         "description": "Confirmed appointment status"
     },
-    "pending": "PENDING",
+    "pending": "MENUNGGU",
     "@pending": {
         "description": "Pending appointment status"
     },
-    "cancelled": "CANCELLED",
+    "cancelled": "DIBATALKAN",
     "@cancelled": {
         "description": "Cancelled appointment status"
     },
-    "logout": "Logout",
+    "logout": "Log Keluar",
     "@logout": {
         "description": "Logout button text"
     },
-    "settings": "Settings",
+    "settings": "Tetapan",
     "@settings": {
         "description": "Settings section title"
     },
-    "language": "Language",
+    "language": "Bahasa",
     "@language": {
         "description": "Language setting label"
     },
-    "loading": "Loading...",
+    "loading": "Memuatkan...",
     "@loading": {
         "description": "Loading message"
     },
-    "error": "Error",
+    "error": "Ralat",
     "@error": {
         "description": "Error title"
     },
-    "success": "Success",
+    "success": "Berjaya",
     "@success": {
         "description": "Success title"
     },
-    "loginSuccess": "Login successful!",
+    "loginSuccess": "Log masuk berjaya!",
     "@loginSuccess": {
         "description": "Login success message"
     },
-    "loginError": "Login failed. Please try again.",
+    "loginError": "Log masuk gagal. Sila cuba lagi.",
     "@loginError": {
         "description": "Login error message"
     },
-    "logoutSuccess": "Logged out successfully",
+    "logoutSuccess": "Log keluar berjaya",
     "@logoutSuccess": {
         "description": "Logout success message"
     },
-    "roleError": "Only customers can login to this app",
+    "roleError": "Hanya pelanggan boleh log masuk ke aplikasi ini",
     "@roleError": {
         "description": "Role validation error message"
     },
-    "accountSettings": "Account Settings",
+    "accountSettings": "Tetapan Akaun",
     "@accountSettings": {
         "description": "Account settings section title"
     },
-    "preferences": "Preferences",
+    "preferences": "Keutamaan",
     "@preferences": {
         "description": "Preferences section title"
     },
-    "support": "Support",
+    "support": "Sokongan",
     "@support": {
         "description": "Support section title"
     },
-    "personalInformation": "Personal Information",
+    "personalInformation": "Maklumat Peribadi",
     "@personalInformation": {
         "description": "Personal information menu"
     },
-    "updatePersonalDetails": "Update your personal details",
+    "updatePersonalDetails": "Kemas kini butiran peribadi anda",
     "@updatePersonalDetails": {
         "description": "Personal information description"
     },
-    "bookingHistory": "Booking History",
+    "bookingHistory": "Sejarah Tempahan",
     "@bookingHistory": {
         "description": "Booking history menu"
     },
-    "viewPastBookings": "View all your past bookings",
+    "viewPastBookings": "Lihat semua tempahan lepas anda",
     "@viewPastBookings": {
         "description": "Booking history description"
     },
-    "paymentMethods": "Payment Methods",
+    "paymentMethods": "Kaedah Pembayaran",
     "@paymentMethods": {
         "description": "Payment methods menu"
     },
-    "managePaymentOptions": "Manage your payment options",
+    "managePaymentOptions": "Urus pilihan pembayaran anda",
     "@managePaymentOptions": {
         "description": "Payment methods description"
     },
-    "paymentMethodsComingSoon": "Payment methods coming soon!",
+    "paymentMethodsComingSoon": "Kaedah pembayaran akan datang!",
     "@paymentMethodsComingSoon": {
         "description": "Payment methods snackbar"
     },
-    "notifications": "Notifications",
+    "notifications": "Pemberitahuan",
     "@notifications": {
         "description": "Notifications menu"
     },
-    "manageNotifications": "Manage notification settings",
+    "manageNotifications": "Urus tetapan pemberitahuan",
     "@manageNotifications": {
         "description": "Notifications description"
     },
-    "notificationsComingSoon": "Notification settings coming soon!",
+    "notificationsComingSoon": "Tetapan pemberitahuan akan datang!",
     "@notificationsComingSoon": {
         "description": "Notifications snackbar"
     },
-    "changeLanguage": "Change language",
+    "changeLanguage": "Tukar bahasa",
     "@changeLanguage": {
         "description": "Language description"
     },
-    "helpCenter": "Help Center",
+    "helpCenter": "Pusat Bantuan",
     "@helpCenter": {
         "description": "Help center menu"
     },
-    "getHelpWithIssues": "Get help with any issues",
+    "getHelpWithIssues": "Dapatkan bantuan dengan sebarang masalah",
     "@getHelpWithIssues": {
         "description": "Help center description"
     },
-    "helpCenterComingSoon": "Help center coming soon!",
+    "helpCenterComingSoon": "Pusat bantuan akan datang!",
     "@helpCenterComingSoon": {
         "description": "Help center snackbar"
     },
-    "contactSupport": "Contact Support",
+    "contactSupport": "Hubungi Sokongan",
     "@contactSupport": {
         "description": "Contact support menu"
     },
-    "reachSupportTeam": "Reach out to our support team",
+    "reachSupportTeam": "Hubungi pasukan sokongan kami",
     "@reachSupportTeam": {
         "description": "Contact support description"
     },
-    "termsAndPrivacy": "Terms & Privacy",
+    "termsAndPrivacy": "Terma & Privasi",
     "@termsAndPrivacy": {
         "description": "Terms and privacy menu"
     },
-    "readTermsAndPrivacy": "Read our terms and privacy policy",
+    "readTermsAndPrivacy": "Baca terma dan dasar privasi kami",
     "@readTermsAndPrivacy": {
         "description": "Terms and privacy description"
     },
-    "termsComingSoon": "Terms and privacy policy coming soon!",
+    "termsComingSoon": "Terma dan dasar privasi akan datang!",
     "@termsComingSoon": {
         "description": "Terms snackbar"
     },
-    "totalBookings": "Total Bookings",
+    "totalBookings": "Jumlah Tempahan",
     "@totalBookings": {
         "description": "Total bookings label"
     },
-    "completed": "Completed",
+    "completed": "Selesai",
     "@completed": {
         "description": "Completed label"
     },
-    "rating": "Rating",
+    "rating": "Penilaian",
     "@rating": {
         "description": "Rating label"
     },
-    "loyaltyPoints": "Loyalty Points",
+    "loyaltyPoints": "Mata Kesetiaan",
     "@loyaltyPoints": {
         "description": "Loyalty points title"
     },
-    "earnRewards": "Earn rewards with every booking",
+    "earnRewards": "Dapatkan ganjaran dengan setiap tempahan",
     "@earnRewards": {
         "description": "Earn rewards description"
     },
-    "balance": "Balance",
+    "balance": "Baki",
     "@balance": {
         "description": "Balance label"
     },
-    "earned": "Earned",
+    "earned": "Diperolehi",
     "@earned": {
         "description": "Earned label"
     },
-    "redeemed": "Redeemed",
+    "redeemed": "Ditebus",
     "@redeemed": {
         "description": "Redeemed label"
     },
-    "referralCode": "Referral Code",
+    "referralCode": "Kod Rujukan",
     "@referralCode": {
         "description": "Referral code title"
     },
-    "successful": "successful",
+    "successful": "berjaya",
     "@successful": {
         "description": "Successful label"
     },
-    "copied": "Copied!",
+    "copied": "Disalin!",
     "@copied": {
         "description": "Copied title"
     },
-    "referralCodeCopied": "Referral code copied to clipboard",
+    "referralCodeCopied": "Kod rujukan disalin ke papan klip",
     "@referralCodeCopied": {
         "description": "Referral code copied message"
     },
-    "tierDiscount": "Tier Discount",
+    "tierDiscount": "Diskaun Tahap",
     "@tierDiscount": {
         "description": "Tier discount label"
     },
-    "referralEarnings": "Referral Earnings",
+    "referralEarnings": "Pendapatan Rujukan",
     "@referralEarnings": {
         "description": "Referral earnings label"
     },
-    "version": "Version",
+    "version": "Versi",
     "@version": {
         "description": "Version label"
     },
-    "selectLanguage": "Select Language",
+    "selectLanguage": "Pilih Bahasa",
     "@selectLanguage": {
         "description": "Select language dialog title"
     },
@@ -320,7 +320,7 @@
     "@chinese": {
         "description": "Chinese language option"
     },
-    "languageChanged": "Language changed to {language}",
+    "languageChanged": "Bahasa ditukar kepada {language}",
     "@languageChanged": {
         "description": "Language changed message",
         "placeholders": {
@@ -329,7 +329,7 @@
             }
         }
     },
-    "cancel": "Cancel",
+    "cancel": "Batal",
     "@cancel": {
         "description": "Cancel button"
     }

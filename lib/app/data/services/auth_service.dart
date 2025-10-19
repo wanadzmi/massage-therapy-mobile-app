@@ -132,9 +132,16 @@ class AuthService extends BaseServices {
     if (response.isSuccess && response.data != null) {
       try {
         final userData = response.data['data'] ?? response.data;
+        print('📥 GET /api/auth/profile response data keys: ${userData.keys}');
+        print('📥 Gender from API: ${userData['gender']}');
+        print('📥 DateOfBirth from API: ${userData['dateOfBirth']}');
         final user = User.fromJson(userData);
+        print(
+          '✅ Parsed user - gender: ${user.gender}, dateOfBirth: ${user.dateOfBirth}',
+        );
         return MyResponse.complete(user);
       } catch (e) {
+        print('❌ Failed to parse GET response: $e');
         return MyResponse.error('Failed to parse user data: $e');
       }
     }
@@ -147,6 +154,10 @@ class AuthService extends BaseServices {
     String? name,
     String? email,
     String? phone,
+    DateTime? dateOfBirth,
+    String? gender,
+    Map<String, dynamic>? address,
+    Map<String, dynamic>? emergencyContact,
   }) async {
     final response = await callAPI(
       HttpRequestType.PUT,
@@ -155,14 +166,24 @@ class AuthService extends BaseServices {
         if (name != null) 'name': name,
         if (email != null) 'email': email,
         if (phone != null) 'phone': phone,
+        if (dateOfBirth != null)
+          'dateOfBirth': dateOfBirth.toIso8601String().split('T')[0],
+        if (gender != null) 'gender': gender,
+        if (address != null) 'address': address,
+        if (emergencyContact != null) 'emergencyContact': emergencyContact,
       },
     );
 
     if (response.isSuccess && response.data != null) {
       try {
+        print('📥 PUT /api/auth/profile response data: ${response.data}');
         final user = User.fromJson(response.data);
+        print(
+          '✅ Parsed user - gender: ${user.gender}, dateOfBirth: ${user.dateOfBirth}',
+        );
         return MyResponse.complete(user);
       } catch (e) {
+        print('❌ Failed to parse PUT response: $e');
         return MyResponse.error('Failed to parse user data: $e');
       }
     }

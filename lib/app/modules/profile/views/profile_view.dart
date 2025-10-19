@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import '../../../../l10n/app_localizations.dart';
 import '../controllers/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {
@@ -13,9 +13,9 @@ class ProfileView extends GetView<ProfileController> {
       appBar: AppBar(
         backgroundColor: const Color(0xFF0A0A0A),
         elevation: 0,
-        title: const Text(
-          'Profile',
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context)!.profile,
+          style: const TextStyle(
             color: Color(0xFFE0E0E0),
             fontWeight: FontWeight.w500,
             fontSize: 18,
@@ -55,30 +55,30 @@ class ProfileView extends GetView<ProfileController> {
                     const SizedBox(height: 8),
 
                     // Profile Header Card
-                    _buildProfileHeader(),
+                    _buildProfileHeader(context),
 
                     const SizedBox(height: 16),
 
                     // Stats Row
-                    _buildStatsRow(),
+                    _buildStatsRow(context),
 
                     const SizedBox(height: 16),
 
                     // Wallet & Loyalty Points
-                    _buildWalletCard(),
+                    _buildWalletCard(context),
                     const SizedBox(height: 12),
-                    _buildLoyaltyCard(),
+                    _buildLoyaltyCard(context),
 
                     const SizedBox(height: 16),
 
                     // Referral Card
-                    _buildReferralCard(),
+                    _buildReferralCard(context),
 
                     const SizedBox(height: 32),
 
-                    const Text(
-                      'Account Settings',
-                      style: TextStyle(
+                    Text(
+                      AppLocalizations.of(context)!.accountSettings,
+                      style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                         color: Color(0xFF808080),
@@ -89,27 +89,29 @@ class ProfileView extends GetView<ProfileController> {
 
                     // Account Options
                     _buildMenuOption(
-                      'Personal Information',
-                      'Update your personal details',
+                      AppLocalizations.of(context)!.personalInformation,
+                      AppLocalizations.of(context)!.updatePersonalDetails,
                       Icons.person_outline,
                       () => controller.editProfile(),
                     ),
                     const SizedBox(height: 12),
                     _buildMenuOption(
-                      'Booking History',
-                      'View all your past bookings',
+                      AppLocalizations.of(context)!.bookingHistory,
+                      AppLocalizations.of(context)!.viewPastBookings,
                       Icons.receipt_long_outlined,
                       () => controller.viewBookingHistory(),
                     ),
                     const SizedBox(height: 12),
                     _buildMenuOption(
-                      'Payment Methods',
-                      'Manage your payment options',
+                      AppLocalizations.of(context)!.paymentMethods,
+                      AppLocalizations.of(context)!.managePaymentOptions,
                       Icons.credit_card_outlined,
                       () {
                         Get.snackbar(
-                          'Payment Methods',
-                          'Payment methods coming soon!',
+                          AppLocalizations.of(context)!.paymentMethods,
+                          AppLocalizations.of(
+                            context,
+                          )!.paymentMethodsComingSoon,
                           snackPosition: SnackPosition.BOTTOM,
                           backgroundColor: const Color(0xFF1E1E1E),
                           colorText: const Color(0xFFE0E0E0),
@@ -119,9 +121,9 @@ class ProfileView extends GetView<ProfileController> {
 
                     const SizedBox(height: 32),
 
-                    const Text(
-                      'Preferences',
-                      style: TextStyle(
+                    Text(
+                      AppLocalizations.of(context)!.preferences,
+                      style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                         color: Color(0xFF808080),
@@ -131,13 +133,13 @@ class ProfileView extends GetView<ProfileController> {
                     const SizedBox(height: 16),
 
                     _buildMenuOption(
-                      'Notifications',
-                      'Manage notification settings',
+                      AppLocalizations.of(context)!.notifications,
+                      AppLocalizations.of(context)!.manageNotifications,
                       Icons.notifications_outlined,
                       () {
                         Get.snackbar(
-                          'Notifications',
-                          'Notification settings coming soon!',
+                          AppLocalizations.of(context)!.notifications,
+                          AppLocalizations.of(context)!.notificationsComingSoon,
                           snackPosition: SnackPosition.BOTTOM,
                           backgroundColor: const Color(0xFF1E1E1E),
                           colorText: const Color(0xFFE0E0E0),
@@ -146,25 +148,17 @@ class ProfileView extends GetView<ProfileController> {
                     ),
                     const SizedBox(height: 12),
                     _buildMenuOption(
-                      'Language',
+                      AppLocalizations.of(context)!.language,
                       _getLanguageName(controller.language),
                       Icons.language_outlined,
-                      () {
-                        Get.snackbar(
-                          'Language',
-                          'Language settings coming soon!',
-                          snackPosition: SnackPosition.BOTTOM,
-                          backgroundColor: const Color(0xFF1E1E1E),
-                          colorText: const Color(0xFFE0E0E0),
-                        );
-                      },
+                      () => controller.changeLanguage(),
                     ),
 
                     const SizedBox(height: 32),
 
-                    const Text(
-                      'Support',
-                      style: TextStyle(
+                    Text(
+                      AppLocalizations.of(context)!.support,
+                      style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                         color: Color(0xFF808080),
@@ -174,13 +168,13 @@ class ProfileView extends GetView<ProfileController> {
                     const SizedBox(height: 16),
 
                     _buildMenuOption(
-                      'Help Center',
-                      'Get help with any issues',
+                      AppLocalizations.of(context)!.helpCenter,
+                      AppLocalizations.of(context)!.getHelpWithIssues,
                       Icons.help_outline,
                       () {
                         Get.snackbar(
-                          'Help Center',
-                          'Help center coming soon!',
+                          AppLocalizations.of(context)!.helpCenter,
+                          AppLocalizations.of(context)!.helpCenterComingSoon,
                           snackPosition: SnackPosition.BOTTOM,
                           backgroundColor: const Color(0xFF1E1E1E),
                           colorText: const Color(0xFFE0E0E0),
@@ -189,12 +183,12 @@ class ProfileView extends GetView<ProfileController> {
                     ),
                     const SizedBox(height: 12),
                     _buildMenuOption(
-                      'Contact Support',
-                      'Reach out to our support team',
+                      AppLocalizations.of(context)!.contactSupport,
+                      AppLocalizations.of(context)!.reachSupportTeam,
                       Icons.headset_mic_outlined,
                       () {
                         Get.snackbar(
-                          'Contact Support',
+                          AppLocalizations.of(context)!.contactSupport,
                           'Email: support@therapymassage.com\nPhone: +60 3 1234 5678',
                           snackPosition: SnackPosition.BOTTOM,
                           backgroundColor: const Color(0xFF1E1E1E),
@@ -205,13 +199,13 @@ class ProfileView extends GetView<ProfileController> {
                     ),
                     const SizedBox(height: 12),
                     _buildMenuOption(
-                      'Terms & Privacy',
-                      'Read our terms and privacy policy',
+                      AppLocalizations.of(context)!.termsAndPrivacy,
+                      AppLocalizations.of(context)!.readTermsAndPrivacy,
                       Icons.description_outlined,
                       () {
                         Get.snackbar(
-                          'Terms & Privacy',
-                          'Terms and privacy policy coming soon!',
+                          AppLocalizations.of(context)!.termsAndPrivacy,
+                          AppLocalizations.of(context)!.termsComingSoon,
                           snackPosition: SnackPosition.BOTTOM,
                           backgroundColor: const Color(0xFF1E1E1E),
                           colorText: const Color(0xFFE0E0E0),
@@ -234,14 +228,18 @@ class ProfileView extends GetView<ProfileController> {
                             width: 1,
                           ),
                         ),
-                        child: const Row(
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.logout, color: Colors.red, size: 20),
-                            SizedBox(width: 8),
+                            const Icon(
+                              Icons.logout,
+                              color: Colors.red,
+                              size: 20,
+                            ),
+                            const SizedBox(width: 8),
                             Text(
-                              'Logout',
-                              style: TextStyle(
+                              AppLocalizations.of(context)!.logout,
+                              style: const TextStyle(
                                 color: Colors.red,
                                 fontSize: 15,
                                 fontWeight: FontWeight.w600,
@@ -255,10 +253,10 @@ class ProfileView extends GetView<ProfileController> {
 
                     const SizedBox(height: 20),
 
-                    const Center(
+                    Center(
                       child: Text(
-                        'Version 1.0.0',
-                        style: TextStyle(
+                        '${AppLocalizations.of(context)!.version} 1.0.0',
+                        style: const TextStyle(
                           fontSize: 12,
                           color: Color(0xFF606060),
                         ),
@@ -276,16 +274,16 @@ class ProfileView extends GetView<ProfileController> {
   String _getLanguageName(String code) {
     switch (code.toLowerCase()) {
       case 'zh':
-        return 'Chinese';
+        return '中文';
       case 'ms':
-        return 'Malay';
+        return 'Bahasa Melayu';
       case 'en':
       default:
         return 'English';
     }
   }
 
-  Widget _buildProfileHeader() {
+  Widget _buildProfileHeader(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -408,14 +406,15 @@ class ProfileView extends GetView<ProfileController> {
     );
   }
 
-  Widget _buildStatsRow() {
+  Widget _buildStatsRow(BuildContext context) {
     return Row(
       children: [
         Expanded(
           child: Obx(
             () => _buildStatCard(
+              context,
               controller.totalBookings.toString(),
-              'Total Bookings',
+              AppLocalizations.of(context)!.totalBookings,
               Icons.calendar_today_outlined,
             ),
           ),
@@ -424,8 +423,9 @@ class ProfileView extends GetView<ProfileController> {
         Expanded(
           child: Obx(
             () => _buildStatCard(
+              context,
               controller.completedBookings.toString(),
-              'Completed',
+              AppLocalizations.of(context)!.completed,
               Icons.check_circle_outline,
             ),
           ),
@@ -434,10 +434,11 @@ class ProfileView extends GetView<ProfileController> {
         Expanded(
           child: Obx(
             () => _buildStatCard(
+              context,
               controller.averageRating > 0
                   ? controller.averageRating.toStringAsFixed(1)
                   : '-',
-              'Rating',
+              AppLocalizations.of(context)!.rating,
               Icons.star_outline,
             ),
           ),
@@ -446,7 +447,7 @@ class ProfileView extends GetView<ProfileController> {
     );
   }
 
-  Widget _buildWalletCard() {
+  Widget _buildWalletCard(BuildContext context) {
     return Obx(
       () => GestureDetector(
         onTap: () => Get.toNamed('/wallet-topup'),
@@ -476,9 +477,9 @@ class ProfileView extends GetView<ProfileController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Wallet Balance',
-                      style: TextStyle(
+                    Text(
+                      AppLocalizations.of(context)!.walletBalance,
+                      style: const TextStyle(
                         fontSize: 12,
                         color: Color(0xFF808080),
                         letterSpacing: 0.3,
@@ -506,13 +507,13 @@ class ProfileView extends GetView<ProfileController> {
                   color: const Color(0xFFD4AF37),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: const Row(
+                child: Row(
                   children: [
-                    Icon(Icons.add, size: 14, color: Color(0xFF000000)),
-                    SizedBox(width: 4),
+                    const Icon(Icons.add, size: 14, color: Color(0xFF000000)),
+                    const SizedBox(width: 4),
                     Text(
-                      'Top Up',
-                      style: TextStyle(
+                      AppLocalizations.of(context)!.topUp,
+                      style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
                         color: Color(0xFF000000),
@@ -528,7 +529,7 @@ class ProfileView extends GetView<ProfileController> {
     );
   }
 
-  Widget _buildLoyaltyCard() {
+  Widget _buildLoyaltyCard(BuildContext context) {
     return Obx(
       () => Container(
         padding: const EdgeInsets.all(20),
@@ -555,21 +556,24 @@ class ProfileView extends GetView<ProfileController> {
                   ),
                 ),
                 const SizedBox(width: 12),
-                const Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Loyalty Points',
-                      style: TextStyle(
+                      AppLocalizations.of(context)!.loyaltyPoints,
+                      style: const TextStyle(
                         fontSize: 12,
                         color: Color(0xFF808080),
                         letterSpacing: 0.3,
                       ),
                     ),
-                    SizedBox(height: 2),
+                    const SizedBox(height: 2),
                     Text(
-                      'Earn rewards with every booking',
-                      style: TextStyle(fontSize: 10, color: Color(0xFF606060)),
+                      AppLocalizations.of(context)!.earnRewards,
+                      style: const TextStyle(
+                        fontSize: 10,
+                        color: Color(0xFF606060),
+                      ),
                     ),
                   ],
                 ),
@@ -597,9 +601,9 @@ class ProfileView extends GetView<ProfileController> {
                           ),
                         ),
                         const SizedBox(height: 4),
-                        const Text(
-                          'Balance',
-                          style: TextStyle(
+                        Text(
+                          AppLocalizations.of(context)!.balance,
+                          style: const TextStyle(
                             fontSize: 10,
                             color: Color(0xFF808080),
                           ),
@@ -628,9 +632,9 @@ class ProfileView extends GetView<ProfileController> {
                           ),
                         ),
                         const SizedBox(height: 4),
-                        const Text(
-                          'Earned',
-                          style: TextStyle(
+                        Text(
+                          AppLocalizations.of(context)!.earned,
+                          style: const TextStyle(
                             fontSize: 10,
                             color: Color(0xFF808080),
                           ),
@@ -659,9 +663,9 @@ class ProfileView extends GetView<ProfileController> {
                           ),
                         ),
                         const SizedBox(height: 4),
-                        const Text(
-                          'Redeemed',
-                          style: TextStyle(
+                        Text(
+                          AppLocalizations.of(context)!.redeemed,
+                          style: const TextStyle(
                             fontSize: 10,
                             color: Color(0xFF808080),
                           ),
@@ -678,7 +682,7 @@ class ProfileView extends GetView<ProfileController> {
     );
   }
 
-  Widget _buildReferralCard() {
+  Widget _buildReferralCard(BuildContext context) {
     return Obx(
       () => Container(
         padding: const EdgeInsets.all(20),
@@ -698,9 +702,9 @@ class ProfileView extends GetView<ProfileController> {
                   size: 20,
                 ),
                 const SizedBox(width: 8),
-                const Text(
-                  'Referral Code',
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context)!.referralCode,
+                  style: const TextStyle(
                     fontSize: 12,
                     color: Color(0xFF808080),
                     letterSpacing: 0.3,
@@ -708,7 +712,7 @@ class ProfileView extends GetView<ProfileController> {
                 ),
                 const Spacer(),
                 Text(
-                  '${controller.successfulReferrals}/${controller.totalReferrals} successful',
+                  '${controller.successfulReferrals}/${controller.totalReferrals} ${AppLocalizations.of(context)!.successful}',
                   style: const TextStyle(
                     fontSize: 10,
                     color: Color(0xFF606060),
@@ -721,8 +725,8 @@ class ProfileView extends GetView<ProfileController> {
               onTap: () {
                 // Copy to clipboard
                 Get.snackbar(
-                  'Copied!',
-                  'Referral code copied to clipboard',
+                  AppLocalizations.of(context)!.copied,
+                  AppLocalizations.of(context)!.referralCodeCopied,
                   snackPosition: SnackPosition.BOTTOM,
                   backgroundColor: const Color(0xFFD4AF37),
                   colorText: Colors.black,
@@ -782,9 +786,9 @@ class ProfileView extends GetView<ProfileController> {
                           ),
                         ),
                         const SizedBox(height: 4),
-                        const Text(
-                          'Tier Discount',
-                          style: TextStyle(
+                        Text(
+                          AppLocalizations.of(context)!.tierDiscount,
+                          style: const TextStyle(
                             fontSize: 10,
                             color: Color(0xFF808080),
                           ),
@@ -813,9 +817,9 @@ class ProfileView extends GetView<ProfileController> {
                           ),
                         ),
                         const SizedBox(height: 4),
-                        const Text(
-                          'Referral Earnings',
-                          style: TextStyle(
+                        Text(
+                          AppLocalizations.of(context)!.referralEarnings,
+                          style: const TextStyle(
                             fontSize: 10,
                             color: Color(0xFF808080),
                           ),
@@ -848,7 +852,12 @@ class ProfileView extends GetView<ProfileController> {
     }
   }
 
-  Widget _buildStatCard(String value, String label, IconData icon) {
+  Widget _buildStatCard(
+    BuildContext context,
+    String value,
+    String label,
+    IconData icon,
+  ) {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(

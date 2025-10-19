@@ -3,9 +3,14 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'l10n/app_localizations.dart';
 import 'app/routes/app_pages.dart';
+import 'app/services/locale_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize LocaleService before running the app
+  await Get.putAsync(() => LocaleService().init(), permanent: true);
+
   runApp(const MyApp());
 }
 
@@ -14,6 +19,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localeService = Get.find<LocaleService>();
+
     return GetMaterialApp(
       title: 'Therapy & Massage App',
       initialRoute: AppPages.INITIAL,
@@ -29,8 +36,10 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: const [
         Locale('en'), // English
+        Locale('ms'), // Malay
+        Locale('zh'), // Chinese
       ],
-      locale: const Locale('en'),
+      locale: localeService.currentLocale,
       fallbackLocale: const Locale('en'),
 
       theme: ThemeData(

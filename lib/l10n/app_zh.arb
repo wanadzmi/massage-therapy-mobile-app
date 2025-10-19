@@ -1,310 +1,310 @@
 {
-    "@@locale": "en",
-    "appTitle": "Therapy & Massage App",
+    "@@locale": "zh",
+    "appTitle": "治疗与按摩应用",
     "@appTitle": {
         "description": "The title of the application"
     },
-    "home": "Home",
+    "home": "主页",
     "@home": {
         "description": "Home navigation label"
     },
-    "activity": "Activity",
+    "activity": "活动",
     "@activity": {
         "description": "Activity navigation label"
     },
-    "profile": "Profile",
+    "profile": "个人资料",
     "@profile": {
         "description": "Profile navigation label"
     },
-    "login": "Login",
+    "login": "登录",
     "@login": {
         "description": "Login page title"
     },
-    "email": "Email",
+    "email": "电子邮件",
     "@email": {
         "description": "Email field label"
     },
-    "password": "Password",
+    "password": "密码",
     "@password": {
         "description": "Password field label"
     },
-    "signIn": "Sign In",
+    "signIn": "登录",
     "@signIn": {
         "description": "Sign in button text"
     },
-    "welcomeBack": "Welcome Back!",
+    "welcomeBack": "欢迎回来！",
     "@welcomeBack": {
         "description": "Welcome message on login page"
     },
-    "pleaseSignIn": "Please sign in to continue",
+    "pleaseSignIn": "请登录以继续",
     "@pleaseSignIn": {
         "description": "Login instruction text"
     },
-    "enterEmail": "Enter your email",
+    "enterEmail": "输入您的电子邮件",
     "@enterEmail": {
         "description": "Email field hint"
     },
-    "enterPassword": "Enter your password",
+    "enterPassword": "输入您的密码",
     "@enterPassword": {
         "description": "Password field hint"
     },
-    "walletBalance": "Wallet Balance",
+    "walletBalance": "钱包余额",
     "@walletBalance": {
         "description": "Wallet balance label"
     },
-    "topUp": "Top Up",
+    "topUp": "充值",
     "@topUp": {
         "description": "Top up button text"
     },
-    "history": "History",
+    "history": "历史记录",
     "@history": {
         "description": "History button text"
     },
-    "quickActions": "Quick Actions",
+    "quickActions": "快速操作",
     "@quickActions": {
         "description": "Quick actions section title"
     },
-    "findStore": "Find Store",
+    "findStore": "查找店铺",
     "@findStore": {
         "description": "Find store card title"
     },
-    "findTherapist": "Find Therapist",
+    "findTherapist": "查找治疗师",
     "@findTherapist": {
         "description": "Find therapist card title"
     },
-    "discoverNearestStores": "Discover the nearest massage therapy stores",
+    "discoverNearestStores": "发现最近的按摩治疗店",
     "@discoverNearestStores": {
         "description": "Find store card description"
     },
-    "browseAvailableTherapists": "Browse available therapists and book appointments",
+    "browseAvailableTherapists": "浏览可用的治疗师并预约",
     "@browseAvailableTherapists": {
         "description": "Find therapist card description"
     },
-    "yourAppointments": "Your Appointments",
+    "yourAppointments": "您的预约",
     "@yourAppointments": {
         "description": "Appointments list title"
     },
-    "filter": "Filter",
+    "filter": "筛选",
     "@filter": {
         "description": "Filter button text"
     },
-    "filterOptions": "Filter options coming soon!",
+    "filterOptions": "筛选选项即将推出！",
     "@filterOptions": {
         "description": "Filter snackbar message"
     },
-    "noAppointments": "No appointments for selected date",
+    "noAppointments": "所选日期没有预约",
     "@noAppointments": {
         "description": "Empty appointments message"
     },
-    "appointmentDetails": "Appointment Details",
+    "appointmentDetails": "预约详情",
     "@appointmentDetails": {
         "description": "Appointment details title"
     },
-    "viewDetails": "View details coming soon!",
+    "viewDetails": "查看详情即将推出！",
     "@viewDetails": {
         "description": "View details snackbar message"
     },
-    "confirmed": "CONFIRMED",
+    "confirmed": "已确认",
     "@confirmed": {
         "description": "Confirmed appointment status"
     },
-    "pending": "PENDING",
+    "pending": "待处理",
     "@pending": {
         "description": "Pending appointment status"
     },
-    "cancelled": "CANCELLED",
+    "cancelled": "已取消",
     "@cancelled": {
         "description": "Cancelled appointment status"
     },
-    "logout": "Logout",
+    "logout": "退出登录",
     "@logout": {
         "description": "Logout button text"
     },
-    "settings": "Settings",
+    "settings": "设置",
     "@settings": {
         "description": "Settings section title"
     },
-    "language": "Language",
+    "language": "语言",
     "@language": {
         "description": "Language setting label"
     },
-    "loading": "Loading...",
+    "loading": "加载中...",
     "@loading": {
         "description": "Loading message"
     },
-    "error": "Error",
+    "error": "错误",
     "@error": {
         "description": "Error title"
     },
-    "success": "Success",
+    "success": "成功",
     "@success": {
         "description": "Success title"
     },
-    "loginSuccess": "Login successful!",
+    "loginSuccess": "登录成功！",
     "@loginSuccess": {
         "description": "Login success message"
     },
-    "loginError": "Login failed. Please try again.",
+    "loginError": "登录失败。请重试。",
     "@loginError": {
         "description": "Login error message"
     },
-    "logoutSuccess": "Logged out successfully",
+    "logoutSuccess": "退出登录成功",
     "@logoutSuccess": {
         "description": "Logout success message"
     },
-    "roleError": "Only customers can login to this app",
+    "roleError": "只有客户可以登录此应用",
     "@roleError": {
         "description": "Role validation error message"
     },
-    "accountSettings": "Account Settings",
+    "accountSettings": "账户设置",
     "@accountSettings": {
         "description": "Account settings section title"
     },
-    "preferences": "Preferences",
+    "preferences": "偏好设置",
     "@preferences": {
         "description": "Preferences section title"
     },
-    "support": "Support",
+    "support": "支持",
     "@support": {
         "description": "Support section title"
     },
-    "personalInformation": "Personal Information",
+    "personalInformation": "个人信息",
     "@personalInformation": {
         "description": "Personal information menu"
     },
-    "updatePersonalDetails": "Update your personal details",
+    "updatePersonalDetails": "更新您的个人详细信息",
     "@updatePersonalDetails": {
         "description": "Personal information description"
     },
-    "bookingHistory": "Booking History",
+    "bookingHistory": "预约历史",
     "@bookingHistory": {
         "description": "Booking history menu"
     },
-    "viewPastBookings": "View all your past bookings",
+    "viewPastBookings": "查看您的所有过往预约",
     "@viewPastBookings": {
         "description": "Booking history description"
     },
-    "paymentMethods": "Payment Methods",
+    "paymentMethods": "支付方式",
     "@paymentMethods": {
         "description": "Payment methods menu"
     },
-    "managePaymentOptions": "Manage your payment options",
+    "managePaymentOptions": "管理您的支付选项",
     "@managePaymentOptions": {
         "description": "Payment methods description"
     },
-    "paymentMethodsComingSoon": "Payment methods coming soon!",
+    "paymentMethodsComingSoon": "支付方式即将推出！",
     "@paymentMethodsComingSoon": {
         "description": "Payment methods snackbar"
     },
-    "notifications": "Notifications",
+    "notifications": "通知",
     "@notifications": {
         "description": "Notifications menu"
     },
-    "manageNotifications": "Manage notification settings",
+    "manageNotifications": "管理通知设置",
     "@manageNotifications": {
         "description": "Notifications description"
     },
-    "notificationsComingSoon": "Notification settings coming soon!",
+    "notificationsComingSoon": "通知设置即将推出！",
     "@notificationsComingSoon": {
         "description": "Notifications snackbar"
     },
-    "changeLanguage": "Change language",
+    "changeLanguage": "更改语言",
     "@changeLanguage": {
         "description": "Language description"
     },
-    "helpCenter": "Help Center",
+    "helpCenter": "帮助中心",
     "@helpCenter": {
         "description": "Help center menu"
     },
-    "getHelpWithIssues": "Get help with any issues",
+    "getHelpWithIssues": "获取任何问题的帮助",
     "@getHelpWithIssues": {
         "description": "Help center description"
     },
-    "helpCenterComingSoon": "Help center coming soon!",
+    "helpCenterComingSoon": "帮助中心即将推出！",
     "@helpCenterComingSoon": {
         "description": "Help center snackbar"
     },
-    "contactSupport": "Contact Support",
+    "contactSupport": "联系支持",
     "@contactSupport": {
         "description": "Contact support menu"
     },
-    "reachSupportTeam": "Reach out to our support team",
+    "reachSupportTeam": "联系我们的支持团队",
     "@reachSupportTeam": {
         "description": "Contact support description"
     },
-    "termsAndPrivacy": "Terms & Privacy",
+    "termsAndPrivacy": "条款与隐私",
     "@termsAndPrivacy": {
         "description": "Terms and privacy menu"
     },
-    "readTermsAndPrivacy": "Read our terms and privacy policy",
+    "readTermsAndPrivacy": "阅读我们的条款和隐私政策",
     "@readTermsAndPrivacy": {
         "description": "Terms and privacy description"
     },
-    "termsComingSoon": "Terms and privacy policy coming soon!",
+    "termsComingSoon": "条款和隐私政策即将推出！",
     "@termsComingSoon": {
         "description": "Terms snackbar"
     },
-    "totalBookings": "Total Bookings",
+    "totalBookings": "总预约数",
     "@totalBookings": {
         "description": "Total bookings label"
     },
-    "completed": "Completed",
+    "completed": "已完成",
     "@completed": {
         "description": "Completed label"
     },
-    "rating": "Rating",
+    "rating": "评分",
     "@rating": {
         "description": "Rating label"
     },
-    "loyaltyPoints": "Loyalty Points",
+    "loyaltyPoints": "积分",
     "@loyaltyPoints": {
         "description": "Loyalty points title"
     },
-    "earnRewards": "Earn rewards with every booking",
+    "earnRewards": "每次预约都能获得奖励",
     "@earnRewards": {
         "description": "Earn rewards description"
     },
-    "balance": "Balance",
+    "balance": "余额",
     "@balance": {
         "description": "Balance label"
     },
-    "earned": "Earned",
+    "earned": "已获得",
     "@earned": {
         "description": "Earned label"
     },
-    "redeemed": "Redeemed",
+    "redeemed": "已兑换",
     "@redeemed": {
         "description": "Redeemed label"
     },
-    "referralCode": "Referral Code",
+    "referralCode": "推荐码",
     "@referralCode": {
         "description": "Referral code title"
     },
-    "successful": "successful",
+    "successful": "成功",
     "@successful": {
         "description": "Successful label"
     },
-    "copied": "Copied!",
+    "copied": "已复制！",
     "@copied": {
         "description": "Copied title"
     },
-    "referralCodeCopied": "Referral code copied to clipboard",
+    "referralCodeCopied": "推荐码已复制到剪贴板",
     "@referralCodeCopied": {
         "description": "Referral code copied message"
     },
-    "tierDiscount": "Tier Discount",
+    "tierDiscount": "等级折扣",
     "@tierDiscount": {
         "description": "Tier discount label"
     },
-    "referralEarnings": "Referral Earnings",
+    "referralEarnings": "推荐收益",
     "@referralEarnings": {
         "description": "Referral earnings label"
     },
-    "version": "Version",
+    "version": "版本",
     "@version": {
         "description": "Version label"
     },
-    "selectLanguage": "Select Language",
+    "selectLanguage": "选择语言",
     "@selectLanguage": {
         "description": "Select language dialog title"
     },
@@ -320,7 +320,7 @@
     "@chinese": {
         "description": "Chinese language option"
     },
-    "languageChanged": "Language changed to {language}",
+    "languageChanged": "语言已更改为 {language}",
     "@languageChanged": {
         "description": "Language changed message",
         "placeholders": {
@@ -329,7 +329,7 @@
             }
         }
     },
-    "cancel": "Cancel",
+    "cancel": "取消",
     "@cancel": {
         "description": "Cancel button"
     }

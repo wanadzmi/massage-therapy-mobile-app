@@ -8,6 +8,9 @@ class User {
   final bool? isEmailVerified;
   final String? memberTier;
   final DateTime? memberSince;
+  final DateTime? dateOfBirth;
+  final String? gender;
+  final EmergencyContact? emergencyContact;
   final Wallet? wallet;
   final LoyaltyPoints? loyaltyPoints;
   final Referral? referral;
@@ -29,6 +32,9 @@ class User {
     this.isEmailVerified,
     this.memberTier,
     this.memberSince,
+    this.dateOfBirth,
+    this.gender,
+    this.emergencyContact,
     this.wallet,
     this.loyaltyPoints,
     this.referral,
@@ -53,6 +59,13 @@ class User {
       memberTier: json['memberTier'],
       memberSince: json['memberSince'] != null
           ? DateTime.parse(json['memberSince'])
+          : null,
+      dateOfBirth: json['dateOfBirth'] != null
+          ? DateTime.parse(json['dateOfBirth'])
+          : null,
+      gender: json['gender'],
+      emergencyContact: json['emergencyContact'] != null
+          ? EmergencyContact.fromJson(json['emergencyContact'])
           : null,
       wallet: json['wallet'] != null ? Wallet.fromJson(json['wallet']) : null,
       loyaltyPoints: json['loyaltyPoints'] != null
@@ -98,6 +111,11 @@ class User {
       'isEmailVerified': isEmailVerified,
       'memberTier': memberTier,
       'memberSince': memberSince?.toIso8601String(),
+      'dateOfBirth': dateOfBirth != null
+          ? dateOfBirth!.toIso8601String().split('T')[0]
+          : null,
+      'gender': gender,
+      'emergencyContact': emergencyContact?.toJson(),
       'wallet': wallet?.toJson(),
       'loyaltyPoints': loyaltyPoints?.toJson(),
       'referral': referral?.toJson(),
@@ -121,6 +139,9 @@ class User {
     bool? isEmailVerified,
     String? memberTier,
     DateTime? memberSince,
+    DateTime? dateOfBirth,
+    String? gender,
+    EmergencyContact? emergencyContact,
     Wallet? wallet,
     LoyaltyPoints? loyaltyPoints,
     Referral? referral,
@@ -142,6 +163,9 @@ class User {
       isEmailVerified: isEmailVerified ?? this.isEmailVerified,
       memberTier: memberTier ?? this.memberTier,
       memberSince: memberSince ?? this.memberSince,
+      dateOfBirth: dateOfBirth ?? this.dateOfBirth,
+      gender: gender ?? this.gender,
+      emergencyContact: emergencyContact ?? this.emergencyContact,
       wallet: wallet ?? this.wallet,
       loyaltyPoints: loyaltyPoints ?? this.loyaltyPoints,
       referral: referral ?? this.referral,
@@ -389,5 +413,25 @@ class BookingStats {
       'totalSpent': totalSpent,
       'averageRating': averageRating,
     };
+  }
+}
+
+class EmergencyContact {
+  final String? name;
+  final String? phone;
+  final String? relationship;
+
+  EmergencyContact({this.name, this.phone, this.relationship});
+
+  factory EmergencyContact.fromJson(Map<String, dynamic> json) {
+    return EmergencyContact(
+      name: json['name'],
+      phone: json['phone'],
+      relationship: json['relationship'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'name': name, 'phone': phone, 'relationship': relationship};
   }
 }

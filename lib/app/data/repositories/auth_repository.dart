@@ -50,11 +50,19 @@ class AuthRepository {
     String? name,
     String? email,
     String? phone,
+    DateTime? dateOfBirth,
+    String? gender,
+    Map<String, dynamic>? address,
+    Map<String, dynamic>? emergencyContact,
   }) async {
     return await _authService.updateProfile(
       name: name,
       email: email,
       phone: phone,
+      dateOfBirth: dateOfBirth,
+      gender: gender,
+      address: address,
+      emergencyContact: emergencyContact,
     );
   }
 
