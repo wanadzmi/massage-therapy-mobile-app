@@ -216,24 +216,7 @@ class LoginView extends GetView<LoginController> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        // Remember Me
-        Obx(
-          () => Row(
-            children: [
-              Checkbox(
-                value: controller.rememberMe,
-                onChanged: controller.toggleRememberMe,
-                visualDensity: VisualDensity.compact,
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              ),
-              const Text(
-                'Remember me',
-                style: TextStyle(fontSize: 14, color: Color(0xFFB0B0B0)),
-              ),
-            ],
-          ),
-        ),
-
+        Container(),
         // Forgot Password
         TextButton(
           onPressed: controller.navigateToForgotPassword,

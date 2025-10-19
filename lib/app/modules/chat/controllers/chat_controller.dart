@@ -50,9 +50,7 @@ class ChatController extends GetxController {
     // Get chat socket service
     try {
       _socketService = Get.find<ChatSocketService>();
-      print('✅ ChatSocketService found and ready');
     } catch (e) {
-      print('⚠️ ChatSocketService not found: $e');
       // Will be initialized by ChatBinding, give it a moment
       // Listeners will be set up in _joinChatWhenReady()
     }
@@ -82,14 +80,12 @@ class ChatController extends GetxController {
 
     // Check if already connected
     if (_socketService!.isConnected) {
-      print('✅ Socket already connected, joining chat...');
       _socketService?.joinChat(chatId!);
       _setupSocketListeners();
       return;
     }
 
     // Wait for connection (max 10 seconds)
-    print('⏳ Waiting for socket to connect...');
     int attempts = 0;
     const maxAttempts = 20; // 20 attempts × 500ms = 10 seconds
 
@@ -97,7 +93,6 @@ class ChatController extends GetxController {
       await Future.delayed(const Duration(milliseconds: 500));
 
       if (_socketService?.isConnected == true) {
-        print('✅ Socket connected after ${attempts * 500}ms, joining chat...');
         _socketService?.joinChat(chatId!);
         _setupSocketListeners();
         return;
@@ -105,23 +100,18 @@ class ChatController extends GetxController {
 
       attempts++;
     }
-
-    print('⚠️ Socket connection timeout after ${maxAttempts * 500}ms');
   }
 
   void _setupSocketListeners() {
     if (_socketService == null) {
-      print('⚠️ Cannot setup socket listeners: socket service is null');
       return;
     }
 
     // Prevent setting up listeners multiple times
     if (_listenersSetup) {
-      print('⚠️ Listeners already setup, skipping (flag=$_listenersSetup)');
       return;
     }
 
-    print('🔗 Setting up socket listeners for chat $chatId...');
     _listenersSetup = true;
 
     // Dispose old workers first (in case they exist from previous navigation)
@@ -135,10 +125,6 @@ class ChatController extends GetxController {
     _newMessageWorker = ever(_socketService!.newMessage, (
       ChatMessage? message,
     ) {
-      print('📬 Worker triggered - Message: ${message?.content?.text}');
-      print('   Sender ID: ${message?.sender?.id}');
-      print('   Current User ID: $currentUserId');
-
       // Match against both chatId (CHT format) and chat.id (MongoDB _id)
       final matchesChatId = message?.chat == chatId;
       final matchesMongoId = message?.chat == _chat.value?.id;
@@ -146,10 +132,8 @@ class ChatController extends GetxController {
       if (message != null && (matchesChatId || matchesMongoId)) {
         // Skip messages from current user (already handled optimistically)
         final isOwnMessage = message.sender?.id == currentUserId;
-        print('   Is own message: $isOwnMessage');
 
         if (isOwnMessage) {
-          print('⏭️ Skipping own message from WebSocket: ${message.id}');
           return;
         }
 
@@ -284,9 +268,7 @@ class ChatController extends GetxController {
     if (chatId != null) {
       try {
         _socketService?.sendTyping(chatId!, isTyping);
-      } catch (e) {
-        print('⚠️ Failed to send typing indicator: $e');
-      }
+      } catch (e) {}
     }
   }
 
@@ -443,13 +425,8 @@ class ChatController extends GetxController {
     );
 
     if (!exists) {
-      final text = message.content?.text ?? '';
-      final preview = text.length > 20 ? text.substring(0, 20) : text;
-      print('➕ Adding message: $preview... (total: ${_messages.length + 1})');
       _messages.insert(0, message); // Insert at beginning (newest first)
-    } else {
-      print('⚠️ Duplicate message detected, skipping: ${message.id}');
-    }
+    } else {}
   }
 
   void _scrollToBottom() {
@@ -644,9 +621,7 @@ class ChatController extends GetxController {
     if (chatId != null) {
       try {
         _socketService?.leaveChat(chatId!);
-      } catch (e) {
-        print('⚠️ Failed to leave chat room: $e');
-      }
+      } catch (e) {}
     }
 
     // Stop typing indicator
