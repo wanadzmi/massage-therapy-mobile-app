@@ -425,7 +425,7 @@ class FindStoreView extends GetView<FindStoreController> {
                           border: Border.all(color: const Color(0xFF2A2A2A)),
                         ),
                         child: Text(
-                          '${store.serviceCount ?? 0} services',
+                          '${store.services?.length ?? 0} ${(store.services?.length ?? 0) == 1 ? "service" : "services"}',
                           style: const TextStyle(
                             fontSize: 11,
                             color: Color(0xFF808080),

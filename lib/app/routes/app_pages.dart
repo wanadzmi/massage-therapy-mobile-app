@@ -28,6 +28,8 @@ import '../modules/wallet_topup/bindings/wallet_topup_binding.dart';
 import '../modules/wallet_topup/views/wallet_topup_view.dart';
 import '../modules/transaction_history/bindings/transaction_history_binding.dart';
 import '../modules/transaction_history/views/transaction_history_view.dart';
+import '../modules/chat/bindings/chat_binding.dart';
+import '../modules/chat/views/chat_view.dart';
 
 part 'app_routes.dart';
 
@@ -111,6 +113,11 @@ class AppPages {
       name: _Paths.TRANSACTION_HISTORY,
       page: () => const TransactionHistoryView(),
       binding: TransactionHistoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHAT,
+      page: () => const ChatView(),
+      binding: ChatBinding(),
     ),
   ];
 }

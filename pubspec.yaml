@@ -41,6 +41,7 @@ dependencies:
   table_calendar: ^3.1.2
   url_launcher: ^6.3.1
   intl_phone_field: ^3.2.0
+  socket_io_client: ^2.0.3+1
   flutter_localizations:
     sdk: flutter
 

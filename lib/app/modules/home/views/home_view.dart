@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import '../../../../l10n/app_localizations.dart';
 
 import '../controllers/home_controller.dart';
+import '../../chat/views/chat_list_view.dart';
+import '../../chat/bindings/chat_list_binding.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
@@ -16,6 +18,28 @@ class HomeView extends GetView<HomeController> {
         elevation: 0,
 
         actions: [
+          // Chat Button
+          IconButton(
+            icon: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: const Color(0xFF1A1A1A),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: const Color(0xFF2A2A2A)),
+              ),
+              child: const Icon(
+                Icons.chat_bubble_outline,
+                color: Color(0xFFD4AF37),
+                size: 20,
+              ),
+            ),
+            onPressed: () {
+              // Navigate to chat list
+              Get.to(() => const ChatListView(), binding: ChatListBinding());
+            },
+          ),
+          const SizedBox(width: 8),
+          // Notification Button
           IconButton(
             icon: Container(
               padding: const EdgeInsets.all(8),
@@ -32,8 +56,8 @@ class HomeView extends GetView<HomeController> {
             ),
             onPressed: () {
               Get.snackbar(
-                'Menu',
-                'Menu options',
+                'Notifications',
+                'No new notifications',
                 snackPosition: SnackPosition.BOTTOM,
                 backgroundColor: const Color(0xFF1E1E1E),
                 colorText: const Color(0xFFE0E0E0),
