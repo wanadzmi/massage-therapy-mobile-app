@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../data/services/auth_service.dart';
 import '../../../data/models/user_model.dart';
+import '../../main_navigation/main_navigation_view.dart';
+import '../../main_navigation/main_navigation_binding.dart';
 
 class OTPVerificationController extends GetxController {
   final AuthService _authService = AuthService();
@@ -236,9 +238,12 @@ class OTPVerificationController extends GetxController {
         duration: const Duration(seconds: 2),
       );
 
-      // Navigate to home
+      // Navigate to home with bottom nav
       await Future.delayed(const Duration(seconds: 2));
-      Get.offAllNamed('/home');
+      Get.offAll(
+        () => const MainNavigationView(),
+        binding: MainNavigationBinding(),
+      );
     } else {
       print('❌ OTP verification failed: ${response.error}');
 
