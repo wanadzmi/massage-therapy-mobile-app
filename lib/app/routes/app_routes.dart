@@ -23,6 +23,7 @@ abstract class Routes {
   static const MY_REVIEWS = _Paths.MY_REVIEWS;
   static const TIER_SUBSCRIPTION = _Paths.TIER_SUBSCRIPTION;
   static const TIER_DETAIL = _Paths.TIER_DETAIL;
+  static const THERAPIST_HOME = _Paths.THERAPIST_HOME;
 }
 
 abstract class _Paths {
@@ -48,4 +49,5 @@ abstract class _Paths {
   static const MY_REVIEWS = '/my-reviews';
   static const TIER_SUBSCRIPTION = '/tier-subscription';
   static const TIER_DETAIL = '/tier-detail';
+  static const THERAPIST_HOME = '/therapist-home';
 }

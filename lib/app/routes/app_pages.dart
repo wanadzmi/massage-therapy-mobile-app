@@ -37,6 +37,8 @@ import '../modules/tier_subscription/bindings/tier_subscription_binding.dart';
 import '../modules/tier_subscription/bindings/tier_detail_binding.dart';
 import '../modules/tier_subscription/views/tier_subscription_view.dart';
 import '../modules/tier_subscription/views/tier_detail_view.dart';
+import '../modules/therapist_home/bindings/therapist_home_binding.dart';
+import '../modules/therapist_home/views/therapist_home_view.dart';
 
 part 'app_routes.dart';
 
@@ -145,6 +147,11 @@ class AppPages {
       name: _Paths.TIER_DETAIL,
       page: () => const TierDetailView(),
       binding: TierDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.THERAPIST_HOME,
+      page: () => const TherapistHomeView(),
+      binding: TherapistHomeBinding(),
     ),
   ];
 }

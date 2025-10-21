@@ -37,8 +37,8 @@ class LoginController extends GetxController {
   void onInit() {
     super.onInit();
     // Prefill for testing
-    emailController.text = 'customer4@email.com';
-    passwordController.text = 'password123';
+    // emailController.text = 'customer4@email.com';
+    // passwordController.text = 'password123';
     _setupValidation();
   }
 
@@ -118,11 +118,17 @@ class LoginController extends GetxController {
           await _storeUserCredentials();
         }
 
-        // Navigate to home with bottom navigation
-        Get.off(
-          () => const MainNavigationView(),
-          binding: MainNavigationBinding(),
-        );
+        // Navigate based on user role
+        if (user.role == 'therapist') {
+          // Navigate to therapist home
+          Get.offAllNamed('/therapist-home');
+        } else {
+          // Navigate to customer home with bottom navigation
+          Get.off(
+            () => const MainNavigationView(),
+            binding: MainNavigationBinding(),
+          );
+        }
       } else {
         _handleLoginError(response.error);
       }

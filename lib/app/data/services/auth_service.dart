@@ -37,10 +37,10 @@ class AuthService extends BaseServices {
 
         final user = User.fromJson(userData);
 
-        // Check if user role is customer
-        if (user.role != 'customer') {
+        // Allow both customers and therapists to login
+        if (user.role != 'customer' && user.role != 'therapist') {
           return MyResponse.error(
-            'Only customers are allowed to login through this app',
+            'Only customers and therapists are allowed to login through this app',
           );
         }
 

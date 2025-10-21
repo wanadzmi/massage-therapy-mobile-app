@@ -1,7 +1,9 @@
 class Booking {
   final String? id;
   final String? bookingCode;
-  final String? user;
+  final String? user; // User ID
+  final String? userName; // User name (when user object is populated)
+  final String? userPhone; // User phone (when user object is populated)
   final BookingTherapist? therapist;
   final BookingService? service;
   final BookingStore? store;
@@ -25,6 +27,8 @@ class Booking {
     this.id,
     this.bookingCode,
     this.user,
+    this.userName,
+    this.userPhone,
     this.therapist,
     this.service,
     this.store,
@@ -46,49 +50,72 @@ class Booking {
   });
 
   factory Booking.fromJson(Map<String, dynamic> json) {
+    // Handle user field - can be either String (ID) or Map (user object)
+    String? userId;
+    String? userName;
+    String? userPhone;
+
+    if (json['user'] != null) {
+      if (json['user'] is String) {
+        userId = json['user'];
+      } else if (json['user'] is Map) {
+        final userMap = json['user'] as Map<String, dynamic>;
+        userId = userMap['_id'] ?? userMap['id'];
+        userName = userMap['name'];
+        userPhone = userMap['phone'];
+      }
+    }
+
     return Booking(
       id: json['_id'] ?? json['id'],
       bookingCode: json['bookingCode'],
-      user: json['user'],
-      therapist: json['therapist'] != null
-          ? BookingTherapist.fromJson(json['therapist'])
+      user: userId,
+      userName: userName,
+      userPhone: userPhone,
+      therapist: json['therapist'] != null && json['therapist'] is Map
+          ? BookingTherapist.fromJson(json['therapist'] as Map<String, dynamic>)
           : null,
-      service: json['service'] != null
-          ? BookingService.fromJson(json['service'])
+      service: json['service'] != null && json['service'] is Map
+          ? BookingService.fromJson(json['service'] as Map<String, dynamic>)
           : null,
-      store: json['store'] != null
-          ? BookingStore.fromJson(json['store'])
+      store: json['store'] != null && json['store'] is Map
+          ? BookingStore.fromJson(json['store'] as Map<String, dynamic>)
           : null,
       date: json['date'] != null ? DateTime.parse(json['date']) : null,
       startTime: json['startTime'],
       endTime: json['endTime'],
       status: json['status'],
-      duration: json['duration'] != null
-          ? BookingDuration.fromJson(json['duration'])
+      duration: json['duration'] != null && json['duration'] is Map
+          ? BookingDuration.fromJson(json['duration'] as Map<String, dynamic>)
           : null,
-      pricing: json['pricing'] != null
-          ? BookingPricing.fromJson(json['pricing'])
+      pricing: json['pricing'] != null && json['pricing'] is Map
+          ? BookingPricing.fromJson(json['pricing'] as Map<String, dynamic>)
           : null,
-      payment: json['payment'] != null
-          ? BookingPayment.fromJson(json['payment'])
+      payment: json['payment'] != null && json['payment'] is Map
+          ? BookingPayment.fromJson(json['payment'] as Map<String, dynamic>)
           : null,
-      notes: json['notes'] != null
-          ? BookingNotes.fromJson(json['notes'])
+      notes: json['notes'] != null && json['notes'] is Map
+          ? BookingNotes.fromJson(json['notes'] as Map<String, dynamic>)
           : null,
-      rescheduleData: json['rescheduleData'] != null
-          ? BookingRescheduleData.fromJson(json['rescheduleData'])
+      rescheduleData:
+          json['rescheduleData'] != null && json['rescheduleData'] is Map
+          ? BookingRescheduleData.fromJson(
+              json['rescheduleData'] as Map<String, dynamic>,
+            )
           : null,
-      cancellation: json['cancellation'] != null
-          ? BookingCancellation.fromJson(json['cancellation'])
+      cancellation: json['cancellation'] != null && json['cancellation'] is Map
+          ? BookingCancellation.fromJson(
+              json['cancellation'] as Map<String, dynamic>,
+            )
           : null,
-      checkin: json['checkin'] != null
-          ? BookingCheckin.fromJson(json['checkin'])
+      checkin: json['checkin'] != null && json['checkin'] is Map
+          ? BookingCheckin.fromJson(json['checkin'] as Map<String, dynamic>)
           : null,
-      checkout: json['checkout'] != null
-          ? BookingCheckout.fromJson(json['checkout'])
+      checkout: json['checkout'] != null && json['checkout'] is Map
+          ? BookingCheckout.fromJson(json['checkout'] as Map<String, dynamic>)
           : null,
-      reminders: json['reminders'] != null
-          ? BookingReminders.fromJson(json['reminders'])
+      reminders: json['reminders'] != null && json['reminders'] is Map
+          ? BookingReminders.fromJson(json['reminders'] as Map<String, dynamic>)
           : null,
       createdAt: json['createdAt'] != null
           ? DateTime.parse(json['createdAt'])
@@ -394,11 +421,19 @@ class StoreAddress {
   });
 
   factory StoreAddress.fromJson(Map<String, dynamic> json) {
+    // Handle city, area, state - can be String (ID) or Map (populated object)
+    String? getStringValue(dynamic value) {
+      if (value == null) return null;
+      if (value is String) return value;
+      if (value is Map) return value['_id'] ?? value['id'] ?? value['name'];
+      return value.toString();
+    }
+
     return StoreAddress(
       street: json['street'],
-      area: json['area'],
-      city: json['city'],
-      state: json['state'],
+      area: getStringValue(json['area']),
+      city: getStringValue(json['city']),
+      state: getStringValue(json['state']),
       postcode: json['postcode'],
       country: json['country'],
     );
@@ -424,6 +459,7 @@ class BookingPricing {
   final double? loyaltyPointsValue;
   final double? totalAmount;
   final int? loyaltyPointsEarned;
+  final double? cashback;
 
   BookingPricing({
     this.servicePrice,
@@ -433,6 +469,7 @@ class BookingPricing {
     this.loyaltyPointsValue,
     this.totalAmount,
     this.loyaltyPointsEarned,
+    this.cashback,
   });
 
   factory BookingPricing.fromJson(Map<String, dynamic> json) {
@@ -444,6 +481,7 @@ class BookingPricing {
       loyaltyPointsValue: json['loyaltyPointsValue']?.toDouble(),
       totalAmount: json['totalAmount']?.toDouble(),
       loyaltyPointsEarned: json['loyaltyPointsEarned'],
+      cashback: json['cashback']?.toDouble(),
     );
   }
 
@@ -456,6 +494,7 @@ class BookingPricing {
       'loyaltyPointsValue': loyaltyPointsValue,
       'totalAmount': totalAmount,
       'loyaltyPointsEarned': loyaltyPointsEarned,
+      'cashback': cashback,
     };
   }
 }

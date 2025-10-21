@@ -37,17 +37,22 @@ class SplashController extends GetxController {
             final user = profileResponse.data!;
             print('👤 User role: ${user.role}');
 
-            // Check if user is a customer
+            // Navigate based on user role
             if (user.role == 'customer') {
-              // Navigate to home if authenticated customer
-              print('✅ Navigating to home');
+              // Navigate to customer home
+              print('✅ Navigating to customer home');
               Get.off(
                 () => const MainNavigationView(),
                 binding: MainNavigationBinding(),
               );
               return;
+            } else if (user.role == 'therapist') {
+              // Navigate to therapist home
+              print('✅ Navigating to therapist home');
+              Get.offAllNamed('/therapist-home');
+              return;
             } else {
-              print('❌ User is not a customer, role: ${user.role}');
+              print('❌ User role not supported: ${user.role}');
             }
           } else {
             print('❌ Profile response failed: ${profileResponse.error}');
