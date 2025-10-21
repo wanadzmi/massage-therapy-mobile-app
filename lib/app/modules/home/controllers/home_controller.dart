@@ -41,6 +41,11 @@ class HomeController extends GetxController {
     }
   }
 
+  /// Public refresh method that can be called from other screens
+  Future<void> refresh() async {
+    await loadUserData();
+  }
+
   @override
   void onReady() {
     super.onReady();

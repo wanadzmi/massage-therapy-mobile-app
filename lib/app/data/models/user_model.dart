@@ -206,8 +206,8 @@ class TierBenefits {
 
   factory TierBenefits.fromJson(Map<String, dynamic> json) {
     return TierBenefits(
-      discount: json['discount'],
-      pointsMultiplier: json['pointsMultiplier'],
+      discount: json['discount']?.toInt(),
+      pointsMultiplier: json['pointsMultiplier']?.toInt(),
     );
   }
 
@@ -225,9 +225,9 @@ class LoyaltyPoints {
 
   factory LoyaltyPoints.fromJson(Map<String, dynamic> json) {
     return LoyaltyPoints(
-      balance: json['balance'],
-      totalEarned: json['totalEarned'],
-      totalRedeemed: json['totalRedeemed'],
+      balance: json['balance']?.toInt(),
+      totalEarned: json['totalEarned']?.toInt(),
+      totalRedeemed: json['totalRedeemed']?.toInt(),
     );
   }
 
@@ -259,8 +259,8 @@ class Referral {
     return Referral(
       code: json['code'],
       isActive: json['isActive'],
-      totalReferrals: json['totalReferrals'],
-      successfulReferrals: json['successfulReferrals'],
+      totalReferrals: json['totalReferrals']?.toInt(),
+      successfulReferrals: json['successfulReferrals']?.toInt(),
       referralEarnings: json['referralEarnings']?.toDouble(),
     );
   }
@@ -397,9 +397,9 @@ class BookingStats {
 
   factory BookingStats.fromJson(Map<String, dynamic> json) {
     return BookingStats(
-      totalBookings: json['totalBookings'],
-      completedBookings: json['completedBookings'],
-      cancelledBookings: json['cancelledBookings'],
+      totalBookings: json['totalBookings']?.toInt(),
+      completedBookings: json['completedBookings']?.toInt(),
+      cancelledBookings: json['cancelledBookings']?.toInt(),
       totalSpent: json['totalSpent']?.toDouble(),
       averageRating: json['averageRating']?.toDouble(),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {
@@ -67,57 +68,16 @@ class ProfileView extends GetView<ProfileController> {
                     // Wallet & Loyalty Points
                     _buildWalletCard(context),
                     const SizedBox(height: 12),
+                    _buildTierSubscriptionCard(context),
+                    const SizedBox(height: 12),
                     _buildLoyaltyCard(context),
+                    const SizedBox(height: 12),
+                    _buildMyReviewsCard(context),
 
                     const SizedBox(height: 16),
 
                     // Referral Card
                     _buildReferralCard(context),
-
-                    const SizedBox(height: 32),
-
-                    Text(
-                      AppLocalizations.of(context)!.accountSettings,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF808080),
-                        letterSpacing: 0.5,
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-
-                    // Account Options
-                    _buildMenuOption(
-                      AppLocalizations.of(context)!.personalInformation,
-                      AppLocalizations.of(context)!.updatePersonalDetails,
-                      Icons.person_outline,
-                      () => controller.editProfile(),
-                    ),
-                    const SizedBox(height: 12),
-                    _buildMenuOption(
-                      AppLocalizations.of(context)!.bookingHistory,
-                      AppLocalizations.of(context)!.viewPastBookings,
-                      Icons.receipt_long_outlined,
-                      () => controller.viewBookingHistory(),
-                    ),
-                    const SizedBox(height: 12),
-                    _buildMenuOption(
-                      AppLocalizations.of(context)!.paymentMethods,
-                      AppLocalizations.of(context)!.managePaymentOptions,
-                      Icons.credit_card_outlined,
-                      () {
-                        Get.snackbar(
-                          AppLocalizations.of(context)!.paymentMethods,
-                          AppLocalizations.of(
-                            context,
-                          )!.paymentMethodsComingSoon,
-                          snackPosition: SnackPosition.BOTTOM,
-                          backgroundColor: const Color(0xFF1E1E1E),
-                          colorText: const Color(0xFFE0E0E0),
-                        );
-                      },
-                    ),
 
                     const SizedBox(height: 32),
 
@@ -132,21 +92,6 @@ class ProfileView extends GetView<ProfileController> {
                     ),
                     const SizedBox(height: 16),
 
-                    _buildMenuOption(
-                      AppLocalizations.of(context)!.notifications,
-                      AppLocalizations.of(context)!.manageNotifications,
-                      Icons.notifications_outlined,
-                      () {
-                        Get.snackbar(
-                          AppLocalizations.of(context)!.notifications,
-                          AppLocalizations.of(context)!.notificationsComingSoon,
-                          snackPosition: SnackPosition.BOTTOM,
-                          backgroundColor: const Color(0xFF1E1E1E),
-                          colorText: const Color(0xFFE0E0E0),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 12),
                     _buildMenuOption(
                       AppLocalizations.of(context)!.language,
                       _getLanguageName(controller.language),
@@ -167,37 +112,6 @@ class ProfileView extends GetView<ProfileController> {
                     ),
                     const SizedBox(height: 16),
 
-                    _buildMenuOption(
-                      AppLocalizations.of(context)!.helpCenter,
-                      AppLocalizations.of(context)!.getHelpWithIssues,
-                      Icons.help_outline,
-                      () {
-                        Get.snackbar(
-                          AppLocalizations.of(context)!.helpCenter,
-                          AppLocalizations.of(context)!.helpCenterComingSoon,
-                          snackPosition: SnackPosition.BOTTOM,
-                          backgroundColor: const Color(0xFF1E1E1E),
-                          colorText: const Color(0xFFE0E0E0),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 12),
-                    _buildMenuOption(
-                      AppLocalizations.of(context)!.contactSupport,
-                      AppLocalizations.of(context)!.reachSupportTeam,
-                      Icons.headset_mic_outlined,
-                      () {
-                        Get.snackbar(
-                          AppLocalizations.of(context)!.contactSupport,
-                          'Email: support@therapymassage.com\nPhone: +60 3 1234 5678',
-                          snackPosition: SnackPosition.BOTTOM,
-                          backgroundColor: const Color(0xFF1E1E1E),
-                          colorText: const Color(0xFFE0E0E0),
-                          duration: const Duration(seconds: 4),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 12),
                     _buildMenuOption(
                       AppLocalizations.of(context)!.termsAndPrivacy,
                       AppLocalizations.of(context)!.readTermsAndPrivacy,
@@ -450,7 +364,14 @@ class ProfileView extends GetView<ProfileController> {
   Widget _buildWalletCard(BuildContext context) {
     return Obx(
       () => GestureDetector(
-        onTap: () => Get.toNamed('/wallet-topup'),
+        onTap: () async {
+          // Navigate to wallet top-up and refresh on return
+          final result = await Get.toNamed('/wallet-topup');
+          // Refresh profile if top-up was successful
+          if (result != null && result['success'] == true) {
+            controller.refresh();
+          }
+        },
         child: Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
@@ -675,6 +596,178 @@ class ProfileView extends GetView<ProfileController> {
                   ),
                 ),
               ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTierSubscriptionCard(BuildContext context) {
+    return Obx(
+      () => GestureDetector(
+        onTap: () async {
+          // Navigate to tier subscription and refresh on return
+          await Get.toNamed('/tier-subscription');
+          // Refresh profile data when coming back
+          controller.refresh();
+        },
+        child: Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                _getTierColor(controller.memberTier).withOpacity(0.2),
+                const Color(0xFF1A1A1A),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: _getTierColor(controller.memberTier).withOpacity(0.3),
+              width: 1.5,
+            ),
+          ),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: _getTierColor(controller.memberTier).withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(
+                  Icons.workspace_premium,
+                  color: _getTierColor(controller.memberTier),
+                  size: 24,
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Membership Tier',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Color(0xFF808080),
+                        letterSpacing: 0.3,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Row(
+                      children: [
+                        Text(
+                          controller.memberTier.toUpperCase(),
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                            color: _getTierColor(controller.memberTier),
+                            letterSpacing: 0.5,
+                          ),
+                        ),
+                        if (controller.memberTier.toLowerCase() !=
+                            'normal') ...[
+                          const SizedBox(width: 8),
+                          const Icon(
+                            Icons.star,
+                            color: Color(0xFFD4AF37),
+                            size: 18,
+                          ),
+                        ],
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
+                decoration: BoxDecoration(
+                  color: _getTierColor(controller.memberTier),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.upgrade,
+                      size: 14,
+                      color: Color(0xFF000000),
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      controller.memberTier.toLowerCase() == 'normal'
+                          ? 'Upgrade'
+                          : 'Manage',
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF000000),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMyReviewsCard(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Get.toNamed(Routes.MY_REVIEWS),
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: const Color(0xFF1A1A1A),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: const Color(0xFF2A2A2A), width: 1),
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: const Color(0xFFD4AF37).withOpacity(0.15),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Icon(
+                Icons.rate_review,
+                color: Color(0xFFD4AF37),
+                size: 20,
+              ),
+            ),
+            const SizedBox(width: 12),
+            const Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'My Reviews',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFFE0E0E0),
+                    ),
+                  ),
+                  SizedBox(height: 2),
+                  Text(
+                    'View your past reviews',
+                    style: TextStyle(fontSize: 12, color: Color(0xFF808080)),
+                  ),
+                ],
+              ),
+            ),
+            const Icon(
+              Icons.arrow_forward_ios,
+              color: Color(0xFF808080),
+              size: 16,
             ),
           ],
         ),

@@ -80,6 +80,11 @@ class ProfileController extends GetxController {
     loadUserProfile();
   }
 
+  /// Public refresh method that can be called from other screens
+  Future<void> refresh() async {
+    await loadUserProfile();
+  }
+
   /// Load saved language from SharedPreferences
   void _loadSavedLanguage() {
     final savedLocale = _localeService.getSavedLocaleCode();

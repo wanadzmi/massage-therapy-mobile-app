@@ -19,6 +19,10 @@ abstract class Routes {
   static const WALLET_TOPUP = _Paths.WALLET_TOPUP;
   static const TRANSACTION_HISTORY = _Paths.TRANSACTION_HISTORY;
   static const CHAT = _Paths.CHAT;
+  static const WRITE_REVIEW = _Paths.WRITE_REVIEW;
+  static const MY_REVIEWS = _Paths.MY_REVIEWS;
+  static const TIER_SUBSCRIPTION = _Paths.TIER_SUBSCRIPTION;
+  static const TIER_DETAIL = _Paths.TIER_DETAIL;
 }
 
 abstract class _Paths {
@@ -40,4 +44,8 @@ abstract class _Paths {
   static const WALLET_TOPUP = '/wallet-topup';
   static const TRANSACTION_HISTORY = '/transaction-history';
   static const CHAT = '/chat';
+  static const WRITE_REVIEW = '/write-review';
+  static const MY_REVIEWS = '/my-reviews';
+  static const TIER_SUBSCRIPTION = '/tier-subscription';
+  static const TIER_DETAIL = '/tier-detail';
 }

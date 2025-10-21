@@ -56,6 +56,9 @@ class BaseServices {
   Future<String> get authToken async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('auth_token') ?? '';
+    print(
+      '🔍 Retrieving auth token: ${token.isNotEmpty ? "Token found (${token.substring(0, token.length > 20 ? 20 : token.length)}...)" : "No token found"}',
+    );
     return token.isNotEmpty ? 'Bearer $token' : '';
   }
 

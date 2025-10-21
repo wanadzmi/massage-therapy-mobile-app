@@ -50,8 +50,13 @@ class BookingRepository {
   Future<MyResponse<Booking?, dynamic>> cancelBooking(
     String bookingId, {
     String? reason,
+    String? details,
   }) async {
-    return await _bookingService.cancelBooking(bookingId, reason: reason);
+    return await _bookingService.cancelBooking(
+      bookingId,
+      reason: reason,
+      details: details,
+    );
   }
 
   /// Get upcoming bookings

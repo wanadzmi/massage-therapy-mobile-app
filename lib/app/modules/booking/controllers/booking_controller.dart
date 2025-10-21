@@ -45,10 +45,18 @@ class BookingController extends GetxController {
         final myBookingsResponse = response.data!;
 
         if (myBookingsResponse.bookings != null) {
+          // Sort bookings by createdAt in descending order (newest first)
+          final sortedBookings = myBookingsResponse.bookings!;
+          sortedBookings.sort((a, b) {
+            final aDate = a.createdAt ?? DateTime(1970);
+            final bDate = b.createdAt ?? DateTime(1970);
+            return bDate.compareTo(aDate); // Descending order
+          });
+
           if (refresh) {
-            _bookings.value = myBookingsResponse.bookings!;
+            _bookings.value = sortedBookings;
           } else {
-            _bookings.addAll(myBookingsResponse.bookings!);
+            _bookings.addAll(sortedBookings);
           }
         }
 
@@ -106,12 +114,17 @@ class BookingController extends GetxController {
     );
   }
 
-  Future<void> cancelBooking(Booking booking, String reason) async {
+  Future<void> cancelBooking(
+    Booking booking,
+    String reason, {
+    String? details,
+  }) async {
     try {
       _isLoading.value = true;
       final response = await _bookingService.cancelBooking(
         booking.id!,
         reason: reason,
+        details: details,
       );
 
       if (response.isSuccess) {
@@ -124,18 +137,25 @@ class BookingController extends GetxController {
         );
         await loadBookings(refresh: true);
       } else {
+        // Extract detailed error message from response.error
+        String errorMessage = 'Failed to cancel booking';
+        if (response.error != null) {
+          errorMessage = response.error!;
+        }
+
         Get.snackbar(
-          'Error',
-          response.error ?? 'Failed to cancel booking',
+          'Cannot Cancel',
+          errorMessage,
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: const Color(0xFF1E1E1E),
           colorText: const Color(0xFFE53E3E),
+          duration: const Duration(seconds: 4),
         );
       }
     } catch (e) {
       Get.snackbar(
         'Error',
-        'An error occurred: $e',
+        'An unexpected error occurred',
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: const Color(0xFF1E1E1E),
         colorText: const Color(0xFFE53E3E),

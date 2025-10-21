@@ -1,0 +1,483 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import '../../../data/services/tier_service.dart';
+
+class TierSubscriptionController extends GetxController {
+  final TierService _tierService = TierService();
+
+  final _isLoading = false.obs;
+  final _tiers = <TierInfo>[].obs;
+  final _currentTier = Rx<String?>(null);
+  final _currentBalance = 0.0.obs;
+
+  bool get isLoading => _isLoading.value;
+  List<TierInfo> get tiers => _tiers;
+  String? get currentTier => _currentTier.value;
+  double get currentBalance => _currentBalance.value;
+
+  @override
+  void onInit() {
+    super.onInit();
+    print('🎯 TierSubscriptionController initialized');
+    loadTiers();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    // Refresh data when returning from other screens
+    ever(_isLoading, (_) {
+      // React to loading state changes if needed
+    });
+  }
+
+  /// Refresh tiers data (callable from other controllers)
+  Future<void> refresh() async {
+    await loadTiers();
+  }
+
+  /// Load all available tiers
+  Future<void> loadTiers() async {
+    try {
+      print('📊 Loading tiers...');
+      _isLoading.value = true;
+      final response = await _tierService.getAllTiers();
+      print('📥 Tiers response: success=${response.isSuccess}');
+
+      if (response.isSuccess && response.data != null) {
+        _tiers.value = response.data!.data?.tiers ?? [];
+        _currentTier.value = response.data!.data?.currentTier;
+        _currentBalance.value = response.data!.data?.currentBalance ?? 0.0;
+        print(
+          '✅ Loaded ${_tiers.length} tiers, current tier: $_currentTier, balance: $_currentBalance',
+        );
+      } else {
+        print('❌ Failed to load tiers: ${response.error}');
+        Get.snackbar(
+          'Error',
+          response.error ?? 'Failed to load tiers',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red.withOpacity(0.8),
+          colorText: Colors.white,
+        );
+      }
+    } catch (e) {
+      print('💥 Error loading tiers: $e');
+      Get.snackbar(
+        'Error',
+        'An error occurred: $e',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red.withOpacity(0.8),
+        colorText: Colors.white,
+      );
+    } finally {
+      _isLoading.value = false;
+    }
+  }
+
+  /// Subscribe to a tier
+  Future<void> subscribeTier(TierInfo tier) async {
+    if (!tier.hasSufficientBalance) {
+      _showInsufficientBalanceDialog(tier);
+      return;
+    }
+
+    if (!tier.canSubscribe) {
+      Get.snackbar(
+        'Cannot Subscribe',
+        tier.isCurrent
+            ? 'You are already a ${tier.name} member'
+            : 'This tier is not available for subscription',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.orange.withOpacity(0.8),
+        colorText: Colors.white,
+      );
+      return;
+    }
+
+    // Show confirmation dialog
+    final confirm = await Get.dialog<bool>(
+      _buildSubscribeConfirmDialog(tier),
+      barrierDismissible: false,
+    );
+
+    if (confirm != true) return;
+
+    try {
+      _isLoading.value = true;
+      final response = await _tierService.subscribeTier(tier: tier.tier);
+
+      if (response.isSuccess && response.data != null) {
+        await _showSuccessDialog(response.data!);
+        // Reload tiers to get updated info
+        await loadTiers();
+      } else {
+        _handleSubscribeError(response.error);
+      }
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        'An error occurred: $e',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red.withOpacity(0.8),
+        colorText: Colors.white,
+      );
+    } finally {
+      _isLoading.value = false;
+    }
+  }
+
+  void _showInsufficientBalanceDialog(TierInfo tier) {
+    Get.dialog(
+      Dialog(
+        backgroundColor: const Color(0xFF1A1A1A),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.red.withOpacity(0.1),
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Colors.red.withOpacity(0.3),
+                    width: 2,
+                  ),
+                ),
+                child: const Icon(
+                  Icons.account_balance_wallet_outlined,
+                  size: 48,
+                  color: Colors.red,
+                ),
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                'Insufficient Balance',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFFE0E0E0),
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 12),
+              Text(
+                'You need RM ${tier.price.toStringAsFixed(2)} to subscribe to ${tier.name} tier.',
+                style: const TextStyle(fontSize: 14, color: Color(0xFF808080)),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Current Balance: RM ${_currentBalance.value.toStringAsFixed(2)}',
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xFFD4AF37),
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 24),
+              Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: () => Get.back(),
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: const Color(0xFFE0E0E0),
+                        side: const BorderSide(color: Color(0xFF2A2A2A)),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      child: const Text('Cancel'),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        Get.back(); // Close insufficient balance dialog
+
+                        // Navigate to wallet top-up and wait for result
+                        final result = await Get.toNamed('/wallet-topup');
+
+                        // If top-up was successful, refresh the tiers data
+                        if (result != null && result['success'] == true) {
+                          print('💰 Top-up successful, refreshing tiers...');
+                          await loadTiers();
+                          _refreshOtherControllers();
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFD4AF37),
+                        foregroundColor: Colors.black,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      child: const Text('Top Up'),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+      barrierDismissible: false,
+    );
+  }
+
+  Widget _buildSubscribeConfirmDialog(TierInfo tier) {
+    return Dialog(
+      backgroundColor: const Color(0xFF1A1A1A),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: const Color(0xFFD4AF37).withOpacity(0.1),
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: const Color(0xFFD4AF37).withOpacity(0.3),
+                  width: 2,
+                ),
+              ),
+              child: const Icon(
+                Icons.workspace_premium,
+                size: 48,
+                color: Color(0xFFD4AF37),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Text(
+              'Subscribe to ${tier.name}?',
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                color: Color(0xFFE0E0E0),
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 12),
+            Text(
+              'You will be charged RM ${tier.price.toStringAsFixed(2)} for 1 month subscription.',
+              style: const TextStyle(fontSize: 14, color: Color(0xFF808080)),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'New Balance: RM ${(_currentBalance.value - tier.price).toStringAsFixed(2)}',
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: Color(0xFFD4AF37),
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 24),
+            Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: () => Get.back(result: false),
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: const Color(0xFFE0E0E0),
+                      side: const BorderSide(color: Color(0xFF2A2A2A)),
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: const Text('Cancel'),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () => Get.back(result: true),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFD4AF37),
+                      foregroundColor: Colors.black,
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: const Text('Confirm'),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _showSuccessDialog(SubscribeResponse response) async {
+    await Get.dialog(
+      Dialog(
+        backgroundColor: const Color(0xFF1A1A1A),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF4CAF50).withOpacity(0.1),
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: const Color(0xFF4CAF50).withOpacity(0.3),
+                    width: 2,
+                  ),
+                ),
+                child: const Icon(
+                  Icons.check_circle_outline,
+                  size: 48,
+                  color: Color(0xFF4CAF50),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                response.message ?? 'Subscription Successful!',
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFFE0E0E0),
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 12),
+              if (response.data?.expiresAt != null)
+                Text(
+                  'Valid until: ${_formatDate(response.data!.expiresAt!)}',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color(0xFF808080),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              if (response.data?.transaction?.newBalance != null)
+                Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: Text(
+                    'New Balance: RM ${response.data!.transaction!.newBalance!.toStringAsFixed(2)}',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFFD4AF37),
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              const SizedBox(height: 24),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    Get.back(); // Close success dialog
+
+                    // Refresh tiers data
+                    await loadTiers();
+
+                    // Refresh profile and home controllers
+                    _refreshOtherControllers();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFD4AF37),
+                    foregroundColor: Colors.black,
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: const Text('Great!'),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      barrierDismissible: false,
+    );
+  }
+
+  void _handleSubscribeError(dynamic error) {
+    String message = 'Failed to subscribe to tier';
+    if (error is Map) {
+      message = error['message'] ?? error['error'] ?? message;
+    } else if (error is String) {
+      message = error;
+    }
+
+    Get.snackbar(
+      'Subscription Failed',
+      message,
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Colors.red.withOpacity(0.8),
+      colorText: Colors.white,
+      duration: const Duration(seconds: 3),
+    );
+  }
+
+  String _formatDate(String dateStr) {
+    try {
+      final date = DateTime.parse(dateStr);
+      return DateFormat('MMM dd, yyyy').format(date);
+    } catch (e) {
+      return dateStr;
+    }
+  }
+
+  /// Refresh other controllers after balance/tier changes
+  void _refreshOtherControllers() {
+    // Refresh profile controller
+    try {
+      Get.find(tag: 'ProfileController').refresh();
+    } catch (e) {
+      // Try without tag
+      try {
+        final controller = Get.find<dynamic>();
+        if (controller.runtimeType.toString() == 'ProfileController') {
+          controller.refresh();
+        }
+      } catch (e) {
+        // Profile controller not found
+      }
+    }
+
+    // Refresh home controller
+    try {
+      Get.find(tag: 'HomeController').refresh();
+    } catch (e) {
+      // Try without tag
+      try {
+        final controller = Get.find<dynamic>();
+        if (controller.runtimeType.toString() == 'HomeController') {
+          controller.refresh();
+        }
+      } catch (e) {
+        // Home controller not found
+      }
+    }
+  }
+
+  /// Navigate to current tier details
+  void viewCurrentTier() {
+    Get.toNamed('/tier-detail');
+  }
+}

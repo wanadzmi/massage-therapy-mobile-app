@@ -30,6 +30,13 @@ import '../modules/transaction_history/bindings/transaction_history_binding.dart
 import '../modules/transaction_history/views/transaction_history_view.dart';
 import '../modules/chat/bindings/chat_binding.dart';
 import '../modules/chat/views/chat_view.dart';
+import '../modules/review/bindings/review_binding.dart';
+import '../modules/review/views/write_review_view.dart';
+import '../modules/review/views/my_reviews_view.dart';
+import '../modules/tier_subscription/bindings/tier_subscription_binding.dart';
+import '../modules/tier_subscription/bindings/tier_detail_binding.dart';
+import '../modules/tier_subscription/views/tier_subscription_view.dart';
+import '../modules/tier_subscription/views/tier_detail_view.dart';
 
 part 'app_routes.dart';
 
@@ -118,6 +125,26 @@ class AppPages {
       name: _Paths.CHAT,
       page: () => const ChatView(),
       binding: ChatBinding(),
+    ),
+    GetPage(
+      name: _Paths.WRITE_REVIEW,
+      page: () => const WriteReviewView(),
+      binding: ReviewBinding(),
+    ),
+    GetPage(
+      name: _Paths.MY_REVIEWS,
+      page: () => const MyReviewsView(),
+      binding: ReviewBinding(),
+    ),
+    GetPage(
+      name: _Paths.TIER_SUBSCRIPTION,
+      page: () => const TierSubscriptionView(),
+      binding: TierSubscriptionBinding(),
+    ),
+    GetPage(
+      name: _Paths.TIER_DETAIL,
+      page: () => const TierDetailView(),
+      binding: TierDetailBinding(),
     ),
   ];
 }

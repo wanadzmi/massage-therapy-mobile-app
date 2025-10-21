@@ -101,11 +101,15 @@ class BookingService extends BaseServices {
   Future<MyResponse<Booking?, dynamic>> cancelBooking(
     String bookingId, {
     String? reason,
+    String? details,
   }) async {
     final response = await callAPI(
-      HttpRequestType.POST,
+      HttpRequestType.PUT,
       '$_bookingsEndpoint/$bookingId/cancel',
-      postBody: {if (reason != null) 'reason': reason},
+      postBody: {
+        if (reason != null) 'reason': reason,
+        if (details != null) 'details': details,
+      },
     );
 
     if (response.isSuccess && response.data != null) {

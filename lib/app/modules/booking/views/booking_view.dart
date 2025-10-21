@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../data/models/booking_model.dart';
+import '../../../routes/app_pages.dart';
 
 import '../controllers/booking_controller.dart';
 
@@ -27,29 +28,47 @@ class BookingView extends GetView<BookingController> {
           ),
         ),
         actions: [
-          IconButton(
-            icon: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: const Color(0xFF1A1A1A),
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: const Color(0xFF2A2A2A)),
-              ),
-              child: const Icon(
-                Icons.filter_list,
-                color: Color(0xFFD4AF37),
-                size: 18,
-              ),
+          Obx(
+            () => Stack(
+              clipBehavior: Clip.none,
+              children: [
+                IconButton(
+                  icon: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF1A1A1A),
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: const Color(0xFF2A2A2A)),
+                    ),
+                    child: const Icon(
+                      Icons.filter_list,
+                      color: Color(0xFFD4AF37),
+                      size: 18,
+                    ),
+                  ),
+                  onPressed: () {
+                    _showFilterBottomSheet(context);
+                  },
+                ),
+                if (controller.selectedFilter != 'all')
+                  Positioned(
+                    top: 8,
+                    right: 8,
+                    child: Container(
+                      width: 8,
+                      height: 8,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFD4AF37),
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: const Color(0xFF0A0A0A),
+                          width: 1.5,
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
             ),
-            onPressed: () {
-              Get.snackbar(
-                l10n.filter,
-                l10n.filterOptions,
-                snackPosition: SnackPosition.BOTTOM,
-                backgroundColor: const Color(0xFF1E1E1E),
-                colorText: const Color(0xFFD4AF37),
-              );
-            },
           ),
           const SizedBox(width: 8),
         ],
@@ -89,6 +108,63 @@ class BookingView extends GetView<BookingController> {
                 ),
               ],
             ),
+          ),
+
+          // Active Filter Indicator
+          Obx(
+            () => controller.selectedFilter != 'all'
+                ? Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 8,
+                      ),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFD4AF37).withOpacity(0.15),
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(
+                          color: const Color(0xFFD4AF37).withOpacity(0.3),
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(
+                            Icons.filter_alt,
+                            color: Color(0xFFD4AF37),
+                            size: 16,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            'Filtered: ${_getFilterLabel(controller.selectedFilter)}',
+                            style: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFFD4AF37),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          GestureDetector(
+                            onTap: () => controller.setFilter('all'),
+                            child: Container(
+                              padding: const EdgeInsets.all(2),
+                              decoration: const BoxDecoration(
+                                color: Color(0xFFD4AF37),
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(
+                                Icons.close,
+                                color: Color(0xFF0A0A0A),
+                                size: 14,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                : const SizedBox.shrink(),
           ),
 
           // Appointments List
@@ -149,7 +225,7 @@ class BookingView extends GetView<BookingController> {
                         itemCount: controller.bookings.length,
                         itemBuilder: (context, index) {
                           final booking = controller.bookings[index];
-                          return _buildBookingCard(booking);
+                          return _buildBookingCard(context, booking);
                         },
                       ),
                     ),
@@ -160,7 +236,7 @@ class BookingView extends GetView<BookingController> {
     );
   }
 
-  Widget _buildBookingCard(Booking booking) {
+  Widget _buildBookingCard(BuildContext context, Booking booking) {
     final status = booking.status ?? 'unknown';
     final date = booking.date;
     final dateString = date != null ? _formatDate(date) : 'N/A';
@@ -381,8 +457,77 @@ class BookingView extends GetView<BookingController> {
                 ],
               ),
             ),
+            // Write Review button for completed bookings
+            if (booking.status == 'completed') ...[
+              const SizedBox(height: 12),
+              SizedBox(
+                width: double.infinity,
+                height: 40,
+                child: ElevatedButton.icon(
+                  onPressed: () =>
+                      Get.toNamed(Routes.WRITE_REVIEW, arguments: booking),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFD4AF37),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  icon: const Icon(
+                    Icons.rate_review,
+                    size: 16,
+                    color: Color(0xFF0A0A0A),
+                  ),
+                  label: const Text(
+                    'Write Review',
+                    style: TextStyle(
+                      color: Color(0xFF0A0A0A),
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+            // Cancel button for cancellable bookings
+            if (booking.status != 'cancelled' &&
+                booking.status != 'completed') ...[
+              const SizedBox(height: 12),
+              SizedBox(
+                width: double.infinity,
+                height: 40,
+                child: OutlinedButton(
+                  onPressed: () => _showCancelDialog(context, booking),
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: Color(0xFFE53E3E)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: const Text(
+                    'Cancel Booking',
+                    style: TextStyle(
+                      color: Color(0xFFE53E3E),
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ],
         ),
+      ),
+    );
+  }
+
+  void _showCancelDialog(BuildContext context, Booking booking) {
+    showDialog(
+      context: context,
+      builder: (dialogContext) => _CancelBookingDialog(
+        booking: booking,
+        onCancel: (reason, details) {
+          controller.cancelBooking(booking, reason, details: details);
+        },
       ),
     );
   }
@@ -414,5 +559,340 @@ class BookingView extends GetView<BookingController> {
       ];
       return '${months[date.month - 1]} ${date.day}';
     }
+  }
+
+  String _getFilterLabel(String filter) {
+    switch (filter) {
+      case 'confirmed':
+        return 'Confirmed';
+      case 'pending':
+        return 'Pending';
+      case 'completed':
+        return 'Completed';
+      case 'cancelled':
+        return 'Cancelled';
+      default:
+        return 'All';
+    }
+  }
+
+  void _showFilterBottomSheet(BuildContext context) {
+    final filters = [
+      {'value': 'all', 'label': 'All Bookings', 'icon': Icons.list},
+      {'value': 'confirmed', 'label': 'Confirmed', 'icon': Icons.check_circle},
+      {'value': 'pending', 'label': 'Pending', 'icon': Icons.pending},
+      {'value': 'completed', 'label': 'Completed', 'icon': Icons.task_alt},
+      {'value': 'cancelled', 'label': 'Cancelled', 'icon': Icons.cancel},
+    ];
+
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: const Color(0xFF1A1A1A),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) => Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFD4AF37).withOpacity(0.15),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Icon(
+                    Icons.filter_list,
+                    color: Color(0xFFD4AF37),
+                    size: 20,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                const Text(
+                  'Filter Bookings',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFFE0E0E0),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            ...filters.map(
+              (filter) => Obx(
+                () => InkWell(
+                  onTap: () {
+                    controller.setFilter(filter['value'] as String);
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.only(bottom: 12),
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: controller.selectedFilter == filter['value']
+                          ? const Color(0xFFD4AF37).withOpacity(0.15)
+                          : const Color(0xFF0A0A0A),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: controller.selectedFilter == filter['value']
+                            ? const Color(0xFFD4AF37)
+                            : const Color(0xFF2A2A2A),
+                        width: controller.selectedFilter == filter['value']
+                            ? 2
+                            : 1,
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          filter['icon'] as IconData,
+                          color: controller.selectedFilter == filter['value']
+                              ? const Color(0xFFD4AF37)
+                              : const Color(0xFF808080),
+                          size: 20,
+                        ),
+                        const SizedBox(width: 12),
+                        Text(
+                          filter['label'] as String,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight:
+                                controller.selectedFilter == filter['value']
+                                ? FontWeight.w600
+                                : FontWeight.w500,
+                            color: controller.selectedFilter == filter['value']
+                                ? const Color(0xFFD4AF37)
+                                : const Color(0xFFE0E0E0),
+                          ),
+                        ),
+                        const Spacer(),
+                        if (controller.selectedFilter == filter['value'])
+                          const Icon(
+                            Icons.check,
+                            color: Color(0xFFD4AF37),
+                            size: 20,
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _CancelBookingDialog extends StatefulWidget {
+  final Booking booking;
+  final Function(String reason, String? details) onCancel;
+
+  const _CancelBookingDialog({required this.booking, required this.onCancel});
+
+  @override
+  State<_CancelBookingDialog> createState() => _CancelBookingDialogState();
+}
+
+class _CancelBookingDialogState extends State<_CancelBookingDialog> {
+  late final TextEditingController _reasonController;
+  late final TextEditingController _detailsController;
+
+  @override
+  void initState() {
+    super.initState();
+    _reasonController = TextEditingController();
+    _detailsController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _reasonController.dispose();
+    _detailsController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: const Color(0xFF1A1A1A),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+        side: const BorderSide(color: Color(0xFF2A2A2A)),
+      ),
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFE53E3E).withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Icon(
+                      Icons.cancel_outlined,
+                      color: Color(0xFFE53E3E),
+                      size: 24,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  const Expanded(
+                    child: Text(
+                      'Cancel Booking',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFFE0E0E0),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                'Please provide a reason for cancellation',
+                style: TextStyle(fontSize: 14, color: Color(0xFF808080)),
+              ),
+              const SizedBox(height: 16),
+              TextField(
+                controller: _reasonController,
+                style: const TextStyle(color: Color(0xFFE0E0E0)),
+                decoration: InputDecoration(
+                  labelText: 'Reason',
+                  hintText: 'e.g., Schedule conflict',
+                  labelStyle: const TextStyle(color: Color(0xFF808080)),
+                  hintStyle: const TextStyle(color: Color(0xFF606060)),
+                  filled: true,
+                  fillColor: const Color(0xFF0A0A0A),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Color(0xFF2A2A2A)),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Color(0xFF2A2A2A)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(
+                      color: Color(0xFFD4AF37),
+                      width: 2,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              TextField(
+                controller: _detailsController,
+                style: const TextStyle(color: Color(0xFFE0E0E0)),
+                maxLines: 3,
+                decoration: InputDecoration(
+                  labelText: 'Details (Optional)',
+                  hintText: 'e.g., Need to reschedule due to work meeting',
+                  labelStyle: const TextStyle(color: Color(0xFF808080)),
+                  hintStyle: const TextStyle(color: Color(0xFF606060)),
+                  filled: true,
+                  fillColor: const Color(0xFF0A0A0A),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Color(0xFF2A2A2A)),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Color(0xFF2A2A2A)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(
+                      color: Color(0xFFD4AF37),
+                      width: 2,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24),
+              Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(color: Color(0xFF2A2A2A)),
+                        minimumSize: const Size(double.infinity, 48),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      child: const Text(
+                        'Keep Booking',
+                        style: TextStyle(
+                          color: Color(0xFFE0E0E0),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        final reason = _reasonController.text.trim();
+                        if (reason.isEmpty) {
+                          Get.snackbar(
+                            'Error',
+                            'Please provide a reason for cancellation',
+                            snackPosition: SnackPosition.BOTTOM,
+                            backgroundColor: const Color(0xFF1E1E1E),
+                            colorText: const Color(0xFFE53E3E),
+                          );
+                          return;
+                        }
+                        final details = _detailsController.text.trim();
+                        Navigator.of(context).pop();
+                        widget.onCancel(
+                          reason,
+                          details.isEmpty ? null : details,
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFE53E3E),
+                        minimumSize: const Size(double.infinity, 48),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      child: const Text(
+                        'Cancel Booking',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
