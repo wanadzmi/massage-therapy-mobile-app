@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../../data/services/tier_service.dart';
+import '../../home/controllers/home_controller.dart';
+import '../../profile/controllers/profile_controller.dart';
 
 class TierSubscriptionController extends GetxController {
   final TierService _tierService = TierService();
@@ -445,35 +447,27 @@ class TierSubscriptionController extends GetxController {
 
   /// Refresh other controllers after balance/tier changes
   void _refreshOtherControllers() {
+    print('🔄 Refreshing other controllers...');
+
     // Refresh profile controller
     try {
-      Get.find(tag: 'ProfileController').refresh();
+      final profileController = Get.find<ProfileController>();
+      profileController.refresh();
+      print('   ✅ Profile controller refreshed');
     } catch (e) {
-      // Try without tag
-      try {
-        final controller = Get.find<dynamic>();
-        if (controller.runtimeType.toString() == 'ProfileController') {
-          controller.refresh();
-        }
-      } catch (e) {
-        // Profile controller not found
-      }
+      print('   ⚠️ Profile controller not found: $e');
     }
 
     // Refresh home controller
     try {
-      Get.find(tag: 'HomeController').refresh();
+      final homeController = Get.find<HomeController>();
+      homeController.refresh();
+      print('   ✅ Home controller refreshed');
     } catch (e) {
-      // Try without tag
-      try {
-        final controller = Get.find<dynamic>();
-        if (controller.runtimeType.toString() == 'HomeController') {
-          controller.refresh();
-        }
-      } catch (e) {
-        // Home controller not found
-      }
+      print('   ⚠️ Home controller not found: $e');
     }
+
+    print('🔄 Refresh complete');
   }
 
   /// Navigate to current tier details
