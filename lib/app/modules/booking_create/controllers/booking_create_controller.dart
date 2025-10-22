@@ -14,12 +14,16 @@ class BookingCreateController extends GetxController {
   final _focusAreas = <String>[].obs;
   final _notes = ''.obs;
   final _voucherCode = ''.obs;
+  final _paymentMethod = 'wallet'.obs; // Default to wallet
+  final _walletBalance = 0.0.obs;
 
   bool get isLoading => _isLoading.value;
   String get pressure => _pressure.value;
   List<String> get focusAreas => _focusAreas;
   String get notes => _notes.value;
   String get voucherCode => _voucherCode.value;
+  String get paymentMethod => _paymentMethod.value;
+  double get walletBalance => _walletBalance.value;
 
   Store? store;
   service_model.Service? service;
@@ -64,6 +68,128 @@ class BookingCreateController extends GetxController {
     print('   Therapist: $therapistName ($therapistId)');
     print('   Gender: $therapistGender');
     print('   Service: ${service?.name}');
+
+    // Load wallet balance
+    _loadWalletBalance();
+  }
+
+  Future<void> _loadWalletBalance() async {
+    try {
+      final homeController = Get.find<HomeController>();
+      _walletBalance.value = homeController.walletBalance;
+    } catch (e) {
+      print('⚠️ Could not load wallet balance: $e');
+      _walletBalance.value = 0.0;
+    }
+  }
+
+  void setPaymentMethod(String method) {
+    _paymentMethod.value = method;
+  }
+
+  void _showInsufficientBalanceDialog() {
+    Get.dialog(
+      Dialog(
+        backgroundColor: const Color(0xFF1A1A1A),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+          side: const BorderSide(color: Color(0xFF2A2A2A)),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Icon
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFF9800).withOpacity(0.1),
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: const Color(0xFFFF9800).withOpacity(0.3),
+                    width: 2,
+                  ),
+                ),
+                child: const Icon(
+                  Icons.account_balance_wallet_outlined,
+                  size: 48,
+                  color: Color(0xFFFF9800),
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              // Title
+              const Text(
+                'Insufficient Wallet Balance',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFFE0E0E0),
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 12),
+
+              // Message
+              const Text(
+                'Your wallet balance is insufficient. Please top up your wallet or select cash payment.',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Color(0xFF808080),
+                  height: 1.5,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 24),
+
+              // Actions
+              Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: () => Get.back(),
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: const Color(0xFF808080),
+                        side: const BorderSide(color: Color(0xFF2A2A2A)),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                      ),
+                      child: const Text('Cancel'),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Get.back();
+                        Get.toNamed('/wallet-topup');
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFD4AF37),
+                        foregroundColor: Colors.black,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        elevation: 0,
+                      ),
+                      child: const Text(
+                        'Top Up Wallet',
+                        style: TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+      barrierDismissible: true,
+    );
   }
 
   @override
@@ -108,6 +234,15 @@ class BookingCreateController extends GetxController {
       return;
     }
 
+    // Check wallet balance if wallet payment is selected
+    if (_paymentMethod.value == 'wallet') {
+      final servicePrice = service?.pricing?.price ?? 0.0;
+      if (_walletBalance.value < servicePrice) {
+        _showInsufficientBalanceDialog();
+        return;
+      }
+    }
+
     _isLoading.value = true;
 
     // Prepare preferences
@@ -133,7 +268,7 @@ class BookingCreateController extends GetxController {
       serviceId: service!.id!,
       date: selectedDate!,
       startTime: selectedTime!,
-      paymentMethod: 'wallet',
+      paymentMethod: _paymentMethod.value, // Use selected payment method
       voucherCode: _voucherCode.value.isNotEmpty ? _voucherCode.value : null,
       preferences: preferences,
       notes: _notes.value.isNotEmpty ? _notes.value : null,
@@ -144,13 +279,17 @@ class BookingCreateController extends GetxController {
     if (response.isSuccess && response.data != null) {
       print('✅ Booking created successfully: ${response.data!.id}');
 
+      final successMessage = _paymentMethod.value == 'wallet'
+          ? 'Booking confirmed! Payment successful.'
+          : 'Booking confirmed! Please bring cash to the therapist location.';
+
       Get.snackbar(
         'Success',
-        'Booking created successfully!',
+        successMessage,
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: const Color(0xFFD4AF37),
         colorText: Colors.black,
-        duration: Duration(seconds: 2),
+        duration: Duration(seconds: 3),
       );
 
       // Wait for snackbar to show
@@ -177,6 +316,7 @@ class BookingCreateController extends GetxController {
     String message = 'Failed to create booking. Please try again.';
     IconData icon = Icons.error_outline;
     Color iconColor = Colors.red;
+    bool showTopUpOption = false;
 
     // Parse error response
     if (error is Map<String, dynamic>) {
@@ -185,12 +325,22 @@ class BookingCreateController extends GetxController {
       final errorMessage = error['message'] ?? '';
 
       if (errorType == 'Insufficient Balance') {
+        // This should only happen if backend validation catches it
+        // But we already check on client side
         title = 'Insufficient Wallet Balance';
         message = errorMessage.isNotEmpty
             ? errorMessage
             : 'Your wallet balance is insufficient. Please top up your wallet to proceed.';
         icon = Icons.account_balance_wallet_outlined;
         iconColor = const Color(0xFFFF9800);
+        showTopUpOption = true;
+      } else if (errorType == 'Invalid Payment Method') {
+        title = 'Invalid Payment Method';
+        message = errorMessage.isNotEmpty
+            ? errorMessage
+            : 'Only wallet and cash payments are accepted for bookings.';
+        icon = Icons.payment;
+        iconColor = Colors.orange;
       } else if (errorType.toString().toLowerCase().contains('validation')) {
         title = 'Invalid Information';
         message = errorMessage.isNotEmpty
@@ -260,8 +410,7 @@ class BookingCreateController extends GetxController {
               const SizedBox(height: 24),
 
               // Actions
-              if (error is Map<String, dynamic> &&
-                  error['error'] == 'Insufficient Balance') ...[
+              if (showTopUpOption) ...[
                 // Show two buttons for insufficient balance
                 Row(
                   children: [

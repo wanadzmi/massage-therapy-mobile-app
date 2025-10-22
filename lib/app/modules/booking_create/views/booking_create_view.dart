@@ -49,6 +49,10 @@ class BookingCreateView extends GetView<BookingCreateController> {
 
                     // Voucher Code
                     _buildVoucherSection(),
+                    const SizedBox(height: 20),
+
+                    // Payment Method
+                    _buildPaymentMethodSection(),
                     const SizedBox(height: 100),
                   ],
                 ),
@@ -317,6 +321,263 @@ class BookingCreateView extends GetView<BookingCreateController> {
               ),
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPaymentMethodSection() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1A1A1A),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: const Color(0xFF2A2A2A)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Payment Method',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFFE0E0E0),
+            ),
+          ),
+          const SizedBox(height: 16),
+
+          // Wallet Payment
+          Obx(() {
+            final isWalletSelected = controller.paymentMethod == 'wallet';
+            final servicePrice = controller.service?.pricing?.price ?? 0.0;
+            final hasInsufficientBalance =
+                controller.walletBalance < servicePrice;
+
+            return GestureDetector(
+              onTap: () {
+                if (!hasInsufficientBalance) {
+                  controller.setPaymentMethod('wallet');
+                }
+              },
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                margin: const EdgeInsets.only(bottom: 12),
+                decoration: BoxDecoration(
+                  color: isWalletSelected
+                      ? const Color(0xFFD4AF37).withValues(alpha: 0.1)
+                      : const Color(0xFF0A0A0A),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: isWalletSelected
+                        ? const Color(0xFFD4AF37)
+                        : const Color(0xFF2A2A2A),
+                    width: isWalletSelected ? 2 : 1,
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 24,
+                      height: 24,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: isWalletSelected
+                              ? const Color(0xFFD4AF37)
+                              : const Color(0xFF404040),
+                          width: 2,
+                        ),
+                        color: isWalletSelected
+                            ? const Color(0xFFD4AF37)
+                            : const Color(0xFF1A1A1A),
+                      ),
+                      child: isWalletSelected
+                          ? const Icon(
+                              Icons.check,
+                              size: 16,
+                              color: Color(0xFF0A0A0A),
+                            )
+                          : null,
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.account_balance_wallet,
+                                size: 18,
+                                color: Color(0xFFD4AF37),
+                              ),
+                              const SizedBox(width: 8),
+                              const Text(
+                                'Wallet',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xFFE0E0E0),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'Balance: RM ${controller.walletBalance.toStringAsFixed(2)}',
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: hasInsufficientBalance
+                                  ? Colors.red
+                                  : const Color(0xFF808080),
+                            ),
+                          ),
+                          if (hasInsufficientBalance)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 4),
+                              child: Text(
+                                'Insufficient balance. Please top up.',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.red.shade300,
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }),
+
+          // Cash Payment
+          Obx(() {
+            final isCashSelected = controller.paymentMethod == 'cash';
+
+            return GestureDetector(
+              onTap: () => controller.setPaymentMethod('cash'),
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: isCashSelected
+                      ? const Color(0xFFD4AF37).withValues(alpha: 0.1)
+                      : const Color(0xFF0A0A0A),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: isCashSelected
+                        ? const Color(0xFFD4AF37)
+                        : const Color(0xFF2A2A2A),
+                    width: isCashSelected ? 2 : 1,
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 24,
+                      height: 24,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: isCashSelected
+                              ? const Color(0xFFD4AF37)
+                              : const Color(0xFF404040),
+                          width: 2,
+                        ),
+                        color: isCashSelected
+                            ? const Color(0xFFD4AF37)
+                            : const Color(0xFF1A1A1A),
+                      ),
+                      child: isCashSelected
+                          ? const Icon(
+                              Icons.check,
+                              size: 16,
+                              color: Color(0xFF0A0A0A),
+                            )
+                          : null,
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.money,
+                                size: 18,
+                                color: Color(0xFF4CAF50),
+                              ),
+                              const SizedBox(width: 8),
+                              const Text(
+                                'Cash',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xFFE0E0E0),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 4),
+                          const Text(
+                            'Pay at therapist location',
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: Color(0xFF808080),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }),
+
+          // Cash payment reminder
+          Obx(() {
+            if (controller.paymentMethod == 'cash') {
+              final servicePrice = controller.service?.pricing?.price ?? 0.0;
+              return Container(
+                margin: const EdgeInsets.only(top: 12),
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.orange.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: Colors.orange.withValues(alpha: 0.3),
+                    width: 1,
+                  ),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Icon(
+                      Icons.info_outline,
+                      color: Colors.orange,
+                      size: 20,
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        'Please bring RM ${servicePrice.toStringAsFixed(2)} in cash to the therapist location.',
+                        style: const TextStyle(
+                          fontSize: 13,
+                          color: Color(0xFFE0E0E0),
+                          height: 1.4,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }
+            return const SizedBox.shrink();
+          }),
         ],
       ),
     );
