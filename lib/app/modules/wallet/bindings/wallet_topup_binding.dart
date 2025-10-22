@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 import '../controllers/wallet_topup_controller.dart';
 
-class WalletTopupBinding extends Bindings {
+class WalletTopUpBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<WalletTopupController>(() => WalletTopupController());
+    Get.lazyPut<WalletTopUpController>(() => WalletTopUpController());
   }
 }

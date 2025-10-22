@@ -469,27 +469,19 @@ class TherapistSelectionView extends GetView<TherapistSelectionController> {
                 child: InkWell(
                   onTap: () => controller.selectSlot(slot),
                   child: Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          slot.time ?? '',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 10,
+                    ),
+                    child: Center(
+                      child: Text(
+                        slot.time ?? '',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
                         ),
-                        const SizedBox(height: 4),
-                        Text(
-                          '${slot.availableTherapists ?? 0} available',
-                          style: const TextStyle(
-                            color: Color(0xFFD4AF37),
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),

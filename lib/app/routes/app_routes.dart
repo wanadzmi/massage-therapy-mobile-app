@@ -17,6 +17,8 @@ abstract class Routes {
   static const BOOKING_CREATE = _Paths.BOOKING_CREATE;
   static const BOOKING_DETAIL = _Paths.BOOKING_DETAIL;
   static const WALLET_TOPUP = _Paths.WALLET_TOPUP;
+  static const WALLET_USDT_PAYMENT = _Paths.WALLET_USDT_PAYMENT;
+  static const WALLET_PAYMENT_PENDING = _Paths.WALLET_PAYMENT_PENDING;
   static const TRANSACTION_HISTORY = _Paths.TRANSACTION_HISTORY;
   static const CHAT = _Paths.CHAT;
   static const WRITE_REVIEW = _Paths.WRITE_REVIEW;
@@ -43,6 +45,8 @@ abstract class _Paths {
   static const BOOKING_CREATE = '/booking-create';
   static const BOOKING_DETAIL = '/booking-detail';
   static const WALLET_TOPUP = '/wallet-topup';
+  static const WALLET_USDT_PAYMENT = '/wallet-usdt-payment';
+  static const WALLET_PAYMENT_PENDING = '/wallet-payment-pending';
   static const TRANSACTION_HISTORY = '/transaction-history';
   static const CHAT = '/chat';
   static const WRITE_REVIEW = '/write-review';

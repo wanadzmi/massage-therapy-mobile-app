@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import '../../../data/models/booking_model.dart';
 import '../controllers/review_controller.dart';
 
@@ -167,12 +168,12 @@ class _WriteReviewFormState extends State<_WriteReviewForm> {
               const SizedBox(height: 32),
 
               // Submit Button
-              GetBuilder<ReviewController>(
+              GetX<ReviewController>(
                 builder: (ctrl) => SizedBox(
                   width: double.infinity,
                   height: 52,
                   child: ElevatedButton(
-                    onPressed: ctrl.isLoading ? null : _submitReview,
+                    onPressed: ctrl.isSubmitting ? null : _submitReview,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFD4AF37),
                       disabledBackgroundColor: const Color(
@@ -182,7 +183,7 @@ class _WriteReviewFormState extends State<_WriteReviewForm> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                    child: ctrl.isLoading
+                    child: ctrl.isSubmitting
                         ? const SizedBox(
                             width: 20,
                             height: 20,
@@ -271,7 +272,9 @@ class _WriteReviewFormState extends State<_WriteReviewForm> {
               ),
               const SizedBox(width: 6),
               Text(
-                widget.booking.date?.toString() ?? 'Date',
+                widget.booking.date != null
+                    ? DateFormat('MMM dd, yyyy').format(widget.booking.date!)
+                    : 'Date',
                 style: const TextStyle(fontSize: 13, color: Color(0xFF808080)),
               ),
               const SizedBox(width: 16),
@@ -289,55 +292,90 @@ class _WriteReviewFormState extends State<_WriteReviewForm> {
   }
 
   Widget _buildOverallRating() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Overall Rating',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            color: Color(0xFFE0E0E0),
-          ),
-        ),
-        const SizedBox(height: 12),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              _overallRating.toStringAsFixed(1),
-              style: const TextStyle(
-                fontSize: 48,
-                fontWeight: FontWeight.w700,
-                color: Color(0xFFD4AF37),
-              ),
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1A1A1A),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: const Color(0xFF2A2A2A)),
+      ),
+      child: Column(
+        children: [
+          const Text(
+            'Overall Rating',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFFE0E0E0),
             ),
-            const SizedBox(width: 16),
-            Column(
-              children: List.generate(
-                5,
-                (index) => Icon(
-                  index < _overallRating ? Icons.star : Icons.star_border,
-                  color: const Color(0xFFD4AF37),
-                  size: 32,
+          ),
+          const SizedBox(height: 16),
+          // Large rating number
+          Text(
+            _overallRating.toStringAsFixed(1),
+            style: const TextStyle(
+              fontSize: 56,
+              fontWeight: FontWeight.w700,
+              color: Color(0xFFD4AF37),
+              height: 1,
+            ),
+          ),
+          const SizedBox(height: 8),
+          // Horizontal interactive stars
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: List.generate(
+              5,
+              (index) => GestureDetector(
+                onTap: () {
+                  setState(() => _overallRating = (index + 1).toDouble());
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  child: Icon(
+                    index < _overallRating
+                        ? Icons.star_rounded
+                        : Icons.star_border_rounded,
+                    color: const Color(0xFFD4AF37),
+                    size: 40,
+                  ),
                 ),
               ),
             ),
-          ],
-        ),
-        const SizedBox(height: 12),
-        Slider(
-          value: _overallRating,
-          min: 1,
-          max: 5,
-          divisions: 4,
-          activeColor: const Color(0xFFD4AF37),
-          inactiveColor: const Color(0xFF2A2A2A),
-          onChanged: (value) {
-            setState(() => _overallRating = value);
-          },
-        ),
-      ],
+          ),
+          const SizedBox(height: 8),
+          // Helper text
+          Text(
+            'Tap stars or use slider to rate',
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.grey[600],
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+          const SizedBox(height: 12),
+          // Slider for fine-tuning
+          SliderTheme(
+            data: SliderThemeData(
+              activeTrackColor: const Color(0xFFD4AF37),
+              inactiveTrackColor: const Color(0xFF2A2A2A),
+              thumbColor: const Color(0xFFD4AF37),
+              overlayColor: const Color(0xFFD4AF37).withOpacity(0.2),
+              trackHeight: 4,
+              thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 8),
+            ),
+            child: Slider(
+              value: _overallRating,
+              min: 1,
+              max: 5,
+              divisions: 4,
+              onChanged: (value) {
+                setState(() => _overallRating = value);
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 

@@ -366,11 +366,9 @@ class ProfileView extends GetView<ProfileController> {
       () => GestureDetector(
         onTap: () async {
           // Navigate to wallet top-up and refresh on return
-          final result = await Get.toNamed('/wallet-topup');
-          // Refresh profile if top-up was successful
-          if (result != null && result['success'] == true) {
-            controller.refresh();
-          }
+          await Get.toNamed('/wallet-topup');
+          // Always refresh profile after returning from wallet screen
+          controller.refresh();
         },
         child: Container(
           padding: const EdgeInsets.all(20),

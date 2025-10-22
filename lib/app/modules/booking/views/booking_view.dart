@@ -457,36 +457,76 @@ class BookingView extends GetView<BookingController> {
                 ],
               ),
             ),
-            // Write Review button for completed bookings
+            // Write Review button for completed bookings (only if not reviewed)
             if (booking.status == 'completed') ...[
               const SizedBox(height: 12),
-              SizedBox(
-                width: double.infinity,
-                height: 40,
-                child: ElevatedButton.icon(
-                  onPressed: () =>
-                      Get.toNamed(Routes.WRITE_REVIEW, arguments: booking),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFD4AF37),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+              if (booking.hasReview == true)
+                // Already reviewed indicator
+                Container(
+                  width: double.infinity,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF1A1A1A),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: const Color(0xFF2A2A2A)),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.check_circle,
+                        size: 16,
+                        color: Color(0xFF4CAF50),
+                      ),
+                      const SizedBox(width: 8),
+                      const Text(
+                        'Review Submitted',
+                        style: TextStyle(
+                          color: Color(0xFF808080),
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              else
+                // Write review button
+                SizedBox(
+                  width: double.infinity,
+                  height: 40,
+                  child: ElevatedButton.icon(
+                    onPressed: () async {
+                      final result = await Get.toNamed(
+                        Routes.WRITE_REVIEW,
+                        arguments: booking,
+                      );
+                      // Refresh bookings if review was submitted
+                      if (result == true) {
+                        controller.loadBookings(refresh: true);
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFD4AF37),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
-                  ),
-                  icon: const Icon(
-                    Icons.rate_review,
-                    size: 16,
-                    color: Color(0xFF0A0A0A),
-                  ),
-                  label: const Text(
-                    'Write Review',
-                    style: TextStyle(
+                    icon: const Icon(
+                      Icons.rate_review,
+                      size: 16,
                       color: Color(0xFF0A0A0A),
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
+                    ),
+                    label: const Text(
+                      'Write Review',
+                      style: TextStyle(
+                        color: Color(0xFF0A0A0A),
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),
-              ),
             ],
             // Cancel button for cancellable bookings
             if (booking.status != 'cancelled' &&

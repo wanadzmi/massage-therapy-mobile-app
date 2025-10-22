@@ -20,6 +20,7 @@ class Booking {
   final BookingCheckin? checkin;
   final BookingCheckout? checkout;
   final BookingReminders? reminders;
+  final bool? hasReview; // Indicates if booking has been reviewed by customer
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
@@ -45,6 +46,7 @@ class Booking {
     this.checkin,
     this.checkout,
     this.reminders,
+    this.hasReview,
     this.createdAt,
     this.updatedAt,
   });
@@ -117,6 +119,7 @@ class Booking {
       reminders: json['reminders'] != null && json['reminders'] is Map
           ? BookingReminders.fromJson(json['reminders'] as Map<String, dynamic>)
           : null,
+      hasReview: json['hasReview'] as bool?,
       createdAt: json['createdAt'] != null
           ? DateTime.parse(json['createdAt'])
           : null,
@@ -147,10 +150,14 @@ class Booking {
       'checkin': checkin?.toJson(),
       'checkout': checkout?.toJson(),
       'reminders': reminders?.toJson(),
+      'hasReview': hasReview,
       'createdAt': createdAt?.toIso8601String(),
       'updatedAt': updatedAt?.toIso8601String(),
     };
   }
+
+  // Helper method to check if booking can be reviewed
+  bool get canBeReviewed => status == 'completed' && hasReview != true;
 }
 
 class BookingDuration {

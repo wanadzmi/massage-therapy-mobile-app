@@ -1,22 +1,19 @@
+import '../models/wallet_topup_model.dart';
 import 'base_services.dart';
 
 class WalletService extends BaseServices {
   static const String _walletEndpoint = '/api/wallet';
+  static const String _transactionsEndpoint = '/api/wallet/transactions';
 
   /// Initiate wallet top-up
-  Future<MyResponse<TopUpResponse?, dynamic>> initiateTopUp({
+  Future<MyResponse<TopUpData?, dynamic>> initiateTopUp({
     required double amount,
     required String paymentMethod,
-    String? bankCode,
   }) async {
     final postBody = <String, dynamic>{
       'amount': amount,
       'paymentMethod': paymentMethod,
     };
-
-    if (bankCode != null) {
-      postBody['bankCode'] = bankCode;
-    }
 
     final response = await callAPI(
       HttpRequestType.POST,
@@ -27,8 +24,8 @@ class WalletService extends BaseServices {
     if (response.isSuccess && response.data != null) {
       try {
         final data = response.data['data'] ?? response.data;
-        final topUpResponse = TopUpResponse.fromJson(data);
-        return MyResponse.complete(topUpResponse);
+        final topUpData = TopUpData.fromJson(data);
+        return MyResponse.complete(topUpData);
       } catch (e) {
         return MyResponse.error('Failed to parse top-up response: $e');
       }
@@ -37,99 +34,135 @@ class WalletService extends BaseServices {
     return MyResponse.error(response.error);
   }
 
-  /// Confirm wallet top-up payment
-  Future<MyResponse<TopUpConfirmResponse?, dynamic>> confirmTopUp({
-    required String paymentId,
-    required String gatewayTransactionId,
-    required double amount,
-    required String status,
-  }) async {
-    final postBody = <String, dynamic>{
-      'paymentId': paymentId,
-      'gatewayTransactionId': gatewayTransactionId,
-      'amount': amount,
-      'status': status,
-    };
-
+  /// Get transaction status by ID
+  Future<MyResponse<WalletTransaction?, dynamic>> getTransactionStatus(
+    String transactionId,
+  ) async {
     final response = await callAPI(
-      HttpRequestType.POST,
-      '$_walletEndpoint/top-up/confirm',
-      postBody: postBody,
+      HttpRequestType.GET,
+      '$_transactionsEndpoint/$transactionId',
     );
 
     if (response.isSuccess && response.data != null) {
       try {
-        final confirmResponse = TopUpConfirmResponse.fromJson(response.data);
-        return MyResponse.complete(confirmResponse);
+        final data = response.data['data'] ?? response.data;
+        final transaction = WalletTransaction.fromJson(data);
+        return MyResponse.complete(transaction);
       } catch (e) {
-        return MyResponse.error('Failed to parse confirmation response: $e');
+        return MyResponse.error('Failed to parse transaction: $e');
       }
     }
 
     return MyResponse.error(response.error);
   }
-}
 
-/// Response model for top-up initiation
-class TopUpResponse {
-  final String? transactionId;
-  final String? paymentId;
-  final double? amount;
-  final String? method;
-  final String? status;
-  final bool? requiresRedirect;
-  final String? paymentUrl;
+  /// Get wallet balance and details
+  Future<MyResponse<Map<String, dynamic>?, dynamic>> getWalletDetails() async {
+    final response = await callAPI(HttpRequestType.GET, _walletEndpoint);
 
-  TopUpResponse({
-    this.transactionId,
-    this.paymentId,
-    this.amount,
-    this.method,
-    this.status,
-    this.requiresRedirect,
-    this.paymentUrl,
-  });
+    if (response.isSuccess && response.data != null) {
+      try {
+        final data = response.data['data'] ?? response.data;
+        return MyResponse.complete(data);
+      } catch (e) {
+        return MyResponse.error('Failed to parse wallet details: $e');
+      }
+    }
 
-  factory TopUpResponse.fromJson(Map<String, dynamic> json) {
-    return TopUpResponse(
-      transactionId: json['transactionId'],
-      paymentId: json['paymentId'],
-      amount: json['amount']?.toDouble(),
-      method: json['method'],
-      status: json['status'],
-      requiresRedirect: json['requiresRedirect'],
-      paymentUrl: json['paymentUrl'],
+    return MyResponse.error(response.error);
+  }
+
+  /// Get available payment methods
+  List<PaymentMethod> getAvailablePaymentMethods() {
+    return [
+      PaymentMethod(
+        id: 'test_payment',
+        name: 'Test Payment',
+        description: 'Instant credit (Testing only)',
+        enabled: true,
+        badge: 'INSTANT',
+        badgeColor: '4CAF50', // Green
+      ),
+      PaymentMethod(
+        id: 'usdt_trc20',
+        name: 'USDT (TRC20)',
+        description: 'Cryptocurrency on Tron Network',
+        enabled: true,
+        badge: 'CRYPTO',
+        badgeColor: 'FF9800', // Orange
+      ),
+      PaymentMethod(
+        id: 'fpx',
+        name: 'Online Banking',
+        description: 'FPX Payment Gateway',
+        enabled: false,
+        badge: 'COMING SOON',
+        badgeColor: '9E9E9E', // Grey
+      ),
+      PaymentMethod(
+        id: 'tng_ewallet',
+        name: 'Touch n Go',
+        description: 'eWallet Payment',
+        enabled: false,
+        badge: 'COMING SOON',
+        badgeColor: '9E9E9E', // Grey
+      ),
+    ];
+  }
+
+  /// Validate top-up amount
+  String? validateAmount(double? amount) {
+    if (amount == null || amount <= 0) {
+      return 'Please enter a valid amount';
+    }
+    if (amount < 10) {
+      return 'Minimum top-up amount is RM10';
+    }
+    if (amount > 5000) {
+      return 'Maximum top-up amount is RM5,000';
+    }
+    return null;
+  }
+
+  /// Get wallet balance (legacy method)
+  Future<MyResponse<double?, dynamic>> getBalance() async {
+    final response = await callAPI(HttpRequestType.GET, _walletEndpoint);
+
+    if (response.isSuccess && response.data != null) {
+      try {
+        final data = response.data['data'] ?? response.data;
+        final balance = data['balance'] as num;
+        return MyResponse.complete(balance.toDouble());
+      } catch (e) {
+        return MyResponse.error('Failed to parse balance: $e');
+      }
+    }
+
+    return MyResponse.error(response.error);
+  }
+
+  /// Get transaction history
+  Future<MyResponse<List<WalletTransaction>?, dynamic>> getTransactions({
+    int page = 1,
+    int limit = 20,
+  }) async {
+    final response = await callAPI(
+      HttpRequestType.GET,
+      '$_walletEndpoint/transactions?page=$page&limit=$limit',
     );
-  }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'transactionId': transactionId,
-      'paymentId': paymentId,
-      'amount': amount,
-      'method': method,
-      'status': status,
-      'requiresRedirect': requiresRedirect,
-      'paymentUrl': paymentUrl,
-    };
-  }
-}
+    if (response.isSuccess && response.data != null) {
+      try {
+        final data = response.data['data'] ?? response.data;
+        final transactions = (data['transactions'] as List)
+            .map((json) => WalletTransaction.fromJson(json))
+            .toList();
+        return MyResponse.complete(transactions);
+      } catch (e) {
+        return MyResponse.error('Failed to parse transactions: $e');
+      }
+    }
 
-/// Response model for top-up confirmation
-class TopUpConfirmResponse {
-  final String? status;
-  final bool? processed;
-
-  TopUpConfirmResponse({this.status, this.processed});
-
-  factory TopUpConfirmResponse.fromJson(Map<String, dynamic> json) {
-    return TopUpConfirmResponse(
-      status: json['status'],
-      processed: json['processed'],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {'status': status, 'processed': processed};
+    return MyResponse.error(response.error);
   }
 }

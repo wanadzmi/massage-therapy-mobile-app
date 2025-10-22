@@ -27,7 +27,7 @@ class MyReviewsView extends GetView<ReviewController> {
         ),
       ),
       body: Obx(() {
-        if (controller.isLoading && controller.myReviews.isEmpty) {
+        if (controller.isLoadingList && controller.myReviews.isEmpty) {
           return const Center(
             child: CircularProgressIndicator(color: Color(0xFFD4AF37)),
           );

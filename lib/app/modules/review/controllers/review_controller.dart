@@ -8,14 +8,16 @@ class ReviewController extends GetxController {
   final ReviewService _reviewService = ReviewService();
 
   // Observable variables
-  final _isLoading = false.obs;
+  final _isLoadingList = false.obs;
+  final _isSubmitting = false.obs;
   final _myReviews = <Review>[].obs;
   final _currentPage = 1.obs;
   final _totalPages = 1.obs;
   final _hasMore = false.obs;
 
   // Getters
-  bool get isLoading => _isLoading.value;
+  bool get isLoadingList => _isLoadingList.value;
+  bool get isSubmitting => _isSubmitting.value;
   List<Review> get myReviews => _myReviews;
   bool get hasMore => _hasMore.value;
 
@@ -31,7 +33,7 @@ class ReviewController extends GetxController {
     }
 
     try {
-      _isLoading.value = true;
+      _isLoadingList.value = true;
       final response = await _reviewService.getMyReviews(
         page: _currentPage.value,
         limit: 10,
@@ -70,12 +72,12 @@ class ReviewController extends GetxController {
         colorText: const Color(0xFFE53E3E),
       );
     } finally {
-      _isLoading.value = false;
+      _isLoadingList.value = false;
     }
   }
 
   Future<void> loadMore() async {
-    if (_isLoading.value || !_hasMore.value) return;
+    if (_isLoadingList.value || !_hasMore.value) return;
     _currentPage.value++;
     await loadMyReviews();
   }
@@ -105,7 +107,7 @@ class ReviewController extends GetxController {
     }
 
     try {
-      _isLoading.value = true;
+      _isSubmitting.value = true;
       final response = await _reviewService.createReview(
         bookingId: booking.id!,
         ratings: ratings,
@@ -117,24 +119,101 @@ class ReviewController extends GetxController {
       );
 
       if (response.isSuccess) {
-        Get.snackbar(
-          'Success',
-          'Review submitted successfully',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: const Color(0xFF1E1E1E),
-          colorText: const Color(0xFF4CAF50),
+        // Show success dialog
+        Get.dialog(
+          Dialog(
+            backgroundColor: const Color(0xFF1A1A1A),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF4CAF50).withOpacity(0.2),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.check_circle,
+                      color: Color(0xFF4CAF50),
+                      size: 48,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Review Submitted!',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Thank you for sharing your feedback',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Color(0xFF808080), fontSize: 14),
+                  ),
+                  const SizedBox(height: 24),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Get.back(); // Close dialog
+                        Get.back(
+                          result: true,
+                        ); // Close review form with success flag
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFD4AF37),
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: const Text(
+                        'Done',
+                        style: TextStyle(
+                          color: Color(0xFF0A0A0A),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          barrierDismissible: false,
         );
-        Get.back(); // Close review form
         await loadMyReviews(refresh: true); // Refresh list
       } else {
-        // Extract error message
+        // Extract error message with specific handling
         String errorMessage = 'Failed to submit review';
+        String errorTitle = 'Error';
+
         if (response.error != null) {
           errorMessage = response.error!;
+
+          // Handle specific error cases
+          if (errorMessage.toLowerCase().contains('already reviewed') ||
+              errorMessage.toLowerCase().contains('review already exists')) {
+            errorTitle = 'Already Reviewed';
+            errorMessage =
+                'You have already submitted a review for this booking.';
+          } else if (errorMessage.toLowerCase().contains('not completed')) {
+            errorTitle = 'Booking Not Completed';
+            errorMessage = 'You can only review completed bookings.';
+          }
         }
 
         Get.snackbar(
-          'Error',
+          errorTitle,
           errorMessage,
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: const Color(0xFF1E1E1E),
@@ -151,7 +230,7 @@ class ReviewController extends GetxController {
         colorText: const Color(0xFFE53E3E),
       );
     } finally {
-      _isLoading.value = false;
+      _isSubmitting.value = false;
     }
   }
 

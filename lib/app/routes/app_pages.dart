@@ -24,8 +24,10 @@ import '../modules/therapist_selection/bindings/therapist_selection_binding.dart
 import '../modules/therapist_selection/views/therapist_selection_view.dart';
 import '../modules/booking_create/bindings/booking_create_binding.dart';
 import '../modules/booking_create/views/booking_create_view.dart';
-import '../modules/wallet_topup/bindings/wallet_topup_binding.dart';
-import '../modules/wallet_topup/views/wallet_topup_view.dart';
+import '../modules/wallet/bindings/wallet_topup_binding.dart';
+import '../modules/wallet/views/wallet_topup_view.dart';
+import '../modules/wallet/views/wallet_usdt_payment_view.dart';
+import '../modules/wallet/views/wallet_payment_pending_view.dart';
 import '../modules/transaction_history/bindings/transaction_history_binding.dart';
 import '../modules/transaction_history/views/transaction_history_view.dart';
 import '../modules/chat/bindings/chat_binding.dart';
@@ -115,8 +117,18 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.WALLET_TOPUP,
-      page: () => const WalletTopupView(),
-      binding: WalletTopupBinding(),
+      page: () => const WalletTopUpView(),
+      binding: WalletTopUpBinding(),
+    ),
+    GetPage(
+      name: _Paths.WALLET_USDT_PAYMENT,
+      page: () => const WalletUsdtPaymentView(),
+      binding: WalletTopUpBinding(),
+    ),
+    GetPage(
+      name: _Paths.WALLET_PAYMENT_PENDING,
+      page: () => const WalletPaymentPendingView(),
+      binding: WalletTopUpBinding(),
     ),
     GetPage(
       name: _Paths.TRANSACTION_HISTORY,

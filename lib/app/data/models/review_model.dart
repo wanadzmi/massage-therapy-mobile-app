@@ -44,24 +44,28 @@ class Review {
       id: json['_id'] ?? json['id'],
       reviewId: json['reviewId'],
       bookingId: json['bookingId'],
-      user: json['user'] != null ? User.fromJson(json['user']) : null,
-      therapist: json['therapist'] != null
+      user: json['user'] != null && json['user'] is Map
+          ? User.fromJson(json['user'])
+          : null,
+      therapist: json['therapist'] != null && json['therapist'] is Map
           ? Therapist.fromJson(json['therapist'])
           : null,
-      store: json['store'] != null ? Store.fromJson(json['store']) : null,
-      service: json['service'] != null
+      store: json['store'] != null && json['store'] is Map
+          ? Store.fromJson(json['store'])
+          : null,
+      service: json['service'] != null && json['service'] is Map
           ? Service.fromJson(json['service'])
           : null,
-      booking: json['booking'] != null
+      booking: json['booking'] != null && json['booking'] is Map
           ? Booking.fromJson(json['booking'])
           : null,
-      ratings: json['ratings'] != null
+      ratings: json['ratings'] != null && json['ratings'] is Map
           ? ReviewRatings.fromJson(json['ratings'])
           : null,
-      review: json['review'] != null
+      review: json['review'] != null && json['review'] is Map
           ? ReviewContent.fromJson(json['review'])
           : null,
-      photos: json['photos'] != null
+      photos: json['photos'] != null && json['photos'] is List
           ? (json['photos'] as List)
                 .map((p) => ReviewPhoto.fromJson(p))
                 .toList()
@@ -69,10 +73,10 @@ class Review {
       tags: json['tags'] != null ? List<String>.from(json['tags']) : null,
       status: json['status'],
       isVerified: json['isVerified'],
-      helpful: json['helpful'] != null
+      helpful: json['helpful'] != null && json['helpful'] is Map
           ? HelpfulInfo.fromJson(json['helpful'])
           : null,
-      response: json['response'] != null
+      response: json['response'] != null && json['response'] is Map
           ? ReviewResponse.fromJson(json['response'])
           : null,
       createdAt: json['createdAt'] != null
