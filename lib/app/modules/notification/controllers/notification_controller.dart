@@ -311,6 +311,12 @@ class NotificationController extends GetxController {
       }
     } else if (actionUrl == '/wallet') {
       Get.toNamed('/wallet-topup');
+    } else if (actionUrl == '/loyalty') {
+      // Navigate to profile (where loyalty points are displayed)
+      Get.toNamed('/profile');
+    } else if (actionUrl == '/reviews') {
+      // Navigate to profile (future: dedicated reviews screen)
+      Get.toNamed('/profile');
     } else if (actionUrl == '/profile') {
       Get.toNamed('/profile');
     } else if (actionUrl.startsWith('/')) {

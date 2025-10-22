@@ -856,70 +856,33 @@ class ProfileView extends GetView<ProfileController> {
               ),
             ),
             const SizedBox(height: 12),
-            Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF0A0A0A),
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: const Color(0xFF2A2A2A)),
-                    ),
-                    child: Column(
-                      children: [
-                        Text(
-                          '${controller.discount}%',
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xFFD4AF37),
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          AppLocalizations.of(context)!.tierDiscount,
-                          style: const TextStyle(
-                            fontSize: 10,
-                            color: Color(0xFF808080),
-                          ),
-                        ),
-                      ],
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: const Color(0xFF0A0A0A),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: const Color(0xFF2A2A2A)),
+              ),
+              child: Column(
+                children: [
+                  Text(
+                    '${controller.currency} ${controller.referralEarnings.toStringAsFixed(0)}',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF4CAF50),
                     ),
                   ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF0A0A0A),
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: const Color(0xFF2A2A2A)),
-                    ),
-                    child: Column(
-                      children: [
-                        Text(
-                          '${controller.currency} ${controller.referralEarnings.toStringAsFixed(0)}',
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xFF4CAF50),
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          AppLocalizations.of(context)!.referralEarnings,
-                          style: const TextStyle(
-                            fontSize: 10,
-                            color: Color(0xFF808080),
-                          ),
-                        ),
-                      ],
+                  const SizedBox(height: 4),
+                  Text(
+                    AppLocalizations.of(context)!.referralEarnings,
+                    style: const TextStyle(
+                      fontSize: 10,
+                      color: Color(0xFF808080),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),

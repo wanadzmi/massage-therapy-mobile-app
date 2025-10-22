@@ -30,13 +30,8 @@ class RegisterController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // Prefill all fields for testing
-    nameController.text = 'Test User';
+    // Prefill phone number only for testing
     phoneController.text = '1121907970';
-    emailController.text = 'test@email.com';
-    passwordController.text = 'Test@1234';
-    confirmPasswordController.text = 'Test@1234';
-    _agreeToTerms.value = true;
   }
 
   @override

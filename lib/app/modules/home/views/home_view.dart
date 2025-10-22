@@ -237,14 +237,16 @@ class HomeView extends GetView<HomeController> {
                     ),
                     const SizedBox(height: 16),
 
-                    _buildQuickActionCard(
-                      AppLocalizations.of(context)!.findTherapist,
-                      Icons.home_work,
-                      Colors.purple,
-                      AppLocalizations.of(context)!.browseAvailableTherapists,
-                      () => controller.navigateToFindTherapist(),
-                    ),
-                    const SizedBox(height: 32),
+                    // Commented out Find Therapist for now
+                    // _buildQuickActionCard(
+                    //   AppLocalizations.of(context)!.findTherapist,
+                    //   Icons.home_work,
+                    //   Colors.purple,
+                    //   AppLocalizations.of(context)!.browseAvailableTherapists,
+                    //   () => controller.navigateToFindTherapist(),
+                    // ),
+                    // const SizedBox(height: 16),
+                    const SizedBox(height: 16),
                   ],
                 ),
               ),

@@ -7,58 +7,64 @@ class BookingCreateView extends GetView<BookingCreateController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF0A0A0A),
-      appBar: AppBar(
+    return GestureDetector(
+      onTap: () {
+        // Dismiss keyboard when tapping outside
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
         backgroundColor: const Color(0xFF0A0A0A),
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFFE0E0E0)),
-          onPressed: () => Get.back(),
-        ),
-        title: const Text(
-          'Confirm Booking',
-          style: TextStyle(
-            color: Color(0xFFE0E0E0),
-            fontWeight: FontWeight.w500,
-            fontSize: 18,
+        appBar: AppBar(
+          backgroundColor: const Color(0xFF0A0A0A),
+          elevation: 0,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Color(0xFFE0E0E0)),
+            onPressed: () => Get.back(),
+          ),
+          title: const Text(
+            'Confirm Booking',
+            style: TextStyle(
+              color: Color(0xFFE0E0E0),
+              fontWeight: FontWeight.w500,
+              fontSize: 18,
+            ),
           ),
         ),
-      ),
-      body: Obx(
-        () => controller.isLoading
-            ? const Center(
-                child: CircularProgressIndicator(color: Color(0xFFD4AF37)),
-              )
-            : SingleChildScrollView(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Booking Summary
-                    _buildSummaryCard(),
-                    const SizedBox(height: 20),
+        body: Obx(
+          () => controller.isLoading
+              ? const Center(
+                  child: CircularProgressIndicator(color: Color(0xFFD4AF37)),
+                )
+              : SingleChildScrollView(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Booking Summary
+                      _buildSummaryCard(),
+                      const SizedBox(height: 20),
 
-                    // Preferences
-                    _buildPreferencesSection(),
-                    const SizedBox(height: 20),
+                      // Preferences
+                      _buildPreferencesSection(),
+                      const SizedBox(height: 20),
 
-                    // Notes
-                    _buildNotesSection(),
-                    const SizedBox(height: 20),
+                      // Notes
+                      _buildNotesSection(),
+                      const SizedBox(height: 20),
 
-                    // Voucher Code
-                    _buildVoucherSection(),
-                    const SizedBox(height: 20),
+                      // Voucher Code
+                      _buildVoucherSection(),
+                      const SizedBox(height: 20),
 
-                    // Payment Method
-                    _buildPaymentMethodSection(),
-                    const SizedBox(height: 100),
-                  ],
+                      // Payment Method
+                      _buildPaymentMethodSection(),
+                      const SizedBox(height: 100),
+                    ],
+                  ),
                 ),
-              ),
+        ),
+        bottomNavigationBar: _buildBottomBar(),
       ),
-      bottomNavigationBar: _buildBottomBar(),
     );
   }
 
@@ -278,50 +284,58 @@ class BookingCreateView extends GetView<BookingCreateController> {
   }
 
   Widget _buildNotesSection() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: const Color(0xFF1A1A1A),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: const Color(0xFF2A2A2A)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'Special Instructions',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFFE0E0E0),
-            ),
-          ),
-          const SizedBox(height: 12),
-          TextField(
-            controller: controller.notesController,
-            onChanged: controller.setNotes,
-            maxLines: 3,
-            style: const TextStyle(color: Color(0xFFE0E0E0)),
-            decoration: const InputDecoration(
-              hintText: 'E.g., Please use lavender oil, focus on lower back...',
-              hintStyle: TextStyle(color: Color(0xFF505050), fontSize: 13),
-              filled: true,
-              fillColor: Color(0xFF0A0A0A),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-                borderSide: BorderSide(color: Color(0xFF2A2A2A)),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-                borderSide: BorderSide(color: Color(0xFF2A2A2A)),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-                borderSide: BorderSide(color: Color(0xFFD4AF37)),
+    return Builder(
+      builder: (context) => Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: const Color(0xFF1A1A1A),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF2A2A2A)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Special Instructions',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: Color(0xFFE0E0E0),
               ),
             ),
-          ),
-        ],
+            const SizedBox(height: 12),
+            TextField(
+              controller: controller.notesController,
+              onChanged: controller.setNotes,
+              maxLines: 3,
+              textInputAction: TextInputAction.done,
+              onSubmitted: (_) {
+                // Dismiss keyboard when user presses "Done"
+                FocusScope.of(context).unfocus();
+              },
+              style: const TextStyle(color: Color(0xFFE0E0E0)),
+              decoration: const InputDecoration(
+                hintText:
+                    'E.g., Please use lavender oil, focus on lower back...',
+                hintStyle: TextStyle(color: Color(0xFF505050), fontSize: 13),
+                filled: true,
+                fillColor: Color(0xFF0A0A0A),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  borderSide: BorderSide(color: Color(0xFF2A2A2A)),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  borderSide: BorderSide(color: Color(0xFF2A2A2A)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  borderSide: BorderSide(color: Color(0xFFD4AF37)),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

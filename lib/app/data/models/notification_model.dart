@@ -211,6 +211,23 @@ class NotificationData {
   final DateTime? date;
   final String? time;
   final double? amount;
+  // New fields for expanded notification types
+  final String? bookingCode;
+  final double? cashbackAmount;
+  final double? newBalance;
+  final int? pointsEarned;
+  final int? totalPoints;
+  final int? pointsRedeemed;
+  final double? creditAmount;
+  final int? remainingPoints;
+  final String? tier;
+  final double? cashbackPercentage;
+  final double? pointsMultiplier;
+  final double? rewardAmount;
+  final String? referredName;
+  final int? expiringPoints;
+  final int? daysUntilExpiry;
+  final int? rewardPoints;
 
   NotificationData({
     this.bookingId,
@@ -226,6 +243,22 @@ class NotificationData {
     this.date,
     this.time,
     this.amount,
+    this.bookingCode,
+    this.cashbackAmount,
+    this.newBalance,
+    this.pointsEarned,
+    this.totalPoints,
+    this.pointsRedeemed,
+    this.creditAmount,
+    this.remainingPoints,
+    this.tier,
+    this.cashbackPercentage,
+    this.pointsMultiplier,
+    this.rewardAmount,
+    this.referredName,
+    this.expiringPoints,
+    this.daysUntilExpiry,
+    this.rewardPoints,
   });
 
   factory NotificationData.fromJson(Map<String, dynamic> json) {
@@ -245,6 +278,22 @@ class NotificationData {
       date: json['date'] != null ? DateTime.parse(json['date']) : null,
       time: json['time']?.toString(),
       amount: json['amount']?.toDouble(),
+      bookingCode: json['bookingCode']?.toString(),
+      cashbackAmount: json['cashbackAmount']?.toDouble(),
+      newBalance: json['newBalance']?.toDouble(),
+      pointsEarned: json['pointsEarned']?.toInt(),
+      totalPoints: json['totalPoints']?.toInt(),
+      pointsRedeemed: json['pointsRedeemed']?.toInt(),
+      creditAmount: json['creditAmount']?.toDouble(),
+      remainingPoints: json['remainingPoints']?.toInt(),
+      tier: json['tier']?.toString(),
+      cashbackPercentage: json['cashbackPercentage']?.toDouble(),
+      pointsMultiplier: json['pointsMultiplier']?.toDouble(),
+      rewardAmount: json['rewardAmount']?.toDouble(),
+      referredName: json['referredName']?.toString(),
+      expiringPoints: json['expiringPoints']?.toInt(),
+      daysUntilExpiry: json['daysUntilExpiry']?.toInt(),
+      rewardPoints: json['rewardPoints']?.toInt(),
     );
   }
 
@@ -263,6 +312,22 @@ class NotificationData {
       if (date != null) 'date': date!.toIso8601String(),
       if (time != null) 'time': time,
       if (amount != null) 'amount': amount,
+      if (bookingCode != null) 'bookingCode': bookingCode,
+      if (cashbackAmount != null) 'cashbackAmount': cashbackAmount,
+      if (newBalance != null) 'newBalance': newBalance,
+      if (pointsEarned != null) 'pointsEarned': pointsEarned,
+      if (totalPoints != null) 'totalPoints': totalPoints,
+      if (pointsRedeemed != null) 'pointsRedeemed': pointsRedeemed,
+      if (creditAmount != null) 'creditAmount': creditAmount,
+      if (remainingPoints != null) 'remainingPoints': remainingPoints,
+      if (tier != null) 'tier': tier,
+      if (cashbackPercentage != null) 'cashbackPercentage': cashbackPercentage,
+      if (pointsMultiplier != null) 'pointsMultiplier': pointsMultiplier,
+      if (rewardAmount != null) 'rewardAmount': rewardAmount,
+      if (referredName != null) 'referredName': referredName,
+      if (expiringPoints != null) 'expiringPoints': expiringPoints,
+      if (daysUntilExpiry != null) 'daysUntilExpiry': daysUntilExpiry,
+      if (rewardPoints != null) 'rewardPoints': rewardPoints,
     };
   }
 }

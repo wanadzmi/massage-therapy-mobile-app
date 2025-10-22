@@ -127,6 +127,11 @@ class AuthService extends BaseServices {
 
   /// Get current user profile
   Future<MyResponse<User?, dynamic>> getUserProfile() async {
+    print('🌐 CALLING PROFILE ENDPOINT: GET /api/auth/profile');
+    print(
+      '📊 This endpoint returns: user profile with booking stats (totalBookings, completedBookings, etc.)',
+    );
+
     final response = await callAPI(HttpRequestType.GET, _profileEndpoint);
 
     if (response.isSuccess && response.data != null) {
@@ -135,6 +140,9 @@ class AuthService extends BaseServices {
         print('📥 GET /api/auth/profile response data keys: ${userData.keys}');
         print('📥 Gender from API: ${userData['gender']}');
         print('📥 DateOfBirth from API: ${userData['dateOfBirth']}');
+        print(
+          '📊 Booking Stats: totalBookings=${userData['bookingStats']?['totalBookings']}, completedBookings=${userData['bookingStats']?['completedBookings']}',
+        );
         final user = User.fromJson(userData);
         print(
           '✅ Parsed user - gender: ${user.gender}, dateOfBirth: ${user.dateOfBirth}',
