@@ -5,10 +5,12 @@ import 'package:get/get.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../data/models/wallet_topup_model.dart';
 import '../../../data/services/wallet_service.dart';
+import '../../../data/services/currency_service.dart';
 import '../../home/controllers/home_controller.dart';
 
 class WalletTopUpController extends GetxController {
   final WalletService _walletService = WalletService();
+  final CurrencyService _currencyService = CurrencyService();
 
   // Observable states
   final _isProcessing = false.obs;
@@ -17,6 +19,9 @@ class WalletTopUpController extends GetxController {
   final _topUpData = Rx<TopUpData?>(null);
   final _currentBalance = 0.0.obs;
   final _pollingTimer = Rx<Timer?>(null);
+  final _usdToMyrRate = 0.0.obs;
+  final _myrEquivalent = 0.0.obs;
+  final _isLoadingRate = false.obs;
 
   // Text editing controller
   final amountController = TextEditingController();
@@ -27,6 +32,10 @@ class WalletTopUpController extends GetxController {
   double get amount => _amount.value;
   TopUpData? get topUpData => _topUpData.value;
   double get currentBalance => _currentBalance.value;
+  double get usdToMyrRate => _usdToMyrRate.value;
+  double get myrEquivalent => _myrEquivalent.value;
+  bool get isLoadingRate => _isLoadingRate.value;
+  bool get isUsdtPayment => _selectedPaymentMethod.value?.id == 'usdt_trc20';
 
   // Available payment methods
   List<PaymentMethod> get paymentMethods =>
@@ -59,6 +68,23 @@ class WalletTopUpController extends GetxController {
     }
   }
 
+  /// Load USD to MYR exchange rate
+  Future<void> loadExchangeRate() async {
+    _isLoadingRate.value = true;
+    try {
+      final rate = await _currencyService.getUsdToMyrRate();
+      _usdToMyrRate.value = rate;
+      // Update MYR equivalent if amount is already entered
+      if (_amount.value > 0 && isUsdtPayment) {
+        _myrEquivalent.value = _amount.value * rate;
+      }
+    } catch (e) {
+      debugPrint('Error loading exchange rate: $e');
+    } finally {
+      _isLoadingRate.value = false;
+    }
+  }
+
   /// Select payment method
   void selectPaymentMethod(PaymentMethod method) {
     if (!method.enabled) {
@@ -74,12 +100,31 @@ class WalletTopUpController extends GetxController {
     }
 
     _selectedPaymentMethod.value = method;
+
+    // Load exchange rate when USDT is selected
+    if (method.id == 'usdt_trc20') {
+      loadExchangeRate();
+      // Clear amount when switching to USDT
+      amountController.clear();
+      _amount.value = 0.0;
+      _myrEquivalent.value = 0.0;
+    } else {
+      // Clear USD conversion when switching to other methods
+      _myrEquivalent.value = 0.0;
+    }
   }
 
   /// Update amount from text field
   void updateAmount(String value) {
     final parsedAmount = double.tryParse(value) ?? 0.0;
     _amount.value = parsedAmount;
+
+    // Calculate MYR equivalent for USDT payments
+    if (isUsdtPayment && _usdToMyrRate.value > 0) {
+      _myrEquivalent.value = parsedAmount * _usdToMyrRate.value;
+    } else {
+      _myrEquivalent.value = 0.0;
+    }
   }
 
   /// Validate and initiate top-up

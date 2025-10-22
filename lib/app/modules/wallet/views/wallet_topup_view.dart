@@ -38,22 +38,73 @@ class WalletTopUpView extends GetView<WalletTopUpController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Enter Amount',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFFE0E0E0),
-                      letterSpacing: 0.3,
-                    ),
-                  ),
+                  Obx(() {
+                    final isUsdt = controller.isUsdtPayment;
+                    return Text(
+                      isUsdt ? 'Enter Amount (USD)' : 'Enter Amount',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFFE0E0E0),
+                        letterSpacing: 0.3,
+                      ),
+                    );
+                  }),
                   const SizedBox(height: 12),
                   _buildAmountInput(),
                   const SizedBox(height: 8),
-                  const Text(
-                    'Minimum: RM10 | Maximum: RM5,000',
-                    style: TextStyle(fontSize: 12, color: Color(0xFF808080)),
-                  ),
+                  Obx(() {
+                    final isUsdt = controller.isUsdtPayment;
+                    if (isUsdt) {
+                      // Show MYR equivalent for USDT
+                      if (controller.isLoadingRate) {
+                        return const Row(
+                          children: [
+                            SizedBox(
+                              width: 12,
+                              height: 12,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 1.5,
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  Color(0xFF808080),
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 8),
+                            Text(
+                              'Loading exchange rate...',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Color(0xFF808080),
+                              ),
+                            ),
+                          ],
+                        );
+                      } else if (controller.myrEquivalent > 0) {
+                        return Text(
+                          '≈ RM ${controller.myrEquivalent.toStringAsFixed(2)} | Rate: 1 USD = RM ${controller.usdToMyrRate.toStringAsFixed(2)}',
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Color(0xFFD4AF37),
+                            fontWeight: FontWeight.w500,
+                          ),
+                        );
+                      } else if (controller.usdToMyrRate > 0) {
+                        return Text(
+                          'Rate: 1 USD = RM ${controller.usdToMyrRate.toStringAsFixed(2)}',
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Color(0xFF808080),
+                          ),
+                        );
+                      }
+                    }
+                    // Show MYR limits for bank payments
+                    return const Text(
+                      'Minimum: RM10 | Maximum: RM5,000',
+                      style: TextStyle(fontSize: 12, color: Color(0xFF808080)),
+                    );
+                  }),
                 ],
               ),
             ),
@@ -157,18 +208,21 @@ class WalletTopUpView extends GetView<WalletTopUpController> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Padding(
-            padding: EdgeInsets.only(left: 16),
-            child: Text(
-              'RM',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF808080),
-                height: 1.0,
+          Obx(() {
+            final isUsdt = controller.isUsdtPayment;
+            return Padding(
+              padding: const EdgeInsets.only(left: 16),
+              child: Text(
+                isUsdt ? 'USD' : 'RM',
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF808080),
+                  height: 1.0,
+                ),
               ),
-            ),
-          ),
+            );
+          }),
           Expanded(
             child: TextField(
               controller: controller.amountController,
@@ -370,9 +424,13 @@ class WalletTopUpView extends GetView<WalletTopUpController> {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Obx(() {
         final isProcessing = controller.isProcessing;
+        // For USDT payments, validate against MYR equivalent
+        final amountToValidate = controller.isUsdtPayment
+            ? controller.myrEquivalent
+            : controller.amount;
         final canProceed =
-            controller.amount >= 10 &&
-            controller.amount <= 5000 &&
+            amountToValidate >= 10 &&
+            amountToValidate <= 5000 &&
             controller.selectedPaymentMethod != null;
 
         return SizedBox(
