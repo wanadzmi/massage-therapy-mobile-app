@@ -4,12 +4,17 @@ import 'package:get/get.dart';
 import 'l10n/app_localizations.dart';
 import 'app/routes/app_pages.dart';
 import 'app/services/locale_service.dart';
+import 'app/core/app_lifecycle_observer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Initialize LocaleService before running the app
   await Get.putAsync(() => LocaleService().init(), permanent: true);
+
+  // Register lifecycle observer
+  final lifecycleObserver = AppLifecycleObserver();
+  WidgetsBinding.instance.addObserver(lifecycleObserver);
 
   runApp(const MyApp());
 }

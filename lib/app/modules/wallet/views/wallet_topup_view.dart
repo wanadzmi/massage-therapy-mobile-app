@@ -154,37 +154,52 @@ class WalletTopUpView extends GetView<WalletTopUpController> {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: const Color(0xFF2A2A2A), width: 1),
       ),
-      child: TextField(
-        controller: controller.amountController,
-        keyboardType: const TextInputType.numberWithOptions(decimal: true),
-        style: const TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-          color: Color(0xFFE0E0E0),
-        ),
-        decoration: const InputDecoration(
-          hintText: '0.00',
-          hintStyle: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF404040),
-          ),
-          prefixIcon: Padding(
-            padding: EdgeInsets.only(left: 16, top: 12),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(left: 16),
             child: Text(
               'RM',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFF808080),
+                height: 1.0,
               ),
             ),
           ),
-          prefixIconConstraints: BoxConstraints(minWidth: 0, minHeight: 0),
-          border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        ),
-        onChanged: controller.updateAmount,
+          Expanded(
+            child: TextField(
+              controller: controller.amountController,
+              keyboardType: const TextInputType.numberWithOptions(
+                decimal: true,
+              ),
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFFE0E0E0),
+                height: 1.0,
+              ),
+              decoration: const InputDecoration(
+                hintText: '0.00',
+                hintStyle: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF404040),
+                  height: 1.0,
+                ),
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 16,
+                ),
+                isDense: true,
+              ),
+              onChanged: controller.updateAmount,
+            ),
+          ),
+        ],
       ),
     );
   }

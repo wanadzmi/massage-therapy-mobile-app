@@ -55,13 +55,7 @@ class HomeView extends GetView<HomeController> {
               ),
             ),
             onPressed: () {
-              Get.snackbar(
-                'Notifications',
-                'No new notifications',
-                snackPosition: SnackPosition.BOTTOM,
-                backgroundColor: const Color(0xFF1E1E1E),
-                colorText: const Color(0xFFE0E0E0),
-              );
+              Get.toNamed('/notifications');
             },
           ),
           const SizedBox(width: 8),

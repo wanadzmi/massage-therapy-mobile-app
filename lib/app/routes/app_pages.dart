@@ -41,6 +41,9 @@ import '../modules/tier_subscription/views/tier_subscription_view.dart';
 import '../modules/tier_subscription/views/tier_detail_view.dart';
 import '../modules/therapist_home/bindings/therapist_home_binding.dart';
 import '../modules/therapist_home/views/therapist_home_view.dart';
+import '../modules/notification/bindings/notification_binding.dart';
+import '../modules/notification/views/notification_view.dart';
+import '../modules/notification/views/notification_preferences_view.dart';
 
 part 'app_routes.dart';
 
@@ -164,6 +167,16 @@ class AppPages {
       name: _Paths.THERAPIST_HOME,
       page: () => const TherapistHomeView(),
       binding: TherapistHomeBinding(),
+    ),
+    GetPage(
+      name: _Paths.NOTIFICATION,
+      page: () => const NotificationView(),
+      binding: NotificationBinding(),
+    ),
+    GetPage(
+      name: _Paths.NOTIFICATION_PREFERENCES,
+      page: () => const NotificationPreferencesView(),
+      binding: NotificationBinding(),
     ),
   ];
 }

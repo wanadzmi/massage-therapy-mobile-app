@@ -26,6 +26,8 @@ abstract class Routes {
   static const TIER_SUBSCRIPTION = _Paths.TIER_SUBSCRIPTION;
   static const TIER_DETAIL = _Paths.TIER_DETAIL;
   static const THERAPIST_HOME = _Paths.THERAPIST_HOME;
+  static const NOTIFICATION = _Paths.NOTIFICATION;
+  static const NOTIFICATION_PREFERENCES = _Paths.NOTIFICATION_PREFERENCES;
 }
 
 abstract class _Paths {
@@ -54,4 +56,6 @@ abstract class _Paths {
   static const TIER_SUBSCRIPTION = '/tier-subscription';
   static const TIER_DETAIL = '/tier-detail';
   static const THERAPIST_HOME = '/therapist-home';
+  static const NOTIFICATION = '/notifications';
+  static const NOTIFICATION_PREFERENCES = '/notification-preferences';
 }
