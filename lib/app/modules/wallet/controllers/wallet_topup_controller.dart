@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../data/models/wallet_topup_model.dart';
 import '../../../data/services/wallet_service.dart';
+import '../../home/controllers/home_controller.dart';
 
 class WalletTopUpController extends GetxController {
   final WalletService _walletService = WalletService();
@@ -354,8 +355,14 @@ class WalletTopUpController extends GetxController {
                       Get.back(); // Close dialog
                       // Navigate back through screens with success result
                       Get.until((route) => route.isFirst);
-                      // Trigger profile refresh
-                      loadWalletBalance();
+
+                      // Refresh home controller to update wallet balance
+                      try {
+                        final homeController = Get.find<HomeController>();
+                        homeController.refresh();
+                      } catch (e) {
+                        print('⚠️ HomeController not found: $e');
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,

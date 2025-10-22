@@ -230,18 +230,20 @@ class NotificationData {
 
   factory NotificationData.fromJson(Map<String, dynamic> json) {
     return NotificationData(
-      bookingId: json['bookingId'],
-      actionType: json['actionType'],
-      actionUrl: json['actionUrl'],
-      actionData: json['actionData'],
-      imageUrl: json['imageUrl'],
-      iconType: json['iconType'],
-      backgroundColor: json['backgroundColor'],
-      serviceName: json['serviceName'],
-      therapistName: json['therapistName'],
-      storeName: json['storeName'],
+      bookingId: json['bookingId']?.toString(),
+      actionType: json['actionType']?.toString(),
+      actionUrl: json['actionUrl']?.toString(),
+      actionData: json['actionData'] is Map
+          ? Map<String, dynamic>.from(json['actionData'])
+          : null,
+      imageUrl: json['imageUrl']?.toString(),
+      iconType: json['iconType']?.toString(),
+      backgroundColor: json['backgroundColor']?.toString(),
+      serviceName: json['serviceName']?.toString(),
+      therapistName: json['therapistName']?.toString(),
+      storeName: json['storeName']?.toString(),
       date: json['date'] != null ? DateTime.parse(json['date']) : null,
-      time: json['time'],
+      time: json['time']?.toString(),
       amount: json['amount']?.toDouble(),
     );
   }

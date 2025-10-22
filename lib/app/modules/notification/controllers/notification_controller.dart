@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../data/models/notification_model.dart';
 import '../../../data/services/notification_service.dart';
+import '../../main_navigation/main_navigation_controller.dart';
 
 class NotificationController extends GetxController {
   final NotificationService _notificationService = NotificationService();
@@ -300,9 +301,14 @@ class NotificationController extends GetxController {
     print('🔗 Navigating to: $actionUrl');
 
     if (actionUrl.startsWith('/bookings/')) {
-      // Extract booking ID and navigate to booking details
-      final bookingId = actionUrl.split('/').last;
-      Get.toNamed('/booking-detail', arguments: {'bookingId': bookingId});
+      // Navigate to activity tab (index 1) in main navigation
+      Get.back(); // Close notification screen first
+      try {
+        final mainNavController = Get.find<MainNavigationController>();
+        mainNavController.changePage(1); // Navigate to activity tab
+      } catch (e) {
+        print('⚠️ MainNavigationController not found: $e');
+      }
     } else if (actionUrl == '/wallet') {
       Get.toNamed('/wallet-topup');
     } else if (actionUrl == '/profile') {
