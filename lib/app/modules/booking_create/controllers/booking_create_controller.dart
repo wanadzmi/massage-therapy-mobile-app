@@ -192,6 +192,144 @@ class BookingCreateController extends GetxController {
     );
   }
 
+  void _showBookingSuccessDialog() {
+    final isWalletPayment = _paymentMethod.value == 'wallet';
+    final servicePrice = service?.pricing?.price ?? 0.0;
+
+    Get.dialog(
+      Dialog(
+        backgroundColor: const Color(0xFF1A1A1A),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+          side: const BorderSide(color: Color(0xFF2A2A2A)),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Icon
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF4CAF50).withOpacity(0.1),
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: const Color(0xFF4CAF50).withOpacity(0.3),
+                    width: 2,
+                  ),
+                ),
+                child: const Icon(
+                  Icons.check_circle_outline,
+                  size: 48,
+                  color: Color(0xFF4CAF50),
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              // Title
+              const Text(
+                'Booking Confirmed!',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFFE0E0E0),
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 12),
+
+              // Message
+              Text(
+                isWalletPayment
+                    ? 'Payment successful. Your booking has been confirmed.'
+                    : 'Your booking has been confirmed. Please bring RM ${servicePrice.toStringAsFixed(2)} in cash to the therapist location.',
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: Color(0xFF808080),
+                  height: 1.5,
+                ),
+                textAlign: TextAlign.center,
+              ),
+
+              // Cash payment reminder box
+              if (!isWalletPayment) ...[
+                const SizedBox(height: 16),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.orange.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: Colors.orange.withOpacity(0.3),
+                      width: 1,
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.info_outline,
+                        color: Colors.orange,
+                        size: 20,
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          'Payment will be collected at the location',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.orange.shade200,
+                            height: 1.3,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+
+              const SizedBox(height: 24),
+
+              // OK Button
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Get.back();
+                    // Navigate back to main navigation (preserves bottom nav bar)
+                    Get.until((route) => route.isFirst);
+
+                    // Refresh home page data to update wallet balance
+                    try {
+                      final homeController = Get.find<HomeController>();
+                      homeController.loadUserData();
+                    } catch (e) {
+                      print('⚠️ HomeController not found: $e');
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFD4AF37),
+                    foregroundColor: Colors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    elevation: 0,
+                  ),
+                  child: const Text(
+                    'OK',
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      barrierDismissible: false,
+    );
+  }
+
   @override
   void onClose() {
     notesController.dispose();
@@ -279,32 +417,7 @@ class BookingCreateController extends GetxController {
     if (response.isSuccess && response.data != null) {
       print('✅ Booking created successfully: ${response.data!.id}');
 
-      final successMessage = _paymentMethod.value == 'wallet'
-          ? 'Booking confirmed! Payment successful.'
-          : 'Booking confirmed! Please bring cash to the therapist location.';
-
-      Get.snackbar(
-        'Success',
-        successMessage,
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: const Color(0xFFD4AF37),
-        colorText: Colors.black,
-        duration: Duration(seconds: 3),
-      );
-
-      // Wait for snackbar to show
-      await Future.delayed(Duration(seconds: 2));
-
-      // Navigate back to main navigation (preserves bottom nav bar)
-      Get.until((route) => route.isFirst);
-
-      // Refresh home page data to update wallet balance
-      try {
-        final homeController = Get.find<HomeController>();
-        homeController.loadUserData();
-      } catch (e) {
-        print('⚠️ HomeController not found: $e');
-      }
+      _showBookingSuccessDialog();
     } else {
       print('❌ Booking failed: ${response.error}');
       _showBookingErrorDialog(response.error);
