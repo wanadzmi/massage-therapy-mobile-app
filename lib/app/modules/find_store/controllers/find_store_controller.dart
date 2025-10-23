@@ -1,6 +1,7 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../data/models/store_model.dart';
+import '../../../data/models/store_model.dart' hide Duration;
 import '../../../data/repositories/store_repository.dart';
 
 class FindStoreController extends GetxController {
@@ -14,6 +15,9 @@ class FindStoreController extends GetxController {
   final _totalStores = 0.obs;
   final _searchQuery = ''.obs;
   final _selectedFilters = <String, dynamic>{}.obs;
+
+  // Debounce timer for search
+  Timer? _debounceTimer;
 
   // Getters
   bool get isLoading => _isLoading.value;
@@ -91,8 +95,16 @@ class FindStoreController extends GetxController {
   }
 
   void onSearch(String query) {
+    // Cancel previous timer if exists
+    _debounceTimer?.cancel();
+
+    // Update search query immediately
     _searchQuery.value = query;
-    loadStores(refresh: true);
+
+    // Debounce the API call
+    _debounceTimer = Timer(Duration(milliseconds: 500), () {
+      loadStores(refresh: true);
+    });
   }
 
   void applyFilters(Map<String, dynamic> filters) {
@@ -118,5 +130,11 @@ class FindStoreController extends GetxController {
   String formatRating(double? rating) {
     if (rating == null) return 'N/A';
     return rating.toStringAsFixed(1);
+  }
+
+  @override
+  void onClose() {
+    _debounceTimer?.cancel();
+    super.onClose();
   }
 }

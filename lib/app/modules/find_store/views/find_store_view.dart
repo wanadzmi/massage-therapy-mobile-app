@@ -4,11 +4,12 @@ import '../../../../l10n/app_localizations.dart';
 import '../controllers/find_store_controller.dart';
 
 class FindStoreView extends GetView<FindStoreController> {
-  const FindStoreView({Key? key}) : super(key: key);
+  const FindStoreView({super.key});
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final searchController = TextEditingController();
 
     return Scaffold(
       backgroundColor: const Color(0xFF0A0A0A),
@@ -63,13 +64,29 @@ class FindStoreView extends GetView<FindStoreController> {
                 border: Border.all(color: const Color(0xFF2A2A2A)),
               ),
               child: TextField(
+                controller: searchController,
                 style: const TextStyle(color: Color(0xFFE0E0E0)),
                 decoration: InputDecoration(
-                  hintText: 'Search stores...',
+                  hintText: 'Search stores by name...',
                   hintStyle: const TextStyle(color: Color(0xFF606060)),
                   prefixIcon: const Icon(
                     Icons.search,
                     color: Color(0xFF808080),
+                  ),
+                  suffixIcon: Obx(
+                    () => controller.searchQuery.isNotEmpty
+                        ? IconButton(
+                            icon: const Icon(
+                              Icons.clear,
+                              color: Color(0xFF808080),
+                              size: 20,
+                            ),
+                            onPressed: () {
+                              searchController.clear();
+                              controller.onSearch('');
+                            },
+                          )
+                        : const SizedBox.shrink(),
                   ),
                   border: InputBorder.none,
                   contentPadding: const EdgeInsets.symmetric(
@@ -78,10 +95,7 @@ class FindStoreView extends GetView<FindStoreController> {
                   ),
                 ),
                 onChanged: (value) {
-                  // Debounce search
-                  Future.delayed(const Duration(milliseconds: 500), () {
-                    controller.onSearch(value);
-                  });
+                  controller.onSearch(value);
                 },
               ),
             ),
