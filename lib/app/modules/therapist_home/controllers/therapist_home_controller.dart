@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../data/services/booking_completion_service.dart';
 import '../../../data/services/booking_service.dart' as booking_svc;
 import '../../../data/models/booking_model.dart';
@@ -34,8 +35,57 @@ class TherapistHomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    _loadPersistedSessionStartTime();
     loadTherapistInfo();
     loadBookings();
+  }
+
+  /// Load persisted session start time from shared preferences
+  Future<void> _loadPersistedSessionStartTime() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final bookingId = prefs.getString('active_session_booking_id');
+      final startTimeMs = prefs.getInt('active_session_start_time');
+
+      if (bookingId != null && startTimeMs != null) {
+        _sessionStartTimes[bookingId] = DateTime.fromMillisecondsSinceEpoch(
+          startTimeMs,
+        );
+        print('📱 Restored session timer for booking: $bookingId');
+      }
+    } catch (e) {
+      print('Error loading persisted session start time: $e');
+    }
+  }
+
+  /// Save session start time to shared preferences
+  Future<void> _persistSessionStartTime(
+    String bookingId,
+    DateTime startTime,
+  ) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('active_session_booking_id', bookingId);
+      await prefs.setInt(
+        'active_session_start_time',
+        startTime.millisecondsSinceEpoch,
+      );
+      print('💾 Persisted session timer for booking: $bookingId');
+    } catch (e) {
+      print('Error persisting session start time: $e');
+    }
+  }
+
+  /// Clear persisted session start time from shared preferences
+  Future<void> _clearPersistedSessionStartTime() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove('active_session_booking_id');
+      await prefs.remove('active_session_start_time');
+      print('🗑️ Cleared persisted session timer');
+    } catch (e) {
+      print('Error clearing persisted session start time: $e');
+    }
   }
 
   Future<void> loadTherapistInfo() async {
@@ -78,6 +128,116 @@ class TherapistHomeController extends GetxController {
       );
     } finally {
       _isLoading.value = false;
+    }
+  }
+
+  void showAcceptBookingDialog(Booking booking) {
+    // Check if it's a cash payment
+    final isCashPayment =
+        booking.paymentInfo?.isCash == true ||
+        booking.payment?.method?.toLowerCase() == 'cash';
+
+    if (isCashPayment) {
+      // Show cash payment reminder dialog
+      Get.dialog(
+        AlertDialog(
+          backgroundColor: const Color(0xFF1A1A1A),
+          title: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFF9800).withOpacity(0.15),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Icon(
+                  Icons.payments,
+                  color: Color(0xFFFF9800),
+                  size: 24,
+                ),
+              ),
+              const SizedBox(width: 12),
+              const Expanded(
+                child: Text(
+                  'Cash Payment Reminder',
+                  style: TextStyle(color: Color(0xFFE0E0E0)),
+                ),
+              ),
+            ],
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'This booking requires cash payment.',
+                style: TextStyle(
+                  color: Color(0xFFE0E0E0),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFF9800).withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: const Color(0xFFFF9800).withOpacity(0.3),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.info_outline,
+                      color: Color(0xFFFF9800),
+                      size: 20,
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        'Please collect RM ${booking.pricing?.totalAmount?.toStringAsFixed(2) ?? "0.00"} from the customer before starting the session.',
+                        style: const TextStyle(
+                          color: Color(0xFF808080),
+                          fontSize: 13,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Get.back(),
+              child: const Text(
+                'Cancel',
+                style: TextStyle(color: Color(0xFF808080)),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Get.back();
+                acceptBooking(booking.id!);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF4CAF50),
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 12,
+                ),
+              ),
+              child: const Text('Accept Booking'),
+            ),
+          ],
+        ),
+      );
+    } else {
+      // Not cash payment, accept directly
+      acceptBooking(booking.id!);
     }
   }
 
@@ -341,8 +501,10 @@ class TherapistHomeController extends GetxController {
       final response = await _newBookingService.startSession(bookingId);
 
       if (response.isSuccess && response.data != null) {
-        // Record the session start time
-        _sessionStartTimes[bookingId] = DateTime.now();
+        // Record the session start time and persist it
+        final startTime = DateTime.now();
+        _sessionStartTimes[bookingId] = startTime;
+        await _persistSessionStartTime(bookingId, startTime);
 
         Get.snackbar(
           'Success',
@@ -437,10 +599,11 @@ class TherapistHomeController extends GetxController {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         Get.back();
-                        // Clean up session start time
+                        // Clean up session start time from memory and persistence
                         _sessionStartTimes.remove(bookingId);
+                        await _clearPersistedSessionStartTime();
                         loadBookings(); // Refresh the list
                       },
                       style: ElevatedButton.styleFrom(

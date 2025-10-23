@@ -339,6 +339,178 @@ class TherapistHomeView extends GetView<TherapistHomeController> {
               const SizedBox(height: 8),
             ],
 
+            // Special Requests/Notes (Detailed)
+            if (booking.customerDetails?.specialRequests != null ||
+                booking.notes?.customerNotes != null) ...[
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF2196F3).withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: const Color(0xFF2196F3).withOpacity(0.3),
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: const [
+                        Icon(Icons.note, size: 14, color: Color(0xFF2196F3)),
+                        SizedBox(width: 6),
+                        Text(
+                          'SPECIAL REQUESTS',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xFF2196F3),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      booking.customerDetails?.specialRequests ??
+                          booking.notes?.customerNotes ??
+                          '',
+                      style: const TextStyle(
+                        fontSize: 13,
+                        color: Color(0xFFE0E0E0),
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 8),
+            ],
+
+            // Customer Preferences (Detailed)
+            if (booking.preferences?.hasData == true ||
+                booking.customerDetails?.preferences?.hasData == true) ...[
+              Builder(
+                builder: (context) {
+                  final prefs =
+                      booking.preferences ??
+                      booking.customerDetails?.preferences;
+                  return Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFD4AF37).withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: const Color(0xFFD4AF37).withOpacity(0.3),
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.spa,
+                              size: 14,
+                              color: Color(0xFFD4AF37),
+                            ),
+                            const SizedBox(width: 6),
+                            const Text(
+                              'PREFERENCES',
+                              style: TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xFFD4AF37),
+                              ),
+                            ),
+                            if (prefs?.hasMedicalInfo == true) ...[
+                              const SizedBox(width: 6),
+                              const Icon(
+                                Icons.warning_amber_rounded,
+                                size: 14,
+                                color: Color(0xFFFF9800),
+                              ),
+                            ],
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        if (prefs?.pressure != null) ...[
+                          Text(
+                            'Pressure: ${prefs!.pressure!.toUpperCase()}',
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: Color(0xFFE0E0E0),
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                        ],
+                        if (prefs?.focus != null &&
+                            prefs!.focus!.isNotEmpty) ...[
+                          Text(
+                            'Focus: ${prefs.focus!.join(", ")}',
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: Color(0xFFE0E0E0),
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                        ],
+                        if (prefs?.hasMedicalInfo == true) ...[
+                          Container(
+                            margin: const EdgeInsets.only(top: 4),
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFFF9800).withOpacity(0.15),
+                              borderRadius: BorderRadius.circular(6),
+                              border: Border.all(
+                                color: const Color(0xFFFF9800).withOpacity(0.4),
+                              ),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                if (prefs.allergies != null) ...[
+                                  Text(
+                                    '⚠️ Allergies: ${prefs.allergies}',
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      color: Color(0xFFFF9800),
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  if (prefs.medicalConditions != null)
+                                    const SizedBox(height: 4),
+                                ],
+                                if (prefs.medicalConditions != null) ...[
+                                  Text(
+                                    '⚠️ Medical: ${prefs.medicalConditions}',
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      color: Color(0xFFFF9800),
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ],
+                            ),
+                          ),
+                        ],
+                        if (prefs?.other != null) ...[
+                          const SizedBox(height: 4),
+                          Text(
+                            'Other: ${prefs!.other}',
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: Color(0xFFE0E0E0),
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 8),
+            ],
+
             // Service
             if (booking.service != null)
               Row(
@@ -467,7 +639,7 @@ class TherapistHomeView extends GetView<TherapistHomeController> {
             child: ElevatedButton.icon(
               onPressed: isProcessing
                   ? null
-                  : () => controller.acceptBooking(booking.id!),
+                  : () => controller.showAcceptBookingDialog(booking),
               icon: const Icon(Icons.check, size: 20),
               label: isProcessing
                   ? const SizedBox(

@@ -49,6 +49,24 @@ class TherapistBookingDetailView
                     _buildCustomerInfoCard(),
                     const SizedBox(height: 16),
 
+                    // Customer Preferences Card (NEW)
+                    if (controller.booking?.preferences?.hasData == true ||
+                        controller
+                                .booking
+                                ?.customerDetails
+                                ?.preferences
+                                ?.hasData ==
+                            true)
+                      _buildPreferencesCard(),
+                    if (controller.booking?.preferences?.hasData == true ||
+                        controller
+                                .booking
+                                ?.customerDetails
+                                ?.preferences
+                                ?.hasData ==
+                            true)
+                      const SizedBox(height: 16),
+
                     // Service Information Card
                     _buildServiceInfoCard(),
                     const SizedBox(height: 16),
@@ -569,6 +587,187 @@ class TherapistBookingDetailView
           ],
         ],
       ),
+    );
+  }
+
+  Widget _buildPreferencesCard() {
+    // Get preferences from either root level or customerDetails
+    final preferences =
+        controller.booking!.preferences ??
+        controller.booking!.customerDetails?.preferences;
+
+    if (preferences == null || !preferences.hasData) {
+      return const SizedBox.shrink();
+    }
+
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1A1A1A),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: const Color(0xFF2A2A2A)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFD4AF37).withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Icon(
+                  Icons.spa,
+                  color: Color(0xFFD4AF37),
+                  size: 24,
+                ),
+              ),
+              const SizedBox(width: 12),
+              const Text(
+                'Customer Preferences',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFFE0E0E0),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+
+          // Pressure Preference
+          if (preferences.pressure != null) ...[
+            _buildPreferenceRow(
+              Icons.touch_app,
+              'Pressure',
+              preferences.pressure!.toUpperCase(),
+            ),
+            const SizedBox(height: 12),
+          ],
+
+          // Focus Areas
+          if (preferences.focus != null && preferences.focus!.isNotEmpty) ...[
+            _buildPreferenceRow(
+              Icons.my_location,
+              'Focus Areas',
+              preferences.focus!.join(', '),
+            ),
+            const SizedBox(height: 12),
+          ],
+
+          // Temperature
+          if (preferences.temperature != null) ...[
+            _buildPreferenceRow(
+              Icons.thermostat,
+              'Temperature',
+              preferences.temperature!,
+            ),
+            const SizedBox(height: 12),
+          ],
+
+          // Medical Information (Highlighted)
+          if (preferences.hasMedicalInfo) ...[
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: const Color(0xFFFF9800).withOpacity(0.1),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: const Color(0xFFFF9800).withOpacity(0.3),
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.warning_amber_rounded,
+                        color: Color(0xFFFF9800),
+                        size: 20,
+                      ),
+                      const SizedBox(width: 8),
+                      const Text(
+                        'IMPORTANT MEDICAL INFORMATION',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFFFF9800),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  if (preferences.allergies != null) ...[
+                    Text(
+                      'Allergies: ${preferences.allergies}',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Color(0xFFE0E0E0),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    if (preferences.medicalConditions != null)
+                      const SizedBox(height: 8),
+                  ],
+                  if (preferences.medicalConditions != null) ...[
+                    Text(
+                      'Medical Conditions: ${preferences.medicalConditions}',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Color(0xFFE0E0E0),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
+          ],
+
+          // Other Preferences
+          if (preferences.other != null) ...[
+            _buildPreferenceRow(
+              Icons.info_outline,
+              'Other',
+              preferences.other!,
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPreferenceRow(IconData icon, String label, String value) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(icon, size: 18, color: const Color(0xFF808080)),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                label,
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: Color(0xFF808080),
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                value,
+                style: const TextStyle(fontSize: 14, color: Color(0xFFE0E0E0)),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 

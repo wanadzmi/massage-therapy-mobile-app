@@ -23,6 +23,7 @@ class Booking {
   paymentInfo; // Enhanced payment info with cash/transfer flags
   final BookingNotes? notes;
   final CustomerDetails? customerDetails; // Enhanced customer details
+  final BookingPreferences? preferences; // Customer massage preferences
   final ActionItems? actionItems; // Therapist action items
   final BookingRescheduleData? rescheduleData;
   final BookingCancellation? cancellation;
@@ -56,6 +57,7 @@ class Booking {
     this.paymentInfo,
     this.notes,
     this.customerDetails,
+    this.preferences,
     this.actionItems,
     this.rescheduleData,
     this.cancellation,
@@ -189,6 +191,7 @@ class Booking {
       'paymentInfo': paymentInfo?.toJson(),
       'notes': notes?.toJson(),
       'customerDetails': customerDetails?.toJson(),
+      'preferences': preferences?.toJson(),
       'actionItems': actionItems?.toJson(),
       'rescheduleData': rescheduleData?.toJson(),
       'cancellation': cancellation?.toJson(),
@@ -744,11 +747,13 @@ class CustomerDetails {
   final String? specialRequests;
   final String? therapistNotes;
   final ContactInfo? contactInfo;
+  final BookingPreferences? preferences;
 
   CustomerDetails({
     this.specialRequests,
     this.therapistNotes,
     this.contactInfo,
+    this.preferences,
   });
 
   factory CustomerDetails.fromJson(Map<String, dynamic> json) {
@@ -758,6 +763,11 @@ class CustomerDetails {
       contactInfo: json['contactInfo'] != null && json['contactInfo'] is Map
           ? ContactInfo.fromJson(json['contactInfo'] as Map<String, dynamic>)
           : null,
+      preferences: json['preferences'] != null && json['preferences'] is Map
+          ? BookingPreferences.fromJson(
+              json['preferences'] as Map<String, dynamic>,
+            )
+          : null,
     );
   }
 
@@ -766,6 +776,7 @@ class CustomerDetails {
       'specialRequests': specialRequests,
       'therapistNotes': therapistNotes,
       'contactInfo': contactInfo?.toJson(),
+      'preferences': preferences?.toJson(),
     };
   }
 }
@@ -860,4 +871,76 @@ class ActionItems {
       'requiresCashCollection': requiresCashCollection,
     };
   }
+}
+
+class BookingPreferences {
+  final String? pressure; // light, medium, firm
+  final List<String>? focus; // Array of focus areas
+  final String? temperature; // warm, cool, hot
+  final String? allergies;
+  final String? medicalConditions;
+  final String? other;
+
+  BookingPreferences({
+    this.pressure,
+    this.focus,
+    this.temperature,
+    this.allergies,
+    this.medicalConditions,
+    this.other,
+  });
+
+  factory BookingPreferences.fromJson(Map<String, dynamic> json) {
+    // Parse focus array and filter out empty strings
+    List<String>? focusAreas;
+    if (json['focus'] != null) {
+      final rawFocus = List<String>.from(json['focus']);
+      // Only assign if there are non-empty items
+      if (rawFocus.isNotEmpty) {
+        focusAreas = rawFocus.where((s) => s.trim().isNotEmpty).toList();
+        if (focusAreas.isEmpty) focusAreas = null;
+      }
+    }
+
+    return BookingPreferences(
+      pressure: json['pressure']?.toString().trim().isEmpty == true
+          ? null
+          : json['pressure'],
+      focus: focusAreas,
+      temperature: json['temperature']?.toString().trim().isEmpty == true
+          ? null
+          : json['temperature'],
+      allergies: json['allergies']?.toString().trim().isEmpty == true
+          ? null
+          : json['allergies'],
+      medicalConditions:
+          json['medicalConditions']?.toString().trim().isEmpty == true
+          ? null
+          : json['medicalConditions'],
+      other: json['other']?.toString().trim().isEmpty == true
+          ? null
+          : json['other'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'pressure': pressure,
+      'focus': focus,
+      'temperature': temperature,
+      'allergies': allergies,
+      'medicalConditions': medicalConditions,
+      'other': other,
+    };
+  }
+
+  bool get hasData =>
+      pressure != null ||
+      (focus != null && focus!.isNotEmpty) ||
+      temperature != null ||
+      allergies != null ||
+      medicalConditions != null ||
+      other != null;
+
+  bool get hasMedicalInfo => allergies != null || medicalConditions != null;
 }
