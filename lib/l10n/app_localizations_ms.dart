@@ -569,4 +569,52 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get iHaveSentPayment => 'Saya Telah Menghantar Pembayaran';
+
+  @override
+  String get paymentPendingTitle => 'Pembayaran Tertunda';
+
+  @override
+  String get leaveThisPage => 'Tinggalkan halaman ini?';
+
+  @override
+  String get paymentStillBeingConfirmed =>
+      'Pembayaran anda masih dalam pengesahan. Anda boleh semak status dalam sejarah transaksi anda.';
+
+  @override
+  String get stay => 'Kekal';
+
+  @override
+  String get leave => 'Keluar';
+
+  @override
+  String get waitingForConfirmation => 'Menunggu Pengesahan';
+
+  @override
+  String get waitingForPaymentConfirmation =>
+      'Kami sedang menunggu pembayaran anda disahkan di blockchain. Ini biasanya mengambil masa 5-10 minit.';
+
+  @override
+  String get paymentSent => 'Pembayaran Dihantar';
+
+  @override
+  String get transactionInitiated => 'Transaksi dimulakan';
+
+  @override
+  String get blockchainConfirmation => 'Pengesahan Blockchain';
+
+  @override
+  String get waitingForNetworkConfirmation => 'Menunggu pengesahan rangkaian';
+
+  @override
+  String get creditToWallet => 'Kredit ke Dompet';
+
+  @override
+  String get fundsWillBeAvailable => 'Dana akan tersedia';
+
+  @override
+  String get transactionId => 'ID Transaksi';
+
+  @override
+  String get safelyClosePage =>
+      'Anda boleh menutup halaman ini dengan selamat. Kami akan memberitahu anda sebaik sahaja pembayaran disahkan.';
 }

@@ -569,4 +569,53 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get iHaveSentPayment => 'I Have Sent the Payment';
+
+  @override
+  String get paymentPendingTitle => 'Payment Pending';
+
+  @override
+  String get leaveThisPage => 'Leave this page?';
+
+  @override
+  String get paymentStillBeingConfirmed =>
+      'Your payment is still being confirmed. You can check the status in your transaction history.';
+
+  @override
+  String get stay => 'Stay';
+
+  @override
+  String get leave => 'Leave';
+
+  @override
+  String get waitingForConfirmation => 'Waiting for Confirmation';
+
+  @override
+  String get waitingForPaymentConfirmation =>
+      'We are waiting for your payment to be confirmed on the blockchain. This usually takes 5-10 minutes.';
+
+  @override
+  String get paymentSent => 'Payment Sent';
+
+  @override
+  String get transactionInitiated => 'Transaction initiated';
+
+  @override
+  String get blockchainConfirmation => 'Blockchain Confirmation';
+
+  @override
+  String get waitingForNetworkConfirmation =>
+      'Waiting for network confirmation';
+
+  @override
+  String get creditToWallet => 'Credit to Wallet';
+
+  @override
+  String get fundsWillBeAvailable => 'Funds will be available';
+
+  @override
+  String get transactionId => 'Transaction ID';
+
+  @override
+  String get safelyClosePage =>
+      'You can safely close this page. We will notify you once the payment is confirmed.';
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../controllers/wallet_topup_controller.dart';
 
 class WalletPaymentPendingView extends GetView<WalletTopUpController> {
@@ -7,6 +8,7 @@ class WalletPaymentPendingView extends GetView<WalletTopUpController> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final args = Get.arguments as Map<String, dynamic>;
     final transactionId = args['transactionId'] as String;
 
@@ -27,23 +29,23 @@ class WalletPaymentPendingView extends GetView<WalletTopUpController> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),
-            title: const Text(
-              'Leave this page?',
-              style: TextStyle(
+            title: Text(
+              l10n.leaveThisPage,
+              style: const TextStyle(
                 color: Color(0xFFE0E0E0),
                 fontWeight: FontWeight.w600,
               ),
             ),
-            content: const Text(
-              'Your payment is still being confirmed. You can check the status in your transaction history.',
-              style: TextStyle(color: Color(0xFF808080)),
+            content: Text(
+              l10n.paymentStillBeingConfirmed,
+              style: const TextStyle(color: Color(0xFF808080)),
             ),
             actions: [
               TextButton(
                 onPressed: () => Get.back(result: false),
-                child: const Text(
-                  'Stay',
-                  style: TextStyle(color: Color(0xFFD4AF37)),
+                child: Text(
+                  l10n.stay,
+                  style: const TextStyle(color: Color(0xFFD4AF37)),
                 ),
               ),
               TextButton(
@@ -51,9 +53,9 @@ class WalletPaymentPendingView extends GetView<WalletTopUpController> {
                   Get.back(result: true);
                   Get.back(); // Actually pop the screen
                 },
-                child: const Text(
-                  'Leave',
-                  style: TextStyle(color: Color(0xFF808080)),
+                child: Text(
+                  l10n.leave,
+                  style: const TextStyle(color: Color(0xFF808080)),
                 ),
               ),
             ],
@@ -63,9 +65,9 @@ class WalletPaymentPendingView extends GetView<WalletTopUpController> {
       child: Scaffold(
         backgroundColor: const Color(0xFF0A0A0A),
         appBar: AppBar(
-          title: const Text(
-            'Payment Pending',
-            style: TextStyle(
+          title: Text(
+            l10n.paymentPendingTitle,
+            style: const TextStyle(
               color: Color(0xFFE0E0E0),
               fontWeight: FontWeight.w500,
               fontSize: 18,
@@ -88,9 +90,9 @@ class WalletPaymentPendingView extends GetView<WalletTopUpController> {
                 const SizedBox(height: 32),
 
                 // Title
-                const Text(
-                  'Waiting for Confirmation',
-                  style: TextStyle(
+                Text(
+                  l10n.waitingForConfirmation,
+                  style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFFE0E0E0),
@@ -101,9 +103,9 @@ class WalletPaymentPendingView extends GetView<WalletTopUpController> {
                 const SizedBox(height: 16),
 
                 // Description
-                const Text(
-                  'We are waiting for your payment to be confirmed on the blockchain. This usually takes 5-10 minutes.',
-                  style: TextStyle(
+                Text(
+                  l10n.waitingForPaymentConfirmation,
+                  style: const TextStyle(
                     fontSize: 15,
                     color: Color(0xFF808080),
                     height: 1.5,
@@ -114,17 +116,17 @@ class WalletPaymentPendingView extends GetView<WalletTopUpController> {
                 const SizedBox(height: 32),
 
                 // Status Steps
-                _buildStatusSteps(),
+                _buildStatusSteps(l10n),
 
                 const SizedBox(height: 48),
 
                 // Transaction ID
-                _buildTransactionId(transactionId),
+                _buildTransactionId(transactionId, l10n),
 
                 const SizedBox(height: 24),
 
                 // Info Box
-                _buildInfoBox(),
+                _buildInfoBox(l10n),
 
                 const SizedBox(height: 32),
               ],
@@ -167,7 +169,7 @@ class WalletPaymentPendingView extends GetView<WalletTopUpController> {
     );
   }
 
-  Widget _buildStatusSteps() {
+  Widget _buildStatusSteps(AppLocalizations l10n) {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -179,23 +181,23 @@ class WalletPaymentPendingView extends GetView<WalletTopUpController> {
         children: [
           _buildStatusStep(
             icon: Icons.check_circle,
-            title: 'Payment Sent',
-            subtitle: 'Transaction initiated',
+            title: l10n.paymentSent,
+            subtitle: l10n.transactionInitiated,
             isCompleted: true,
           ),
           _buildStatusDivider(),
           _buildStatusStep(
             icon: Icons.hourglass_empty,
-            title: 'Blockchain Confirmation',
-            subtitle: 'Waiting for network confirmation',
+            title: l10n.blockchainConfirmation,
+            subtitle: l10n.waitingForNetworkConfirmation,
             isCompleted: false,
             isActive: true,
           ),
           _buildStatusDivider(),
           _buildStatusStep(
             icon: Icons.account_balance_wallet,
-            title: 'Credit to Wallet',
-            subtitle: 'Funds will be available',
+            title: l10n.creditToWallet,
+            subtitle: l10n.fundsWillBeAvailable,
             isCompleted: false,
           ),
         ],
@@ -271,13 +273,13 @@ class WalletPaymentPendingView extends GetView<WalletTopUpController> {
     );
   }
 
-  Widget _buildTransactionId(String transactionId) {
+  Widget _buildTransactionId(String transactionId, AppLocalizations l10n) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Transaction ID',
-          style: TextStyle(
+        Text(
+          l10n.transactionId,
+          style: const TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w600,
             color: Color(0xFF808080),
@@ -320,7 +322,7 @@ class WalletPaymentPendingView extends GetView<WalletTopUpController> {
     );
   }
 
-  Widget _buildInfoBox() {
+  Widget _buildInfoBox(AppLocalizations l10n) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -332,10 +334,10 @@ class WalletPaymentPendingView extends GetView<WalletTopUpController> {
         children: [
           Icon(Icons.info_outline, color: Colors.blue[300], size: 20),
           const SizedBox(width: 12),
-          const Expanded(
+          Expanded(
             child: Text(
-              'You can safely close this page. We will notify you once the payment is confirmed.',
-              style: TextStyle(
+              l10n.safelyClosePage,
+              style: const TextStyle(
                 fontSize: 13,
                 color: Color(0xFFE0E0E0),
                 height: 1.4,

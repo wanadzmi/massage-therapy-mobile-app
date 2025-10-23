@@ -746,5 +746,66 @@
     "iHaveSentPayment": "Saya Telah Menghantar Pembayaran",
     "@iHaveSentPayment": {
         "description": "Payment sent confirmation button"
+    },
+    "@_PAYMENT_PENDING": {},
+    "paymentPendingTitle": "Pembayaran Tertunda",
+    "@paymentPendingTitle": {
+        "description": "Payment pending page title"
+    },
+    "leaveThisPage": "Tinggalkan halaman ini?",
+    "@leaveThisPage": {
+        "description": "Leave page dialog title"
+    },
+    "paymentStillBeingConfirmed": "Pembayaran anda masih dalam pengesahan. Anda boleh semak status dalam sejarah transaksi anda.",
+    "@paymentStillBeingConfirmed": {
+        "description": "Leave page dialog content"
+    },
+    "stay": "Kekal",
+    "@stay": {
+        "description": "Stay button"
+    },
+    "leave": "Keluar",
+    "@leave": {
+        "description": "Leave button"
+    },
+    "waitingForConfirmation": "Menunggu Pengesahan",
+    "@waitingForConfirmation": {
+        "description": "Waiting for confirmation title"
+    },
+    "waitingForPaymentConfirmation": "Kami sedang menunggu pembayaran anda disahkan di blockchain. Ini biasanya mengambil masa 5-10 minit.",
+    "@waitingForPaymentConfirmation": {
+        "description": "Payment confirmation description"
+    },
+    "paymentSent": "Pembayaran Dihantar",
+    "@paymentSent": {
+        "description": "Payment sent status"
+    },
+    "transactionInitiated": "Transaksi dimulakan",
+    "@transactionInitiated": {
+        "description": "Transaction initiated subtitle"
+    },
+    "blockchainConfirmation": "Pengesahan Blockchain",
+    "@blockchainConfirmation": {
+        "description": "Blockchain confirmation status"
+    },
+    "waitingForNetworkConfirmation": "Menunggu pengesahan rangkaian",
+    "@waitingForNetworkConfirmation": {
+        "description": "Waiting for network confirmation subtitle"
+    },
+    "creditToWallet": "Kredit ke Dompet",
+    "@creditToWallet": {
+        "description": "Credit to wallet status"
+    },
+    "fundsWillBeAvailable": "Dana akan tersedia",
+    "@fundsWillBeAvailable": {
+        "description": "Funds will be available subtitle"
+    },
+    "transactionId": "ID Transaksi",
+    "@transactionId": {
+        "description": "Transaction ID label"
+    },
+    "safelyClosePage": "Anda boleh menutup halaman ini dengan selamat. Kami akan memberitahu anda sebaik sahaja pembayaran disahkan.",
+    "@safelyClosePage": {
+        "description": "Safe close page info message"
     }
 }

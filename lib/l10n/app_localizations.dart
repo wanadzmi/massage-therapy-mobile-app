@@ -1197,6 +1197,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'I Have Sent the Payment'**
   String get iHaveSentPayment;
+
+  /// Payment pending page title
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Pending'**
+  String get paymentPendingTitle;
+
+  /// Leave page dialog title
+  ///
+  /// In en, this message translates to:
+  /// **'Leave this page?'**
+  String get leaveThisPage;
+
+  /// Leave page dialog content
+  ///
+  /// In en, this message translates to:
+  /// **'Your payment is still being confirmed. You can check the status in your transaction history.'**
+  String get paymentStillBeingConfirmed;
+
+  /// Stay button
+  ///
+  /// In en, this message translates to:
+  /// **'Stay'**
+  String get stay;
+
+  /// Leave button
+  ///
+  /// In en, this message translates to:
+  /// **'Leave'**
+  String get leave;
+
+  /// Waiting for confirmation title
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for Confirmation'**
+  String get waitingForConfirmation;
+
+  /// Payment confirmation description
+  ///
+  /// In en, this message translates to:
+  /// **'We are waiting for your payment to be confirmed on the blockchain. This usually takes 5-10 minutes.'**
+  String get waitingForPaymentConfirmation;
+
+  /// Payment sent status
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Sent'**
+  String get paymentSent;
+
+  /// Transaction initiated subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction initiated'**
+  String get transactionInitiated;
+
+  /// Blockchain confirmation status
+  ///
+  /// In en, this message translates to:
+  /// **'Blockchain Confirmation'**
+  String get blockchainConfirmation;
+
+  /// Waiting for network confirmation subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for network confirmation'**
+  String get waitingForNetworkConfirmation;
+
+  /// Credit to wallet status
+  ///
+  /// In en, this message translates to:
+  /// **'Credit to Wallet'**
+  String get creditToWallet;
+
+  /// Funds will be available subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Funds will be available'**
+  String get fundsWillBeAvailable;
+
+  /// Transaction ID label
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction ID'**
+  String get transactionId;
+
+  /// Safe close page info message
+  ///
+  /// In en, this message translates to:
+  /// **'You can safely close this page. We will notify you once the payment is confirmed.'**
+  String get safelyClosePage;
 }
 
 class _AppLocalizationsDelegate

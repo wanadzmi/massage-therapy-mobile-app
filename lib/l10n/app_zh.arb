@@ -746,5 +746,66 @@
     "iHaveSentPayment": "我已发送付款",
     "@iHaveSentPayment": {
         "description": "Payment sent confirmation button"
+    },
+    "@_PAYMENT_PENDING": {},
+    "paymentPendingTitle": "付款待处理",
+    "@paymentPendingTitle": {
+        "description": "Payment pending page title"
+    },
+    "leaveThisPage": "离开此页面？",
+    "@leaveThisPage": {
+        "description": "Leave page dialog title"
+    },
+    "paymentStillBeingConfirmed": "您的付款仍在确认中。您可以在交易历史中查看状态。",
+    "@paymentStillBeingConfirmed": {
+        "description": "Leave page dialog content"
+    },
+    "stay": "留下",
+    "@stay": {
+        "description": "Stay button"
+    },
+    "leave": "离开",
+    "@leave": {
+        "description": "Leave button"
+    },
+    "waitingForConfirmation": "等待确认",
+    "@waitingForConfirmation": {
+        "description": "Waiting for confirmation title"
+    },
+    "waitingForPaymentConfirmation": "我们正在等待您的付款在区块链上确认。这通常需要5-10分钟。",
+    "@waitingForPaymentConfirmation": {
+        "description": "Payment confirmation description"
+    },
+    "paymentSent": "已发送付款",
+    "@paymentSent": {
+        "description": "Payment sent status"
+    },
+    "transactionInitiated": "交易已启动",
+    "@transactionInitiated": {
+        "description": "Transaction initiated subtitle"
+    },
+    "blockchainConfirmation": "区块链确认",
+    "@blockchainConfirmation": {
+        "description": "Blockchain confirmation status"
+    },
+    "waitingForNetworkConfirmation": "等待网络确认",
+    "@waitingForNetworkConfirmation": {
+        "description": "Waiting for network confirmation subtitle"
+    },
+    "creditToWallet": "充值到钱包",
+    "@creditToWallet": {
+        "description": "Credit to wallet status"
+    },
+    "fundsWillBeAvailable": "资金将可用",
+    "@fundsWillBeAvailable": {
+        "description": "Funds will be available subtitle"
+    },
+    "transactionId": "交易ID",
+    "@transactionId": {
+        "description": "Transaction ID label"
+    },
+    "safelyClosePage": "您可以安全地关闭此页面。一旦付款确认，我们将通知您。",
+    "@safelyClosePage": {
+        "description": "Safe close page info message"
     }
 }

@@ -746,5 +746,66 @@
     "iHaveSentPayment": "I Have Sent the Payment",
     "@iHaveSentPayment": {
         "description": "Payment sent confirmation button"
+    },
+    "@_PAYMENT_PENDING": {},
+    "paymentPendingTitle": "Payment Pending",
+    "@paymentPendingTitle": {
+        "description": "Payment pending page title"
+    },
+    "leaveThisPage": "Leave this page?",
+    "@leaveThisPage": {
+        "description": "Leave page dialog title"
+    },
+    "paymentStillBeingConfirmed": "Your payment is still being confirmed. You can check the status in your transaction history.",
+    "@paymentStillBeingConfirmed": {
+        "description": "Leave page dialog content"
+    },
+    "stay": "Stay",
+    "@stay": {
+        "description": "Stay button"
+    },
+    "leave": "Leave",
+    "@leave": {
+        "description": "Leave button"
+    },
+    "waitingForConfirmation": "Waiting for Confirmation",
+    "@waitingForConfirmation": {
+        "description": "Waiting for confirmation title"
+    },
+    "waitingForPaymentConfirmation": "We are waiting for your payment to be confirmed on the blockchain. This usually takes 5-10 minutes.",
+    "@waitingForPaymentConfirmation": {
+        "description": "Payment confirmation description"
+    },
+    "paymentSent": "Payment Sent",
+    "@paymentSent": {
+        "description": "Payment sent status"
+    },
+    "transactionInitiated": "Transaction initiated",
+    "@transactionInitiated": {
+        "description": "Transaction initiated subtitle"
+    },
+    "blockchainConfirmation": "Blockchain Confirmation",
+    "@blockchainConfirmation": {
+        "description": "Blockchain confirmation status"
+    },
+    "waitingForNetworkConfirmation": "Waiting for network confirmation",
+    "@waitingForNetworkConfirmation": {
+        "description": "Waiting for network confirmation subtitle"
+    },
+    "creditToWallet": "Credit to Wallet",
+    "@creditToWallet": {
+        "description": "Credit to wallet status"
+    },
+    "fundsWillBeAvailable": "Funds will be available",
+    "@fundsWillBeAvailable": {
+        "description": "Funds will be available subtitle"
+    },
+    "transactionId": "Transaction ID",
+    "@transactionId": {
+        "description": "Transaction ID label"
+    },
+    "safelyClosePage": "You can safely close this page. We will notify you once the payment is confirmed.",
+    "@safelyClosePage": {
+        "description": "Safe close page info message"
     }
 }

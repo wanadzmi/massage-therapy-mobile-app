@@ -561,4 +561,49 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get iHaveSentPayment => '我已发送付款';
+
+  @override
+  String get paymentPendingTitle => '付款待处理';
+
+  @override
+  String get leaveThisPage => '离开此页面？';
+
+  @override
+  String get paymentStillBeingConfirmed => '您的付款仍在确认中。您可以在交易历史中查看状态。';
+
+  @override
+  String get stay => '留下';
+
+  @override
+  String get leave => '离开';
+
+  @override
+  String get waitingForConfirmation => '等待确认';
+
+  @override
+  String get waitingForPaymentConfirmation => '我们正在等待您的付款在区块链上确认。这通常需要5-10分钟。';
+
+  @override
+  String get paymentSent => '已发送付款';
+
+  @override
+  String get transactionInitiated => '交易已启动';
+
+  @override
+  String get blockchainConfirmation => '区块链确认';
+
+  @override
+  String get waitingForNetworkConfirmation => '等待网络确认';
+
+  @override
+  String get creditToWallet => '充值到钱包';
+
+  @override
+  String get fundsWillBeAvailable => '资金将可用';
+
+  @override
+  String get transactionId => '交易ID';
+
+  @override
+  String get safelyClosePage => '您可以安全地关闭此页面。一旦付款确认，我们将通知您。';
 }
