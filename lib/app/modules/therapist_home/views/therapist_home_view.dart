@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/therapist_home_controller.dart';
+import '../../../global_widgets/cash_collection_dialog.dart';
 import 'package:intl/intl.dart';
 
 class TherapistHomeView extends GetView<TherapistHomeController> {
@@ -33,6 +34,16 @@ class TherapistHomeView extends GetView<TherapistHomeController> {
           ),
         ),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.person, color: Color(0xFFD4AF37)),
+            onPressed: () => Get.toNamed('/therapist-profile'),
+            tooltip: 'Profile',
+          ),
+          IconButton(
+            icon: const Icon(Icons.dashboard, color: Color(0xFFD4AF37)),
+            onPressed: () => Get.toNamed('/therapist-today-summary'),
+            tooltip: 'Today\'s Summary',
+          ),
           IconButton(
             icon: const Icon(Icons.logout, color: Color(0xFFD4AF37)),
             onPressed: () {
@@ -143,151 +154,294 @@ class TherapistHomeView extends GetView<TherapistHomeController> {
   Widget _buildBookingCard(booking) {
     final isCompleting = controller.isCompletingBooking(booking.id ?? '');
 
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: const Color(0xFF1A1A1A),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFF2A2A2A), width: 1),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Booking Code & Status
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                booking.bookingCode ?? 'Booking',
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xFFD4AF37),
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 6,
-                ),
-                decoration: BoxDecoration(
-                  color: _getStatusColor(booking.status).withOpacity(0.15),
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: _getStatusColor(booking.status).withOpacity(0.3),
-                  ),
-                ),
-                child: Text(
-                  booking.status?.toUpperCase() ?? '',
-                  style: TextStyle(
-                    fontSize: 11,
+    return GestureDetector(
+      onTap: () {
+        if (booking.id != null) {
+          Get.toNamed('/therapist-booking-detail/${booking.id}');
+        }
+      },
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: const Color(0xFF1A1A1A),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: const Color(0xFF2A2A2A), width: 1),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Booking Code & Status
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  booking.bookingCode ?? 'Booking',
+                  style: const TextStyle(
+                    fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: _getStatusColor(booking.status),
+                    color: Color(0xFFD4AF37),
                   ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-
-          // Customer Name
-          if (booking.userName != null || booking.user != null)
-            Row(
-              children: [
-                const Icon(Icons.person, size: 16, color: Color(0xFF808080)),
-                const SizedBox(width: 8),
-                Expanded(
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: _getStatusColor(booking.status).withOpacity(0.15),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: _getStatusColor(booking.status).withOpacity(0.3),
+                    ),
+                  ),
                   child: Text(
-                    'Customer: ${booking.userName ?? booking.user ?? 'N/A'}',
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Color(0xFFE0E0E0),
+                    booking.status?.toUpperCase() ?? '',
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                      color: _getStatusColor(booking.status),
                     ),
                   ),
                 ),
               ],
             ),
-          const SizedBox(height: 8),
+            const SizedBox(height: 16),
 
-          // Service
-          if (booking.service != null)
-            Row(
-              children: [
-                const Icon(Icons.spa, size: 16, color: Color(0xFF808080)),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    booking.service!.name ?? 'Service',
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Color(0xFFE0E0E0),
+            // Customer Name with Member Tier
+            if (booking.userName != null || booking.user != null)
+              Row(
+                children: [
+                  const Icon(Icons.person, size: 16, color: Color(0xFF808080)),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      'Customer: ${booking.userName ?? booking.user ?? 'N/A'}',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Color(0xFFE0E0E0),
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          const SizedBox(height: 8),
-
-          // Date & Time
-          Row(
-            children: [
-              const Icon(
-                Icons.calendar_today,
-                size: 16,
-                color: Color(0xFF808080),
-              ),
-              const SizedBox(width: 8),
-              Text(
-                _formatDate(booking.date),
-                style: const TextStyle(fontSize: 14, color: Color(0xFFE0E0E0)),
-              ),
-              const SizedBox(width: 16),
-              const Icon(Icons.access_time, size: 16, color: Color(0xFF808080)),
-              const SizedBox(width: 8),
-              Text(
-                '${booking.startTime} - ${booking.endTime}',
-                style: const TextStyle(fontSize: 14, color: Color(0xFFE0E0E0)),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-
-          // Complete Button
-          if (booking.status == 'confirmed' || booking.status == 'in_progress')
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: isCompleting
-                    ? null
-                    : () => controller.showCompleteBookingDialog(booking),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF4CAF50),
-                  foregroundColor: Colors.white,
-                  disabledBackgroundColor: const Color(0xFF2A2A2A),
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                child: isCompleting
-                    ? const SizedBox(
-                        height: 20,
-                        width: 20,
-                        child: CircularProgressIndicator(
-                          color: Colors.white,
-                          strokeWidth: 2,
-                        ),
-                      )
-                    : const Text(
-                        'Complete Booking',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600,
+                  if (booking.userMemberTier != null)
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        color: _getTierColor(
+                          booking.userMemberTier!,
+                        ).withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(6),
+                        border: Border.all(
+                          color: _getTierColor(
+                            booking.userMemberTier!,
+                          ).withOpacity(0.3),
                         ),
                       ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.stars,
+                            size: 12,
+                            color: _getTierColor(booking.userMemberTier!),
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            booking.userMemberTier!.toUpperCase(),
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w600,
+                              color: _getTierColor(booking.userMemberTier!),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                ],
               ),
+            const SizedBox(height: 8),
+
+            // Payment Info
+            if (booking.paymentInfo != null) ...[
+              Row(
+                children: [
+                  Icon(
+                    booking.paymentInfo!.isCash == true
+                        ? Icons.money
+                        : Icons.account_balance,
+                    size: 16,
+                    color: booking.paymentInfo!.isCash == true
+                        ? const Color(0xFF4CAF50)
+                        : const Color(0xFF2196F3),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    booking.paymentInfo!.isCash == true ? 'Cash' : 'Transfer',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: booking.paymentInfo!.isCash == true
+                          ? const Color(0xFF4CAF50)
+                          : const Color(0xFF2196F3),
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  if (booking.paymentInfo!.isPaid == true)
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF4CAF50).withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(4),
+                        border: Border.all(
+                          color: const Color(0xFF4CAF50).withOpacity(0.3),
+                        ),
+                      ),
+                      child: const Text(
+                        'PAID',
+                        style: TextStyle(
+                          fontSize: 9,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF4CAF50),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+              const SizedBox(height: 8),
+            ],
+
+            // Service
+            if (booking.service != null)
+              Row(
+                children: [
+                  const Icon(Icons.spa, size: 16, color: Color(0xFF808080)),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      booking.service!.name ?? 'Service',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Color(0xFFE0E0E0),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            const SizedBox(height: 8),
+
+            // Date & Time
+            Row(
+              children: [
+                const Icon(
+                  Icons.calendar_today,
+                  size: 16,
+                  color: Color(0xFF808080),
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  _formatDate(booking.date),
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color(0xFFE0E0E0),
+                  ),
+                ),
+                const SizedBox(width: 16),
+                const Icon(
+                  Icons.access_time,
+                  size: 16,
+                  color: Color(0xFF808080),
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  '${booking.startTime} - ${booking.endTime}',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color(0xFFE0E0E0),
+                  ),
+                ),
+              ],
             ),
-        ],
+            const SizedBox(height: 16),
+
+            // Cash Collection Button
+            if (booking.actionItems?.requiresCashCollection == true &&
+                booking.paymentInfo?.isPaid != true)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 12),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      Get.dialog(
+                        CashCollectionDialog(
+                          booking: booking,
+                          onSuccess: () => controller.loadBookings(),
+                        ),
+                      );
+                    },
+                    icon: const Icon(Icons.payments, size: 20),
+                    label: const Text(
+                      'Collect Cash Payment',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFFF9800),
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+
+            // Complete Button
+            if (booking.status == 'confirmed' ||
+                booking.status == 'in_progress')
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: isCompleting
+                      ? null
+                      : () => controller.showCompleteBookingDialog(booking),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF4CAF50),
+                    foregroundColor: Colors.white,
+                    disabledBackgroundColor: const Color(0xFF2A2A2A),
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: isCompleting
+                      ? const SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2,
+                          ),
+                        )
+                      : const Text(
+                          'Complete Booking',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }
@@ -306,5 +460,20 @@ class TherapistHomeView extends GetView<TherapistHomeController> {
   String _formatDate(DateTime? date) {
     if (date == null) return 'N/A';
     return DateFormat('MMM dd, yyyy').format(date);
+  }
+
+  Color _getTierColor(String tier) {
+    switch (tier.toLowerCase()) {
+      case 'platinum':
+        return const Color(0xFFB9F2FF);
+      case 'gold':
+        return const Color(0xFFFFD700);
+      case 'silver':
+        return const Color(0xFFC0C0C0);
+      case 'bronze':
+        return const Color(0xFFCD7F32);
+      default:
+        return const Color(0xFF808080);
+    }
   }
 }

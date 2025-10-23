@@ -4,6 +4,11 @@ class Booking {
   final String? user; // User ID
   final String? userName; // User name (when user object is populated)
   final String? userPhone; // User phone (when user object is populated)
+  final String? userAddress; // User address
+  final String? userGender; // User gender
+  final DateTime? userDateOfBirth; // User date of birth
+  final String?
+  userMemberTier; // User member tier (bronze, silver, gold, platinum)
   final BookingTherapist? therapist;
   final BookingService? service;
   final BookingStore? store;
@@ -14,7 +19,11 @@ class Booking {
   final BookingDuration? duration;
   final BookingPricing? pricing;
   final BookingPayment? payment;
+  final PaymentInfo?
+  paymentInfo; // Enhanced payment info with cash/transfer flags
   final BookingNotes? notes;
+  final CustomerDetails? customerDetails; // Enhanced customer details
+  final ActionItems? actionItems; // Therapist action items
   final BookingRescheduleData? rescheduleData;
   final BookingCancellation? cancellation;
   final BookingCheckin? checkin;
@@ -30,6 +39,10 @@ class Booking {
     this.user,
     this.userName,
     this.userPhone,
+    this.userAddress,
+    this.userGender,
+    this.userDateOfBirth,
+    this.userMemberTier,
     this.therapist,
     this.service,
     this.store,
@@ -40,7 +53,10 @@ class Booking {
     this.duration,
     this.pricing,
     this.payment,
+    this.paymentInfo,
     this.notes,
+    this.customerDetails,
+    this.actionItems,
     this.rescheduleData,
     this.cancellation,
     this.checkin,
@@ -56,6 +72,10 @@ class Booking {
     String? userId;
     String? userName;
     String? userPhone;
+    String? userAddress;
+    String? userGender;
+    DateTime? userDateOfBirth;
+    String? userMemberTier;
 
     if (json['user'] != null) {
       if (json['user'] is String) {
@@ -65,6 +85,12 @@ class Booking {
         userId = userMap['_id'] ?? userMap['id'];
         userName = userMap['name'];
         userPhone = userMap['phone'];
+        userAddress = userMap['address'];
+        userGender = userMap['gender'];
+        userDateOfBirth = userMap['dateOfBirth'] != null
+            ? DateTime.parse(userMap['dateOfBirth'])
+            : null;
+        userMemberTier = userMap['memberTier'];
       }
     }
 
@@ -74,6 +100,10 @@ class Booking {
       user: userId,
       userName: userName,
       userPhone: userPhone,
+      userAddress: userAddress,
+      userGender: userGender,
+      userDateOfBirth: userDateOfBirth,
+      userMemberTier: userMemberTier,
       therapist: json['therapist'] != null && json['therapist'] is Map
           ? BookingTherapist.fromJson(json['therapist'] as Map<String, dynamic>)
           : null,
@@ -96,8 +126,20 @@ class Booking {
       payment: json['payment'] != null && json['payment'] is Map
           ? BookingPayment.fromJson(json['payment'] as Map<String, dynamic>)
           : null,
+      paymentInfo: json['paymentInfo'] != null && json['paymentInfo'] is Map
+          ? PaymentInfo.fromJson(json['paymentInfo'] as Map<String, dynamic>)
+          : null,
       notes: json['notes'] != null && json['notes'] is Map
           ? BookingNotes.fromJson(json['notes'] as Map<String, dynamic>)
+          : null,
+      customerDetails:
+          json['customerDetails'] != null && json['customerDetails'] is Map
+          ? CustomerDetails.fromJson(
+              json['customerDetails'] as Map<String, dynamic>,
+            )
+          : null,
+      actionItems: json['actionItems'] != null && json['actionItems'] is Map
+          ? ActionItems.fromJson(json['actionItems'] as Map<String, dynamic>)
           : null,
       rescheduleData:
           json['rescheduleData'] != null && json['rescheduleData'] is Map
@@ -144,7 +186,10 @@ class Booking {
       'duration': duration?.toJson(),
       'pricing': pricing?.toJson(),
       'payment': payment?.toJson(),
+      'paymentInfo': paymentInfo?.toJson(),
       'notes': notes?.toJson(),
+      'customerDetails': customerDetails?.toJson(),
+      'actionItems': actionItems?.toJson(),
       'rescheduleData': rescheduleData?.toJson(),
       'cancellation': cancellation?.toJson(),
       'checkin': checkin?.toJson(),
@@ -689,6 +734,130 @@ class BookingReminders {
       'sent24h': sent24h,
       'sent2h': sent2h,
       'sentConfirmation': sentConfirmation,
+    };
+  }
+}
+
+// Enhanced classes for therapist app features
+
+class CustomerDetails {
+  final String? specialRequests;
+  final String? therapistNotes;
+  final ContactInfo? contactInfo;
+
+  CustomerDetails({
+    this.specialRequests,
+    this.therapistNotes,
+    this.contactInfo,
+  });
+
+  factory CustomerDetails.fromJson(Map<String, dynamic> json) {
+    return CustomerDetails(
+      specialRequests: json['specialRequests'],
+      therapistNotes: json['therapistNotes'],
+      contactInfo: json['contactInfo'] != null && json['contactInfo'] is Map
+          ? ContactInfo.fromJson(json['contactInfo'] as Map<String, dynamic>)
+          : null,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'specialRequests': specialRequests,
+      'therapistNotes': therapistNotes,
+      'contactInfo': contactInfo?.toJson(),
+    };
+  }
+}
+
+class ContactInfo {
+  final String? phone;
+  final String? alternatePhone;
+  final String? email;
+
+  ContactInfo({this.phone, this.alternatePhone, this.email});
+
+  factory ContactInfo.fromJson(Map<String, dynamic> json) {
+    return ContactInfo(
+      phone: json['phone'],
+      alternatePhone: json['alternatePhone'],
+      email: json['email'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'phone': phone, 'alternatePhone': alternatePhone, 'email': email};
+  }
+}
+
+class PaymentInfo {
+  final String? method;
+  final String? status;
+  final bool? isCash;
+  final bool? isTransfer;
+  final bool? isPaid;
+  final double? amount;
+
+  PaymentInfo({
+    this.method,
+    this.status,
+    this.isCash,
+    this.isTransfer,
+    this.isPaid,
+    this.amount,
+  });
+
+  factory PaymentInfo.fromJson(Map<String, dynamic> json) {
+    return PaymentInfo(
+      method: json['method'],
+      status: json['status'],
+      isCash: json['isCash'] as bool?,
+      isTransfer: json['isTransfer'] as bool?,
+      isPaid: json['isPaid'] as bool?,
+      amount: json['amount']?.toDouble(),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'method': method,
+      'status': status,
+      'isCash': isCash,
+      'isTransfer': isTransfer,
+      'isPaid': isPaid,
+      'amount': amount,
+    };
+  }
+}
+
+class ActionItems {
+  final bool? needsPaymentCollection;
+  final bool? canStartSession;
+  final bool? canComplete;
+  final bool? requiresCashCollection;
+
+  ActionItems({
+    this.needsPaymentCollection,
+    this.canStartSession,
+    this.canComplete,
+    this.requiresCashCollection,
+  });
+
+  factory ActionItems.fromJson(Map<String, dynamic> json) {
+    return ActionItems(
+      needsPaymentCollection: json['needsPaymentCollection'] as bool?,
+      canStartSession: json['canStartSession'] as bool?,
+      canComplete: json['canComplete'] as bool?,
+      requiresCashCollection: json['requiresCashCollection'] as bool?,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'needsPaymentCollection': needsPaymentCollection,
+      'canStartSession': canStartSession,
+      'canComplete': canComplete,
+      'requiresCashCollection': requiresCashCollection,
     };
   }
 }

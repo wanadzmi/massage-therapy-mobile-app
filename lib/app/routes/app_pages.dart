@@ -41,6 +41,12 @@ import '../modules/tier_subscription/views/tier_subscription_view.dart';
 import '../modules/tier_subscription/views/tier_detail_view.dart';
 import '../modules/therapist_home/bindings/therapist_home_binding.dart';
 import '../modules/therapist_home/views/therapist_home_view.dart';
+import '../modules/therapist_today_summary/bindings/today_summary_binding.dart';
+import '../modules/therapist_today_summary/views/today_summary_view.dart';
+import '../modules/therapist_booking_detail/bindings/therapist_booking_detail_binding.dart';
+import '../modules/therapist_booking_detail/views/therapist_booking_detail_view.dart';
+import '../modules/therapist_profile/bindings/therapist_profile_binding.dart';
+import '../modules/therapist_profile/views/therapist_profile_view.dart';
 import '../modules/notification/bindings/notification_binding.dart';
 import '../modules/notification/views/notification_view.dart';
 import '../modules/notification/views/notification_preferences_view.dart';
@@ -167,6 +173,21 @@ class AppPages {
       name: _Paths.THERAPIST_HOME,
       page: () => const TherapistHomeView(),
       binding: TherapistHomeBinding(),
+    ),
+    GetPage(
+      name: _Paths.THERAPIST_TODAY_SUMMARY,
+      page: () => const TodaySummaryView(),
+      binding: TodaySummaryBinding(),
+    ),
+    GetPage(
+      name: '${_Paths.THERAPIST_BOOKING_DETAIL}/:bookingId',
+      page: () => const TherapistBookingDetailView(),
+      binding: TherapistBookingDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.THERAPIST_PROFILE,
+      page: () => const TherapistProfileView(),
+      binding: TherapistProfileBinding(),
     ),
     GetPage(
       name: _Paths.NOTIFICATION,

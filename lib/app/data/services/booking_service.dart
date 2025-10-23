@@ -1,9 +1,14 @@
 import '../models/booking_model.dart';
+import '../models/today_summary_model.dart';
 import 'base_services.dart';
 
 class BookingService extends BaseServices {
   static const String _bookingsEndpoint = '/api/bookings';
   static const String _myBookingsEndpoint = '/api/bookings/my-bookings';
+  static const String _therapistTodaySummaryEndpoint =
+      '/api/bookings/therapist/today-summary';
+  static const String _therapistBookingDetailsEndpoint =
+      '/api/bookings/therapist';
 
   /// Create a new booking
   Future<MyResponse<Booking?, dynamic>> createBooking({
@@ -119,6 +124,73 @@ class BookingService extends BaseServices {
         return MyResponse.complete(booking);
       } catch (e) {
         return MyResponse.error('Failed to parse booking data: $e');
+      }
+    }
+
+    return MyResponse.error(response.error);
+  }
+
+  // Therapist-specific endpoints
+
+  /// Get today's summary for therapist (customer count, revenue, cash collection)
+  Future<MyResponse<TodaySummary?, dynamic>> getTodaySummary() async {
+    final response = await callAPI(
+      HttpRequestType.GET,
+      _therapistTodaySummaryEndpoint,
+    );
+
+    if (response.isSuccess && response.data != null) {
+      try {
+        final summaryData = response.data['data'] ?? response.data;
+        final summary = TodaySummary.fromJson(summaryData);
+        return MyResponse.complete(summary);
+      } catch (e) {
+        return MyResponse.error('Failed to parse today summary data: $e');
+      }
+    }
+
+    return MyResponse.error(response.error);
+  }
+
+  /// Get detailed booking information for therapist (includes customer details, payment info, action items)
+  Future<MyResponse<Booking?, dynamic>> getBookingDetails(
+    String bookingId,
+  ) async {
+    final response = await callAPI(
+      HttpRequestType.GET,
+      '$_therapistBookingDetailsEndpoint/$bookingId/details',
+    );
+
+    if (response.isSuccess && response.data != null) {
+      try {
+        final bookingData = response.data['data'] ?? response.data;
+        final booking = Booking.fromJson(bookingData);
+        return MyResponse.complete(booking);
+      } catch (e) {
+        return MyResponse.error('Failed to parse booking details: $e');
+      }
+    }
+
+    return MyResponse.error(response.error);
+  }
+
+  /// Mark cash payment as received for a booking
+  Future<MyResponse<Booking?, dynamic>> markCashReceived(
+    String bookingId,
+  ) async {
+    final response = await callAPI(
+      HttpRequestType.PUT,
+      '$_bookingsEndpoint/$bookingId/payment-status',
+      postBody: {'isPaid': true, 'status': 'paid'},
+    );
+
+    if (response.isSuccess && response.data != null) {
+      try {
+        final bookingData = response.data['data'] ?? response.data;
+        final booking = Booking.fromJson(bookingData);
+        return MyResponse.complete(booking);
+      } catch (e) {
+        return MyResponse.error('Failed to update payment status: $e');
       }
     }
 
