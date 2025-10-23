@@ -528,10 +528,8 @@ class BookingView extends GetView<BookingController> {
                   ),
                 ),
             ],
-            // Cancel button for cancellable bookings (not for cancelled, completed, or in_progress)
-            if (booking.status != 'cancelled' &&
-                booking.status != 'completed' &&
-                booking.status != 'in_progress') ...[
+            // Cancel button for cancellable bookings
+            if (_canCancelBooking(booking)) ...[
               const SizedBox(height: 12),
               SizedBox(
                 width: double.infinity,
@@ -561,7 +559,63 @@ class BookingView extends GetView<BookingController> {
     );
   }
 
+  bool _canCancelBooking(Booking booking) {
+    // Cannot cancel if already cancelled, completed, or in progress
+    if (booking.status == 'cancelled' ||
+        booking.status == 'completed' ||
+        booking.status == 'in_progress') {
+      return false;
+    }
+
+    // For confirmed bookings, check if it's less than 1 hour before start time
+    if (booking.status == 'confirmed' &&
+        booking.date != null &&
+        booking.startTime != null) {
+      try {
+        final date = booking.date!;
+        final timeStr = booking.startTime!;
+        final timeParts = timeStr.split(':');
+        if (timeParts.length >= 2) {
+          final hour = int.tryParse(timeParts[0]) ?? 0;
+          final minute = int.tryParse(timeParts[1]) ?? 0;
+          final bookingDateTime = DateTime(
+            date.year,
+            date.month,
+            date.day,
+            hour,
+            minute,
+          );
+          final now = DateTime.now();
+          final hoursUntilBooking = bookingDateTime.difference(now).inHours;
+
+          // Cannot cancel if less than 1 hour before booking
+          if (hoursUntilBooking < 1) {
+            return false;
+          }
+        }
+      } catch (e) {
+        // If parsing fails, allow cancellation
+        return true;
+      }
+    }
+
+    return true;
+  }
+
   void _showCancelDialog(BuildContext context, Booking booking) {
+    // Check if booking can be cancelled
+    if (!_canCancelBooking(booking)) {
+      Get.snackbar(
+        'Cannot Cancel',
+        'Bookings cannot be cancelled less than 1 hour before the start time',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: const Color(0xFF1E1E1E),
+        colorText: const Color(0xFFE53E3E),
+        duration: const Duration(seconds: 4),
+      );
+      return;
+    }
+
     showDialog(
       context: context,
       builder: (dialogContext) => _CancelBookingDialog(
