@@ -15,13 +15,11 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
   final locationService = LocationService();
 
   // Local state for filter selections (before applying)
-  String? selectedCity;
-  String? selectedArea;
   double? selectedRating;
   RangeValues priceRange = const RangeValues(30, 200);
-  List<String> selectedAmenities = [];
-  String sortBy = 'rating';
-  String sortOrder = 'desc';
+
+  String? sortBy;
+  String? sortOrder;
   bool useLocation = false;
   double radius = 10;
 
@@ -35,8 +33,6 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
     // Load current filter states from controller
     final filters = controller.selectedFilters;
     setState(() {
-      selectedCity = filters['city'];
-      selectedArea = filters['area'];
       selectedRating = filters['rating'];
       if (filters['priceRange'] != null) {
         final parts = (filters['priceRange'] as String).split('-');
@@ -47,9 +43,9 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
           );
         }
       }
-      selectedAmenities = List<String>.from(filters['amenities'] ?? []);
-      sortBy = filters['sortBy'] ?? 'rating';
-      sortOrder = filters['sortOrder'] ?? 'desc';
+
+      sortBy = filters['sortBy'];
+      sortOrder = filters['sortOrder'];
       useLocation = filters['useLocation'] == true;
       radius = filters['radius'] ?? 10;
     });
@@ -58,18 +54,16 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
   void _applyFilters() {
     final filters = <String, dynamic>{};
 
-    if (selectedCity != null) filters['city'] = selectedCity;
-    if (selectedArea != null) filters['area'] = selectedArea;
     if (selectedRating != null) filters['rating'] = selectedRating;
     if (priceRange.start != 30 || priceRange.end != 200) {
       filters['priceRange'] =
           '${priceRange.start.toInt()}-${priceRange.end.toInt()}';
     }
-    if (selectedAmenities.isNotEmpty) {
-      filters['amenities'] = selectedAmenities;
+
+    if (sortBy != null) {
+      filters['sortBy'] = sortBy;
+      filters['sortOrder'] = sortOrder;
     }
-    filters['sortBy'] = sortBy;
-    filters['sortOrder'] = sortOrder;
     if (useLocation) {
       filters['useLocation'] = true;
       filters['radius'] = radius;
@@ -81,13 +75,11 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
 
   void _clearAll() {
     setState(() {
-      selectedCity = null;
-      selectedArea = null;
       selectedRating = null;
       priceRange = const RangeValues(30, 200);
-      selectedAmenities = [];
-      sortBy = 'rating';
-      sortOrder = 'desc';
+
+      sortBy = null;
+      sortOrder = null;
       useLocation = false;
       radius = 10;
     });
@@ -95,11 +87,9 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
 
   int _getActiveFilterCount() {
     int count = 0;
-    if (selectedCity != null) count++;
-    if (selectedArea != null) count++;
     if (selectedRating != null) count++;
     if (priceRange.start != 30 || priceRange.end != 200) count++;
-    if (selectedAmenities.isNotEmpty) count++;
+
     if (useLocation) count++;
     return count;
   }
@@ -114,141 +104,143 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
           topRight: Radius.circular(20),
         ),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // Header
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: const BoxDecoration(
-              border: Border(
-                bottom: BorderSide(color: Color(0xFF2A2A2A), width: 1),
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  'Filters',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFFE0E0E0),
-                  ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.close, color: Color(0xFF808080)),
-                  onPressed: () => Get.back(),
-                  padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(),
-                ),
-              ],
-            ),
-          ),
-
-          // Scrollable Content
-          Expanded(
-            child: SingleChildScrollView(
+      child: SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Header
+            Container(
               padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              decoration: const BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(color: Color(0xFF2A2A2A), width: 1),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Location Section
-                  _buildSectionTitle('Location'),
-                  const SizedBox(height: 12),
-                  _buildLocationSection(),
-                  const SizedBox(height: 24),
-
-                  // Price Range Section
-                  _buildSectionTitle('Price Range'),
-                  const SizedBox(height: 12),
-                  _buildPriceRangeSection(),
-                  const SizedBox(height: 24),
-
-                  // Rating Section
-                  _buildSectionTitle('Minimum Rating'),
-                  const SizedBox(height: 12),
-                  _buildRatingSection(),
-                  const SizedBox(height: 24),
-
-                  // Amenities Section
-                  _buildSectionTitle('Amenities'),
-                  const SizedBox(height: 12),
-                  _buildAmenitiesSection(),
-                  const SizedBox(height: 24),
-
-                  // Sort Section
-                  _buildSectionTitle('Sort By'),
-                  const SizedBox(height: 12),
-                  _buildSortSection(),
-                  const SizedBox(height: 80), // Space for bottom buttons
+                  const Text(
+                    'Filters',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFFE0E0E0),
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.close, color: Color(0xFF808080)),
+                    onPressed: () => Get.back(),
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints(),
+                  ),
                 ],
               ),
             ),
-          ),
 
-          // Bottom Action Buttons
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: const BoxDecoration(
-              color: Color(0xFF0A0A0A),
-              border: Border(
-                top: BorderSide(color: Color(0xFF2A2A2A), width: 1),
+            // Scrollable Content
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Location Section
+                    _buildSectionTitle('Location'),
+                    const SizedBox(height: 12),
+                    _buildLocationSection(),
+                    const SizedBox(height: 24),
+
+                    // Price Range Section
+                    _buildSectionTitle('Price Range'),
+                    const SizedBox(height: 12),
+                    _buildPriceRangeSection(),
+                    const SizedBox(height: 24),
+
+                    // Rating Section
+                    _buildSectionTitle('Minimum Rating'),
+                    const SizedBox(height: 12),
+                    _buildRatingSection(),
+                    const SizedBox(height: 24),
+
+                    // Amenities Section
+                    _buildSectionTitle('Amenities'),
+                    const SizedBox(height: 12),
+
+                    const SizedBox(height: 24),
+
+                    // Sort Section
+                    _buildSectionTitle('Sort By'),
+                    const SizedBox(height: 12),
+                    _buildSortSection(),
+                    const SizedBox(height: 80), // Space for bottom buttons
+                  ],
+                ),
               ),
             ),
-            child: Row(
-              children: [
-                // Clear All Button
-                Expanded(
-                  child: OutlinedButton(
-                    onPressed: _clearAll,
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: Color(0xFF808080),
-                      side: const BorderSide(color: Color(0xFF2A2A2A)),
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+
+            // Bottom Action Buttons
+            Container(
+              padding: const EdgeInsets.all(20),
+              decoration: const BoxDecoration(
+                color: Color(0xFF0A0A0A),
+                border: Border(
+                  top: BorderSide(color: Color(0xFF2A2A2A), width: 1),
+                ),
+              ),
+              child: Row(
+                children: [
+                  // Clear All Button
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: _clearAll,
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: Color(0xFF808080),
+                        side: const BorderSide(color: Color(0xFF2A2A2A)),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                       ),
-                    ),
-                    child: const Text(
-                      'Clear All',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
+                      child: const Text(
+                        'Clear All',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(width: 12),
-                // Apply Button
-                Expanded(
-                  flex: 2,
-                  child: ElevatedButton(
-                    onPressed: _applyFilters,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFD4AF37),
-                      foregroundColor: Colors.black,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                  const SizedBox(width: 12),
+                  // Apply Button
+                  Expanded(
+                    flex: 2,
+                    child: ElevatedButton(
+                      onPressed: _applyFilters,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFD4AF37),
+                        foregroundColor: Colors.black,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        elevation: 0,
                       ),
-                      elevation: 0,
-                    ),
-                    child: Text(
-                      _getActiveFilterCount() > 0
-                          ? 'Apply (${_getActiveFilterCount()})'
-                          : 'Apply',
-                      style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
+                      child: Text(
+                        _getActiveFilterCount() > 0
+                            ? 'Apply (${_getActiveFilterCount()})'
+                            : 'Apply',
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -305,10 +297,6 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                 onChanged: (value) {
                   setState(() {
                     useLocation = value;
-                    if (value) {
-                      selectedCity = null;
-                      selectedArea = null;
-                    }
                   });
                 },
                 activeColor: const Color(0xFFD4AF37),
@@ -360,24 +348,6 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
               ],
             ),
           ),
-        ] else ...[
-          const SizedBox(height: 12),
-          // City Selector (Placeholder)
-          _buildDropdownField(
-            'Select City',
-            selectedCity,
-            Icons.location_city,
-            () => _showCitySelector(),
-          ),
-          if (selectedCity != null) ...[
-            const SizedBox(height: 12),
-            _buildDropdownField(
-              'Select Area',
-              selectedArea,
-              Icons.place,
-              () => _showAreaSelector(),
-            ),
-          ],
         ],
       ],
     );
@@ -412,43 +382,6 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                   : const Color(0xFF606060),
             ),
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildDropdownField(
-    String hint,
-    String? value,
-    IconData icon,
-    VoidCallback onTap,
-  ) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: const Color(0xFF0A0A0A),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: const Color(0xFF2A2A2A)),
-        ),
-        child: Row(
-          children: [
-            Icon(icon, color: const Color(0xFF606060), size: 20),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                value ?? hint,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: value != null
-                      ? const Color(0xFFE0E0E0)
-                      : const Color(0xFF606060),
-                ),
-              ),
-            ),
-            const Icon(Icons.arrow_drop_down, color: Color(0xFF606060)),
-          ],
         ),
       ),
     );
@@ -587,73 +520,6 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
     );
   }
 
-  Widget _buildAmenitiesSection() {
-    final amenities = [
-      'Parking',
-      'WiFi',
-      'Air-conditioning',
-      'Shower',
-      'Wheelchair Accessible',
-    ];
-
-    return Column(
-      children: amenities.map((amenity) {
-        final isSelected = selectedAmenities.contains(amenity);
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 8),
-          child: GestureDetector(
-            onTap: () {
-              setState(() {
-                if (isSelected) {
-                  selectedAmenities.remove(amenity);
-                } else {
-                  selectedAmenities.add(amenity);
-                }
-              });
-            },
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: isSelected
-                    ? const Color(0xFFD4AF37).withOpacity(0.15)
-                    : const Color(0xFF0A0A0A),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: isSelected
-                      ? const Color(0xFFD4AF37)
-                      : const Color(0xFF2A2A2A),
-                ),
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    isSelected
-                        ? Icons.check_box
-                        : Icons.check_box_outline_blank,
-                    color: isSelected
-                        ? const Color(0xFFD4AF37)
-                        : const Color(0xFF606060),
-                    size: 20,
-                  ),
-                  const SizedBox(width: 12),
-                  Text(
-                    amenity,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: isSelected
-                          ? const Color(0xFFE0E0E0)
-                          : const Color(0xFF808080),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      }).toList(),
-    );
-  }
-
   Widget _buildSortSection() {
     return Column(
       children: [
@@ -720,209 +586,6 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
           ],
         ),
       ),
-    );
-  }
-
-  void _showCitySelector() {
-    Get.bottomSheet(
-      Container(
-        decoration: const BoxDecoration(
-          color: Color(0xFF1A1A1A),
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Header
-            Container(
-              padding: const EdgeInsets.all(20),
-              decoration: const BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: Color(0xFF2A2A2A), width: 1),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Select City',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFFE0E0E0),
-                    ),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.close, color: Color(0xFF808080)),
-                    onPressed: () => Get.back(),
-                    padding: EdgeInsets.zero,
-                    constraints: const BoxConstraints(),
-                  ),
-                ],
-              ),
-            ),
-            // Cities List
-            Flexible(
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: controller.availableCities.length,
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                itemBuilder: (context, index) {
-                  final city = controller.availableCities[index];
-                  final isSelected = selectedCity == city;
-                  return ListTile(
-                    title: Text(
-                      city,
-                      style: TextStyle(
-                        color: isSelected
-                            ? const Color(0xFFD4AF37)
-                            : const Color(0xFFE0E0E0),
-                        fontWeight: isSelected
-                            ? FontWeight.w600
-                            : FontWeight.normal,
-                      ),
-                    ),
-                    trailing: isSelected
-                        ? const Icon(Icons.check, color: Color(0xFFD4AF37))
-                        : null,
-                    onTap: () {
-                      setState(() {
-                        selectedCity = city;
-                        selectedArea = null; // Reset area when city changes
-                      });
-                      Get.back();
-                    },
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-      isScrollControlled: true,
-    );
-  }
-
-  void _showAreaSelector() {
-    if (selectedCity == null) return;
-
-    final areas = controller.getAreasForCity(selectedCity!);
-    if (areas.isEmpty) return;
-
-    Get.bottomSheet(
-      Container(
-        decoration: const BoxDecoration(
-          color: Color(0xFF1A1A1A),
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Header
-            Container(
-              padding: const EdgeInsets.all(20),
-              decoration: const BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: Color(0xFF2A2A2A), width: 1),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Select Area',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFFE0E0E0),
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        selectedCity!,
-                        style: const TextStyle(
-                          fontSize: 13,
-                          color: Color(0xFF808080),
-                        ),
-                      ),
-                    ],
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.close, color: Color(0xFF808080)),
-                    onPressed: () => Get.back(),
-                    padding: EdgeInsets.zero,
-                    constraints: const BoxConstraints(),
-                  ),
-                ],
-              ),
-            ),
-            // All Areas Option
-            ListTile(
-              title: const Text(
-                'All Areas',
-                style: TextStyle(
-                  color: Color(0xFFE0E0E0),
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              trailing: selectedArea == null
-                  ? const Icon(Icons.check, color: Color(0xFFD4AF37))
-                  : null,
-              onTap: () {
-                setState(() {
-                  selectedArea = null;
-                });
-                Get.back();
-              },
-            ),
-            const Divider(color: Color(0xFF2A2A2A), height: 1),
-            // Areas List
-            Flexible(
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: areas.length,
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                itemBuilder: (context, index) {
-                  final area = areas[index];
-                  final isSelected = selectedArea == area;
-                  return ListTile(
-                    title: Text(
-                      area,
-                      style: TextStyle(
-                        color: isSelected
-                            ? const Color(0xFFD4AF37)
-                            : const Color(0xFFE0E0E0),
-                        fontWeight: isSelected
-                            ? FontWeight.w600
-                            : FontWeight.normal,
-                      ),
-                    ),
-                    trailing: isSelected
-                        ? const Icon(Icons.check, color: Color(0xFFD4AF37))
-                        : null,
-                    onTap: () {
-                      setState(() {
-                        selectedArea = area;
-                      });
-                      Get.back();
-                    },
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-      isScrollControlled: true,
     );
   }
 }

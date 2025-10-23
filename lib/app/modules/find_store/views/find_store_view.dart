@@ -196,78 +196,11 @@ class FindStoreView extends GetView<FindStoreController> {
             ),
           ),
 
-          const SizedBox(height: 12),
-
-          // Quick Filter Chips
-          SizedBox(
-            height: 36,
-            child: Obx(
-              () => ListView(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                children: [
-                  // Nearby Filter
-                  _buildQuickFilterChip(
-                    label: 'Nearby',
-                    icon: Icons.location_on,
-                    isActive: controller.selectedFilters['useLocation'] == true,
-                    isLoading: controller.isLoadingLocation,
-                    onTap: () => controller.applyNearbyFilter(),
-                  ),
-                  const SizedBox(width: 8),
-                  // 4+ Rating Filter
-                  _buildQuickFilterChip(
-                    label: '4+ ⭐',
-                    isActive: controller.selectedFilters['rating'] == 4.0,
-                    onTap: () {
-                      if (controller.selectedFilters['rating'] == 4.0) {
-                        final filters = Map<String, dynamic>.from(
-                          controller.selectedFilters,
-                        );
-                        filters.remove('rating');
-                        controller.applyFilters(filters);
-                      } else {
-                        final filters = Map<String, dynamic>.from(
-                          controller.selectedFilters,
-                        );
-                        filters['rating'] = 4.0;
-                        controller.applyFilters(filters);
-                      }
-                    },
-                  ),
-                  const SizedBox(width: 8),
-                  // Budget Filter
-                  _buildQuickFilterChip(
-                    label: 'Budget',
-                    icon: Icons.attach_money,
-                    isActive:
-                        controller.selectedFilters['priceRange'] == '30-70',
-                    onTap: () {
-                      if (controller.selectedFilters['priceRange'] == '30-70') {
-                        final filters = Map<String, dynamic>.from(
-                          controller.selectedFilters,
-                        );
-                        filters.remove('priceRange');
-                        controller.applyFilters(filters);
-                      } else {
-                        final filters = Map<String, dynamic>.from(
-                          controller.selectedFilters,
-                        );
-                        filters['priceRange'] = '30-70';
-                        controller.applyFilters(filters);
-                      }
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ),
-
           // Active Filter Chips
           Obx(
             () => controller.selectedFilters.isNotEmpty
                 ? Container(
-                    margin: const EdgeInsets.only(top: 12),
+                    margin: const EdgeInsets.only(top: 16, bottom: 16),
                     height: 36,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
@@ -275,10 +208,8 @@ class FindStoreView extends GetView<FindStoreController> {
                       children: _buildActiveFilterChips(),
                     ),
                   )
-                : const SizedBox.shrink(),
+                : const SizedBox(height: 16),
           ),
-
-          const SizedBox(height: 16),
 
           // Stores List
           Expanded(
@@ -834,6 +765,32 @@ class FindStoreView extends GetView<FindStoreController> {
                             .toList(),
                       ),
                     ),
+
+                  // Navigation Button
+                  if (store.location?.coordinates != null &&
+                      store.location!.coordinates!.length >= 2)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 12),
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton.icon(
+                          onPressed: () =>
+                              controller.showNavigationOptions(store),
+                          icon: const Icon(Icons.directions, size: 18),
+                          label: const Text('Get Directions'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF2A2A2A),
+                            foregroundColor: const Color(0xFFD4AF37),
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              side: const BorderSide(color: Color(0xFF3A3A3A)),
+                            ),
+                            elevation: 0,
+                          ),
+                        ),
+                      ),
+                    ),
                 ],
               ),
             ),
@@ -1100,67 +1057,13 @@ class FindStoreView extends GetView<FindStoreController> {
     );
   }
 
-  Widget _buildQuickFilterChip({
-    required String label,
-    IconData? icon,
-    required bool isActive,
-    bool isLoading = false,
-    required VoidCallback onTap,
-  }) {
-    return GestureDetector(
-      onTap: isLoading ? null : onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        decoration: BoxDecoration(
-          color: isActive ? const Color(0xFFD4AF37) : const Color(0xFF1A1A1A),
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: isActive ? const Color(0xFFD4AF37) : const Color(0xFF2A2A2A),
-          ),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (isLoading)
-              const SizedBox(
-                width: 14,
-                height: 14,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF0A0A0A)),
-                ),
-              )
-            else if (icon != null)
-              Icon(
-                icon,
-                size: 14,
-                color: isActive
-                    ? const Color(0xFF0A0A0A)
-                    : const Color(0xFF808080),
-              ),
-            if (icon != null || isLoading) const SizedBox(width: 6),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                color: isActive
-                    ? const Color(0xFF0A0A0A)
-                    : const Color(0xFF808080),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   void _showFilterSheet(BuildContext context) {
     Get.bottomSheet(
       const FilterBottomSheet(),
       isScrollControlled: true,
       isDismissible: true,
       enableDrag: true,
+      ignoreSafeArea: false,
     );
   }
 

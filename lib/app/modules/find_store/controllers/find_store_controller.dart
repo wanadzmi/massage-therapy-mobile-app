@@ -1,8 +1,7 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../data/models/store_model.dart' hide Duration;
 import '../../../data/repositories/store_repository.dart';
 import '../../../services/location_service.dart';
@@ -42,80 +41,6 @@ class FindStoreController extends GetxController {
 
   final int itemsPerPage = 10;
 
-  // Available cities and areas (can be populated from API)
-  final List<String> availableCities = [
-    'Kuala Lumpur',
-    'Penang',
-    'Johor Bahru',
-    'Ipoh',
-    'Kuching',
-    'Kota Kinabalu',
-    'Petaling Jaya',
-    'Shah Alam',
-    'Melaka',
-    'Seremban',
-  ];
-
-  final Map<String, List<String>> cityAreas = {
-    'Kuala Lumpur': [
-      'Bukit Bintang',
-      'KLCC',
-      'Bangsar',
-      'Mont Kiara',
-      'Cheras',
-      'Kepong',
-      'Setapak',
-    ],
-    'Penang': [
-      'Georgetown',
-      'Bayan Lepas',
-      'Tanjung Bungah',
-      'Gurney Drive',
-      'Batu Ferringhi',
-    ],
-    'Johor Bahru': [
-      'City Centre',
-      'Skudai',
-      'Tampoi',
-      'Taman Molek',
-      'Nusajaya',
-    ],
-    'Ipoh': ['Old Town', 'New Town', 'Ipoh Garden', 'Bercham', 'Tambun'],
-    'Kuching': ['City Centre', 'Petra Jaya', 'Matang', 'Samarahan', 'Pending'],
-    'Kota Kinabalu': [
-      'City Centre',
-      'Likas',
-      'Tanjung Aru',
-      'Penampang',
-      'Inanam',
-    ],
-    'Petaling Jaya': [
-      'SS2',
-      'Damansara',
-      'Kelana Jaya',
-      'Subang Jaya',
-      'Ara Damansara',
-    ],
-    'Shah Alam': [
-      'Section 7',
-      'Section 13',
-      'Section 18',
-      'Bukit Jelutong',
-      'Kota Kemuning',
-    ],
-    'Melaka': [
-      'Bandar Melaka',
-      'Ayer Keroh',
-      'Batu Berendam',
-      'Durian Tunggal',
-    ],
-    'Seremban': ['Seremban 2', 'Senawang', 'Rasah', 'Nilai', 'Port Dickson'],
-  };
-
-  List<String> getAreasForCity(String city) {
-    return cityAreas[city] ?? [];
-  }
-
   int getActiveFilterCount() {
     int count = 0;
     final filters = _selectedFilters;
@@ -125,10 +50,7 @@ class FindStoreController extends GetxController {
     if (filters['useLocation'] == true) count++;
     if (filters['rating'] != null) count++;
     if (filters['priceRange'] != null) count++;
-    if (filters['amenities'] != null &&
-        (filters['amenities'] as List).isNotEmpty) {
-      count += (filters['amenities'] as List).length;
-    }
+
     if (filters['sortBy'] != null && filters['sortBy'] != 'rating') count++;
 
     return count;
@@ -137,64 +59,7 @@ class FindStoreController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _restoreFilters();
     loadStores();
-  }
-
-  Future<void> _saveFilters() async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      final filtersMap = Map<String, dynamic>.from(_selectedFilters);
-      final filtersJson = json.encode(filtersMap);
-      await prefs.setString('find_store_filters', filtersJson);
-
-      // Save search query separately
-      if (_searchQuery.value.isNotEmpty) {
-        await prefs.setString('find_store_search', _searchQuery.value);
-      } else {
-        await prefs.remove('find_store_search');
-      }
-    } catch (e) {
-      // Silent fail - not critical
-      print('Error saving filters: $e');
-    }
-  }
-
-  Future<void> _restoreFilters() async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-
-      // Restore filters
-      final filtersJson = prefs.getString('find_store_filters');
-      if (filtersJson != null) {
-        final filters = json.decode(filtersJson) as Map<String, dynamic>;
-        _selectedFilters.assignAll(filters);
-
-        // Restore location if it was active
-        if (filters['useLocation'] == true) {
-          await getCurrentLocation();
-        }
-      }
-
-      // Restore search query
-      final savedSearch = prefs.getString('find_store_search');
-      if (savedSearch != null) {
-        _searchQuery.value = savedSearch;
-      }
-    } catch (e) {
-      // Silent fail - not critical
-      print('Error restoring filters: $e');
-    }
-  }
-
-  Future<void> clearFilterPersistence() async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.remove('find_store_filters');
-      await prefs.remove('find_store_search');
-    } catch (e) {
-      print('Error clearing filter persistence: $e');
-    }
   }
 
   Future<void> loadStores({bool refresh = false}) async {
@@ -229,7 +94,7 @@ class FindStoreController extends GetxController {
         priceRange: _selectedFilters['priceRange'],
         minPrice: _selectedFilters['minPrice'],
         maxPrice: _selectedFilters['maxPrice'],
-        amenities: _selectedFilters['amenities'],
+
         sortBy: _selectedFilters['sortBy'],
         sortOrder: _selectedFilters['sortOrder'],
         isVerified: _selectedFilters['isVerified'],
@@ -296,7 +161,6 @@ class FindStoreController extends GetxController {
 
     // Debounce the API call
     _debounceTimer = Timer(Duration(milliseconds: 500), () {
-      _saveFilters();
       loadStores(refresh: true);
     });
   }
@@ -307,6 +171,14 @@ class FindStoreController extends GetxController {
       final location = await _locationService.getCurrentLatLng();
       if (location != null) {
         _currentLocation.value = location;
+        // Print coordinates for backend setup
+        print('📍 YOUR CURRENT LOCATION:');
+        print('Latitude: ${location['latitude']}');
+        print('Longitude: ${location['longitude']}');
+        print('');
+        print('💡 To set stores within 10km of your location:');
+        print('Use these coordinates in your backend when creating stores.');
+        print('');
       }
     } finally {
       _isLoadingLocation.value = false;
@@ -320,14 +192,12 @@ class FindStoreController extends GetxController {
     }
 
     _selectedFilters.value = filters;
-    await _saveFilters();
     loadStores(refresh: true);
   }
 
   void clearFilters() {
     _selectedFilters.clear();
     _currentLocation.value = null;
-    clearFilterPersistence();
     loadStores(refresh: true);
   }
 
@@ -369,6 +239,177 @@ class FindStoreController extends GetxController {
   void navigateToStoreDetail(Store store) {
     // Navigate to store detail page with store ID
     Get.toNamed('/store-detail', arguments: store.id);
+  }
+
+  Future<void> openGoogleMaps(Store store) async {
+    if (store.location?.coordinates == null ||
+        store.location!.coordinates!.length < 2) {
+      Get.snackbar(
+        'Location Error',
+        'Store location not available',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red.withAlpha(200),
+        colorText: Colors.white,
+      );
+      return;
+    }
+
+    final lat = store.location!.coordinates![1];
+    final lng = store.location!.coordinates![0];
+
+    // Try Google Maps app first, then web
+    final googleMapsUrl = Uri.parse('google.navigation:q=$lat,$lng');
+    final googleMapsWebUrl = Uri.parse(
+      'https://www.google.com/maps/search/?api=1&query=$lat,$lng',
+    );
+
+    try {
+      if (await canLaunchUrl(googleMapsUrl)) {
+        await launchUrl(googleMapsUrl);
+      } else {
+        await launchUrl(googleMapsWebUrl, mode: LaunchMode.externalApplication);
+      }
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        'Could not open Google Maps',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red.withAlpha(200),
+        colorText: Colors.white,
+      );
+    }
+  }
+
+  Future<void> openWaze(Store store) async {
+    if (store.location?.coordinates == null ||
+        store.location!.coordinates!.length < 2) {
+      Get.snackbar(
+        'Location Error',
+        'Store location not available',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red.withAlpha(200),
+        colorText: Colors.white,
+      );
+      return;
+    }
+
+    final lat = store.location!.coordinates![1];
+    final lng = store.location!.coordinates![0];
+
+    final wazeUrl = Uri.parse('https://waze.com/ul?ll=$lat,$lng&navigate=yes');
+
+    try {
+      if (await canLaunchUrl(wazeUrl)) {
+        await launchUrl(wazeUrl, mode: LaunchMode.externalApplication);
+      } else {
+        Get.snackbar(
+          'Waze Not Available',
+          'Please install Waze app or use Google Maps',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.orange.withAlpha(200),
+          colorText: Colors.white,
+        );
+      }
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        'Could not open Waze',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red.withAlpha(200),
+        colorText: Colors.white,
+      );
+    }
+  }
+
+  void showNavigationOptions(Store store) {
+    Get.bottomSheet(
+      Container(
+        decoration: const BoxDecoration(
+          color: Color(0xFF1A1A1A),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+        ),
+        child: SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 12),
+              Container(
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF505050),
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                'Navigate with',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFFE0E0E0),
+                ),
+              ),
+              const SizedBox(height: 20),
+              ListTile(
+                leading: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF2A2A2A),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Icon(Icons.map, color: Color(0xFFD4AF37)),
+                ),
+                title: const Text(
+                  'Google Maps',
+                  style: TextStyle(
+                    color: Color(0xFFE0E0E0),
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                subtitle: const Text(
+                  'Navigate using Google Maps',
+                  style: TextStyle(color: Color(0xFF808080), fontSize: 12),
+                ),
+                onTap: () {
+                  Get.back();
+                  openGoogleMaps(store);
+                },
+              ),
+              ListTile(
+                leading: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF2A2A2A),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Icon(Icons.navigation, color: Color(0xFF00D9FF)),
+                ),
+                title: const Text(
+                  'Waze',
+                  style: TextStyle(
+                    color: Color(0xFFE0E0E0),
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                subtitle: const Text(
+                  'Navigate using Waze',
+                  style: TextStyle(color: Color(0xFF808080), fontSize: 12),
+                ),
+                onTap: () {
+                  Get.back();
+                  openWaze(store);
+                },
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   String formatPrice(double? min, double? max, String? currency) {
