@@ -332,5 +332,157 @@
     "cancel": "Cancel",
     "@cancel": {
         "description": "Cancel button"
+    },
+    "booking": "booking",
+    "@booking": {
+        "description": "Singular booking"
+    },
+    "bookings": "bookings",
+    "@bookings": {
+        "description": "Plural bookings"
+    },
+    "filtered": "Filtered",
+    "@filtered": {
+        "description": "Filtered label"
+    },
+    "all": "All",
+    "@all": {
+        "description": "All filter option"
+    },
+    "today": "Today",
+    "@today": {
+        "description": "Today label"
+    },
+    "tomorrow": "Tomorrow",
+    "@tomorrow": {
+        "description": "Tomorrow label"
+    },
+    "total": "Total",
+    "@total": {
+        "description": "Total label"
+    },
+    "writeReview": "Write Review",
+    "@writeReview": {
+        "description": "Write review button"
+    },
+    "reviewSubmitted": "Review Submitted",
+    "@reviewSubmitted": {
+        "description": "Review submitted label"
+    },
+    "cancelBooking": "Cancel Booking",
+    "@cancelBooking": {
+        "description": "Cancel booking button"
+    },
+    "cannotCancel": "Cannot Cancel",
+    "@cannotCancel": {
+        "description": "Cannot cancel title"
+    },
+    "cannotCancelMessage": "Bookings cannot be cancelled less than 1 hour before the start time",
+    "@cannotCancelMessage": {
+        "description": "Cannot cancel message"
+    },
+    "filterBookings": "Filter Bookings",
+    "@filterBookings": {
+        "description": "Filter bookings title"
+    },
+    "allBookings": "All Bookings",
+    "@allBookings": {
+        "description": "All bookings filter"
+    },
+    "inProgress": "In Progress",
+    "@inProgress": {
+        "description": "In progress status"
+    },
+    "therapist": "Therapist",
+    "@therapist": {
+        "description": "Therapist label"
+    },
+    "service": "Service",
+    "@service": {
+        "description": "Service label"
+    },
+    "date": "Date",
+    "@date": {
+        "description": "Date label"
+    },
+    "time": "Time",
+    "@time": {
+        "description": "Time label"
+    },
+    "overallRating": "Overall Rating",
+    "@overallRating": {
+        "description": "Overall rating title"
+    },
+    "tapStarsToRate": "Tap stars or use slider to rate",
+    "@tapStarsToRate": {
+        "description": "Rating instruction text"
+    },
+    "detailedRatings": "Detailed Ratings",
+    "@detailedRatings": {
+        "description": "Detailed ratings section title"
+    },
+    "technique": "Technique",
+    "@technique": {
+        "description": "Technique rating label"
+    },
+    "professionalism": "Professionalism",
+    "@professionalism": {
+        "description": "Professionalism rating label"
+    },
+    "cleanliness": "Cleanliness",
+    "@cleanliness": {
+        "description": "Cleanliness rating label"
+    },
+    "comfort": "Comfort",
+    "@comfort": {
+        "description": "Comfort rating label"
+    },
+    "valueForMoney": "Value for Money",
+    "@valueForMoney": {
+        "description": "Value for money rating label"
+    },
+    "titleOptional": "Title (Optional)",
+    "@titleOptional": {
+        "description": "Review title field label"
+    },
+    "titleHint": "e.g., Amazing Experience!",
+    "@titleHint": {
+        "description": "Review title field hint"
+    },
+    "yourReview": "Your Review",
+    "@yourReview": {
+        "description": "Review content field label"
+    },
+    "shareExperience": "Share your experience...",
+    "@shareExperience": {
+        "description": "Review content field hint"
+    },
+    "pleaseWriteReview": "Please write your review",
+    "@pleaseWriteReview": {
+        "description": "Review required error message"
+    },
+    "reviewMinLength": "Review must be at least 10 characters",
+    "@reviewMinLength": {
+        "description": "Review minimum length error"
+    },
+    "whatWasGood": "What was good? (Optional)",
+    "@whatWasGood": {
+        "description": "Pros field label"
+    },
+    "prosHint": "Professional, Clean, Relaxing (comma separated)",
+    "@prosHint": {
+        "description": "Pros field hint"
+    },
+    "whatCouldImprove": "What could improve? (Optional)",
+    "@whatCouldImprove": {
+        "description": "Cons field label"
+    },
+    "consHint": "Parking, Wait time (comma separated)",
+    "@consHint": {
+        "description": "Cons field hint"
+    },
+    "submitReview": "Submit Review",
+    "@submitReview": {
+        "description": "Submit review button"
     }
 }

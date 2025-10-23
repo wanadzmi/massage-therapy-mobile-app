@@ -332,5 +332,157 @@
     "cancel": "Batal",
     "@cancel": {
         "description": "Cancel button"
+    },
+    "booking": "tempahan",
+    "@booking": {
+        "description": "Singular booking"
+    },
+    "bookings": "tempahan",
+    "@bookings": {
+        "description": "Plural bookings"
+    },
+    "filtered": "Ditapis",
+    "@filtered": {
+        "description": "Filtered label"
+    },
+    "all": "Semua",
+    "@all": {
+        "description": "All filter option"
+    },
+    "today": "Hari Ini",
+    "@today": {
+        "description": "Today label"
+    },
+    "tomorrow": "Esok",
+    "@tomorrow": {
+        "description": "Tomorrow label"
+    },
+    "total": "Jumlah",
+    "@total": {
+        "description": "Total label"
+    },
+    "writeReview": "Tulis Ulasan",
+    "@writeReview": {
+        "description": "Write review button"
+    },
+    "reviewSubmitted": "Ulasan Dihantar",
+    "@reviewSubmitted": {
+        "description": "Review submitted label"
+    },
+    "cancelBooking": "Batal Tempahan",
+    "@cancelBooking": {
+        "description": "Cancel booking button"
+    },
+    "cannotCancel": "Tidak Boleh Batal",
+    "@cannotCancel": {
+        "description": "Cannot cancel title"
+    },
+    "cannotCancelMessage": "Tempahan tidak boleh dibatalkan kurang daripada 1 jam sebelum masa mula",
+    "@cannotCancelMessage": {
+        "description": "Cannot cancel message"
+    },
+    "filterBookings": "Tapis Tempahan",
+    "@filterBookings": {
+        "description": "Filter bookings title"
+    },
+    "allBookings": "Semua Tempahan",
+    "@allBookings": {
+        "description": "All bookings filter"
+    },
+    "inProgress": "Sedang Berjalan",
+    "@inProgress": {
+        "description": "In progress status"
+    },
+    "therapist": "Ahli Terapi",
+    "@therapist": {
+        "description": "Therapist label"
+    },
+    "service": "Perkhidmatan",
+    "@service": {
+        "description": "Service label"
+    },
+    "date": "Tarikh",
+    "@date": {
+        "description": "Date label"
+    },
+    "time": "Masa",
+    "@time": {
+        "description": "Time label"
+    },
+    "overallRating": "Penilaian Keseluruhan",
+    "@overallRating": {
+        "description": "Overall rating title"
+    },
+    "tapStarsToRate": "Ketik bintang atau gunakan peluncur untuk menilai",
+    "@tapStarsToRate": {
+        "description": "Rating instruction text"
+    },
+    "detailedRatings": "Penilaian Terperinci",
+    "@detailedRatings": {
+        "description": "Detailed ratings section title"
+    },
+    "technique": "Teknik",
+    "@technique": {
+        "description": "Technique rating label"
+    },
+    "professionalism": "Profesionalisme",
+    "@professionalism": {
+        "description": "Professionalism rating label"
+    },
+    "cleanliness": "Kebersihan",
+    "@cleanliness": {
+        "description": "Cleanliness rating label"
+    },
+    "comfort": "Keselesaan",
+    "@comfort": {
+        "description": "Comfort rating label"
+    },
+    "valueForMoney": "Nilai untuk Wang",
+    "@valueForMoney": {
+        "description": "Value for money rating label"
+    },
+    "titleOptional": "Tajuk (Pilihan)",
+    "@titleOptional": {
+        "description": "Review title field label"
+    },
+    "titleHint": "cth., Pengalaman Luar Biasa!",
+    "@titleHint": {
+        "description": "Review title field hint"
+    },
+    "yourReview": "Ulasan Anda",
+    "@yourReview": {
+        "description": "Review content field label"
+    },
+    "shareExperience": "Kongsi pengalaman anda...",
+    "@shareExperience": {
+        "description": "Review content field hint"
+    },
+    "pleaseWriteReview": "Sila tulis ulasan anda",
+    "@pleaseWriteReview": {
+        "description": "Review required error message"
+    },
+    "reviewMinLength": "Ulasan mestilah sekurang-kurangnya 10 aksara",
+    "@reviewMinLength": {
+        "description": "Review minimum length error"
+    },
+    "whatWasGood": "Apa yang baik? (Pilihan)",
+    "@whatWasGood": {
+        "description": "Pros field label"
+    },
+    "prosHint": "Profesional, Bersih, Santai (dipisahkan dengan koma)",
+    "@prosHint": {
+        "description": "Pros field hint"
+    },
+    "whatCouldImprove": "Apa yang boleh diperbaiki? (Pilihan)",
+    "@whatCouldImprove": {
+        "description": "Cons field label"
+    },
+    "consHint": "Tempat letak kereta, Masa menunggu (dipisahkan dengan koma)",
+    "@consHint": {
+        "description": "Cons field hint"
+    },
+    "submitReview": "Hantar Ulasan",
+    "@submitReview": {
+        "description": "Submit review button"
     }
 }

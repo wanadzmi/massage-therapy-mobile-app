@@ -256,4 +256,121 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get cancel => 'Batal';
+
+  @override
+  String get booking => 'tempahan';
+
+  @override
+  String get bookings => 'tempahan';
+
+  @override
+  String get filtered => 'Ditapis';
+
+  @override
+  String get all => 'Semua';
+
+  @override
+  String get today => 'Hari Ini';
+
+  @override
+  String get tomorrow => 'Esok';
+
+  @override
+  String get total => 'Jumlah';
+
+  @override
+  String get writeReview => 'Tulis Ulasan';
+
+  @override
+  String get reviewSubmitted => 'Ulasan Dihantar';
+
+  @override
+  String get cancelBooking => 'Batal Tempahan';
+
+  @override
+  String get cannotCancel => 'Tidak Boleh Batal';
+
+  @override
+  String get cannotCancelMessage =>
+      'Tempahan tidak boleh dibatalkan kurang daripada 1 jam sebelum masa mula';
+
+  @override
+  String get filterBookings => 'Tapis Tempahan';
+
+  @override
+  String get allBookings => 'Semua Tempahan';
+
+  @override
+  String get inProgress => 'Sedang Berjalan';
+
+  @override
+  String get therapist => 'Ahli Terapi';
+
+  @override
+  String get service => 'Perkhidmatan';
+
+  @override
+  String get date => 'Tarikh';
+
+  @override
+  String get time => 'Masa';
+
+  @override
+  String get overallRating => 'Penilaian Keseluruhan';
+
+  @override
+  String get tapStarsToRate =>
+      'Ketik bintang atau gunakan peluncur untuk menilai';
+
+  @override
+  String get detailedRatings => 'Penilaian Terperinci';
+
+  @override
+  String get technique => 'Teknik';
+
+  @override
+  String get professionalism => 'Profesionalisme';
+
+  @override
+  String get cleanliness => 'Kebersihan';
+
+  @override
+  String get comfort => 'Keselesaan';
+
+  @override
+  String get valueForMoney => 'Nilai untuk Wang';
+
+  @override
+  String get titleOptional => 'Tajuk (Pilihan)';
+
+  @override
+  String get titleHint => 'cth., Pengalaman Luar Biasa!';
+
+  @override
+  String get yourReview => 'Ulasan Anda';
+
+  @override
+  String get shareExperience => 'Kongsi pengalaman anda...';
+
+  @override
+  String get pleaseWriteReview => 'Sila tulis ulasan anda';
+
+  @override
+  String get reviewMinLength => 'Ulasan mestilah sekurang-kurangnya 10 aksara';
+
+  @override
+  String get whatWasGood => 'Apa yang baik? (Pilihan)';
+
+  @override
+  String get prosHint => 'Profesional, Bersih, Santai (dipisahkan dengan koma)';
+
+  @override
+  String get whatCouldImprove => 'Apa yang boleh diperbaiki? (Pilihan)';
+
+  @override
+  String get consHint =>
+      'Tempat letak kereta, Masa menunggu (dipisahkan dengan koma)';
+
+  @override
+  String get submitReview => 'Hantar Ulasan';
 }

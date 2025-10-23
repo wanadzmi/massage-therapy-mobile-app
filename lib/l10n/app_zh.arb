@@ -332,5 +332,157 @@
     "cancel": "取消",
     "@cancel": {
         "description": "Cancel button"
+    },
+    "booking": "预约",
+    "@booking": {
+        "description": "Singular booking"
+    },
+    "bookings": "预约",
+    "@bookings": {
+        "description": "Plural bookings"
+    },
+    "filtered": "已筛选",
+    "@filtered": {
+        "description": "Filtered label"
+    },
+    "all": "全部",
+    "@all": {
+        "description": "All filter option"
+    },
+    "today": "今天",
+    "@today": {
+        "description": "Today label"
+    },
+    "tomorrow": "明天",
+    "@tomorrow": {
+        "description": "Tomorrow label"
+    },
+    "total": "总计",
+    "@total": {
+        "description": "Total label"
+    },
+    "writeReview": "写评论",
+    "@writeReview": {
+        "description": "Write review button"
+    },
+    "reviewSubmitted": "评论已提交",
+    "@reviewSubmitted": {
+        "description": "Review submitted label"
+    },
+    "cancelBooking": "取消预约",
+    "@cancelBooking": {
+        "description": "Cancel booking button"
+    },
+    "cannotCancel": "无法取消",
+    "@cannotCancel": {
+        "description": "Cannot cancel title"
+    },
+    "cannotCancelMessage": "预约开始前1小时内不能取消",
+    "@cannotCancelMessage": {
+        "description": "Cannot cancel message"
+    },
+    "filterBookings": "筛选预约",
+    "@filterBookings": {
+        "description": "Filter bookings title"
+    },
+    "allBookings": "所有预约",
+    "@allBookings": {
+        "description": "All bookings filter"
+    },
+    "inProgress": "进行中",
+    "@inProgress": {
+        "description": "In progress status"
+    },
+    "therapist": "治疗师",
+    "@therapist": {
+        "description": "Therapist label"
+    },
+    "service": "服务",
+    "@service": {
+        "description": "Service label"
+    },
+    "date": "日期",
+    "@date": {
+        "description": "Date label"
+    },
+    "time": "时间",
+    "@time": {
+        "description": "Time label"
+    },
+    "overallRating": "总体评分",
+    "@overallRating": {
+        "description": "Overall rating title"
+    },
+    "tapStarsToRate": "点击星星或使用滑块进行评分",
+    "@tapStarsToRate": {
+        "description": "Rating instruction text"
+    },
+    "detailedRatings": "详细评分",
+    "@detailedRatings": {
+        "description": "Detailed ratings section title"
+    },
+    "technique": "技巧",
+    "@technique": {
+        "description": "Technique rating label"
+    },
+    "professionalism": "专业素养",
+    "@professionalism": {
+        "description": "Professionalism rating label"
+    },
+    "cleanliness": "清洁度",
+    "@cleanliness": {
+        "description": "Cleanliness rating label"
+    },
+    "comfort": "舒适度",
+    "@comfort": {
+        "description": "Comfort rating label"
+    },
+    "valueForMoney": "性价比",
+    "@valueForMoney": {
+        "description": "Value for money rating label"
+    },
+    "titleOptional": "标题（可选）",
+    "@titleOptional": {
+        "description": "Review title field label"
+    },
+    "titleHint": "例如：美好的体验！",
+    "@titleHint": {
+        "description": "Review title field hint"
+    },
+    "yourReview": "您的评论",
+    "@yourReview": {
+        "description": "Review content field label"
+    },
+    "shareExperience": "分享您的体验...",
+    "@shareExperience": {
+        "description": "Review content field hint"
+    },
+    "pleaseWriteReview": "请写下您的评论",
+    "@pleaseWriteReview": {
+        "description": "Review required error message"
+    },
+    "reviewMinLength": "评论至少须有10个字符",
+    "@reviewMinLength": {
+        "description": "Review minimum length error"
+    },
+    "whatWasGood": "什么好？（可选）",
+    "@whatWasGood": {
+        "description": "Pros field label"
+    },
+    "prosHint": "专业、清洁、放松（用逗号分隔）",
+    "@prosHint": {
+        "description": "Pros field hint"
+    },
+    "whatCouldImprove": "有哪些可以改进？（可选）",
+    "@whatCouldImprove": {
+        "description": "Cons field label"
+    },
+    "consHint": "停车、等待时间（用逗号分隔）",
+    "@consHint": {
+        "description": "Cons field hint"
+    },
+    "submitReview": "提交评论",
+    "@submitReview": {
+        "description": "Submit review button"
     }
 }

@@ -97,7 +97,7 @@ class BookingView extends GetView<BookingController> {
                     const SizedBox(height: 4),
                     Obx(
                       () => Text(
-                        '${controller.bookings.length} ${controller.bookings.length == 1 ? "booking" : "bookings"}',
+                        '${controller.bookings.length} ${controller.bookings.length == 1 ? l10n.booking : l10n.bookings}',
                         style: const TextStyle(
                           fontSize: 13,
                           color: Color(0xFF808080),
@@ -137,7 +137,7 @@ class BookingView extends GetView<BookingController> {
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            'Filtered: ${_getFilterLabel(controller.selectedFilter)}',
+                            '${l10n.filtered}: ${_getFilterLabel(context, controller.selectedFilter)}',
                             style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
@@ -237,32 +237,33 @@ class BookingView extends GetView<BookingController> {
   }
 
   Widget _buildBookingCard(BuildContext context, Booking booking) {
+    final l10n = AppLocalizations.of(context)!;
     final status = booking.status ?? 'unknown';
     final date = booking.date;
-    final dateString = date != null ? _formatDate(date) : 'N/A';
+    final dateString = date != null ? _formatDate(context, date) : 'N/A';
     Color statusColor;
     String statusLabel;
 
     switch (status.toLowerCase()) {
       case 'confirmed':
         statusColor = const Color(0xFF4CAF50);
-        statusLabel = 'Confirmed';
+        statusLabel = l10n.confirmed;
         break;
       case 'pending':
         statusColor = const Color(0xFFFF9800);
-        statusLabel = 'Pending';
+        statusLabel = l10n.pending;
         break;
       case 'cancelled':
         statusColor = const Color(0xFFE53E3E);
-        statusLabel = 'Cancelled';
+        statusLabel = l10n.cancelled;
         break;
       case 'completed':
         statusColor = const Color(0xFF2196F3);
-        statusLabel = 'Completed';
+        statusLabel = l10n.completed;
         break;
       case 'in_progress':
         statusColor = const Color(0xFFD4AF37);
-        statusLabel = 'In Progress';
+        statusLabel = l10n.inProgress;
         break;
       default:
         statusColor = const Color(0xFF808080);
@@ -383,9 +384,9 @@ class BookingView extends GetView<BookingController> {
                         color: Color(0xFF808080),
                       ),
                       const SizedBox(width: 8),
-                      const Text(
-                        'Therapist',
-                        style: TextStyle(
+                      Text(
+                        l10n.therapist,
+                        style: const TextStyle(
                           fontSize: 12,
                           color: Color(0xFF606060),
                         ),
@@ -435,9 +436,9 @@ class BookingView extends GetView<BookingController> {
                           color: Color(0xFF808080),
                         ),
                         const SizedBox(width: 8),
-                        const Text(
-                          'Total',
-                          style: TextStyle(
+                        Text(
+                          l10n.total,
+                          style: const TextStyle(
                             fontSize: 12,
                             color: Color(0xFF606060),
                           ),
@@ -479,9 +480,9 @@ class BookingView extends GetView<BookingController> {
                         color: Color(0xFF4CAF50),
                       ),
                       const SizedBox(width: 8),
-                      const Text(
-                        'Review Submitted',
-                        style: TextStyle(
+                      Text(
+                        l10n.reviewSubmitted,
+                        style: const TextStyle(
                           color: Color(0xFF808080),
                           fontSize: 13,
                           fontWeight: FontWeight.w500,
@@ -517,9 +518,9 @@ class BookingView extends GetView<BookingController> {
                       size: 16,
                       color: Color(0xFF0A0A0A),
                     ),
-                    label: const Text(
-                      'Write Review',
-                      style: TextStyle(
+                    label: Text(
+                      l10n.writeReview,
+                      style: const TextStyle(
                         color: Color(0xFF0A0A0A),
                         fontSize: 13,
                         fontWeight: FontWeight.w600,
@@ -542,9 +543,9 @@ class BookingView extends GetView<BookingController> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  child: const Text(
-                    'Cancel Booking',
-                    style: TextStyle(
+                  child: Text(
+                    l10n.cancelBooking,
+                    style: const TextStyle(
                       color: Color(0xFFE53E3E),
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
@@ -603,11 +604,12 @@ class BookingView extends GetView<BookingController> {
   }
 
   void _showCancelDialog(BuildContext context, Booking booking) {
+    final l10n = AppLocalizations.of(context)!;
     // Check if booking can be cancelled
     if (!_canCancelBooking(booking)) {
       Get.snackbar(
-        'Cannot Cancel',
-        'Bookings cannot be cancelled less than 1 hour before the start time',
+        l10n.cannotCancel,
+        l10n.cannotCancelMessage,
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: const Color(0xFF1E1E1E),
         colorText: const Color(0xFFE53E3E),
@@ -627,16 +629,17 @@ class BookingView extends GetView<BookingController> {
     );
   }
 
-  String _formatDate(DateTime date) {
+  String _formatDate(BuildContext context, DateTime date) {
+    final l10n = AppLocalizations.of(context)!;
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final tomorrow = today.add(const Duration(days: 1));
     final dateOnly = DateTime(date.year, date.month, date.day);
 
     if (dateOnly == today) {
-      return 'Today';
+      return l10n.today;
     } else if (dateOnly == tomorrow) {
-      return 'Tomorrow';
+      return l10n.tomorrow;
     } else {
       final months = [
         'Jan',
@@ -656,28 +659,36 @@ class BookingView extends GetView<BookingController> {
     }
   }
 
-  String _getFilterLabel(String filter) {
+  String _getFilterLabel(BuildContext context, String filter) {
+    final l10n = AppLocalizations.of(context)!;
     switch (filter) {
       case 'confirmed':
-        return 'Confirmed';
+        return l10n.confirmed;
       case 'pending':
-        return 'Pending';
+        return l10n.pending;
       case 'completed':
-        return 'Completed';
+        return l10n.completed;
       case 'cancelled':
-        return 'Cancelled';
+        return l10n.cancelled;
+      case 'in_progress':
+        return l10n.inProgress;
       default:
-        return 'All';
+        return l10n.all;
     }
   }
 
   void _showFilterBottomSheet(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final filters = [
-      {'value': 'all', 'label': 'All Bookings', 'icon': Icons.list},
-      {'value': 'confirmed', 'label': 'Confirmed', 'icon': Icons.check_circle},
-      {'value': 'pending', 'label': 'Pending', 'icon': Icons.pending},
-      {'value': 'completed', 'label': 'Completed', 'icon': Icons.task_alt},
-      {'value': 'cancelled', 'label': 'Cancelled', 'icon': Icons.cancel},
+      {'value': 'all', 'label': l10n.allBookings, 'icon': Icons.list},
+      {
+        'value': 'confirmed',
+        'label': l10n.confirmed,
+        'icon': Icons.check_circle,
+      },
+      {'value': 'pending', 'label': l10n.pending, 'icon': Icons.pending},
+      {'value': 'completed', 'label': l10n.completed, 'icon': Icons.task_alt},
+      {'value': 'cancelled', 'label': l10n.cancelled, 'icon': Icons.cancel},
     ];
 
     showModalBottomSheet(
@@ -707,9 +718,9 @@ class BookingView extends GetView<BookingController> {
                   ),
                 ),
                 const SizedBox(width: 12),
-                const Text(
-                  'Filter Bookings',
-                  style: TextStyle(
+                Text(
+                  l10n.filterBookings,
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
                     color: Color(0xFFE0E0E0),

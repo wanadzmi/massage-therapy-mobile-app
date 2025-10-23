@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../data/models/booking_model.dart';
 import '../controllers/review_controller.dart';
 
@@ -84,6 +85,7 @@ class _WriteReviewFormState extends State<_WriteReviewForm> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: const Color(0xFF0A0A0A),
       appBar: AppBar(
@@ -93,9 +95,9 @@ class _WriteReviewFormState extends State<_WriteReviewForm> {
           icon: const Icon(Icons.close, color: Color(0xFFE0E0E0)),
           onPressed: () => Get.back(),
         ),
-        title: const Text(
-          'Write Review',
-          style: TextStyle(
+        title: Text(
+          l10n.writeReview,
+          style: const TextStyle(
             color: Color(0xFFE0E0E0),
             fontWeight: FontWeight.w500,
             fontSize: 18,
@@ -124,8 +126,8 @@ class _WriteReviewFormState extends State<_WriteReviewForm> {
               // Review Title
               _buildTextField(
                 controller: _titleController,
-                label: 'Title (Optional)',
-                hint: 'e.g., Amazing Experience!',
+                label: l10n.titleOptional,
+                hint: l10n.titleHint,
                 maxLength: 100,
               ),
               const SizedBox(height: 16),
@@ -133,16 +135,16 @@ class _WriteReviewFormState extends State<_WriteReviewForm> {
               // Review Content
               _buildTextField(
                 controller: _contentController,
-                label: 'Your Review',
-                hint: 'Share your experience...',
+                label: l10n.yourReview,
+                hint: l10n.shareExperience,
                 maxLines: 5,
                 maxLength: 1000,
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return 'Please write your review';
+                    return l10n.pleaseWriteReview;
                   }
                   if (value.trim().length < 10) {
-                    return 'Review must be at least 10 characters';
+                    return l10n.reviewMinLength;
                   }
                   return null;
                 },
@@ -152,8 +154,8 @@ class _WriteReviewFormState extends State<_WriteReviewForm> {
               // Pros
               _buildTextField(
                 controller: _prosController,
-                label: 'What was good? (Optional)',
-                hint: 'Professional, Clean, Relaxing (comma separated)',
+                label: l10n.whatWasGood,
+                hint: l10n.prosHint,
                 maxLines: 2,
               ),
               const SizedBox(height: 16),
@@ -161,8 +163,8 @@ class _WriteReviewFormState extends State<_WriteReviewForm> {
               // Cons
               _buildTextField(
                 controller: _consController,
-                label: 'What could improve? (Optional)',
-                hint: 'Parking, Wait time (comma separated)',
+                label: l10n.whatCouldImprove,
+                hint: l10n.consHint,
                 maxLines: 2,
               ),
               const SizedBox(height: 32),
@@ -192,9 +194,9 @@ class _WriteReviewFormState extends State<_WriteReviewForm> {
                               strokeWidth: 2,
                             ),
                           )
-                        : const Text(
-                            'Submit Review',
-                            style: TextStyle(
+                        : Text(
+                            l10n.submitReview,
+                            style: const TextStyle(
                               color: Color(0xFF0A0A0A),
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
@@ -212,6 +214,7 @@ class _WriteReviewFormState extends State<_WriteReviewForm> {
   }
 
   Widget _buildBookingInfo() {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -242,7 +245,7 @@ class _WriteReviewFormState extends State<_WriteReviewForm> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.booking.service?.name ?? 'Service',
+                      widget.booking.service?.name ?? l10n.service,
                       style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w600,
@@ -251,7 +254,7 @@ class _WriteReviewFormState extends State<_WriteReviewForm> {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      widget.booking.therapist?.name ?? 'Therapist',
+                      widget.booking.therapist?.name ?? l10n.therapist,
                       style: const TextStyle(
                         fontSize: 13,
                         color: Color(0xFF808080),
@@ -274,14 +277,14 @@ class _WriteReviewFormState extends State<_WriteReviewForm> {
               Text(
                 widget.booking.date != null
                     ? DateFormat('MMM dd, yyyy').format(widget.booking.date!)
-                    : 'Date',
+                    : l10n.date,
                 style: const TextStyle(fontSize: 13, color: Color(0xFF808080)),
               ),
               const SizedBox(width: 16),
               const Icon(Icons.access_time, size: 14, color: Color(0xFF808080)),
               const SizedBox(width: 6),
               Text(
-                widget.booking.startTime ?? 'Time',
+                widget.booking.startTime ?? l10n.time,
                 style: const TextStyle(fontSize: 13, color: Color(0xFF808080)),
               ),
             ],
@@ -292,6 +295,7 @@ class _WriteReviewFormState extends State<_WriteReviewForm> {
   }
 
   Widget _buildOverallRating() {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -301,9 +305,9 @@ class _WriteReviewFormState extends State<_WriteReviewForm> {
       ),
       child: Column(
         children: [
-          const Text(
-            'Overall Rating',
-            style: TextStyle(
+          Text(
+            l10n.overallRating,
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
               color: Color(0xFFE0E0E0),
@@ -346,7 +350,7 @@ class _WriteReviewFormState extends State<_WriteReviewForm> {
           const SizedBox(height: 8),
           // Helper text
           Text(
-            'Tap stars or use slider to rate',
+            l10n.tapStarsToRate,
             style: TextStyle(
               fontSize: 12,
               color: Colors.grey[600],
@@ -380,6 +384,7 @@ class _WriteReviewFormState extends State<_WriteReviewForm> {
   }
 
   Widget _buildDetailedRatings() {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -390,9 +395,9 @@ class _WriteReviewFormState extends State<_WriteReviewForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Detailed Ratings',
-            style: TextStyle(
+          Text(
+            l10n.detailedRatings,
+            style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
               color: Color(0xFFE0E0E0),
@@ -400,27 +405,27 @@ class _WriteReviewFormState extends State<_WriteReviewForm> {
           ),
           const SizedBox(height: 16),
           _buildRatingSlider(
-            'Technique',
+            l10n.technique,
             _techniqueRating,
             (value) => setState(() => _techniqueRating = value),
           ),
           _buildRatingSlider(
-            'Professionalism',
+            l10n.professionalism,
             _professionalismRating,
             (value) => setState(() => _professionalismRating = value),
           ),
           _buildRatingSlider(
-            'Cleanliness',
+            l10n.cleanliness,
             _cleanlinessRating,
             (value) => setState(() => _cleanlinessRating = value),
           ),
           _buildRatingSlider(
-            'Comfort',
+            l10n.comfort,
             _comfortRating,
             (value) => setState(() => _comfortRating = value),
           ),
           _buildRatingSlider(
-            'Value for Money',
+            l10n.valueForMoney,
             _valueRating,
             (value) => setState(() => _valueRating = value),
           ),

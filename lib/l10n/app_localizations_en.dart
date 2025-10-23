@@ -257,4 +257,119 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cancel => 'Cancel';
+
+  @override
+  String get booking => 'booking';
+
+  @override
+  String get bookings => 'bookings';
+
+  @override
+  String get filtered => 'Filtered';
+
+  @override
+  String get all => 'All';
+
+  @override
+  String get today => 'Today';
+
+  @override
+  String get tomorrow => 'Tomorrow';
+
+  @override
+  String get total => 'Total';
+
+  @override
+  String get writeReview => 'Write Review';
+
+  @override
+  String get reviewSubmitted => 'Review Submitted';
+
+  @override
+  String get cancelBooking => 'Cancel Booking';
+
+  @override
+  String get cannotCancel => 'Cannot Cancel';
+
+  @override
+  String get cannotCancelMessage =>
+      'Bookings cannot be cancelled less than 1 hour before the start time';
+
+  @override
+  String get filterBookings => 'Filter Bookings';
+
+  @override
+  String get allBookings => 'All Bookings';
+
+  @override
+  String get inProgress => 'In Progress';
+
+  @override
+  String get therapist => 'Therapist';
+
+  @override
+  String get service => 'Service';
+
+  @override
+  String get date => 'Date';
+
+  @override
+  String get time => 'Time';
+
+  @override
+  String get overallRating => 'Overall Rating';
+
+  @override
+  String get tapStarsToRate => 'Tap stars or use slider to rate';
+
+  @override
+  String get detailedRatings => 'Detailed Ratings';
+
+  @override
+  String get technique => 'Technique';
+
+  @override
+  String get professionalism => 'Professionalism';
+
+  @override
+  String get cleanliness => 'Cleanliness';
+
+  @override
+  String get comfort => 'Comfort';
+
+  @override
+  String get valueForMoney => 'Value for Money';
+
+  @override
+  String get titleOptional => 'Title (Optional)';
+
+  @override
+  String get titleHint => 'e.g., Amazing Experience!';
+
+  @override
+  String get yourReview => 'Your Review';
+
+  @override
+  String get shareExperience => 'Share your experience...';
+
+  @override
+  String get pleaseWriteReview => 'Please write your review';
+
+  @override
+  String get reviewMinLength => 'Review must be at least 10 characters';
+
+  @override
+  String get whatWasGood => 'What was good? (Optional)';
+
+  @override
+  String get prosHint => 'Professional, Clean, Relaxing (comma separated)';
+
+  @override
+  String get whatCouldImprove => 'What could improve? (Optional)';
+
+  @override
+  String get consHint => 'Parking, Wait time (comma separated)';
+
+  @override
+  String get submitReview => 'Submit Review';
 }

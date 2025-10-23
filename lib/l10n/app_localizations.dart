@@ -591,6 +591,234 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cancel'**
   String get cancel;
+
+  /// Singular booking
+  ///
+  /// In en, this message translates to:
+  /// **'booking'**
+  String get booking;
+
+  /// Plural bookings
+  ///
+  /// In en, this message translates to:
+  /// **'bookings'**
+  String get bookings;
+
+  /// Filtered label
+  ///
+  /// In en, this message translates to:
+  /// **'Filtered'**
+  String get filtered;
+
+  /// All filter option
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get all;
+
+  /// Today label
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get today;
+
+  /// Tomorrow label
+  ///
+  /// In en, this message translates to:
+  /// **'Tomorrow'**
+  String get tomorrow;
+
+  /// Total label
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get total;
+
+  /// Write review button
+  ///
+  /// In en, this message translates to:
+  /// **'Write Review'**
+  String get writeReview;
+
+  /// Review submitted label
+  ///
+  /// In en, this message translates to:
+  /// **'Review Submitted'**
+  String get reviewSubmitted;
+
+  /// Cancel booking button
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Booking'**
+  String get cancelBooking;
+
+  /// Cannot cancel title
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot Cancel'**
+  String get cannotCancel;
+
+  /// Cannot cancel message
+  ///
+  /// In en, this message translates to:
+  /// **'Bookings cannot be cancelled less than 1 hour before the start time'**
+  String get cannotCancelMessage;
+
+  /// Filter bookings title
+  ///
+  /// In en, this message translates to:
+  /// **'Filter Bookings'**
+  String get filterBookings;
+
+  /// All bookings filter
+  ///
+  /// In en, this message translates to:
+  /// **'All Bookings'**
+  String get allBookings;
+
+  /// In progress status
+  ///
+  /// In en, this message translates to:
+  /// **'In Progress'**
+  String get inProgress;
+
+  /// Therapist label
+  ///
+  /// In en, this message translates to:
+  /// **'Therapist'**
+  String get therapist;
+
+  /// Service label
+  ///
+  /// In en, this message translates to:
+  /// **'Service'**
+  String get service;
+
+  /// Date label
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get date;
+
+  /// Time label
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get time;
+
+  /// Overall rating title
+  ///
+  /// In en, this message translates to:
+  /// **'Overall Rating'**
+  String get overallRating;
+
+  /// Rating instruction text
+  ///
+  /// In en, this message translates to:
+  /// **'Tap stars or use slider to rate'**
+  String get tapStarsToRate;
+
+  /// Detailed ratings section title
+  ///
+  /// In en, this message translates to:
+  /// **'Detailed Ratings'**
+  String get detailedRatings;
+
+  /// Technique rating label
+  ///
+  /// In en, this message translates to:
+  /// **'Technique'**
+  String get technique;
+
+  /// Professionalism rating label
+  ///
+  /// In en, this message translates to:
+  /// **'Professionalism'**
+  String get professionalism;
+
+  /// Cleanliness rating label
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanliness'**
+  String get cleanliness;
+
+  /// Comfort rating label
+  ///
+  /// In en, this message translates to:
+  /// **'Comfort'**
+  String get comfort;
+
+  /// Value for money rating label
+  ///
+  /// In en, this message translates to:
+  /// **'Value for Money'**
+  String get valueForMoney;
+
+  /// Review title field label
+  ///
+  /// In en, this message translates to:
+  /// **'Title (Optional)'**
+  String get titleOptional;
+
+  /// Review title field hint
+  ///
+  /// In en, this message translates to:
+  /// **'e.g., Amazing Experience!'**
+  String get titleHint;
+
+  /// Review content field label
+  ///
+  /// In en, this message translates to:
+  /// **'Your Review'**
+  String get yourReview;
+
+  /// Review content field hint
+  ///
+  /// In en, this message translates to:
+  /// **'Share your experience...'**
+  String get shareExperience;
+
+  /// Review required error message
+  ///
+  /// In en, this message translates to:
+  /// **'Please write your review'**
+  String get pleaseWriteReview;
+
+  /// Review minimum length error
+  ///
+  /// In en, this message translates to:
+  /// **'Review must be at least 10 characters'**
+  String get reviewMinLength;
+
+  /// Pros field label
+  ///
+  /// In en, this message translates to:
+  /// **'What was good? (Optional)'**
+  String get whatWasGood;
+
+  /// Pros field hint
+  ///
+  /// In en, this message translates to:
+  /// **'Professional, Clean, Relaxing (comma separated)'**
+  String get prosHint;
+
+  /// Cons field label
+  ///
+  /// In en, this message translates to:
+  /// **'What could improve? (Optional)'**
+  String get whatCouldImprove;
+
+  /// Cons field hint
+  ///
+  /// In en, this message translates to:
+  /// **'Parking, Wait time (comma separated)'**
+  String get consHint;
+
+  /// Submit review button
+  ///
+  /// In en, this message translates to:
+  /// **'Submit Review'**
+  String get submitReview;
 }
 
 class _AppLocalizationsDelegate

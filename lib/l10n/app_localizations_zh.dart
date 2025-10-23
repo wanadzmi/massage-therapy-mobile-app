@@ -255,4 +255,118 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get cancel => '取消';
+
+  @override
+  String get booking => '预约';
+
+  @override
+  String get bookings => '预约';
+
+  @override
+  String get filtered => '已筛选';
+
+  @override
+  String get all => '全部';
+
+  @override
+  String get today => '今天';
+
+  @override
+  String get tomorrow => '明天';
+
+  @override
+  String get total => '总计';
+
+  @override
+  String get writeReview => '写评论';
+
+  @override
+  String get reviewSubmitted => '评论已提交';
+
+  @override
+  String get cancelBooking => '取消预约';
+
+  @override
+  String get cannotCancel => '无法取消';
+
+  @override
+  String get cannotCancelMessage => '预约开始前1小时内不能取消';
+
+  @override
+  String get filterBookings => '筛选预约';
+
+  @override
+  String get allBookings => '所有预约';
+
+  @override
+  String get inProgress => '进行中';
+
+  @override
+  String get therapist => '治疗师';
+
+  @override
+  String get service => '服务';
+
+  @override
+  String get date => '日期';
+
+  @override
+  String get time => '时间';
+
+  @override
+  String get overallRating => '总体评分';
+
+  @override
+  String get tapStarsToRate => '点击星星或使用滑块进行评分';
+
+  @override
+  String get detailedRatings => '详细评分';
+
+  @override
+  String get technique => '技巧';
+
+  @override
+  String get professionalism => '专业素养';
+
+  @override
+  String get cleanliness => '清洁度';
+
+  @override
+  String get comfort => '舒适度';
+
+  @override
+  String get valueForMoney => '性价比';
+
+  @override
+  String get titleOptional => '标题（可选）';
+
+  @override
+  String get titleHint => '例如：美好的体验！';
+
+  @override
+  String get yourReview => '您的评论';
+
+  @override
+  String get shareExperience => '分享您的体验...';
+
+  @override
+  String get pleaseWriteReview => '请写下您的评论';
+
+  @override
+  String get reviewMinLength => '评论至少须有10个字符';
+
+  @override
+  String get whatWasGood => '什么好？（可选）';
+
+  @override
+  String get prosHint => '专业、清洁、放松（用逗号分隔）';
+
+  @override
+  String get whatCouldImprove => '有哪些可以改进？（可选）';
+
+  @override
+  String get consHint => '停车、等待时间（用逗号分隔）';
+
+  @override
+  String get submitReview => '提交评论';
 }
