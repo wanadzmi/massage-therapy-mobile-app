@@ -1317,6 +1317,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Manage'**
   String get manage;
+
+  /// Membership tiers page title
+  ///
+  /// In en, this message translates to:
+  /// **'Membership Tiers'**
+  String get membershipTiers;
+
+  /// Current tier label
+  ///
+  /// In en, this message translates to:
+  /// **'Current Tier'**
+  String get currentTier;
+
+  /// Wallet label
+  ///
+  /// In en, this message translates to:
+  /// **'Wallet'**
+  String get wallet;
+
+  /// Current badge text
+  ///
+  /// In en, this message translates to:
+  /// **'CURRENT'**
+  String get current;
+
+  /// Per month suffix
+  ///
+  /// In en, this message translates to:
+  /// **'/month'**
+  String get perMonth;
+
+  /// Cashback label
+  ///
+  /// In en, this message translates to:
+  /// **'Cashback'**
+  String get cashback;
+
+  /// View tier details button
+  ///
+  /// In en, this message translates to:
+  /// **'View Details'**
+  String get viewTierDetails;
+
+  /// Invite only badge
+  ///
+  /// In en, this message translates to:
+  /// **'Invite Only'**
+  String get inviteOnly;
+
+  /// Not available badge
+  ///
+  /// In en, this message translates to:
+  /// **'Not Available'**
+  String get notAvailable;
+
+  /// Top up and subscribe button
+  ///
+  /// In en, this message translates to:
+  /// **'Top Up & Subscribe'**
+  String get topUpAndSubscribe;
+
+  /// Upgrade now button
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade Now'**
+  String get upgradeNow;
+
+  /// Subscribe button
+  ///
+  /// In en, this message translates to:
+  /// **'Subscribe'**
+  String get subscribe;
 }
 
 class _AppLocalizationsDelegate

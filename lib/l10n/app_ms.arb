@@ -827,5 +827,53 @@
     "manage": "Urus",
     "@manage": {
         "description": "Manage button text"
+    },
+    "membershipTiers": "Tahap Keahlian",
+    "@membershipTiers": {
+        "description": "Membership tiers page title"
+    },
+    "currentTier": "Tahap Semasa",
+    "@currentTier": {
+        "description": "Current tier label"
+    },
+    "wallet": "Dompet",
+    "@wallet": {
+        "description": "Wallet label"
+    },
+    "current": "SEMASA",
+    "@current": {
+        "description": "Current badge text"
+    },
+    "perMonth": "/bulan",
+    "@perMonth": {
+        "description": "Per month suffix"
+    },
+    "cashback": "Pulangan Tunai",
+    "@cashback": {
+        "description": "Cashback label"
+    },
+    "viewTierDetails": "Lihat Butiran",
+    "@viewTierDetails": {
+        "description": "View tier details button"
+    },
+    "inviteOnly": "Jemputan Sahaja",
+    "@inviteOnly": {
+        "description": "Invite only badge"
+    },
+    "notAvailable": "Tidak Tersedia",
+    "@notAvailable": {
+        "description": "Not available badge"
+    },
+    "topUpAndSubscribe": "Tambah Nilai & Langgan",
+    "@topUpAndSubscribe": {
+        "description": "Top up and subscribe button"
+    },
+    "upgradeNow": "Naik Taraf Sekarang",
+    "@upgradeNow": {
+        "description": "Upgrade now button"
+    },
+    "subscribe": "Langgan",
+    "@subscribe": {
+        "description": "Subscribe button"
     }
 }

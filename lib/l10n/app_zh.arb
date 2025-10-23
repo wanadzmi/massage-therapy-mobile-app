@@ -827,5 +827,53 @@
     "manage": "管理",
     "@manage": {
         "description": "Manage button text"
+    },
+    "membershipTiers": "会员等级",
+    "@membershipTiers": {
+        "description": "Membership tiers page title"
+    },
+    "currentTier": "当前等级",
+    "@currentTier": {
+        "description": "Current tier label"
+    },
+    "wallet": "钱包",
+    "@wallet": {
+        "description": "Wallet label"
+    },
+    "current": "当前",
+    "@current": {
+        "description": "Current badge text"
+    },
+    "perMonth": "/月",
+    "@perMonth": {
+        "description": "Per month suffix"
+    },
+    "cashback": "返现",
+    "@cashback": {
+        "description": "Cashback label"
+    },
+    "viewTierDetails": "查看详情",
+    "@viewTierDetails": {
+        "description": "View tier details button"
+    },
+    "inviteOnly": "仅限邀请",
+    "@inviteOnly": {
+        "description": "Invite only badge"
+    },
+    "notAvailable": "不可用",
+    "@notAvailable": {
+        "description": "Not available badge"
+    },
+    "topUpAndSubscribe": "充值并订阅",
+    "@topUpAndSubscribe": {
+        "description": "Top up and subscribe button"
+    },
+    "upgradeNow": "立即升级",
+    "@upgradeNow": {
+        "description": "Upgrade now button"
+    },
+    "subscribe": "订阅",
+    "@subscribe": {
+        "description": "Subscribe button"
     }
 }

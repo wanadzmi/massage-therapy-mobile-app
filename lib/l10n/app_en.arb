@@ -827,5 +827,53 @@
     "manage": "Manage",
     "@manage": {
         "description": "Manage button text"
+    },
+    "membershipTiers": "Membership Tiers",
+    "@membershipTiers": {
+        "description": "Membership tiers page title"
+    },
+    "currentTier": "Current Tier",
+    "@currentTier": {
+        "description": "Current tier label"
+    },
+    "wallet": "Wallet",
+    "@wallet": {
+        "description": "Wallet label"
+    },
+    "current": "CURRENT",
+    "@current": {
+        "description": "Current badge text"
+    },
+    "perMonth": "/month",
+    "@perMonth": {
+        "description": "Per month suffix"
+    },
+    "cashback": "Cashback",
+    "@cashback": {
+        "description": "Cashback label"
+    },
+    "viewTierDetails": "View Details",
+    "@viewTierDetails": {
+        "description": "View tier details button"
+    },
+    "inviteOnly": "Invite Only",
+    "@inviteOnly": {
+        "description": "Invite only badge"
+    },
+    "notAvailable": "Not Available",
+    "@notAvailable": {
+        "description": "Not available badge"
+    },
+    "topUpAndSubscribe": "Top Up & Subscribe",
+    "@topUpAndSubscribe": {
+        "description": "Top up and subscribe button"
+    },
+    "upgradeNow": "Upgrade Now",
+    "@upgradeNow": {
+        "description": "Upgrade now button"
+    },
+    "subscribe": "Subscribe",
+    "@subscribe": {
+        "description": "Subscribe button"
     }
 }

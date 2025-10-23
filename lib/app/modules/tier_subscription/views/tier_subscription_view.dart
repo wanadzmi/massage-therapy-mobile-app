@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../controllers/tier_subscription_controller.dart';
 import '../../../data/services/tier_service.dart';
 
@@ -17,9 +18,9 @@ class TierSubscriptionView extends GetView<TierSubscriptionController> {
           icon: const Icon(Icons.arrow_back, color: Color(0xFFE0E0E0)),
           onPressed: () => Get.back(),
         ),
-        title: const Text(
-          'Membership Tiers',
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context)!.membershipTiers,
+          style: const TextStyle(
             color: Color(0xFFE0E0E0),
             fontSize: 18,
             fontWeight: FontWeight.w600,
@@ -62,14 +63,14 @@ class TierSubscriptionView extends GetView<TierSubscriptionController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // Header Info
-                      _buildHeaderInfo(),
+                      _buildHeaderInfo(context),
                       const SizedBox(height: 24),
 
                       // Tier Cards
                       ...controller.tiers.map(
                         (tier) => Padding(
                           padding: const EdgeInsets.only(bottom: 16),
-                          child: _buildTierCard(tier),
+                          child: _buildTierCard(context, tier),
                         ),
                       ),
 
@@ -82,7 +83,7 @@ class TierSubscriptionView extends GetView<TierSubscriptionController> {
     );
   }
 
-  Widget _buildHeaderInfo() {
+  Widget _buildHeaderInfo(BuildContext context) {
     return Obx(
       () => Container(
         padding: const EdgeInsets.all(20),
@@ -110,9 +111,12 @@ class TierSubscriptionView extends GetView<TierSubscriptionController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Current Tier',
-                    style: TextStyle(fontSize: 12, color: Color(0xFF808080)),
+                  Text(
+                    AppLocalizations.of(context)!.currentTier,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: Color(0xFF808080),
+                    ),
                   ),
                   const SizedBox(height: 4),
                   Text(
@@ -125,7 +129,7 @@ class TierSubscriptionView extends GetView<TierSubscriptionController> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Wallet: RM ${controller.currentBalance.toStringAsFixed(2)}',
+                    '${AppLocalizations.of(context)!.wallet}: RM ${controller.currentBalance.toStringAsFixed(2)}',
                     style: const TextStyle(
                       fontSize: 12,
                       color: Color(0xFF606060),
@@ -140,7 +144,7 @@ class TierSubscriptionView extends GetView<TierSubscriptionController> {
     );
   }
 
-  Widget _buildTierCard(TierInfo tier) {
+  Widget _buildTierCard(BuildContext context, TierInfo tier) {
     final bool isCurrent = tier.isCurrent;
     final Color tierColor = _getTierColor(tier.tier);
 
@@ -189,25 +193,27 @@ class TierSubscriptionView extends GetView<TierSubscriptionController> {
                             ),
                           ),
                           if (isCurrent) ...[
-                            const SizedBox(width: 8),
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 8,
-                                vertical: 4,
-                              ),
-                              decoration: BoxDecoration(
-                                color: tierColor,
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              child: const Text(
-                                'CURRENT',
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.black,
+                            if (isCurrent) ...[
+                              const SizedBox(width: 8),
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 4,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: tierColor,
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                child: Text(
+                                  AppLocalizations.of(context)!.current,
+                                  style: const TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.black,
+                                  ),
                                 ),
                               ),
-                            ),
+                            ],
                           ],
                         ],
                       ),
@@ -237,9 +243,9 @@ class TierSubscriptionView extends GetView<TierSubscriptionController> {
                           color: tierColor,
                         ),
                       ),
-                      const Text(
-                        '/month',
-                        style: TextStyle(
+                      Text(
+                        AppLocalizations.of(context)!.perMonth,
+                        style: const TextStyle(
                           fontSize: 12,
                           color: Color(0xFF808080),
                         ),
@@ -273,7 +279,7 @@ class TierSubscriptionView extends GetView<TierSubscriptionController> {
                           Icon(Icons.card_giftcard, size: 16, color: tierColor),
                           const SizedBox(width: 6),
                           Text(
-                            '${tier.benefits?.cashbackPercentage ?? 0}% Cashback',
+                            '${tier.benefits?.cashbackPercentage ?? 0}% ${AppLocalizations.of(context)!.cashback}',
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
@@ -315,7 +321,7 @@ class TierSubscriptionView extends GetView<TierSubscriptionController> {
                   const SizedBox(height: 20),
                   SizedBox(
                     width: double.infinity,
-                    child: _buildActionButton(tier, tierColor),
+                    child: _buildActionButton(context, tier, tierColor),
                   ),
                 ],
               ],
@@ -326,7 +332,11 @@ class TierSubscriptionView extends GetView<TierSubscriptionController> {
     );
   }
 
-  Widget _buildActionButton(TierInfo tier, Color tierColor) {
+  Widget _buildActionButton(
+    BuildContext context,
+    TierInfo tier,
+    Color tierColor,
+  ) {
     if (tier.isCurrent) {
       return ElevatedButton(
         onPressed: () => controller.viewCurrentTier(),
@@ -338,9 +348,9 @@ class TierSubscriptionView extends GetView<TierSubscriptionController> {
             borderRadius: BorderRadius.circular(10),
           ),
         ),
-        child: const Text(
-          'View Details',
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+        child: Text(
+          AppLocalizations.of(context)!.viewTierDetails,
+          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
         ),
       );
     }
@@ -357,7 +367,9 @@ class TierSubscriptionView extends GetView<TierSubscriptionController> {
           ),
         ),
         child: Text(
-          tier.tier == 'diamond' ? 'Invite Only' : 'Not Available',
+          tier.tier == 'diamond'
+              ? AppLocalizations.of(context)!.inviteOnly
+              : AppLocalizations.of(context)!.notAvailable,
           style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
         ),
       );
@@ -381,7 +393,7 @@ class TierSubscriptionView extends GetView<TierSubscriptionController> {
             const Icon(Icons.account_balance_wallet_outlined, size: 18),
             const SizedBox(width: 8),
             Text(
-              'Top Up & Subscribe',
+              AppLocalizations.of(context)!.topUpAndSubscribe,
               style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
             ),
           ],
@@ -398,7 +410,9 @@ class TierSubscriptionView extends GetView<TierSubscriptionController> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
       child: Text(
-        tier.canUpgrade ? 'Upgrade Now' : 'Subscribe',
+        tier.canUpgrade
+            ? AppLocalizations.of(context)!.upgradeNow
+            : AppLocalizations.of(context)!.subscribe,
         style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
       ),
     );

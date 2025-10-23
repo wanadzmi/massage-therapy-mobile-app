@@ -633,4 +633,40 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get manage => 'Manage';
+
+  @override
+  String get membershipTiers => 'Membership Tiers';
+
+  @override
+  String get currentTier => 'Current Tier';
+
+  @override
+  String get wallet => 'Wallet';
+
+  @override
+  String get current => 'CURRENT';
+
+  @override
+  String get perMonth => '/month';
+
+  @override
+  String get cashback => 'Cashback';
+
+  @override
+  String get viewTierDetails => 'View Details';
+
+  @override
+  String get inviteOnly => 'Invite Only';
+
+  @override
+  String get notAvailable => 'Not Available';
+
+  @override
+  String get topUpAndSubscribe => 'Top Up & Subscribe';
+
+  @override
+  String get upgradeNow => 'Upgrade Now';
+
+  @override
+  String get subscribe => 'Subscribe';
 }

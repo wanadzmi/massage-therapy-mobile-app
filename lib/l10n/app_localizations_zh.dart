@@ -621,4 +621,40 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get manage => '管理';
+
+  @override
+  String get membershipTiers => '会员等级';
+
+  @override
+  String get currentTier => '当前等级';
+
+  @override
+  String get wallet => '钱包';
+
+  @override
+  String get current => '当前';
+
+  @override
+  String get perMonth => '/月';
+
+  @override
+  String get cashback => '返现';
+
+  @override
+  String get viewTierDetails => '查看详情';
+
+  @override
+  String get inviteOnly => '仅限邀请';
+
+  @override
+  String get notAvailable => '不可用';
+
+  @override
+  String get topUpAndSubscribe => '充值并订阅';
+
+  @override
+  String get upgradeNow => '立即升级';
+
+  @override
+  String get subscribe => '订阅';
 }

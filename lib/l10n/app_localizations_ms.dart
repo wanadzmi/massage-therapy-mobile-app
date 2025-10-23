@@ -632,4 +632,40 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get manage => 'Urus';
+
+  @override
+  String get membershipTiers => 'Tahap Keahlian';
+
+  @override
+  String get currentTier => 'Tahap Semasa';
+
+  @override
+  String get wallet => 'Dompet';
+
+  @override
+  String get current => 'SEMASA';
+
+  @override
+  String get perMonth => '/bulan';
+
+  @override
+  String get cashback => 'Pulangan Tunai';
+
+  @override
+  String get viewTierDetails => 'Lihat Butiran';
+
+  @override
+  String get inviteOnly => 'Jemputan Sahaja';
+
+  @override
+  String get notAvailable => 'Tidak Tersedia';
+
+  @override
+  String get topUpAndSubscribe => 'Tambah Nilai & Langgan';
+
+  @override
+  String get upgradeNow => 'Naik Taraf Sekarang';
+
+  @override
+  String get subscribe => 'Langgan';
 }
