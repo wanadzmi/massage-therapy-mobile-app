@@ -220,13 +220,15 @@ class TherapistHomeView extends GetView<TherapistHomeController> {
 
             // Session Timer for in_progress bookings
             if (booking.status?.toLowerCase() == 'in_progress' &&
-                booking.date != null &&
-                booking.startTime != null)
+                booking.id != null)
               Padding(
                 padding: const EdgeInsets.only(top: 12),
-                child: SessionTimer(startTime: _parseSessionStartTime(booking)),
+                child: SessionTimer(
+                  startTime:
+                      controller.getSessionStartTime(booking.id!) ??
+                      DateTime.now(),
+                ),
               ),
-
             const SizedBox(height: 16),
 
             // Customer Name with Member Tier
@@ -625,27 +627,6 @@ class TherapistHomeView extends GetView<TherapistHomeController> {
   String _formatDate(DateTime? date) {
     if (date == null) return 'N/A';
     return DateFormat('MMM dd, yyyy').format(date);
-  }
-
-  DateTime _parseSessionStartTime(booking) {
-    // Try to parse the booking date + start time
-    // If booking is today and in_progress, use the scheduled time
-    if (booking.date != null && booking.startTime != null) {
-      try {
-        final date = booking.date as DateTime;
-        final timeStr = booking.startTime as String;
-        final timeParts = timeStr.split(':');
-        if (timeParts.length >= 2) {
-          final hour = int.tryParse(timeParts[0]) ?? 0;
-          final minute = int.tryParse(timeParts[1]) ?? 0;
-          return DateTime(date.year, date.month, date.day, hour, minute);
-        }
-      } catch (e) {
-        // Fall through to default
-      }
-    }
-    // Default to current time if parsing fails
-    return DateTime.now().subtract(const Duration(minutes: 5));
   }
 
   Color _getTierColor(String tier) {

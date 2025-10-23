@@ -17,6 +17,9 @@ class TherapistHomeController extends GetxController {
   final _completingBookingId = ''.obs;
   final _processingBookingId = ''.obs;
 
+  // Track when sessions were started (bookingId -> start timestamp)
+  final _sessionStartTimes = <String, DateTime>{}.obs;
+
   bool get isLoading => _isLoading.value;
   List<Booking> get bookings => _bookings;
   String get therapistName => _therapistName.value;
@@ -24,6 +27,9 @@ class TherapistHomeController extends GetxController {
       _completingBookingId.value == bookingId;
   bool isProcessingBooking(String bookingId) =>
       _processingBookingId.value == bookingId;
+
+  DateTime? getSessionStartTime(String bookingId) =>
+      _sessionStartTimes[bookingId];
 
   @override
   void onInit() {
@@ -335,6 +341,9 @@ class TherapistHomeController extends GetxController {
       final response = await _newBookingService.startSession(bookingId);
 
       if (response.isSuccess && response.data != null) {
+        // Record the session start time
+        _sessionStartTimes[bookingId] = DateTime.now();
+
         Get.snackbar(
           'Success',
           'Session started',
@@ -430,6 +439,8 @@ class TherapistHomeController extends GetxController {
                     child: ElevatedButton(
                       onPressed: () {
                         Get.back();
+                        // Clean up session start time
+                        _sessionStartTimes.remove(bookingId);
                         loadBookings(); // Refresh the list
                       },
                       style: ElevatedButton.styleFrom(

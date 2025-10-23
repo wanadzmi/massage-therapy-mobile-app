@@ -528,9 +528,10 @@ class BookingView extends GetView<BookingController> {
                   ),
                 ),
             ],
-            // Cancel button for cancellable bookings
+            // Cancel button for cancellable bookings (not for cancelled, completed, or in_progress)
             if (booking.status != 'cancelled' &&
-                booking.status != 'completed') ...[
+                booking.status != 'completed' &&
+                booking.status != 'in_progress') ...[
               const SizedBox(height: 12),
               SizedBox(
                 width: double.infinity,
