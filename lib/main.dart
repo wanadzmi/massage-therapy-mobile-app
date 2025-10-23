@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'l10n/app_localizations.dart';
 import 'app/routes/app_pages.dart';
 import 'app/services/locale_service.dart';
@@ -8,6 +10,9 @@ import 'app/core/app_lifecycle_observer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Firebase
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   // Initialize LocaleService before running the app
   await Get.putAsync(() => LocaleService().init(), permanent: true);

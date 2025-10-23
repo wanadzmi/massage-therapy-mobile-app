@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "974503796179",
+    "project_id": "therapymassage-mobileapp",
+    "storage_bucket": "therapymassage-mobileapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:974503796179:android:98d7022e6a8c38e3646326",
+        "android_client_info": {
+          "package_name": "com.therapymassage.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAT6uW7dlo-WsSlXOHJcAotixJSPo5dimc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
