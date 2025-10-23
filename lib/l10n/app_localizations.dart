@@ -1101,6 +1101,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'will be available soon'**
   String get willBeAvailableSoon;
+
+  /// USDT payment page title
+  ///
+  /// In en, this message translates to:
+  /// **'USDT Payment'**
+  String get usdtPayment;
+
+  /// Amount to pay label
+  ///
+  /// In en, this message translates to:
+  /// **'Amount to Pay'**
+  String get amountToPay;
+
+  /// USDT equivalent note
+  ///
+  /// In en, this message translates to:
+  /// **'in USDT equivalent'**
+  String get inUsdtEquivalent;
+
+  /// How to pay section title
+  ///
+  /// In en, this message translates to:
+  /// **'How to Pay'**
+  String get howToPay;
+
+  /// Payment instruction step 1
+  ///
+  /// In en, this message translates to:
+  /// **'Scan the QR code or copy the wallet address'**
+  String get scanQrOrCopy;
+
+  /// Payment instruction step 2
+  ///
+  /// In en, this message translates to:
+  /// **'Open your USDT wallet (Trust Wallet, Binance, etc.)'**
+  String get openUsdtWallet;
+
+  /// Payment instruction step 3
+  ///
+  /// In en, this message translates to:
+  /// **'Send the exact USDT amount to the address shown'**
+  String get sendExactAmount;
+
+  /// Payment instruction step 4
+  ///
+  /// In en, this message translates to:
+  /// **'Wait for blockchain confirmation (5-10 minutes)'**
+  String get waitForConfirmation;
+
+  /// QR code label
+  ///
+  /// In en, this message translates to:
+  /// **'QR Code'**
+  String get qrCode;
+
+  /// Copy address instruction
+  ///
+  /// In en, this message translates to:
+  /// **'(Copy address below)'**
+  String get copyAddressBelow;
+
+  /// Wallet address label
+  ///
+  /// In en, this message translates to:
+  /// **'Wallet Address'**
+  String get walletAddress;
+
+  /// Network label
+  ///
+  /// In en, this message translates to:
+  /// **'Network'**
+  String get network;
+
+  /// Network warning message
+  ///
+  /// In en, this message translates to:
+  /// **'Only send USDT via {network} network'**
+  String onlySendUsdtVia(String network);
+
+  /// Important label
+  ///
+  /// In en, this message translates to:
+  /// **'Important'**
+  String get important;
+
+  /// USDT payment warnings
+  ///
+  /// In en, this message translates to:
+  /// **'• Only send USDT cryptocurrency to this address\n• Sending other tokens will result in loss of funds\n• Wrong network will result in permanent loss\n• Minimum amount: equivalent to RM10'**
+  String get usdtWarnings;
+
+  /// Payment sent confirmation button
+  ///
+  /// In en, this message translates to:
+  /// **'I Have Sent the Payment'**
+  String get iHaveSentPayment;
 }
 
 class _AppLocalizationsDelegate

@@ -510,4 +510,55 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get willBeAvailableSoon => '即将推出';
+
+  @override
+  String get usdtPayment => 'USDT 支付';
+
+  @override
+  String get amountToPay => '支付金额';
+
+  @override
+  String get inUsdtEquivalent => '以 USDT 等值';
+
+  @override
+  String get howToPay => '支付方式';
+
+  @override
+  String get scanQrOrCopy => '扫描二维码或复制钱包地址';
+
+  @override
+  String get openUsdtWallet => '打开您的 USDT 钱包（Trust Wallet、Binance 等）';
+
+  @override
+  String get sendExactAmount => '将确切的 USDT 金额发送到显示的地址';
+
+  @override
+  String get waitForConfirmation => '等待区块链确认（5-10分钟）';
+
+  @override
+  String get qrCode => '二维码';
+
+  @override
+  String get copyAddressBelow => '（复制以下地址）';
+
+  @override
+  String get walletAddress => '钱包地址';
+
+  @override
+  String get network => '网络';
+
+  @override
+  String onlySendUsdtVia(String network) {
+    return '仅通过 $network 网络发送 USDT';
+  }
+
+  @override
+  String get important => '重要提示';
+
+  @override
+  String get usdtWarnings =>
+      '• 仅向此地址发送 USDT 加密货币\n• 发送其他代币将导致资金损失\n• 错误的网络将导致永久损失\n• 最低金额：等值 RM10';
+
+  @override
+  String get iHaveSentPayment => '我已发送付款';
 }

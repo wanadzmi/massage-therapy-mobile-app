@@ -76,7 +76,7 @@ class WalletPaymentPendingView extends GetView<WalletTopUpController> {
           elevation: 0,
           iconTheme: const IconThemeData(color: Color(0xFFD4AF37)),
         ),
-        body: Center(
+        body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(32.0),
             child: Column(
@@ -125,6 +125,8 @@ class WalletPaymentPendingView extends GetView<WalletTopUpController> {
 
                 // Info Box
                 _buildInfoBox(),
+
+                const SizedBox(height: 32),
               ],
             ),
           ),

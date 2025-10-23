@@ -676,5 +676,75 @@
     "willBeAvailableSoon": "will be available soon",
     "@willBeAvailableSoon": {
         "description": "Coming soon payment method message"
+    },
+    "@_USDT_PAYMENT": {},
+    "usdtPayment": "USDT Payment",
+    "@usdtPayment": {
+        "description": "USDT payment page title"
+    },
+    "amountToPay": "Amount to Pay",
+    "@amountToPay": {
+        "description": "Amount to pay label"
+    },
+    "inUsdtEquivalent": "in USDT equivalent",
+    "@inUsdtEquivalent": {
+        "description": "USDT equivalent note"
+    },
+    "howToPay": "How to Pay",
+    "@howToPay": {
+        "description": "How to pay section title"
+    },
+    "scanQrOrCopy": "Scan the QR code or copy the wallet address",
+    "@scanQrOrCopy": {
+        "description": "Payment instruction step 1"
+    },
+    "openUsdtWallet": "Open your USDT wallet (Trust Wallet, Binance, etc.)",
+    "@openUsdtWallet": {
+        "description": "Payment instruction step 2"
+    },
+    "sendExactAmount": "Send the exact USDT amount to the address shown",
+    "@sendExactAmount": {
+        "description": "Payment instruction step 3"
+    },
+    "waitForConfirmation": "Wait for blockchain confirmation (5-10 minutes)",
+    "@waitForConfirmation": {
+        "description": "Payment instruction step 4"
+    },
+    "qrCode": "QR Code",
+    "@qrCode": {
+        "description": "QR code label"
+    },
+    "copyAddressBelow": "(Copy address below)",
+    "@copyAddressBelow": {
+        "description": "Copy address instruction"
+    },
+    "walletAddress": "Wallet Address",
+    "@walletAddress": {
+        "description": "Wallet address label"
+    },
+    "network": "Network",
+    "@network": {
+        "description": "Network label"
+    },
+    "onlySendUsdtVia": "Only send USDT via {network} network",
+    "@onlySendUsdtVia": {
+        "description": "Network warning message",
+        "placeholders": {
+            "network": {
+                "type": "String"
+            }
+        }
+    },
+    "important": "Important",
+    "@important": {
+        "description": "Important label"
+    },
+    "usdtWarnings": "• Only send USDT cryptocurrency to this address\n• Sending other tokens will result in loss of funds\n• Wrong network will result in permanent loss\n• Minimum amount: equivalent to RM10",
+    "@usdtWarnings": {
+        "description": "USDT payment warnings"
+    },
+    "iHaveSentPayment": "I Have Sent the Payment",
+    "@iHaveSentPayment": {
+        "description": "Payment sent confirmation button"
     }
 }

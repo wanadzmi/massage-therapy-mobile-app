@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../data/models/wallet_topup_model.dart';
 import '../controllers/wallet_topup_controller.dart';
 
@@ -8,6 +9,7 @@ class WalletUsdtPaymentView extends GetView<WalletTopUpController> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final args = Get.arguments as Map<String, dynamic>;
     final topUpData = args['topUpData'] as TopUpData;
     final amount = args['amount'] as double;
@@ -15,9 +17,9 @@ class WalletUsdtPaymentView extends GetView<WalletTopUpController> {
     return Scaffold(
       backgroundColor: const Color(0xFF0A0A0A),
       appBar: AppBar(
-        title: const Text(
-          'USDT Payment',
-          style: TextStyle(
+        title: Text(
+          l10n.usdtPayment,
+          style: const TextStyle(
             color: Color(0xFFE0E0E0),
             fontWeight: FontWeight.w500,
             fontSize: 18,
@@ -36,37 +38,37 @@ class WalletUsdtPaymentView extends GetView<WalletTopUpController> {
             const SizedBox(height: 16),
 
             // Amount Card
-            _buildAmountCard(amount),
+            _buildAmountCard(amount, l10n),
 
             const SizedBox(height: 24),
 
             // Instructions
-            _buildInstructions(),
+            _buildInstructions(l10n),
 
             const SizedBox(height: 24),
 
             // QR Code Placeholder
-            _buildQRCode(topUpData.walletAddress ?? ''),
+            _buildQRCode(topUpData.walletAddress ?? '', l10n),
 
             const SizedBox(height: 24),
 
             // Wallet Address
-            _buildWalletAddress(topUpData.walletAddress ?? ''),
+            _buildWalletAddress(topUpData.walletAddress ?? '', l10n),
 
             const SizedBox(height: 16),
 
             // Network Info
-            _buildNetworkInfo(topUpData.network ?? 'TRC20'),
+            _buildNetworkInfo(topUpData.network ?? 'TRC20', l10n),
 
             const SizedBox(height: 24),
 
             // Warning
-            _buildWarning(),
+            _buildWarning(l10n),
 
             const SizedBox(height: 32),
 
             // Confirm Button
-            _buildConfirmButton(topUpData.transactionId ?? ''),
+            _buildConfirmButton(topUpData.transactionId ?? '', l10n),
 
             const SizedBox(height: 24),
           ],
@@ -75,7 +77,7 @@ class WalletUsdtPaymentView extends GetView<WalletTopUpController> {
     );
   }
 
-  Widget _buildAmountCard(double amount) {
+  Widget _buildAmountCard(double amount, AppLocalizations l10n) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(20),
@@ -96,9 +98,9 @@ class WalletUsdtPaymentView extends GetView<WalletTopUpController> {
       ),
       child: Column(
         children: [
-          const Text(
-            'Amount to Pay',
-            style: TextStyle(
+          Text(
+            l10n.amountToPay,
+            style: const TextStyle(
               color: Color(0xFF808080),
               fontSize: 14,
               fontWeight: FontWeight.w500,
@@ -116,22 +118,22 @@ class WalletUsdtPaymentView extends GetView<WalletTopUpController> {
             ),
           ),
           const SizedBox(height: 4),
-          const Text(
-            'in USDT equivalent',
-            style: TextStyle(color: Color(0xFF808080), fontSize: 12),
+          Text(
+            l10n.inUsdtEquivalent,
+            style: const TextStyle(color: Color(0xFF808080), fontSize: 12),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildInstructions() {
+  Widget _buildInstructions(AppLocalizations l10n) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'How to Pay',
-          style: TextStyle(
+        Text(
+          l10n.howToPay,
+          style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
             color: Color(0xFFE0E0E0),
@@ -139,19 +141,10 @@ class WalletUsdtPaymentView extends GetView<WalletTopUpController> {
           ),
         ),
         const SizedBox(height: 12),
-        _buildInstructionStep(1, 'Scan the QR code or copy the wallet address'),
-        _buildInstructionStep(
-          2,
-          'Open your USDT wallet (Trust Wallet, Binance, etc.)',
-        ),
-        _buildInstructionStep(
-          3,
-          'Send the exact USDT amount to the address shown',
-        ),
-        _buildInstructionStep(
-          4,
-          'Wait for blockchain confirmation (5-10 minutes)',
-        ),
+        _buildInstructionStep(1, l10n.scanQrOrCopy),
+        _buildInstructionStep(2, l10n.openUsdtWallet),
+        _buildInstructionStep(3, l10n.sendExactAmount),
+        _buildInstructionStep(4, l10n.waitForConfirmation),
       ],
     );
   }
@@ -199,7 +192,7 @@ class WalletUsdtPaymentView extends GetView<WalletTopUpController> {
     );
   }
 
-  Widget _buildQRCode(String address) {
+  Widget _buildQRCode(String address, AppLocalizations l10n) {
     return Center(
       child: Container(
         padding: const EdgeInsets.all(24),
@@ -219,15 +212,15 @@ class WalletUsdtPaymentView extends GetView<WalletTopUpController> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.qr_code_2, size: 80, color: const Color(0xFF404040)),
+              const Icon(Icons.qr_code_2, size: 80, color: Color(0xFF404040)),
               const SizedBox(height: 8),
-              const Text(
-                'QR Code',
-                style: TextStyle(fontSize: 14, color: Color(0xFF808080)),
+              Text(
+                l10n.qrCode,
+                style: const TextStyle(fontSize: 14, color: Color(0xFF808080)),
               ),
-              const Text(
-                '(Copy address below)',
-                style: TextStyle(fontSize: 12, color: Color(0xFF606060)),
+              Text(
+                l10n.copyAddressBelow,
+                style: const TextStyle(fontSize: 12, color: Color(0xFF606060)),
               ),
             ],
           ),
@@ -236,13 +229,13 @@ class WalletUsdtPaymentView extends GetView<WalletTopUpController> {
     );
   }
 
-  Widget _buildWalletAddress(String address) {
+  Widget _buildWalletAddress(String address, AppLocalizations l10n) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Wallet Address',
-          style: TextStyle(
+        Text(
+          l10n.walletAddress,
+          style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
             color: Color(0xFFE0E0E0),
@@ -292,7 +285,7 @@ class WalletUsdtPaymentView extends GetView<WalletTopUpController> {
     );
   }
 
-  Widget _buildNetworkInfo(String network) {
+  Widget _buildNetworkInfo(String network, AppLocalizations l10n) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -315,9 +308,9 @@ class WalletUsdtPaymentView extends GetView<WalletTopUpController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Network',
-                  style: TextStyle(
+                Text(
+                  l10n.network,
+                  style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
                     color: Colors.orange,
@@ -325,7 +318,7 @@ class WalletUsdtPaymentView extends GetView<WalletTopUpController> {
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  'Only send USDT via $network network',
+                  l10n.onlySendUsdtVia(network),
                   style: const TextStyle(
                     fontSize: 13,
                     color: Color(0xFFE0E0E0),
@@ -339,7 +332,7 @@ class WalletUsdtPaymentView extends GetView<WalletTopUpController> {
     );
   }
 
-  Widget _buildWarning() {
+  Widget _buildWarning(AppLocalizations l10n) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -350,13 +343,13 @@ class WalletUsdtPaymentView extends GetView<WalletTopUpController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(
+          Row(
             children: [
-              Icon(Icons.info_outline, color: Colors.red, size: 20),
-              SizedBox(width: 8),
+              const Icon(Icons.info_outline, color: Colors.red, size: 20),
+              const SizedBox(width: 8),
               Text(
-                'Important',
-                style: TextStyle(
+                l10n.important,
+                style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                   color: Colors.red,
@@ -365,12 +358,9 @@ class WalletUsdtPaymentView extends GetView<WalletTopUpController> {
             ],
           ),
           const SizedBox(height: 8),
-          const Text(
-            '• Only send USDT cryptocurrency to this address\n'
-            '• Sending other tokens will result in loss of funds\n'
-            '• Wrong network will result in permanent loss\n'
-            '• Minimum amount: equivalent to RM10',
-            style: TextStyle(
+          Text(
+            l10n.usdtWarnings,
+            style: const TextStyle(
               fontSize: 13,
               color: Color(0xFFE0E0E0),
               height: 1.5,
@@ -381,7 +371,7 @@ class WalletUsdtPaymentView extends GetView<WalletTopUpController> {
     );
   }
 
-  Widget _buildConfirmButton(String transactionId) {
+  Widget _buildConfirmButton(String transactionId, AppLocalizations l10n) {
     return Column(
       children: [
         SizedBox(
@@ -402,9 +392,9 @@ class WalletUsdtPaymentView extends GetView<WalletTopUpController> {
               ),
               elevation: 0,
             ),
-            child: const Text(
-              'I Have Sent the Payment',
-              style: TextStyle(
+            child: Text(
+              l10n.iHaveSentPayment,
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
                 color: Color(0xFF0A0A0A),
@@ -418,9 +408,9 @@ class WalletUsdtPaymentView extends GetView<WalletTopUpController> {
           onPressed: () {
             Get.back(); // Go back to payment selection
           },
-          child: const Text(
-            'Cancel',
-            style: TextStyle(fontSize: 14, color: Color(0xFF808080)),
+          child: Text(
+            l10n.cancel,
+            style: const TextStyle(fontSize: 14, color: Color(0xFF808080)),
           ),
         ),
       ],

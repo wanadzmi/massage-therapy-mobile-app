@@ -676,5 +676,75 @@
     "willBeAvailableSoon": "akan tersedia tidak lama lagi",
     "@willBeAvailableSoon": {
         "description": "Coming soon payment method message"
+    },
+    "@_USDT_PAYMENT": {},
+    "usdtPayment": "Pembayaran USDT",
+    "@usdtPayment": {
+        "description": "USDT payment page title"
+    },
+    "amountToPay": "Jumlah Bayaran",
+    "@amountToPay": {
+        "description": "Amount to pay label"
+    },
+    "inUsdtEquivalent": "dalam setara USDT",
+    "@inUsdtEquivalent": {
+        "description": "USDT equivalent note"
+    },
+    "howToPay": "Cara Membayar",
+    "@howToPay": {
+        "description": "How to pay section title"
+    },
+    "scanQrOrCopy": "Imbas kod QR atau salin alamat dompet",
+    "@scanQrOrCopy": {
+        "description": "Payment instruction step 1"
+    },
+    "openUsdtWallet": "Buka dompet USDT anda (Trust Wallet, Binance, dll.)",
+    "@openUsdtWallet": {
+        "description": "Payment instruction step 2"
+    },
+    "sendExactAmount": "Hantar jumlah USDT yang tepat ke alamat yang ditunjukkan",
+    "@sendExactAmount": {
+        "description": "Payment instruction step 3"
+    },
+    "waitForConfirmation": "Tunggu pengesahan blockchain (5-10 minit)",
+    "@waitForConfirmation": {
+        "description": "Payment instruction step 4"
+    },
+    "qrCode": "Kod QR",
+    "@qrCode": {
+        "description": "QR code label"
+    },
+    "copyAddressBelow": "(Salin alamat di bawah)",
+    "@copyAddressBelow": {
+        "description": "Copy address instruction"
+    },
+    "walletAddress": "Alamat Dompet",
+    "@walletAddress": {
+        "description": "Wallet address label"
+    },
+    "network": "Rangkaian",
+    "@network": {
+        "description": "Network label"
+    },
+    "onlySendUsdtVia": "Hanya hantar USDT melalui rangkaian {network}",
+    "@onlySendUsdtVia": {
+        "description": "Network warning message",
+        "placeholders": {
+            "network": {
+                "type": "String"
+            }
+        }
+    },
+    "important": "Penting",
+    "@important": {
+        "description": "Important label"
+    },
+    "usdtWarnings": "• Hanya hantar mata wang kripto USDT ke alamat ini\n• Menghantar token lain akan mengakibatkan kehilangan dana\n• Rangkaian yang salah akan mengakibatkan kehilangan kekal\n• Jumlah minimum: setara dengan RM10",
+    "@usdtWarnings": {
+        "description": "USDT payment warnings"
+    },
+    "iHaveSentPayment": "Saya Telah Menghantar Pembayaran",
+    "@iHaveSentPayment": {
+        "description": "Payment sent confirmation button"
     }
 }

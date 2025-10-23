@@ -515,4 +515,58 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get willBeAvailableSoon => 'will be available soon';
+
+  @override
+  String get usdtPayment => 'USDT Payment';
+
+  @override
+  String get amountToPay => 'Amount to Pay';
+
+  @override
+  String get inUsdtEquivalent => 'in USDT equivalent';
+
+  @override
+  String get howToPay => 'How to Pay';
+
+  @override
+  String get scanQrOrCopy => 'Scan the QR code or copy the wallet address';
+
+  @override
+  String get openUsdtWallet =>
+      'Open your USDT wallet (Trust Wallet, Binance, etc.)';
+
+  @override
+  String get sendExactAmount =>
+      'Send the exact USDT amount to the address shown';
+
+  @override
+  String get waitForConfirmation =>
+      'Wait for blockchain confirmation (5-10 minutes)';
+
+  @override
+  String get qrCode => 'QR Code';
+
+  @override
+  String get copyAddressBelow => '(Copy address below)';
+
+  @override
+  String get walletAddress => 'Wallet Address';
+
+  @override
+  String get network => 'Network';
+
+  @override
+  String onlySendUsdtVia(String network) {
+    return 'Only send USDT via $network network';
+  }
+
+  @override
+  String get important => 'Important';
+
+  @override
+  String get usdtWarnings =>
+      '• Only send USDT cryptocurrency to this address\n• Sending other tokens will result in loss of funds\n• Wrong network will result in permanent loss\n• Minimum amount: equivalent to RM10';
+
+  @override
+  String get iHaveSentPayment => 'I Have Sent the Payment';
 }

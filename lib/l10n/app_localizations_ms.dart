@@ -516,4 +516,57 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get willBeAvailableSoon => 'akan tersedia tidak lama lagi';
+
+  @override
+  String get usdtPayment => 'Pembayaran USDT';
+
+  @override
+  String get amountToPay => 'Jumlah Bayaran';
+
+  @override
+  String get inUsdtEquivalent => 'dalam setara USDT';
+
+  @override
+  String get howToPay => 'Cara Membayar';
+
+  @override
+  String get scanQrOrCopy => 'Imbas kod QR atau salin alamat dompet';
+
+  @override
+  String get openUsdtWallet =>
+      'Buka dompet USDT anda (Trust Wallet, Binance, dll.)';
+
+  @override
+  String get sendExactAmount =>
+      'Hantar jumlah USDT yang tepat ke alamat yang ditunjukkan';
+
+  @override
+  String get waitForConfirmation => 'Tunggu pengesahan blockchain (5-10 minit)';
+
+  @override
+  String get qrCode => 'Kod QR';
+
+  @override
+  String get copyAddressBelow => '(Salin alamat di bawah)';
+
+  @override
+  String get walletAddress => 'Alamat Dompet';
+
+  @override
+  String get network => 'Rangkaian';
+
+  @override
+  String onlySendUsdtVia(String network) {
+    return 'Hanya hantar USDT melalui rangkaian $network';
+  }
+
+  @override
+  String get important => 'Penting';
+
+  @override
+  String get usdtWarnings =>
+      '• Hanya hantar mata wang kripto USDT ke alamat ini\n• Menghantar token lain akan mengakibatkan kehilangan dana\n• Rangkaian yang salah akan mengakibatkan kehilangan kekal\n• Jumlah minimum: setara dengan RM10';
+
+  @override
+  String get iHaveSentPayment => 'Saya Telah Menghantar Pembayaran';
 }

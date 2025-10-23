@@ -676,5 +676,75 @@
     "willBeAvailableSoon": "即将推出",
     "@willBeAvailableSoon": {
         "description": "Coming soon payment method message"
+    },
+    "@_USDT_PAYMENT": {},
+    "usdtPayment": "USDT 支付",
+    "@usdtPayment": {
+        "description": "USDT payment page title"
+    },
+    "amountToPay": "支付金额",
+    "@amountToPay": {
+        "description": "Amount to pay label"
+    },
+    "inUsdtEquivalent": "以 USDT 等值",
+    "@inUsdtEquivalent": {
+        "description": "USDT equivalent note"
+    },
+    "howToPay": "支付方式",
+    "@howToPay": {
+        "description": "How to pay section title"
+    },
+    "scanQrOrCopy": "扫描二维码或复制钱包地址",
+    "@scanQrOrCopy": {
+        "description": "Payment instruction step 1"
+    },
+    "openUsdtWallet": "打开您的 USDT 钱包（Trust Wallet、Binance 等）",
+    "@openUsdtWallet": {
+        "description": "Payment instruction step 2"
+    },
+    "sendExactAmount": "将确切的 USDT 金额发送到显示的地址",
+    "@sendExactAmount": {
+        "description": "Payment instruction step 3"
+    },
+    "waitForConfirmation": "等待区块链确认（5-10分钟）",
+    "@waitForConfirmation": {
+        "description": "Payment instruction step 4"
+    },
+    "qrCode": "二维码",
+    "@qrCode": {
+        "description": "QR code label"
+    },
+    "copyAddressBelow": "（复制以下地址）",
+    "@copyAddressBelow": {
+        "description": "Copy address instruction"
+    },
+    "walletAddress": "钱包地址",
+    "@walletAddress": {
+        "description": "Wallet address label"
+    },
+    "network": "网络",
+    "@network": {
+        "description": "Network label"
+    },
+    "onlySendUsdtVia": "仅通过 {network} 网络发送 USDT",
+    "@onlySendUsdtVia": {
+        "description": "Network warning message",
+        "placeholders": {
+            "network": {
+                "type": "String"
+            }
+        }
+    },
+    "important": "重要提示",
+    "@important": {
+        "description": "Important label"
+    },
+    "usdtWarnings": "• 仅向此地址发送 USDT 加密货币\n• 发送其他代币将导致资金损失\n• 错误的网络将导致永久损失\n• 最低金额：等值 RM10",
+    "@usdtWarnings": {
+        "description": "USDT payment warnings"
+    },
+    "iHaveSentPayment": "我已发送付款",
+    "@iHaveSentPayment": {
+        "description": "Payment sent confirmation button"
     }
 }
