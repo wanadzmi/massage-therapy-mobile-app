@@ -807,5 +807,25 @@
     "safelyClosePage": "您可以安全地关闭此页面。一旦付款确认，我们将通知您。",
     "@safelyClosePage": {
         "description": "Safe close page info message"
+    },
+    "myReviews": "我的评论",
+    "@myReviews": {
+        "description": "My reviews menu title"
+    },
+    "viewYourPastReviews": "查看您的过往评论",
+    "@viewYourPastReviews": {
+        "description": "My reviews menu description"
+    },
+    "membershipTier": "会员等级",
+    "@membershipTier": {
+        "description": "Membership tier label"
+    },
+    "upgrade": "升级",
+    "@upgrade": {
+        "description": "Upgrade button text"
+    },
+    "manage": "管理",
+    "@manage": {
+        "description": "Manage button text"
     }
 }

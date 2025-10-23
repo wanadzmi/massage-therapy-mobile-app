@@ -617,4 +617,19 @@ class AppLocalizationsMs extends AppLocalizations {
   @override
   String get safelyClosePage =>
       'Anda boleh menutup halaman ini dengan selamat. Kami akan memberitahu anda sebaik sahaja pembayaran disahkan.';
+
+  @override
+  String get myReviews => 'Ulasan Saya';
+
+  @override
+  String get viewYourPastReviews => 'Lihat ulasan lepas anda';
+
+  @override
+  String get membershipTier => 'Tahap Keahlian';
+
+  @override
+  String get upgrade => 'Naik Taraf';
+
+  @override
+  String get manage => 'Urus';
 }

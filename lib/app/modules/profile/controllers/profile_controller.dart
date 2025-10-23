@@ -6,6 +6,7 @@ import '../../../data/models/user_model.dart';
 import '../../auth/views/login_view.dart';
 import '../../auth/bindings/login_binding.dart';
 import '../views/edit_profile_view.dart';
+import '../../../../l10n/app_localizations.dart';
 
 class ProfileController extends GetxController {
   final AuthRepository _authRepository = AuthRepository();
@@ -320,9 +321,9 @@ class ProfileController extends GetxController {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Select Language',
-                style: TextStyle(
+              Text(
+                AppLocalizations.of(Get.context!)!.selectLanguage,
+                style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
                   color: Color(0xFFE0E0E0),
@@ -345,7 +346,7 @@ class ProfileController extends GetxController {
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                child: const Text('Cancel'),
+                child: Text(AppLocalizations.of(Get.context!)!.cancel),
               ),
             ],
           ),

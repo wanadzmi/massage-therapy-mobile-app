@@ -646,9 +646,9 @@ class ProfileView extends GetView<ProfileController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Membership Tier',
-                      style: TextStyle(
+                    Text(
+                      AppLocalizations.of(context)!.membershipTier,
+                      style: const TextStyle(
                         fontSize: 12,
                         color: Color(0xFF808080),
                         letterSpacing: 0.3,
@@ -699,8 +699,8 @@ class ProfileView extends GetView<ProfileController> {
                     const SizedBox(width: 4),
                     Text(
                       controller.memberTier.toLowerCase() == 'normal'
-                          ? 'Upgrade'
-                          : 'Manage',
+                          ? AppLocalizations.of(context)!.upgrade
+                          : AppLocalizations.of(context)!.manage,
                       style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
@@ -742,22 +742,25 @@ class ProfileView extends GetView<ProfileController> {
               ),
             ),
             const SizedBox(width: 12),
-            const Expanded(
+            Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'My Reviews',
-                    style: TextStyle(
+                    AppLocalizations.of(context)!.myReviews,
+                    style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                       color: Color(0xFFE0E0E0),
                     ),
                   ),
-                  SizedBox(height: 2),
+                  const SizedBox(height: 2),
                   Text(
-                    'View your past reviews',
-                    style: TextStyle(fontSize: 12, color: Color(0xFF808080)),
+                    AppLocalizations.of(context)!.viewYourPastReviews,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: Color(0xFF808080),
+                    ),
                   ),
                 ],
               ),

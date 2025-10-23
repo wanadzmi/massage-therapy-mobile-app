@@ -807,5 +807,25 @@
     "safelyClosePage": "You can safely close this page. We will notify you once the payment is confirmed.",
     "@safelyClosePage": {
         "description": "Safe close page info message"
+    },
+    "myReviews": "My Reviews",
+    "@myReviews": {
+        "description": "My reviews menu title"
+    },
+    "viewYourPastReviews": "View your past reviews",
+    "@viewYourPastReviews": {
+        "description": "My reviews menu description"
+    },
+    "membershipTier": "Membership Tier",
+    "@membershipTier": {
+        "description": "Membership tier label"
+    },
+    "upgrade": "Upgrade",
+    "@upgrade": {
+        "description": "Upgrade button text"
+    },
+    "manage": "Manage",
+    "@manage": {
+        "description": "Manage button text"
     }
 }

@@ -618,4 +618,19 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get safelyClosePage =>
       'You can safely close this page. We will notify you once the payment is confirmed.';
+
+  @override
+  String get myReviews => 'My Reviews';
+
+  @override
+  String get viewYourPastReviews => 'View your past reviews';
+
+  @override
+  String get membershipTier => 'Membership Tier';
+
+  @override
+  String get upgrade => 'Upgrade';
+
+  @override
+  String get manage => 'Manage';
 }

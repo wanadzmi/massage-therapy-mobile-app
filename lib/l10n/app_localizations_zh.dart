@@ -606,4 +606,19 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get safelyClosePage => '您可以安全地关闭此页面。一旦付款确认，我们将通知您。';
+
+  @override
+  String get myReviews => '我的评论';
+
+  @override
+  String get viewYourPastReviews => '查看您的过往评论';
+
+  @override
+  String get membershipTier => '会员等级';
+
+  @override
+  String get upgrade => '升级';
+
+  @override
+  String get manage => '管理';
 }

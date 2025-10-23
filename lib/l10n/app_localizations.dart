@@ -1287,6 +1287,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You can safely close this page. We will notify you once the payment is confirmed.'**
   String get safelyClosePage;
+
+  /// My reviews menu title
+  ///
+  /// In en, this message translates to:
+  /// **'My Reviews'**
+  String get myReviews;
+
+  /// My reviews menu description
+  ///
+  /// In en, this message translates to:
+  /// **'View your past reviews'**
+  String get viewYourPastReviews;
+
+  /// Membership tier label
+  ///
+  /// In en, this message translates to:
+  /// **'Membership Tier'**
+  String get membershipTier;
+
+  /// Upgrade button text
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade'**
+  String get upgrade;
+
+  /// Manage button text
+  ///
+  /// In en, this message translates to:
+  /// **'Manage'**
+  String get manage;
 }
 
 class _AppLocalizationsDelegate

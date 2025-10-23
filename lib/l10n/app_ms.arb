@@ -807,5 +807,25 @@
     "safelyClosePage": "Anda boleh menutup halaman ini dengan selamat. Kami akan memberitahu anda sebaik sahaja pembayaran disahkan.",
     "@safelyClosePage": {
         "description": "Safe close page info message"
+    },
+    "myReviews": "Ulasan Saya",
+    "@myReviews": {
+        "description": "My reviews menu title"
+    },
+    "viewYourPastReviews": "Lihat ulasan lepas anda",
+    "@viewYourPastReviews": {
+        "description": "My reviews menu description"
+    },
+    "membershipTier": "Tahap Keahlian",
+    "@membershipTier": {
+        "description": "Membership tier label"
+    },
+    "upgrade": "Naik Taraf",
+    "@upgrade": {
+        "description": "Upgrade button text"
+    },
+    "manage": "Urus",
+    "@manage": {
+        "description": "Manage button text"
     }
 }
