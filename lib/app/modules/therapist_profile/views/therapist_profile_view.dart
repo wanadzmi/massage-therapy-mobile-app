@@ -141,7 +141,7 @@ class TherapistProfileView extends GetView<TherapistProfileController> {
         children: [
           _buildStatItem(
             Icons.star,
-            controller.rating.value.toString(),
+            controller.rating.value.toStringAsFixed(2),
             'Rating',
           ),
           _buildStatItem(

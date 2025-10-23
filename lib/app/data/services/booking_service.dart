@@ -139,12 +139,21 @@ class BookingService extends BaseServices {
       _therapistTodaySummaryEndpoint,
     );
 
+    print('📥 RAW API Response - getTodaySummary:');
+    print('   Success: ${response.isSuccess}');
+    print('   Raw Data: ${response.data}');
+    print('   Error: ${response.error}');
+
     if (response.isSuccess && response.data != null) {
       try {
         final summaryData = response.data['data'] ?? response.data;
+        print('📊 Summary Data (after extraction): $summaryData');
+
         final summary = TodaySummary.fromJson(summaryData);
+        print('✅ Parsed TodaySummary model successfully');
         return MyResponse.complete(summary);
       } catch (e) {
+        print('❌ Failed to parse TodaySummary: $e');
         return MyResponse.error('Failed to parse today summary data: $e');
       }
     }

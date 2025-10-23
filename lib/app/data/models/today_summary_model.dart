@@ -62,6 +62,16 @@ class SummaryStats {
   });
 
   factory SummaryStats.fromJson(Map<String, dynamic> json) {
+    // Calculate total bookings from API fields
+    final completed = json['completed'] as int? ?? 0;
+    final inProgress = json['inProgress'] as int? ?? 0;
+    final upcoming = json['upcoming'] as int? ?? 0;
+    final cancelled = json['cancelled'] as int? ?? 0;
+    final noShow = json['noShow'] as int? ?? 0;
+
+    final totalBookings =
+        completed + inProgress + upcoming + cancelled + noShow;
+
     return SummaryStats(
       totalCustomers: json['totalCustomers'] as int?,
       customerBreakdown:
@@ -70,10 +80,10 @@ class SummaryStats {
               json['customerBreakdown'] as Map<String, dynamic>,
             )
           : null,
-      totalBookings: json['totalBookings'] as int?,
-      completedBookings: json['completedBookings'] as int?,
-      pendingBookings: json['pendingBookings'] as int?,
-      cashCollectionNeeded: json['cashCollectionNeeded'] as int?,
+      totalBookings: totalBookings,
+      completedBookings: completed,
+      pendingBookings: upcoming + inProgress,
+      cashCollectionNeeded: json['cashCollectionNeeded'] as int? ?? 0,
     );
   }
 
@@ -137,10 +147,16 @@ class TodayRevenue {
   TodayRevenue({this.completed, this.pending, this.total});
 
   factory TodayRevenue.fromJson(Map<String, dynamic> json) {
+    // API returns: {total: 1190, cash: 0, transfer: 1190}
+    // We need to map: cash = completed (already collected), transfer/pending = pending
+    final total = json['total']?.toDouble() ?? 0.0;
+    final cash = json['cash']?.toDouble() ?? 0.0;
+    final transfer = json['transfer']?.toDouble() ?? 0.0;
+
     return TodayRevenue(
-      completed: json['completed']?.toDouble(),
-      pending: json['pending']?.toDouble(),
-      total: json['total']?.toDouble(),
+      completed: cash, // Cash already collected
+      pending: transfer, // Transfer/wallet not yet collected
+      total: total,
     );
   }
 
@@ -171,15 +187,21 @@ class UpcomingBooking {
   });
 
   factory UpcomingBooking.fromJson(Map<String, dynamic> json) {
+    // API returns: {customer: {name: ...}, service: ..., time: "15:00 - 16:00", isCash: false}
+    final customer = json['customer'] as Map<String, dynamic>?;
+    final timeRange = json['time'] as String?; // "15:00 - 16:00"
+    final times = timeRange?.split(' - ');
+
     return UpcomingBooking(
       id: json['_id'] ?? json['id'],
       bookingCode: json['bookingCode'],
-      customerName: json['customerName'],
-      serviceName: json['serviceName'],
-      startTime: json['startTime'],
-      endTime: json['endTime'],
+      customerName: customer?['name'] ?? json['customerName'],
+      serviceName: json['service'] ?? json['serviceName'],
+      startTime: times?.first ?? json['startTime'],
+      endTime: times?.last ?? json['endTime'],
       status: json['status'],
-      requiresCashCollection: json['requiresCashCollection'] as bool?,
+      requiresCashCollection:
+          json['isCash'] as bool? ?? json['requiresCashCollection'] as bool?,
     );
   }
 

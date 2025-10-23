@@ -11,15 +11,13 @@ class TherapistProfileController extends GetxController {
   final isLoading = false.obs;
   final isUploadingPhoto = false.obs;
   final profileImageUrl = Rxn<String>();
-  final therapistName = 'John Doe'.obs; // TODO: Get from auth service
-  final therapistEmail =
-      'john.doe@example.com'.obs; // TODO: Get from auth service
-  final therapistPhone = '+60123456789'.obs; // TODO: Get from auth service
-  final therapistSpecialization =
-      'Deep Tissue Massage'.obs; // TODO: Get from API
-  final experienceYears = 5.obs; // TODO: Get from API
-  final rating = 4.8.obs; // TODO: Get from API
-  final completedSessions = 245.obs; // TODO: Get from API
+  final therapistName = ''.obs;
+  final therapistEmail = ''.obs;
+  final therapistPhone = ''.obs;
+  final therapistSpecialization = ''.obs;
+  final experienceYears = 0.obs;
+  final rating = 0.0.obs;
+  final completedSessions = 0.obs;
 
   @override
   void onInit() {
@@ -30,22 +28,87 @@ class TherapistProfileController extends GetxController {
   Future<void> loadProfile() async {
     try {
       isLoading.value = true;
-      // TODO: Implement actual API call to get therapist profile
-      // For now, using placeholder data
-      await Future.delayed(const Duration(milliseconds: 500));
 
-      // Simulate loading profile data
-      // final response = await _therapistService.getProfile();
-      // if (response.isSuccess && response.data != null) {
-      //   therapistName.value = response.data['name'];
-      //   profileImageUrl.value = response.data['profileImage'];
-      //   ...
-      // }
-    } catch (e) {
+      print('📱 Loading therapist profile...');
+      final response = await _therapistService.getProfile();
+
+      print('📦 Profile response - Success: ${response.isSuccess}');
+      print('📦 Profile response - Data: ${response.data}');
+      print('📦 Profile response - Error: ${response.error}');
+
+      if (response.isSuccess && response.data != null) {
+        final data = response.data!;
+
+        print('✅ Profile data received: $data');
+
+        // Extract basic profile info
+        therapistName.value = data['name'] ?? data['fullName'] ?? '';
+        therapistEmail.value = data['email'] ?? '';
+        therapistPhone.value = data['phone'] ?? data['phoneNumber'] ?? '';
+        profileImageUrl.value = data['profileImage'] ?? data['photo'];
+
+        // Extract therapist-specific info from nested therapistInfo object
+        final therapistInfo = data['therapistInfo'] as Map<String, dynamic>?;
+
+        if (therapistInfo != null) {
+          print('🔍 TherapistInfo found: $therapistInfo');
+
+          // Get specializations (array)
+          final specializations = therapistInfo['specializations'] as List?;
+          if (specializations != null && specializations.isNotEmpty) {
+            therapistSpecialization.value = specializations.first.toString();
+          } else {
+            therapistSpecialization.value = 'Massage Therapist';
+          }
+
+          // Get experience (direct value)
+          experienceYears.value = therapistInfo['experience'] ?? 0;
+
+          // Get rating from nested rating object
+          final ratingData = therapistInfo['rating'] as Map<String, dynamic>?;
+          if (ratingData != null) {
+            rating.value = (ratingData['average'] ?? 0.0).toDouble();
+          }
+        }
+
+        // Get completed sessions from bookingStats
+        final bookingStats = data['bookingStats'] as Map<String, dynamic>?;
+        if (bookingStats != null) {
+          completedSessions.value = bookingStats['completedBookings'] ?? 0;
+          print(
+            '🔍 BookingStats: completedBookings = ${completedSessions.value}',
+          );
+        }
+
+        print('✅ Profile loaded:');
+        print('   Name: ${therapistName.value}');
+        print('   Email: ${therapistEmail.value}');
+        print('   Phone: ${therapistPhone.value}');
+        print('   Specialization: ${therapistSpecialization.value}');
+        print('   Experience: ${experienceYears.value} years');
+        print('   Rating: ${rating.value}');
+        print('   Completed Sessions: ${completedSessions.value}');
+      } else {
+        print('❌ Failed to load profile: ${response.error}');
+        Get.snackbar(
+          'Profile Error',
+          response.error ?? 'Failed to load profile',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red.withOpacity(0.8),
+          colorText: Colors.white,
+          duration: const Duration(seconds: 4),
+        );
+      }
+    } catch (e, stackTrace) {
+      print('❌ Exception loading profile: $e');
+      print('❌ Stack trace: $stackTrace');
       Get.snackbar(
         'Error',
         'Failed to load profile: $e',
         snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red.withOpacity(0.8),
+        colorText: Colors.white,
+        duration: const Duration(seconds: 4),
       );
     } finally {
       isLoading.value = false;

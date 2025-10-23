@@ -48,13 +48,28 @@ class TodaySummaryController extends GetxController {
   Future<void> loadTodaySummary() async {
     try {
       _isLoading.value = true;
+
+      print('📱 Loading today summary...');
       final response = await _bookingService.getTodaySummary();
+
+      print('📦 Today Summary response - Success: ${response.isSuccess}');
+      print('📦 Today Summary response - Data: ${response.data}');
+      print('📦 Today Summary response - Error: ${response.error}');
 
       if (response.isSuccess && response.data != null) {
         _todaySummary.value = response.data;
+
         print('✅ Loaded today summary successfully');
+        print('   Total Customers: $totalCustomers');
+        print('   Total Bookings: $totalBookings');
+        print('   Cash Collection Needed: $cashCollectionNeeded');
+        print('   Completed Revenue: RM$completedRevenue');
+        print('   Pending Revenue: RM$pendingRevenue');
+        print('   Total Revenue: RM$totalRevenue');
+        print('   Upcoming Bookings: ${upcomingBookings.length}');
       } else {
         _todaySummary.value = null;
+        print('❌ Failed to load today summary: ${response.error}');
         Get.snackbar(
           'Error',
           response.error ?? 'Failed to load today\'s summary',
@@ -63,8 +78,9 @@ class TodaySummaryController extends GetxController {
           colorText: Colors.white,
         );
       }
-    } catch (e) {
-      print('Error loading today summary: $e');
+    } catch (e, stackTrace) {
+      print('❌ Exception loading today summary: $e');
+      print('❌ Stack trace: $stackTrace');
       Get.snackbar(
         'Error',
         'An error occurred: $e',
