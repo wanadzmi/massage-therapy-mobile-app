@@ -413,6 +413,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get loadingExchangeRate => 'Loading exchange rate...';
 
   @override
+  String get exchangeRate => 'Rate';
+
+  @override
   String get minimumMaximum => 'Minimum: RM10 | Maximum: RM5,000';
 
   @override

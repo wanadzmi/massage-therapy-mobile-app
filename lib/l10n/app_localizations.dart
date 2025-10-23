@@ -898,6 +898,12 @@ abstract class AppLocalizations {
   /// **'Loading exchange rate...'**
   String get loadingExchangeRate;
 
+  /// Exchange rate label
+  ///
+  /// In en, this message translates to:
+  /// **'Rate'**
+  String get exchangeRate;
+
   /// Min/max amount limits
   ///
   /// In en, this message translates to:

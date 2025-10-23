@@ -539,6 +539,10 @@
     "@loadingExchangeRate": {
         "description": "Loading exchange rate message"
     },
+    "exchangeRate": "Rate",
+    "@exchangeRate": {
+        "description": "Exchange rate label"
+    },
     "minimumMaximum": "Minimum: RM10 | Maximum: RM5,000",
     "@minimumMaximum": {
         "description": "Min/max amount limits"

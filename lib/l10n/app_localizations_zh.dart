@@ -410,6 +410,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get loadingExchangeRate => '正在加载汇率...';
 
   @override
+  String get exchangeRate => '汇率';
+
+  @override
   String get minimumMaximum => '最低：RM10 | 最高：RM5,000';
 
   @override

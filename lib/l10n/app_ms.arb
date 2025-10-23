@@ -539,6 +539,10 @@
     "@loadingExchangeRate": {
         "description": "Loading exchange rate message"
     },
+    "exchangeRate": "Kadar",
+    "@exchangeRate": {
+        "description": "Exchange rate label"
+    },
     "minimumMaximum": "Minimum: RM10 | Maksimum: RM5,000",
     "@minimumMaximum": {
         "description": "Min/max amount limits"

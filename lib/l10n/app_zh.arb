@@ -539,6 +539,10 @@
     "@loadingExchangeRate": {
         "description": "Loading exchange rate message"
     },
+    "exchangeRate": "汇率",
+    "@exchangeRate": {
+        "description": "Exchange rate label"
+    },
     "minimumMaximum": "最低：RM10 | 最高：RM5,000",
     "@minimumMaximum": {
         "description": "Min/max amount limits"

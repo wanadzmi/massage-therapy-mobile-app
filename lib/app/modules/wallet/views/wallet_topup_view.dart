@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../controllers/wallet_topup_controller.dart';
 
 class WalletTopUpView extends GetView<WalletTopUpController> {
@@ -7,15 +8,16 @@ class WalletTopUpView extends GetView<WalletTopUpController> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     // Load payment methods when the view is built
     controller.loadPaymentMethods(context);
 
     return Scaffold(
       backgroundColor: const Color(0xFF0A0A0A),
       appBar: AppBar(
-        title: const Text(
-          'Top Up Wallet',
-          style: TextStyle(
+        title: Text(
+          l10n.topUpWallet,
+          style: const TextStyle(
             color: Color(0xFFE0E0E0),
             fontWeight: FontWeight.w500,
             fontSize: 18,
@@ -43,8 +45,9 @@ class WalletTopUpView extends GetView<WalletTopUpController> {
                 children: [
                   Obx(() {
                     final isUsdt = controller.isUsdtPayment;
+                    final l10n = AppLocalizations.of(context)!;
                     return Text(
-                      isUsdt ? 'Enter Amount (USD)' : 'Enter Amount',
+                      isUsdt ? l10n.enterAmountUsd : l10n.enterAmount,
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -58,12 +61,13 @@ class WalletTopUpView extends GetView<WalletTopUpController> {
                   const SizedBox(height: 8),
                   Obx(() {
                     final isUsdt = controller.isUsdtPayment;
+                    final l10n = AppLocalizations.of(context)!;
                     if (isUsdt) {
                       // Show MYR equivalent for USDT
                       if (controller.isLoadingRate) {
-                        return const Row(
+                        return Row(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               width: 12,
                               height: 12,
                               child: CircularProgressIndicator(
@@ -73,10 +77,10 @@ class WalletTopUpView extends GetView<WalletTopUpController> {
                                 ),
                               ),
                             ),
-                            SizedBox(width: 8),
+                            const SizedBox(width: 8),
                             Text(
-                              'Loading exchange rate...',
-                              style: TextStyle(
+                              l10n.loadingExchangeRate,
+                              style: const TextStyle(
                                 fontSize: 12,
                                 color: Color(0xFF808080),
                               ),
@@ -85,7 +89,7 @@ class WalletTopUpView extends GetView<WalletTopUpController> {
                         );
                       } else if (controller.myrEquivalent > 0) {
                         return Text(
-                          '≈ RM ${controller.myrEquivalent.toStringAsFixed(2)} | Rate: 1 USD = RM ${controller.usdToMyrRate.toStringAsFixed(2)}',
+                          '≈ RM ${controller.myrEquivalent.toStringAsFixed(2)} | ${l10n.exchangeRate}: 1 USD = RM ${controller.usdToMyrRate.toStringAsFixed(2)}',
                           style: const TextStyle(
                             fontSize: 12,
                             color: Color(0xFFD4AF37),
@@ -94,7 +98,7 @@ class WalletTopUpView extends GetView<WalletTopUpController> {
                         );
                       } else if (controller.usdToMyrRate > 0) {
                         return Text(
-                          'Rate: 1 USD = RM ${controller.usdToMyrRate.toStringAsFixed(2)}',
+                          '${l10n.exchangeRate}: 1 USD = RM ${controller.usdToMyrRate.toStringAsFixed(2)}',
                           style: const TextStyle(
                             fontSize: 12,
                             color: Color(0xFF808080),
@@ -103,9 +107,12 @@ class WalletTopUpView extends GetView<WalletTopUpController> {
                       }
                     }
                     // Show MYR limits for bank payments
-                    return const Text(
-                      'Minimum: RM10 | Maximum: RM5,000',
-                      style: TextStyle(fontSize: 12, color: Color(0xFF808080)),
+                    return Text(
+                      l10n.minimumMaximum,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: Color(0xFF808080),
+                      ),
                     );
                   }),
                 ],
@@ -125,9 +132,9 @@ class WalletTopUpView extends GetView<WalletTopUpController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Select Payment Method',
-                    style: TextStyle(
+                  Text(
+                    l10n.selectPaymentMethod,
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color: Color(0xFFE0E0E0),
@@ -153,51 +160,56 @@ class WalletTopUpView extends GetView<WalletTopUpController> {
   }
 
   Widget _buildBalanceCard() {
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.all(16),
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            const Color(0xFFD4AF37).withValues(alpha: 0.2),
-            const Color(0xFFD4AF37).withValues(alpha: 0.1),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: const Color(0xFFD4AF37).withValues(alpha: 0.3),
-          width: 1,
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'Current Balance',
-            style: TextStyle(
-              color: Color(0xFF808080),
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-              letterSpacing: 0.5,
+    return Builder(
+      builder: (context) {
+        final l10n = AppLocalizations.of(context)!;
+        return Container(
+          width: double.infinity,
+          margin: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                const Color(0xFFD4AF37).withValues(alpha: 0.2),
+                const Color(0xFFD4AF37).withValues(alpha: 0.1),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: const Color(0xFFD4AF37).withValues(alpha: 0.3),
+              width: 1,
             ),
           ),
-          const SizedBox(height: 8),
-          Obx(
-            () => Text(
-              'RM ${controller.currentBalance.toStringAsFixed(2)}',
-              style: const TextStyle(
-                color: Color(0xFFD4AF37),
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 0.5,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                l10n.currentBalance,
+                style: const TextStyle(
+                  color: Color(0xFF808080),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  letterSpacing: 0.5,
+                ),
               ),
-            ),
+              const SizedBox(height: 8),
+              Obx(
+                () => Text(
+                  'RM ${controller.currentBalance.toStringAsFixed(2)}',
+                  style: const TextStyle(
+                    color: Color(0xFFD4AF37),
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.5,
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -434,6 +446,7 @@ class WalletTopUpView extends GetView<WalletTopUpController> {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Builder(
         builder: (context) {
+          final l10n = AppLocalizations.of(context)!;
           return Obx(() {
             final isProcessing = controller.isProcessing;
             // For USDT payments, validate against MYR equivalent
@@ -471,9 +484,9 @@ class WalletTopUpView extends GetView<WalletTopUpController> {
                           ),
                         ),
                       )
-                    : const Text(
-                        'Continue',
-                        style: TextStyle(
+                    : Text(
+                        l10n.continueButton,
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                           color: Color(0xFF0A0A0A),
