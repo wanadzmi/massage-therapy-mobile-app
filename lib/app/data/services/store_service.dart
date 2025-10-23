@@ -10,10 +10,18 @@ class StoreService extends BaseServices {
     int? limit,
     int? page,
     String? city,
+    String? area,
     String? search,
+    double? lat,
+    double? lng,
+    double? radius,
+    double? rating,
+    String? priceRange,
     double? minPrice,
     double? maxPrice,
     List<String>? amenities,
+    String? sortBy,
+    String? sortOrder,
     bool? isVerified,
     bool? isOpen,
   }) async {
@@ -22,12 +30,20 @@ class StoreService extends BaseServices {
     if (limit != null) queryParts.add('limit=$limit');
     if (page != null) queryParts.add('page=$page');
     if (city != null) queryParts.add('city=$city');
+    if (area != null) queryParts.add('area=$area');
     if (search != null) queryParts.add('search=$search');
+    if (lat != null) queryParts.add('lat=$lat');
+    if (lng != null) queryParts.add('lng=$lng');
+    if (radius != null) queryParts.add('radius=$radius');
+    if (rating != null) queryParts.add('rating=$rating');
+    if (priceRange != null) queryParts.add('priceRange=$priceRange');
     if (minPrice != null) queryParts.add('minPrice=$minPrice');
     if (maxPrice != null) queryParts.add('maxPrice=$maxPrice');
     if (amenities != null && amenities.isNotEmpty) {
       queryParts.add('amenities=${amenities.join(',')}');
     }
+    if (sortBy != null) queryParts.add('sortBy=$sortBy');
+    if (sortOrder != null) queryParts.add('sortOrder=$sortOrder');
     if (isVerified != null) queryParts.add('isVerified=$isVerified');
     if (isOpen != null) queryParts.add('isOpen=$isOpen');
 
