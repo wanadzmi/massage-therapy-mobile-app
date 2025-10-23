@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
 import '../models/wallet_topup_model.dart';
 import 'base_services.dart';
+import '../../../l10n/app_localizations.dart';
 
 class WalletService extends BaseServices {
   static const String _walletEndpoint = '/api/wallet';
@@ -73,53 +75,55 @@ class WalletService extends BaseServices {
   }
 
   /// Get available payment methods
-  List<PaymentMethod> getAvailablePaymentMethods() {
+  List<PaymentMethod> getAvailablePaymentMethods(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return [
       PaymentMethod(
         id: 'test_payment',
-        name: 'Test Payment',
-        description: 'Instant credit (Testing only)',
+        name: l10n.testPayment,
+        description: l10n.testPaymentDesc,
         enabled: true,
-        badge: 'INSTANT',
+        badge: l10n.instant,
         badgeColor: '4CAF50', // Green
       ),
       PaymentMethod(
         id: 'usdt_trc20',
-        name: 'USDT (TRC20)',
-        description: 'Cryptocurrency on Tron Network',
+        name: l10n.usdtTrc20,
+        description: l10n.usdtTrc20Desc,
         enabled: true,
-        badge: 'CRYPTO',
+        badge: l10n.crypto,
         badgeColor: 'FF9800', // Orange
       ),
       PaymentMethod(
         id: 'fpx',
-        name: 'Online Banking',
-        description: 'FPX Payment Gateway',
+        name: l10n.onlineBanking,
+        description: l10n.onlineBankingDesc,
         enabled: false,
-        badge: 'COMING SOON',
+        badge: l10n.comingSoon,
         badgeColor: '9E9E9E', // Grey
       ),
       PaymentMethod(
         id: 'tng_ewallet',
-        name: 'Touch n Go',
-        description: 'eWallet Payment',
+        name: l10n.touchNGo,
+        description: l10n.touchNGoDesc,
         enabled: false,
-        badge: 'COMING SOON',
+        badge: l10n.comingSoon,
         badgeColor: '9E9E9E', // Grey
       ),
     ];
   }
 
   /// Validate top-up amount
-  String? validateAmount(double? amount) {
+  String? validateAmount(double? amount, AppLocalizations l10n) {
     if (amount == null || amount <= 0) {
-      return 'Please enter a valid amount';
+      return l10n.pleaseEnterValidAmount;
     }
     if (amount < 10) {
-      return 'Minimum top-up amount is RM10';
+      return l10n.minimumTopUpAmount;
     }
     if (amount > 5000) {
-      return 'Maximum top-up amount is RM5,000';
+      return l10n.maximumTopUpAmount;
     }
     return null;
   }

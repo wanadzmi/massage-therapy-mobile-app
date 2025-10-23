@@ -484,5 +484,193 @@
     "submitReview": "Hantar Ulasan",
     "@submitReview": {
         "description": "Submit review button"
+    },
+    "@_EDIT_PROFILE": {},
+    "editProfile": "Sunting Profil",
+    "@editProfile": {
+        "description": "Edit profile page title"
+    },
+    "fullName": "Nama Penuh",
+    "@fullName": {
+        "description": "Full name field label"
+    },
+    "dateOfBirth": "Tarikh Lahir",
+    "@dateOfBirth": {
+        "description": "Date of birth field label"
+    },
+    "selectGender": "Pilih Jantina",
+    "@selectGender": {
+        "description": "Gender dropdown hint"
+    },
+    "male": "Lelaki",
+    "@male": {
+        "description": "Male gender option"
+    },
+    "female": "Perempuan",
+    "@female": {
+        "description": "Female gender option"
+    },
+    "other": "Lain-lain",
+    "@other": {
+        "description": "Other gender option"
+    },
+    "saveChanges": "Simpan Perubahan",
+    "@saveChanges": {
+        "description": "Save changes button"
+    },
+    "@_TOP_UP_WALLET": {},
+    "topUpWallet": "Tambah Nilai Dompet",
+    "@topUpWallet": {
+        "description": "Top up wallet page title"
+    },
+    "currentBalance": "Baki Semasa",
+    "@currentBalance": {
+        "description": "Current balance label"
+    },
+    "enterAmount": "Masukkan Jumlah",
+    "@enterAmount": {
+        "description": "Amount input label"
+    },
+    "enterAmountUsd": "Masukkan Jumlah (USD)",
+    "@enterAmountUsd": {
+        "description": "Amount input label for USDT"
+    },
+    "loadingExchangeRate": "Memuatkan kadar pertukaran...",
+    "@loadingExchangeRate": {
+        "description": "Loading exchange rate message"
+    },
+    "minimumMaximum": "Minimum: RM10 | Maksimum: RM5,000",
+    "@minimumMaximum": {
+        "description": "Min/max amount limits"
+    },
+    "selectPaymentMethod": "Pilih Kaedah Pembayaran",
+    "@selectPaymentMethod": {
+        "description": "Payment method selection label"
+    },
+    "continueButton": "Teruskan",
+    "@continueButton": {
+        "description": "Continue button text"
+    },
+    "@_PAYMENT_METHODS": {},
+    "testPayment": "Pembayaran Ujian",
+    "@testPayment": {
+        "description": "Test payment method name"
+    },
+    "testPaymentDesc": "Kredit segera (Ujian sahaja)",
+    "@testPaymentDesc": {
+        "description": "Test payment method description"
+    },
+    "usdtTrc20": "USDT (TRC20)",
+    "@usdtTrc20": {
+        "description": "USDT TRC20 payment method name"
+    },
+    "usdtTrc20Desc": "Mata wang kripto di Rangkaian Tron",
+    "@usdtTrc20Desc": {
+        "description": "USDT TRC20 payment method description"
+    },
+    "onlineBanking": "Perbankan Dalam Talian",
+    "@onlineBanking": {
+        "description": "Online banking payment method name"
+    },
+    "onlineBankingDesc": "Gerbang Pembayaran FPX",
+    "@onlineBankingDesc": {
+        "description": "Online banking payment method description"
+    },
+    "touchNGo": "Touch n Go",
+    "@touchNGo": {
+        "description": "Touch n Go payment method name"
+    },
+    "touchNGoDesc": "Pembayaran eWallet",
+    "@touchNGoDesc": {
+        "description": "Touch n Go payment method description"
+    },
+    "instant": "SEGERA",
+    "@instant": {
+        "description": "Instant badge text"
+    },
+    "crypto": "KRIPTO",
+    "@crypto": {
+        "description": "Crypto badge text"
+    },
+    "comingSoon": "AKAN DATANG",
+    "@comingSoon": {
+        "description": "Coming soon badge text"
+    },
+    "@_WALLET_DIALOGS": {},
+    "invalidAmount": "Jumlah Tidak Sah",
+    "@invalidAmount": {
+        "description": "Invalid amount error title"
+    },
+    "pleaseEnterValidAmount": "Sila masukkan jumlah yang sah",
+    "@pleaseEnterValidAmount": {
+        "description": "Invalid amount error message"
+    },
+    "minimumTopUpAmount": "Jumlah tambah nilai minimum ialah RM10",
+    "@minimumTopUpAmount": {
+        "description": "Minimum amount validation"
+    },
+    "maximumTopUpAmount": "Jumlah tambah nilai maksimum ialah RM5,000",
+    "@maximumTopUpAmount": {
+        "description": "Maximum amount validation"
+    },
+    "paymentMethodRequired": "Kaedah Pembayaran Diperlukan",
+    "@paymentMethodRequired": {
+        "description": "Payment method required title"
+    },
+    "pleaseSelectPaymentMethod": "Sila pilih kaedah pembayaran",
+    "@pleaseSelectPaymentMethod": {
+        "description": "Payment method required message"
+    },
+    "topUpFailed": "Tambah Nilai Gagal",
+    "@topUpFailed": {
+        "description": "Top-up failed title"
+    },
+    "failedToInitiateTopUp": "Gagal memulakan tambah nilai",
+    "@failedToInitiateTopUp": {
+        "description": "Top-up failed message"
+    },
+    "anErrorOccurred": "Ralat telah berlaku",
+    "@anErrorOccurred": {
+        "description": "Generic error message"
+    },
+    "topUpSuccessful": "Tambah Nilai Berjaya!",
+    "@topUpSuccessful": {
+        "description": "Top-up success title"
+    },
+    "creditedToWallet": "telah dikreditkan ke dompet anda",
+    "@creditedToWallet": {
+        "description": "Credited to wallet message"
+    },
+    "newBalance": "Baki Baharu",
+    "@newBalance": {
+        "description": "New balance label"
+    },
+    "done": "Selesai",
+    "@done": {
+        "description": "Done button text"
+    },
+    "paymentConfirmed": "Pembayaran Disahkan!",
+    "@paymentConfirmed": {
+        "description": "Payment confirmed title"
+    },
+    "paymentFailed": "Pembayaran Gagal",
+    "@paymentFailed": {
+        "description": "Payment failed title"
+    },
+    "paymentCouldNotBeProcessed": "Pembayaran anda tidak dapat diproses. Sila cuba lagi.",
+    "@paymentCouldNotBeProcessed": {
+        "description": "Payment failed message"
+    },
+    "paymentPending": "Pembayaran Tertunda",
+    "@paymentPending": {
+        "description": "Payment pending title"
+    },
+    "paymentTakingLonger": "Pengesahan pembayaran mengambil masa lebih lama daripada jangkaan. Sila semak sejarah transaksi anda.",
+    "@paymentTakingLonger": {
+        "description": "Payment pending message"
+    },
+    "willBeAvailableSoon": "akan tersedia tidak lama lagi",
+    "@willBeAvailableSoon": {
+        "description": "Coming soon payment method message"
     }
 }

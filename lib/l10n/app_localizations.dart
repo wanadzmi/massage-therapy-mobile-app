@@ -819,6 +819,282 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Submit Review'**
   String get submitReview;
+
+  /// Edit profile page title
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Profile'**
+  String get editProfile;
+
+  /// Full name field label
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name'**
+  String get fullName;
+
+  /// Date of birth field label
+  ///
+  /// In en, this message translates to:
+  /// **'Date of Birth'**
+  String get dateOfBirth;
+
+  /// Gender dropdown hint
+  ///
+  /// In en, this message translates to:
+  /// **'Select Gender'**
+  String get selectGender;
+
+  /// Male gender option
+  ///
+  /// In en, this message translates to:
+  /// **'Male'**
+  String get male;
+
+  /// Female gender option
+  ///
+  /// In en, this message translates to:
+  /// **'Female'**
+  String get female;
+
+  /// Other gender option
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get other;
+
+  /// Save changes button
+  ///
+  /// In en, this message translates to:
+  /// **'Save Changes'**
+  String get saveChanges;
+
+  /// Top up wallet page title
+  ///
+  /// In en, this message translates to:
+  /// **'Top Up Wallet'**
+  String get topUpWallet;
+
+  /// Current balance label
+  ///
+  /// In en, this message translates to:
+  /// **'Current Balance'**
+  String get currentBalance;
+
+  /// Amount input label
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Amount'**
+  String get enterAmount;
+
+  /// Amount input label for USDT
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Amount (USD)'**
+  String get enterAmountUsd;
+
+  /// Loading exchange rate message
+  ///
+  /// In en, this message translates to:
+  /// **'Loading exchange rate...'**
+  String get loadingExchangeRate;
+
+  /// Min/max amount limits
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum: RM10 | Maximum: RM5,000'**
+  String get minimumMaximum;
+
+  /// Payment method selection label
+  ///
+  /// In en, this message translates to:
+  /// **'Select Payment Method'**
+  String get selectPaymentMethod;
+
+  /// Continue button text
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueButton;
+
+  /// Test payment method name
+  ///
+  /// In en, this message translates to:
+  /// **'Test Payment'**
+  String get testPayment;
+
+  /// Test payment method description
+  ///
+  /// In en, this message translates to:
+  /// **'Instant credit (Testing only)'**
+  String get testPaymentDesc;
+
+  /// USDT TRC20 payment method name
+  ///
+  /// In en, this message translates to:
+  /// **'USDT (TRC20)'**
+  String get usdtTrc20;
+
+  /// USDT TRC20 payment method description
+  ///
+  /// In en, this message translates to:
+  /// **'Cryptocurrency on Tron Network'**
+  String get usdtTrc20Desc;
+
+  /// Online banking payment method name
+  ///
+  /// In en, this message translates to:
+  /// **'Online Banking'**
+  String get onlineBanking;
+
+  /// Online banking payment method description
+  ///
+  /// In en, this message translates to:
+  /// **'FPX Payment Gateway'**
+  String get onlineBankingDesc;
+
+  /// Touch n Go payment method name
+  ///
+  /// In en, this message translates to:
+  /// **'Touch n Go'**
+  String get touchNGo;
+
+  /// Touch n Go payment method description
+  ///
+  /// In en, this message translates to:
+  /// **'eWallet Payment'**
+  String get touchNGoDesc;
+
+  /// Instant badge text
+  ///
+  /// In en, this message translates to:
+  /// **'INSTANT'**
+  String get instant;
+
+  /// Crypto badge text
+  ///
+  /// In en, this message translates to:
+  /// **'CRYPTO'**
+  String get crypto;
+
+  /// Coming soon badge text
+  ///
+  /// In en, this message translates to:
+  /// **'COMING SOON'**
+  String get comingSoon;
+
+  /// Invalid amount error title
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid Amount'**
+  String get invalidAmount;
+
+  /// Invalid amount error message
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid amount'**
+  String get pleaseEnterValidAmount;
+
+  /// Minimum amount validation
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum top-up amount is RM10'**
+  String get minimumTopUpAmount;
+
+  /// Maximum amount validation
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum top-up amount is RM5,000'**
+  String get maximumTopUpAmount;
+
+  /// Payment method required title
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Method Required'**
+  String get paymentMethodRequired;
+
+  /// Payment method required message
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a payment method'**
+  String get pleaseSelectPaymentMethod;
+
+  /// Top-up failed title
+  ///
+  /// In en, this message translates to:
+  /// **'Top-Up Failed'**
+  String get topUpFailed;
+
+  /// Top-up failed message
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to initiate top-up'**
+  String get failedToInitiateTopUp;
+
+  /// Generic error message
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred'**
+  String get anErrorOccurred;
+
+  /// Top-up success title
+  ///
+  /// In en, this message translates to:
+  /// **'Top-Up Successful!'**
+  String get topUpSuccessful;
+
+  /// Credited to wallet message
+  ///
+  /// In en, this message translates to:
+  /// **'has been credited to your wallet'**
+  String get creditedToWallet;
+
+  /// New balance label
+  ///
+  /// In en, this message translates to:
+  /// **'New Balance'**
+  String get newBalance;
+
+  /// Done button text
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
+
+  /// Payment confirmed title
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Confirmed!'**
+  String get paymentConfirmed;
+
+  /// Payment failed title
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Failed'**
+  String get paymentFailed;
+
+  /// Payment failed message
+  ///
+  /// In en, this message translates to:
+  /// **'Your payment could not be processed. Please try again.'**
+  String get paymentCouldNotBeProcessed;
+
+  /// Payment pending title
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Pending'**
+  String get paymentPending;
+
+  /// Payment pending message
+  ///
+  /// In en, this message translates to:
+  /// **'Payment confirmation is taking longer than expected. Please check your transaction history.'**
+  String get paymentTakingLonger;
+
+  /// Coming soon payment method message
+  ///
+  /// In en, this message translates to:
+  /// **'will be available soon'**
+  String get willBeAvailableSoon;
 }
 
 class _AppLocalizationsDelegate

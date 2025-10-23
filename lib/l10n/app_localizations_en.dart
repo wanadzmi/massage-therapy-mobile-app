@@ -372,4 +372,144 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get submitReview => 'Submit Review';
+
+  @override
+  String get editProfile => 'Edit Profile';
+
+  @override
+  String get fullName => 'Full Name';
+
+  @override
+  String get dateOfBirth => 'Date of Birth';
+
+  @override
+  String get selectGender => 'Select Gender';
+
+  @override
+  String get male => 'Male';
+
+  @override
+  String get female => 'Female';
+
+  @override
+  String get other => 'Other';
+
+  @override
+  String get saveChanges => 'Save Changes';
+
+  @override
+  String get topUpWallet => 'Top Up Wallet';
+
+  @override
+  String get currentBalance => 'Current Balance';
+
+  @override
+  String get enterAmount => 'Enter Amount';
+
+  @override
+  String get enterAmountUsd => 'Enter Amount (USD)';
+
+  @override
+  String get loadingExchangeRate => 'Loading exchange rate...';
+
+  @override
+  String get minimumMaximum => 'Minimum: RM10 | Maximum: RM5,000';
+
+  @override
+  String get selectPaymentMethod => 'Select Payment Method';
+
+  @override
+  String get continueButton => 'Continue';
+
+  @override
+  String get testPayment => 'Test Payment';
+
+  @override
+  String get testPaymentDesc => 'Instant credit (Testing only)';
+
+  @override
+  String get usdtTrc20 => 'USDT (TRC20)';
+
+  @override
+  String get usdtTrc20Desc => 'Cryptocurrency on Tron Network';
+
+  @override
+  String get onlineBanking => 'Online Banking';
+
+  @override
+  String get onlineBankingDesc => 'FPX Payment Gateway';
+
+  @override
+  String get touchNGo => 'Touch n Go';
+
+  @override
+  String get touchNGoDesc => 'eWallet Payment';
+
+  @override
+  String get instant => 'INSTANT';
+
+  @override
+  String get crypto => 'CRYPTO';
+
+  @override
+  String get comingSoon => 'COMING SOON';
+
+  @override
+  String get invalidAmount => 'Invalid Amount';
+
+  @override
+  String get pleaseEnterValidAmount => 'Please enter a valid amount';
+
+  @override
+  String get minimumTopUpAmount => 'Minimum top-up amount is RM10';
+
+  @override
+  String get maximumTopUpAmount => 'Maximum top-up amount is RM5,000';
+
+  @override
+  String get paymentMethodRequired => 'Payment Method Required';
+
+  @override
+  String get pleaseSelectPaymentMethod => 'Please select a payment method';
+
+  @override
+  String get topUpFailed => 'Top-Up Failed';
+
+  @override
+  String get failedToInitiateTopUp => 'Failed to initiate top-up';
+
+  @override
+  String get anErrorOccurred => 'An error occurred';
+
+  @override
+  String get topUpSuccessful => 'Top-Up Successful!';
+
+  @override
+  String get creditedToWallet => 'has been credited to your wallet';
+
+  @override
+  String get newBalance => 'New Balance';
+
+  @override
+  String get done => 'Done';
+
+  @override
+  String get paymentConfirmed => 'Payment Confirmed!';
+
+  @override
+  String get paymentFailed => 'Payment Failed';
+
+  @override
+  String get paymentCouldNotBeProcessed =>
+      'Your payment could not be processed. Please try again.';
+
+  @override
+  String get paymentPending => 'Payment Pending';
+
+  @override
+  String get paymentTakingLonger =>
+      'Payment confirmation is taking longer than expected. Please check your transaction history.';
+
+  @override
+  String get willBeAvailableSoon => 'will be available soon';
 }

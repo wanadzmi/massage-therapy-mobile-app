@@ -369,4 +369,142 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get submitReview => '提交评论';
+
+  @override
+  String get editProfile => '编辑个人资料';
+
+  @override
+  String get fullName => '全名';
+
+  @override
+  String get dateOfBirth => '出生日期';
+
+  @override
+  String get selectGender => '选择性别';
+
+  @override
+  String get male => '男性';
+
+  @override
+  String get female => '女性';
+
+  @override
+  String get other => '其他';
+
+  @override
+  String get saveChanges => '保存更改';
+
+  @override
+  String get topUpWallet => '钱包充值';
+
+  @override
+  String get currentBalance => '当前余额';
+
+  @override
+  String get enterAmount => '输入金额';
+
+  @override
+  String get enterAmountUsd => '输入金额（美元）';
+
+  @override
+  String get loadingExchangeRate => '正在加载汇率...';
+
+  @override
+  String get minimumMaximum => '最低：RM10 | 最高：RM5,000';
+
+  @override
+  String get selectPaymentMethod => '选择付款方式';
+
+  @override
+  String get continueButton => '继续';
+
+  @override
+  String get testPayment => '测试支付';
+
+  @override
+  String get testPaymentDesc => '即时到账（仅供测试）';
+
+  @override
+  String get usdtTrc20 => 'USDT (TRC20)';
+
+  @override
+  String get usdtTrc20Desc => '波场网络加密货币';
+
+  @override
+  String get onlineBanking => '网上银行';
+
+  @override
+  String get onlineBankingDesc => 'FPX 支付网关';
+
+  @override
+  String get touchNGo => 'Touch n Go';
+
+  @override
+  String get touchNGoDesc => '电子钱包支付';
+
+  @override
+  String get instant => '即时';
+
+  @override
+  String get crypto => '加密货币';
+
+  @override
+  String get comingSoon => '即将推出';
+
+  @override
+  String get invalidAmount => '金额无效';
+
+  @override
+  String get pleaseEnterValidAmount => '请输入有效金额';
+
+  @override
+  String get minimumTopUpAmount => '最低充值金额为RM10';
+
+  @override
+  String get maximumTopUpAmount => '最高充值金额为RM5,000';
+
+  @override
+  String get paymentMethodRequired => '需要付款方式';
+
+  @override
+  String get pleaseSelectPaymentMethod => '请选择付款方式';
+
+  @override
+  String get topUpFailed => '充值失败';
+
+  @override
+  String get failedToInitiateTopUp => '无法启动充值';
+
+  @override
+  String get anErrorOccurred => '发生错误';
+
+  @override
+  String get topUpSuccessful => '充值成功！';
+
+  @override
+  String get creditedToWallet => '已充入您的钱包';
+
+  @override
+  String get newBalance => '新余额';
+
+  @override
+  String get done => '完成';
+
+  @override
+  String get paymentConfirmed => '付款已确认！';
+
+  @override
+  String get paymentFailed => '付款失败';
+
+  @override
+  String get paymentCouldNotBeProcessed => '您的付款无法处理。请重试。';
+
+  @override
+  String get paymentPending => '付款待处理';
+
+  @override
+  String get paymentTakingLonger => '付款确认所需时间比预期长。请查看您的交易历史。';
+
+  @override
+  String get willBeAvailableSoon => '即将推出';
 }

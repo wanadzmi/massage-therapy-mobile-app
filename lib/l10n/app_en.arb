@@ -484,5 +484,193 @@
     "submitReview": "Submit Review",
     "@submitReview": {
         "description": "Submit review button"
+    },
+    "@_EDIT_PROFILE": {},
+    "editProfile": "Edit Profile",
+    "@editProfile": {
+        "description": "Edit profile page title"
+    },
+    "fullName": "Full Name",
+    "@fullName": {
+        "description": "Full name field label"
+    },
+    "dateOfBirth": "Date of Birth",
+    "@dateOfBirth": {
+        "description": "Date of birth field label"
+    },
+    "selectGender": "Select Gender",
+    "@selectGender": {
+        "description": "Gender dropdown hint"
+    },
+    "male": "Male",
+    "@male": {
+        "description": "Male gender option"
+    },
+    "female": "Female",
+    "@female": {
+        "description": "Female gender option"
+    },
+    "other": "Other",
+    "@other": {
+        "description": "Other gender option"
+    },
+    "saveChanges": "Save Changes",
+    "@saveChanges": {
+        "description": "Save changes button"
+    },
+    "@_TOP_UP_WALLET": {},
+    "topUpWallet": "Top Up Wallet",
+    "@topUpWallet": {
+        "description": "Top up wallet page title"
+    },
+    "currentBalance": "Current Balance",
+    "@currentBalance": {
+        "description": "Current balance label"
+    },
+    "enterAmount": "Enter Amount",
+    "@enterAmount": {
+        "description": "Amount input label"
+    },
+    "enterAmountUsd": "Enter Amount (USD)",
+    "@enterAmountUsd": {
+        "description": "Amount input label for USDT"
+    },
+    "loadingExchangeRate": "Loading exchange rate...",
+    "@loadingExchangeRate": {
+        "description": "Loading exchange rate message"
+    },
+    "minimumMaximum": "Minimum: RM10 | Maximum: RM5,000",
+    "@minimumMaximum": {
+        "description": "Min/max amount limits"
+    },
+    "selectPaymentMethod": "Select Payment Method",
+    "@selectPaymentMethod": {
+        "description": "Payment method selection label"
+    },
+    "continueButton": "Continue",
+    "@continueButton": {
+        "description": "Continue button text"
+    },
+    "@_PAYMENT_METHODS": {},
+    "testPayment": "Test Payment",
+    "@testPayment": {
+        "description": "Test payment method name"
+    },
+    "testPaymentDesc": "Instant credit (Testing only)",
+    "@testPaymentDesc": {
+        "description": "Test payment method description"
+    },
+    "usdtTrc20": "USDT (TRC20)",
+    "@usdtTrc20": {
+        "description": "USDT TRC20 payment method name"
+    },
+    "usdtTrc20Desc": "Cryptocurrency on Tron Network",
+    "@usdtTrc20Desc": {
+        "description": "USDT TRC20 payment method description"
+    },
+    "onlineBanking": "Online Banking",
+    "@onlineBanking": {
+        "description": "Online banking payment method name"
+    },
+    "onlineBankingDesc": "FPX Payment Gateway",
+    "@onlineBankingDesc": {
+        "description": "Online banking payment method description"
+    },
+    "touchNGo": "Touch n Go",
+    "@touchNGo": {
+        "description": "Touch n Go payment method name"
+    },
+    "touchNGoDesc": "eWallet Payment",
+    "@touchNGoDesc": {
+        "description": "Touch n Go payment method description"
+    },
+    "instant": "INSTANT",
+    "@instant": {
+        "description": "Instant badge text"
+    },
+    "crypto": "CRYPTO",
+    "@crypto": {
+        "description": "Crypto badge text"
+    },
+    "comingSoon": "COMING SOON",
+    "@comingSoon": {
+        "description": "Coming soon badge text"
+    },
+    "@_WALLET_DIALOGS": {},
+    "invalidAmount": "Invalid Amount",
+    "@invalidAmount": {
+        "description": "Invalid amount error title"
+    },
+    "pleaseEnterValidAmount": "Please enter a valid amount",
+    "@pleaseEnterValidAmount": {
+        "description": "Invalid amount error message"
+    },
+    "minimumTopUpAmount": "Minimum top-up amount is RM10",
+    "@minimumTopUpAmount": {
+        "description": "Minimum amount validation"
+    },
+    "maximumTopUpAmount": "Maximum top-up amount is RM5,000",
+    "@maximumTopUpAmount": {
+        "description": "Maximum amount validation"
+    },
+    "paymentMethodRequired": "Payment Method Required",
+    "@paymentMethodRequired": {
+        "description": "Payment method required title"
+    },
+    "pleaseSelectPaymentMethod": "Please select a payment method",
+    "@pleaseSelectPaymentMethod": {
+        "description": "Payment method required message"
+    },
+    "topUpFailed": "Top-Up Failed",
+    "@topUpFailed": {
+        "description": "Top-up failed title"
+    },
+    "failedToInitiateTopUp": "Failed to initiate top-up",
+    "@failedToInitiateTopUp": {
+        "description": "Top-up failed message"
+    },
+    "anErrorOccurred": "An error occurred",
+    "@anErrorOccurred": {
+        "description": "Generic error message"
+    },
+    "topUpSuccessful": "Top-Up Successful!",
+    "@topUpSuccessful": {
+        "description": "Top-up success title"
+    },
+    "creditedToWallet": "has been credited to your wallet",
+    "@creditedToWallet": {
+        "description": "Credited to wallet message"
+    },
+    "newBalance": "New Balance",
+    "@newBalance": {
+        "description": "New balance label"
+    },
+    "done": "Done",
+    "@done": {
+        "description": "Done button text"
+    },
+    "paymentConfirmed": "Payment Confirmed!",
+    "@paymentConfirmed": {
+        "description": "Payment confirmed title"
+    },
+    "paymentFailed": "Payment Failed",
+    "@paymentFailed": {
+        "description": "Payment failed title"
+    },
+    "paymentCouldNotBeProcessed": "Your payment could not be processed. Please try again.",
+    "@paymentCouldNotBeProcessed": {
+        "description": "Payment failed message"
+    },
+    "paymentPending": "Payment Pending",
+    "@paymentPending": {
+        "description": "Payment pending title"
+    },
+    "paymentTakingLonger": "Payment confirmation is taking longer than expected. Please check your transaction history.",
+    "@paymentTakingLonger": {
+        "description": "Payment pending message"
+    },
+    "willBeAvailableSoon": "will be available soon",
+    "@willBeAvailableSoon": {
+        "description": "Coming soon payment method message"
     }
 }

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../data/models/wallet_topup_model.dart';
 import '../../../data/services/wallet_service.dart';
@@ -22,6 +23,7 @@ class WalletTopUpController extends GetxController {
   final _usdToMyrRate = 0.0.obs;
   final _myrEquivalent = 0.0.obs;
   final _isLoadingRate = false.obs;
+  final _paymentMethods = <PaymentMethod>[].obs;
 
   // Text editing controller
   final amountController = TextEditingController();
@@ -36,15 +38,17 @@ class WalletTopUpController extends GetxController {
   double get myrEquivalent => _myrEquivalent.value;
   bool get isLoadingRate => _isLoadingRate.value;
   bool get isUsdtPayment => _selectedPaymentMethod.value?.id == 'usdt_trc20';
-
-  // Available payment methods
-  List<PaymentMethod> get paymentMethods =>
-      _walletService.getAvailablePaymentMethods();
+  List<PaymentMethod> get paymentMethods => _paymentMethods;
 
   @override
   void onInit() {
     super.onInit();
     loadWalletBalance();
+  }
+
+  /// Load payment methods with localization
+  void loadPaymentMethods(BuildContext context) {
+    _paymentMethods.value = _walletService.getAvailablePaymentMethods(context);
   }
 
   @override
@@ -86,11 +90,12 @@ class WalletTopUpController extends GetxController {
   }
 
   /// Select payment method
-  void selectPaymentMethod(PaymentMethod method) {
+  void selectPaymentMethod(PaymentMethod method, BuildContext context) {
     if (!method.enabled) {
+      final l10n = AppLocalizations.of(context)!;
       Get.snackbar(
-        'Coming Soon',
-        '${method.name} will be available soon',
+        l10n.comingSoon,
+        '${method.name} ${l10n.willBeAvailableSoon}',
         backgroundColor: Colors.orange,
         colorText: Colors.white,
         snackPosition: SnackPosition.BOTTOM,
@@ -128,12 +133,14 @@ class WalletTopUpController extends GetxController {
   }
 
   /// Validate and initiate top-up
-  Future<void> initiateTopUp() async {
+  Future<void> initiateTopUp(BuildContext context) async {
+    final l10n = AppLocalizations.of(context)!;
+
     // Validate amount
-    final validation = _walletService.validateAmount(_amount.value);
+    final validation = _walletService.validateAmount(_amount.value, l10n);
     if (validation != null) {
       Get.snackbar(
-        'Invalid Amount',
+        l10n.invalidAmount,
         validation,
         backgroundColor: Colors.red,
         colorText: Colors.white,
@@ -146,8 +153,8 @@ class WalletTopUpController extends GetxController {
     // Validate payment method
     if (_selectedPaymentMethod.value == null) {
       Get.snackbar(
-        'Payment Method Required',
-        'Please select a payment method',
+        l10n.paymentMethodRequired,
+        l10n.pleaseSelectPaymentMethod,
         backgroundColor: Colors.red,
         colorText: Colors.white,
         snackPosition: SnackPosition.BOTTOM,
@@ -169,14 +176,14 @@ class WalletTopUpController extends GetxController {
 
         // Handle based on payment method
         if (_selectedPaymentMethod.value!.id == 'test_payment') {
-          _handleTestPayment(response.data!);
+          _handleTestPayment(response.data!, context);
         } else if (_selectedPaymentMethod.value!.id == 'usdt_trc20') {
           _handleUsdtPayment(response.data!);
         }
       } else {
         Get.snackbar(
-          'Top-Up Failed',
-          response.error ?? 'Failed to initiate top-up',
+          l10n.topUpFailed,
+          response.error ?? l10n.failedToInitiateTopUp,
           backgroundColor: Colors.red,
           colorText: Colors.white,
           snackPosition: SnackPosition.BOTTOM,
@@ -185,8 +192,8 @@ class WalletTopUpController extends GetxController {
       }
     } catch (e) {
       Get.snackbar(
-        'Error',
-        'An error occurred: $e',
+        l10n.error,
+        '${l10n.anErrorOccurred}: $e',
         backgroundColor: Colors.red,
         colorText: Colors.white,
         snackPosition: SnackPosition.BOTTOM,
@@ -198,7 +205,9 @@ class WalletTopUpController extends GetxController {
   }
 
   /// Handle test payment (instant credit)
-  void _handleTestPayment(TopUpData data) {
+  void _handleTestPayment(TopUpData data, BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     if (data.instantCredit == true) {
       // Update balance
       if (data.newBalance != null) {
@@ -232,19 +241,22 @@ class WalletTopUpController extends GetxController {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Text(
-                    'Top-Up Successful!',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  Text(
+                    l10n.topUpSuccessful,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'RM ${_amount.value.toStringAsFixed(2)} has been credited to your wallet',
+                    'RM ${_amount.value.toStringAsFixed(2)} ${l10n.creditedToWallet}',
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 14, color: Colors.grey[600]),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'New Balance: RM ${data.newBalance?.toStringAsFixed(2) ?? '0.00'}',
+                    '${l10n.newBalance}: RM ${data.newBalance?.toStringAsFixed(2) ?? '0.00'}',
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -266,9 +278,9 @@ class WalletTopUpController extends GetxController {
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      child: const Text(
-                        'Done',
-                        style: TextStyle(
+                      child: Text(
+                        l10n.done,
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                           color: Colors.white,
@@ -356,6 +368,10 @@ class WalletTopUpController extends GetxController {
   void _handlePaymentSuccess(WalletTransaction transaction) {
     Get.back(); // Close pending screen
 
+    final context = Get.context;
+    if (context == null) return;
+    final l10n = AppLocalizations.of(context)!;
+
     Get.dialog(
       WillPopScope(
         onWillPop: () async => false,
@@ -382,13 +398,16 @@ class WalletTopUpController extends GetxController {
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
-                  'Payment Confirmed!',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                Text(
+                  l10n.paymentConfirmed,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'RM ${transaction.amount?.toStringAsFixed(2) ?? '0.00'} has been credited to your wallet',
+                  'RM ${transaction.amount?.toStringAsFixed(2) ?? '0.00'} ${l10n.creditedToWallet}',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 14, color: Colors.grey[600]),
                 ),
@@ -416,9 +435,9 @@ class WalletTopUpController extends GetxController {
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    child: const Text(
-                      'Done',
-                      style: TextStyle(
+                    child: Text(
+                      l10n.done,
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                         color: Colors.white,
@@ -442,9 +461,13 @@ class WalletTopUpController extends GetxController {
   void _handlePaymentFailed(WalletTransaction transaction) {
     Get.back(); // Close pending screen
 
+    final context = Get.context;
+    if (context == null) return;
+    final l10n = AppLocalizations.of(context)!;
+
     Get.snackbar(
-      'Payment Failed',
-      'Your payment could not be processed. Please try again.',
+      l10n.paymentFailed,
+      l10n.paymentCouldNotBeProcessed,
       backgroundColor: Colors.red,
       colorText: Colors.white,
       snackPosition: SnackPosition.BOTTOM,
@@ -457,9 +480,13 @@ class WalletTopUpController extends GetxController {
   void _handlePollingTimeout() {
     Get.back(); // Close pending screen
 
+    final context = Get.context;
+    if (context == null) return;
+    final l10n = AppLocalizations.of(context)!;
+
     Get.snackbar(
-      'Payment Pending',
-      'Payment confirmation is taking longer than expected. Please check your transaction history.',
+      l10n.paymentPending,
+      l10n.paymentTakingLonger,
       backgroundColor: Colors.orange,
       colorText: Colors.white,
       snackPosition: SnackPosition.BOTTOM,
@@ -471,15 +498,20 @@ class WalletTopUpController extends GetxController {
   /// Copy to clipboard
   void copyToClipboard(String text, String label) {
     Clipboard.setData(ClipboardData(text: text));
-    Get.snackbar(
-      'Copied',
-      '$label copied to clipboard',
-      backgroundColor: AppColors.primary,
-      colorText: Colors.white,
-      snackPosition: SnackPosition.BOTTOM,
-      margin: const EdgeInsets.all(16),
-      duration: const Duration(seconds: 2),
-    );
+
+    final context = Get.context;
+    if (context != null) {
+      final l10n = AppLocalizations.of(context)!;
+      Get.snackbar(
+        l10n.copied,
+        label,
+        backgroundColor: AppColors.primary,
+        colorText: Colors.white,
+        snackPosition: SnackPosition.BOTTOM,
+        margin: const EdgeInsets.all(16),
+        duration: const Duration(seconds: 2),
+      );
+    }
   }
 
   /// Reset form

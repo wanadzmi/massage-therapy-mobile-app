@@ -484,5 +484,193 @@
     "submitReview": "提交评论",
     "@submitReview": {
         "description": "Submit review button"
+    },
+    "@_EDIT_PROFILE": {},
+    "editProfile": "编辑个人资料",
+    "@editProfile": {
+        "description": "Edit profile page title"
+    },
+    "fullName": "全名",
+    "@fullName": {
+        "description": "Full name field label"
+    },
+    "dateOfBirth": "出生日期",
+    "@dateOfBirth": {
+        "description": "Date of birth field label"
+    },
+    "selectGender": "选择性别",
+    "@selectGender": {
+        "description": "Gender dropdown hint"
+    },
+    "male": "男性",
+    "@male": {
+        "description": "Male gender option"
+    },
+    "female": "女性",
+    "@female": {
+        "description": "Female gender option"
+    },
+    "other": "其他",
+    "@other": {
+        "description": "Other gender option"
+    },
+    "saveChanges": "保存更改",
+    "@saveChanges": {
+        "description": "Save changes button"
+    },
+    "@_TOP_UP_WALLET": {},
+    "topUpWallet": "钱包充值",
+    "@topUpWallet": {
+        "description": "Top up wallet page title"
+    },
+    "currentBalance": "当前余额",
+    "@currentBalance": {
+        "description": "Current balance label"
+    },
+    "enterAmount": "输入金额",
+    "@enterAmount": {
+        "description": "Amount input label"
+    },
+    "enterAmountUsd": "输入金额（美元）",
+    "@enterAmountUsd": {
+        "description": "Amount input label for USDT"
+    },
+    "loadingExchangeRate": "正在加载汇率...",
+    "@loadingExchangeRate": {
+        "description": "Loading exchange rate message"
+    },
+    "minimumMaximum": "最低：RM10 | 最高：RM5,000",
+    "@minimumMaximum": {
+        "description": "Min/max amount limits"
+    },
+    "selectPaymentMethod": "选择付款方式",
+    "@selectPaymentMethod": {
+        "description": "Payment method selection label"
+    },
+    "continueButton": "继续",
+    "@continueButton": {
+        "description": "Continue button text"
+    },
+    "@_PAYMENT_METHODS": {},
+    "testPayment": "测试支付",
+    "@testPayment": {
+        "description": "Test payment method name"
+    },
+    "testPaymentDesc": "即时到账（仅供测试）",
+    "@testPaymentDesc": {
+        "description": "Test payment method description"
+    },
+    "usdtTrc20": "USDT (TRC20)",
+    "@usdtTrc20": {
+        "description": "USDT TRC20 payment method name"
+    },
+    "usdtTrc20Desc": "波场网络加密货币",
+    "@usdtTrc20Desc": {
+        "description": "USDT TRC20 payment method description"
+    },
+    "onlineBanking": "网上银行",
+    "@onlineBanking": {
+        "description": "Online banking payment method name"
+    },
+    "onlineBankingDesc": "FPX 支付网关",
+    "@onlineBankingDesc": {
+        "description": "Online banking payment method description"
+    },
+    "touchNGo": "Touch n Go",
+    "@touchNGo": {
+        "description": "Touch n Go payment method name"
+    },
+    "touchNGoDesc": "电子钱包支付",
+    "@touchNGoDesc": {
+        "description": "Touch n Go payment method description"
+    },
+    "instant": "即时",
+    "@instant": {
+        "description": "Instant badge text"
+    },
+    "crypto": "加密货币",
+    "@crypto": {
+        "description": "Crypto badge text"
+    },
+    "comingSoon": "即将推出",
+    "@comingSoon": {
+        "description": "Coming soon badge text"
+    },
+    "@_WALLET_DIALOGS": {},
+    "invalidAmount": "金额无效",
+    "@invalidAmount": {
+        "description": "Invalid amount error title"
+    },
+    "pleaseEnterValidAmount": "请输入有效金额",
+    "@pleaseEnterValidAmount": {
+        "description": "Invalid amount error message"
+    },
+    "minimumTopUpAmount": "最低充值金额为RM10",
+    "@minimumTopUpAmount": {
+        "description": "Minimum amount validation"
+    },
+    "maximumTopUpAmount": "最高充值金额为RM5,000",
+    "@maximumTopUpAmount": {
+        "description": "Maximum amount validation"
+    },
+    "paymentMethodRequired": "需要付款方式",
+    "@paymentMethodRequired": {
+        "description": "Payment method required title"
+    },
+    "pleaseSelectPaymentMethod": "请选择付款方式",
+    "@pleaseSelectPaymentMethod": {
+        "description": "Payment method required message"
+    },
+    "topUpFailed": "充值失败",
+    "@topUpFailed": {
+        "description": "Top-up failed title"
+    },
+    "failedToInitiateTopUp": "无法启动充值",
+    "@failedToInitiateTopUp": {
+        "description": "Top-up failed message"
+    },
+    "anErrorOccurred": "发生错误",
+    "@anErrorOccurred": {
+        "description": "Generic error message"
+    },
+    "topUpSuccessful": "充值成功！",
+    "@topUpSuccessful": {
+        "description": "Top-up success title"
+    },
+    "creditedToWallet": "已充入您的钱包",
+    "@creditedToWallet": {
+        "description": "Credited to wallet message"
+    },
+    "newBalance": "新余额",
+    "@newBalance": {
+        "description": "New balance label"
+    },
+    "done": "完成",
+    "@done": {
+        "description": "Done button text"
+    },
+    "paymentConfirmed": "付款已确认！",
+    "@paymentConfirmed": {
+        "description": "Payment confirmed title"
+    },
+    "paymentFailed": "付款失败",
+    "@paymentFailed": {
+        "description": "Payment failed title"
+    },
+    "paymentCouldNotBeProcessed": "您的付款无法处理。请重试。",
+    "@paymentCouldNotBeProcessed": {
+        "description": "Payment failed message"
+    },
+    "paymentPending": "付款待处理",
+    "@paymentPending": {
+        "description": "Payment pending title"
+    },
+    "paymentTakingLonger": "付款确认所需时间比预期长。请查看您的交易历史。",
+    "@paymentTakingLonger": {
+        "description": "Payment pending message"
+    },
+    "willBeAvailableSoon": "即将推出",
+    "@willBeAvailableSoon": {
+        "description": "Coming soon payment method message"
     }
 }

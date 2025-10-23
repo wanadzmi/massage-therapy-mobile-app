@@ -7,6 +7,9 @@ class WalletTopUpView extends GetView<WalletTopUpController> {
 
   @override
   Widget build(BuildContext context) {
+    // Load payment methods when the view is built
+    controller.loadPaymentMethods(context);
+
     return Scaffold(
       backgroundColor: const Color(0xFF0A0A0A),
       appBar: AppBar(
@@ -300,177 +303,188 @@ class WalletTopUpView extends GetView<WalletTopUpController> {
   }
 
   Widget _buildPaymentMethods() {
-    return Obx(() {
-      final methods = controller.paymentMethods;
+    return Builder(
+      builder: (context) {
+        return Obx(() {
+          final methods = controller.paymentMethods;
 
-      return Column(
-        children: methods.map((method) {
-          final isSelected = controller.selectedPaymentMethod?.id == method.id;
+          return Column(
+            children: methods.map((method) {
+              final isSelected =
+                  controller.selectedPaymentMethod?.id == method.id;
 
-          return GestureDetector(
-            onTap: () => controller.selectPaymentMethod(method),
-            child: Container(
-              margin: const EdgeInsets.only(bottom: 12),
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: isSelected
-                    ? const Color(0xFFD4AF37).withValues(alpha: 0.1)
-                    : const Color(0xFF1A1A1A),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: isSelected
-                      ? const Color(0xFFD4AF37)
-                      : (method.enabled
-                            ? const Color(0xFF2A2A2A)
-                            : const Color(0xFF1A1A1A)),
-                  width: isSelected ? 2 : 1,
-                ),
-              ),
-              child: Row(
-                children: [
-                  // Selection Radio
-                  Container(
-                    width: 24,
-                    height: 24,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: isSelected
-                            ? const Color(0xFFD4AF37)
-                            : const Color(0xFF404040),
-                        width: 2,
-                      ),
+              return GestureDetector(
+                onTap: () => controller.selectPaymentMethod(method, context),
+                child: Container(
+                  margin: const EdgeInsets.only(bottom: 12),
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: isSelected
+                        ? const Color(0xFFD4AF37).withValues(alpha: 0.1)
+                        : const Color(0xFF1A1A1A),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
                       color: isSelected
                           ? const Color(0xFFD4AF37)
-                          : const Color(0xFF1A1A1A),
+                          : (method.enabled
+                                ? const Color(0xFF2A2A2A)
+                                : const Color(0xFF1A1A1A)),
+                      width: isSelected ? 2 : 1,
                     ),
-                    child: isSelected
-                        ? const Icon(
-                            Icons.check,
-                            size: 16,
-                            color: Color(0xFF0A0A0A),
-                          )
-                        : null,
                   ),
+                  child: Row(
+                    children: [
+                      // Selection Radio
+                      Container(
+                        width: 24,
+                        height: 24,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: isSelected
+                                ? const Color(0xFFD4AF37)
+                                : const Color(0xFF404040),
+                            width: 2,
+                          ),
+                          color: isSelected
+                              ? const Color(0xFFD4AF37)
+                              : const Color(0xFF1A1A1A),
+                        ),
+                        child: isSelected
+                            ? const Icon(
+                                Icons.check,
+                                size: 16,
+                                color: Color(0xFF0A0A0A),
+                              )
+                            : null,
+                      ),
 
-                  const SizedBox(width: 16),
+                      const SizedBox(width: 16),
 
-                  // Payment Method Info
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
+                      // Payment Method Info
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              method.name,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: method.enabled
-                                    ? const Color(0xFFE0E0E0)
-                                    : const Color(0xFF404040),
-                                letterSpacing: 0.3,
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            if (method.badge != null)
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8,
-                                  vertical: 2,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: _getBadgeColor(
-                                    method.badgeColor,
-                                  ).withValues(alpha: 0.2),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  method.badge!,
+                            Row(
+                              children: [
+                                Text(
+                                  method.name,
                                   style: TextStyle(
-                                    fontSize: 10,
+                                    fontSize: 16,
                                     fontWeight: FontWeight.w600,
-                                    color: _getBadgeColor(method.badgeColor),
+                                    color: method.enabled
+                                        ? const Color(0xFFE0E0E0)
+                                        : const Color(0xFF404040),
+                                    letterSpacing: 0.3,
                                   ),
                                 ),
+                                const SizedBox(width: 8),
+                                if (method.badge != null)
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 8,
+                                      vertical: 2,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: _getBadgeColor(
+                                        method.badgeColor,
+                                      ).withValues(alpha: 0.2),
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    child: Text(
+                                      method.badge!,
+                                      style: TextStyle(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w600,
+                                        color: _getBadgeColor(
+                                          method.badgeColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              method.description,
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: method.enabled
+                                    ? const Color(0xFF808080)
+                                    : const Color(0xFF404040),
                               ),
+                            ),
                           ],
                         ),
-                        const SizedBox(height: 4),
-                        Text(
-                          method.description,
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: method.enabled
-                                ? const Color(0xFF808080)
-                                : const Color(0xFF404040),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
+                ),
+              );
+            }).toList(),
           );
-        }).toList(),
-      );
-    });
+        });
+      },
+    );
   }
 
   Widget _buildContinueButton() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Obx(() {
-        final isProcessing = controller.isProcessing;
-        // For USDT payments, validate against MYR equivalent
-        final amountToValidate = controller.isUsdtPayment
-            ? controller.myrEquivalent
-            : controller.amount;
-        final canProceed =
-            amountToValidate >= 10 &&
-            amountToValidate <= 5000 &&
-            controller.selectedPaymentMethod != null;
+      child: Builder(
+        builder: (context) {
+          return Obx(() {
+            final isProcessing = controller.isProcessing;
+            // For USDT payments, validate against MYR equivalent
+            final amountToValidate = controller.isUsdtPayment
+                ? controller.myrEquivalent
+                : controller.amount;
+            final canProceed =
+                amountToValidate >= 10 &&
+                amountToValidate <= 5000 &&
+                controller.selectedPaymentMethod != null;
 
-        return SizedBox(
-          width: double.infinity,
-          child: ElevatedButton(
-            onPressed: (isProcessing || !canProceed)
-                ? null
-                : controller.initiateTopUp,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFFD4AF37),
-              disabledBackgroundColor: const Color(0xFF2A2A2A),
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              elevation: 0,
-            ),
-            child: isProcessing
-                ? const SizedBox(
-                    height: 20,
-                    width: 20,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        Color(0xFF0A0A0A),
-                      ),
-                    ),
-                  )
-                : const Text(
-                    'Continue',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFF0A0A0A),
-                      letterSpacing: 0.5,
-                    ),
+            return SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: (isProcessing || !canProceed)
+                    ? null
+                    : () => controller.initiateTopUp(context),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFD4AF37),
+                  disabledBackgroundColor: const Color(0xFF2A2A2A),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
                   ),
-          ),
-        );
-      }),
+                  elevation: 0,
+                ),
+                child: isProcessing
+                    ? const SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Color(0xFF0A0A0A),
+                          ),
+                        ),
+                      )
+                    : const Text(
+                        'Continue',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF0A0A0A),
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+              ),
+            );
+          });
+        },
+      ),
     );
   }
 

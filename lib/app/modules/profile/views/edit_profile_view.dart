@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../controllers/profile_controller.dart';
 
 class EditProfileView extends StatefulWidget {
@@ -50,6 +51,8 @@ class _EditProfileViewState extends State<EditProfileView> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       backgroundColor: const Color(0xFF0A0A0A),
       appBar: AppBar(
@@ -59,9 +62,9 @@ class _EditProfileViewState extends State<EditProfileView> {
           icon: const Icon(Icons.arrow_back, color: Color(0xFFE0E0E0)),
           onPressed: () => Get.back(),
         ),
-        title: const Text(
-          'Edit Profile',
-          style: TextStyle(
+        title: Text(
+          l10n.editProfile,
+          style: const TextStyle(
             color: Color(0xFFE0E0E0),
             fontWeight: FontWeight.w500,
             fontSize: 18,
@@ -79,23 +82,23 @@ class _EditProfileViewState extends State<EditProfileView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Personal Information Section
-                    _buildSectionTitle('Personal Information'),
+                    _buildSectionTitle(l10n.personalInformation),
                     const SizedBox(height: 16),
                     _buildTextField(
                       controller: nameController,
-                      label: 'Full Name',
+                      label: l10n.fullName,
                       icon: Icons.person_outline,
                     ),
                     const SizedBox(height: 16),
                     _buildDateField(
                       controller: dateOfBirthController,
-                      label: 'Date of Birth',
+                      label: l10n.dateOfBirth,
                       icon: Icons.calendar_today_outlined,
                       context: context,
                       selectedDate: selectedDateOfBirth,
                     ),
                     const SizedBox(height: 16),
-                    _buildGenderDropdown(selectedGender),
+                    _buildGenderDropdown(selectedGender, l10n),
                     const SizedBox(height: 32),
 
                     // Save Button
@@ -120,9 +123,9 @@ class _EditProfileViewState extends State<EditProfileView> {
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
-                        child: const Text(
-                          'Save Changes',
-                          style: TextStyle(
+                        child: Text(
+                          l10n.saveChanges,
+                          style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                             letterSpacing: 0.5,
@@ -239,7 +242,10 @@ class _EditProfileViewState extends State<EditProfileView> {
     );
   }
 
-  Widget _buildGenderDropdown(Rx<String?> selectedGender) {
+  Widget _buildGenderDropdown(
+    Rx<String?> selectedGender,
+    AppLocalizations l10n,
+  ) {
     return Obx(
       () => Container(
         decoration: BoxDecoration(
@@ -251,18 +257,18 @@ class _EditProfileViewState extends State<EditProfileView> {
         child: DropdownButtonHideUnderline(
           child: DropdownButton<String>(
             value: selectedGender.value,
-            hint: const Text(
-              'Select Gender',
-              style: TextStyle(color: Color(0xFF808080)),
+            hint: Text(
+              l10n.selectGender,
+              style: const TextStyle(color: Color(0xFF808080)),
             ),
             isExpanded: true,
             icon: const Icon(Icons.arrow_drop_down, color: Color(0xFF808080)),
             dropdownColor: const Color(0xFF1A1A1A),
             style: const TextStyle(color: Color(0xFFE0E0E0)),
-            items: const [
-              DropdownMenuItem(value: 'male', child: Text('Male')),
-              DropdownMenuItem(value: 'female', child: Text('Female')),
-              DropdownMenuItem(value: 'other', child: Text('Other')),
+            items: [
+              DropdownMenuItem(value: 'male', child: Text(l10n.male)),
+              DropdownMenuItem(value: 'female', child: Text(l10n.female)),
+              DropdownMenuItem(value: 'other', child: Text(l10n.other)),
             ],
             onChanged: (value) {
               selectedGender.value = value;

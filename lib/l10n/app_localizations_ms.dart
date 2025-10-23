@@ -373,4 +373,144 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get submitReview => 'Hantar Ulasan';
+
+  @override
+  String get editProfile => 'Sunting Profil';
+
+  @override
+  String get fullName => 'Nama Penuh';
+
+  @override
+  String get dateOfBirth => 'Tarikh Lahir';
+
+  @override
+  String get selectGender => 'Pilih Jantina';
+
+  @override
+  String get male => 'Lelaki';
+
+  @override
+  String get female => 'Perempuan';
+
+  @override
+  String get other => 'Lain-lain';
+
+  @override
+  String get saveChanges => 'Simpan Perubahan';
+
+  @override
+  String get topUpWallet => 'Tambah Nilai Dompet';
+
+  @override
+  String get currentBalance => 'Baki Semasa';
+
+  @override
+  String get enterAmount => 'Masukkan Jumlah';
+
+  @override
+  String get enterAmountUsd => 'Masukkan Jumlah (USD)';
+
+  @override
+  String get loadingExchangeRate => 'Memuatkan kadar pertukaran...';
+
+  @override
+  String get minimumMaximum => 'Minimum: RM10 | Maksimum: RM5,000';
+
+  @override
+  String get selectPaymentMethod => 'Pilih Kaedah Pembayaran';
+
+  @override
+  String get continueButton => 'Teruskan';
+
+  @override
+  String get testPayment => 'Pembayaran Ujian';
+
+  @override
+  String get testPaymentDesc => 'Kredit segera (Ujian sahaja)';
+
+  @override
+  String get usdtTrc20 => 'USDT (TRC20)';
+
+  @override
+  String get usdtTrc20Desc => 'Mata wang kripto di Rangkaian Tron';
+
+  @override
+  String get onlineBanking => 'Perbankan Dalam Talian';
+
+  @override
+  String get onlineBankingDesc => 'Gerbang Pembayaran FPX';
+
+  @override
+  String get touchNGo => 'Touch n Go';
+
+  @override
+  String get touchNGoDesc => 'Pembayaran eWallet';
+
+  @override
+  String get instant => 'SEGERA';
+
+  @override
+  String get crypto => 'KRIPTO';
+
+  @override
+  String get comingSoon => 'AKAN DATANG';
+
+  @override
+  String get invalidAmount => 'Jumlah Tidak Sah';
+
+  @override
+  String get pleaseEnterValidAmount => 'Sila masukkan jumlah yang sah';
+
+  @override
+  String get minimumTopUpAmount => 'Jumlah tambah nilai minimum ialah RM10';
+
+  @override
+  String get maximumTopUpAmount => 'Jumlah tambah nilai maksimum ialah RM5,000';
+
+  @override
+  String get paymentMethodRequired => 'Kaedah Pembayaran Diperlukan';
+
+  @override
+  String get pleaseSelectPaymentMethod => 'Sila pilih kaedah pembayaran';
+
+  @override
+  String get topUpFailed => 'Tambah Nilai Gagal';
+
+  @override
+  String get failedToInitiateTopUp => 'Gagal memulakan tambah nilai';
+
+  @override
+  String get anErrorOccurred => 'Ralat telah berlaku';
+
+  @override
+  String get topUpSuccessful => 'Tambah Nilai Berjaya!';
+
+  @override
+  String get creditedToWallet => 'telah dikreditkan ke dompet anda';
+
+  @override
+  String get newBalance => 'Baki Baharu';
+
+  @override
+  String get done => 'Selesai';
+
+  @override
+  String get paymentConfirmed => 'Pembayaran Disahkan!';
+
+  @override
+  String get paymentFailed => 'Pembayaran Gagal';
+
+  @override
+  String get paymentCouldNotBeProcessed =>
+      'Pembayaran anda tidak dapat diproses. Sila cuba lagi.';
+
+  @override
+  String get paymentPending => 'Pembayaran Tertunda';
+
+  @override
+  String get paymentTakingLonger =>
+      'Pengesahan pembayaran mengambil masa lebih lama daripada jangkaan. Sila semak sejarah transaksi anda.';
+
+  @override
+  String get willBeAvailableSoon => 'akan tersedia tidak lama lagi';
 }
