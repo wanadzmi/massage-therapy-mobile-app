@@ -1,5 +1,6 @@
 import '../models/store_model.dart';
 import '../models/service_model.dart' as service_model;
+import '../models/review_model.dart' as review_model;
 import 'base_services.dart';
 
 class StoreService extends BaseServices {
@@ -175,6 +176,186 @@ class StoreService extends BaseServices {
     }
 
     return MyResponse.error(response.error);
+  }
+
+  /// Get store reviews (paginated)
+  Future<MyResponse<ReviewData, dynamic>> getStoreReviews(
+    String storeId, {
+    int? page,
+    int? limit,
+    int? rating,
+    String? sortBy,
+    String? sortOrder,
+  }) async {
+    final List<String> queryParts = [];
+
+    if (page != null) queryParts.add('page=$page');
+    if (limit != null) queryParts.add('limit=$limit');
+    if (rating != null) queryParts.add('rating=$rating');
+    if (sortBy != null) queryParts.add('sortBy=$sortBy');
+    if (sortOrder != null) queryParts.add('sortOrder=$sortOrder');
+
+    final queryString = queryParts.isNotEmpty ? '?${queryParts.join('&')}' : '';
+    final endpoint = '$_storesEndpoint/$storeId/reviews$queryString';
+
+    final response = await callAPI(
+      HttpRequestType.GET,
+      endpoint,
+      requiresAuth: true,
+    );
+
+    if (response.isSuccess && response.data != null) {
+      try {
+        print('📊 Raw reviews response: ${response.data}');
+        final responseData = response.data['data'] ?? response.data;
+        print('📊 Response data after extraction: $responseData');
+        print('📊 Type of responseData: ${responseData.runtimeType}');
+
+        if (responseData['statistics'] != null) {
+          print('📊 Statistics: ${responseData['statistics']}');
+          if (responseData['statistics']['ratingDistribution'] != null) {
+            print(
+              '📊 RatingDistribution type: ${responseData['statistics']['ratingDistribution'].runtimeType}',
+            );
+            print(
+              '📊 RatingDistribution content: ${responseData['statistics']['ratingDistribution']}',
+            );
+          }
+        }
+
+        final reviewData = ReviewData.fromJson(responseData);
+        return MyResponse.complete(reviewData);
+      } catch (e, stackTrace) {
+        print('❌ Error parsing reviews: $e');
+        print('❌ Stack trace: $stackTrace');
+        return MyResponse.error('Failed to parse reviews: $e');
+      }
+    }
+
+    return MyResponse.error(response.error);
+  }
+}
+
+/// Review data response
+class ReviewData {
+  final List<review_model.Review> reviews;
+  final ReviewStatistics? statistics;
+  final ReviewPagination? pagination;
+
+  ReviewData({required this.reviews, this.statistics, this.pagination});
+
+  factory ReviewData.fromJson(Map<String, dynamic> json) {
+    print('🔍 Parsing ReviewData from: $json');
+
+    List<review_model.Review> reviews = [];
+    if (json['reviews'] != null) {
+      print('🔍 Reviews list type: ${json['reviews'].runtimeType}');
+      print('🔍 Reviews list length: ${(json['reviews'] as List).length}');
+      try {
+        reviews = (json['reviews'] as List).map((e) {
+          print('🔍 Parsing review item type: ${e.runtimeType}');
+          return review_model.Review.fromJson(e);
+        }).toList();
+      } catch (e) {
+        print('❌ Error parsing reviews list: $e');
+        rethrow;
+      }
+    }
+
+    ReviewStatistics? statistics;
+    if (json['statistics'] != null) {
+      print('🔍 Parsing statistics: ${json['statistics']}');
+      try {
+        statistics = ReviewStatistics.fromJson(json['statistics']);
+      } catch (e) {
+        print('❌ Error parsing statistics: $e');
+        rethrow;
+      }
+    }
+
+    ReviewPagination? pagination;
+    if (json['pagination'] != null) {
+      print('🔍 Parsing pagination: ${json['pagination']}');
+      try {
+        pagination = ReviewPagination.fromJson(json['pagination']);
+      } catch (e) {
+        print('❌ Error parsing pagination: $e');
+        rethrow;
+      }
+    }
+
+    return ReviewData(
+      reviews: reviews,
+      statistics: statistics,
+      pagination: pagination,
+    );
+  }
+}
+
+class ReviewStatistics {
+  final double? averageRating;
+  final int? totalReviews;
+  final Map<String, int>? ratingDistribution;
+
+  ReviewStatistics({
+    this.averageRating,
+    this.totalReviews,
+    this.ratingDistribution,
+  });
+
+  factory ReviewStatistics.fromJson(Map<String, dynamic> json) {
+    Map<String, int>? ratingDistribution;
+    if (json['ratingDistribution'] != null) {
+      ratingDistribution = {};
+      try {
+        (json['ratingDistribution'] as Map<String, dynamic>).forEach((
+          key,
+          value,
+        ) {
+          // Handle both int, num, and string values from backend
+          if (value is int) {
+            ratingDistribution![key] = value;
+          } else if (value is num) {
+            ratingDistribution![key] = value.toInt();
+          } else if (value is String) {
+            ratingDistribution![key] = int.tryParse(value) ?? 0;
+          } else {
+            ratingDistribution![key] = 0;
+          }
+        });
+      } catch (e) {
+        print('⚠️ Error parsing ratingDistribution: $e');
+        ratingDistribution = null;
+      }
+    }
+
+    return ReviewStatistics(
+      averageRating: json['averageRating']?.toDouble(),
+      totalReviews: json['totalReviews'] is int
+          ? json['totalReviews']
+          : (json['totalReviews'] is String
+                ? int.tryParse(json['totalReviews'])
+                : null),
+      ratingDistribution: ratingDistribution,
+    );
+  }
+}
+
+class ReviewPagination {
+  final int? current;
+  final int? total;
+  final int? limit;
+  final int? totalReviews;
+
+  ReviewPagination({this.current, this.total, this.limit, this.totalReviews});
+
+  factory ReviewPagination.fromJson(Map<String, dynamic> json) {
+    return ReviewPagination(
+      current: json['current'],
+      total: json['total'],
+      limit: json['limit'],
+      totalReviews: json['totalReviews'],
+    );
   }
 }
 

@@ -256,11 +256,21 @@ class ReviewResponse {
   ReviewResponse({this.content, this.respondedBy, this.respondedAt});
 
   factory ReviewResponse.fromJson(Map<String, dynamic> json) {
+    RespondedBy? respondedBy;
+    if (json['respondedBy'] != null) {
+      // Handle both String (ID) and Map (object) formats
+      if (json['respondedBy'] is String) {
+        respondedBy = RespondedBy(
+          name: 'Store Admin',
+        ); // Default name when only ID is provided
+      } else if (json['respondedBy'] is Map) {
+        respondedBy = RespondedBy.fromJson(json['respondedBy']);
+      }
+    }
+
     return ReviewResponse(
       content: json['content'],
-      respondedBy: json['respondedBy'] != null
-          ? RespondedBy.fromJson(json['respondedBy'])
-          : null,
+      respondedBy: respondedBy,
       respondedAt: json['respondedAt'] != null
           ? DateTime.parse(json['respondedAt'])
           : null,

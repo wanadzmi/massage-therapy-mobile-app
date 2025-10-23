@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/store_detail_controller.dart';
+import '../../../data/services/store_service.dart';
 
 class StoreDetailView extends GetView<StoreDetailController> {
   const StoreDetailView({Key? key}) : super(key: key);
@@ -82,6 +83,11 @@ class StoreDetailView extends GetView<StoreDetailController> {
                               },
                             ),
                     ),
+
+                    const SizedBox(height: 32),
+
+                    // Reviews Section
+                    _buildReviewsSection(),
 
                     const SizedBox(height: 32),
                   ],
@@ -361,6 +367,532 @@ class StoreDetailView extends GetView<StoreDetailController> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildReviewsSection() {
+    return Obx(() {
+      final stats = controller.reviewStats;
+      final reviews = controller.recentReviews;
+
+      return Container(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Section Header
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Reviews & Ratings',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFFE0E0E0),
+                  ),
+                ),
+                if (stats != null &&
+                    stats.totalReviews != null &&
+                    stats.totalReviews! > 0)
+                  Text(
+                    '${stats.totalReviews} reviews',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Color(0xFF808080),
+                    ),
+                  ),
+              ],
+            ),
+
+            const SizedBox(height: 16),
+
+            // Rating Summary
+            if (stats != null) _buildRatingSummary(stats),
+
+            const SizedBox(height: 24),
+
+            // Recent Reviews
+            if (controller.isLoadingReviews)
+              const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(32.0),
+                  child: CircularProgressIndicator(color: Color(0xFFD4AF37)),
+                ),
+              )
+            else if (reviews.isEmpty)
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(32.0),
+                  child: Column(
+                    children: [
+                      const Icon(
+                        Icons.rate_review_outlined,
+                        size: 48,
+                        color: Color(0xFF505050),
+                      ),
+                      const SizedBox(height: 16),
+                      const Text(
+                        'No reviews yet',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Color(0xFF808080),
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            else
+              Column(
+                children: [
+                  const Text(
+                    'Recent Reviews',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFFE0E0E0),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  ...reviews.take(10).map((review) => _buildReviewCard(review)),
+                ],
+              ),
+          ],
+        ),
+      );
+    });
+  }
+
+  Widget _buildRatingSummary(ReviewStatistics stats) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1A1A1A),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: const Color(0xFF2A2A2A)),
+      ),
+      child: Row(
+        children: [
+          // Overall Rating
+          Column(
+            children: [
+              Text(
+                stats.averageRating?.toStringAsFixed(1) ?? '0.0',
+                style: const TextStyle(
+                  fontSize: 48,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFFD4AF37),
+                ),
+              ),
+              Row(
+                children: List.generate(5, (index) {
+                  return Icon(
+                    index < (stats.averageRating ?? 0).floor()
+                        ? Icons.star
+                        : Icons.star_border,
+                    color: const Color(0xFFD4AF37),
+                    size: 16,
+                  );
+                }),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                '${stats.totalReviews ?? 0} reviews',
+                style: const TextStyle(fontSize: 12, color: Color(0xFF808080)),
+              ),
+            ],
+          ),
+
+          const SizedBox(width: 32),
+
+          // Rating Breakdown
+          Expanded(
+            child: Column(
+              children: [
+                _buildRatingBar(
+                  5,
+                  stats.ratingDistribution?['5'] ?? 0,
+                  stats.totalReviews ?? 1,
+                ),
+                _buildRatingBar(
+                  4,
+                  stats.ratingDistribution?['4'] ?? 0,
+                  stats.totalReviews ?? 1,
+                ),
+                _buildRatingBar(
+                  3,
+                  stats.ratingDistribution?['3'] ?? 0,
+                  stats.totalReviews ?? 1,
+                ),
+                _buildRatingBar(
+                  2,
+                  stats.ratingDistribution?['2'] ?? 0,
+                  stats.totalReviews ?? 1,
+                ),
+                _buildRatingBar(
+                  1,
+                  stats.ratingDistribution?['1'] ?? 0,
+                  stats.totalReviews ?? 1,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRatingBar(int stars, int count, int total) {
+    final percentage = total > 0 ? (count / total) : 0.0;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2),
+      child: Row(
+        children: [
+          Text(
+            '$stars',
+            style: const TextStyle(fontSize: 12, color: Color(0xFF808080)),
+          ),
+          const SizedBox(width: 4),
+          const Icon(Icons.star, size: 12, color: Color(0xFFD4AF37)),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Stack(
+              children: [
+                Container(
+                  height: 6,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF2A2A2A),
+                    borderRadius: BorderRadius.circular(3),
+                  ),
+                ),
+                FractionallySizedBox(
+                  widthFactor: percentage,
+                  child: Container(
+                    height: 6,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFD4AF37),
+                      borderRadius: BorderRadius.circular(3),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 8),
+          SizedBox(
+            width: 30,
+            child: Text(
+              '$count',
+              textAlign: TextAlign.end,
+              style: const TextStyle(fontSize: 12, color: Color(0xFF808080)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildReviewCard(review) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1A1A1A),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: const Color(0xFF2A2A2A)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // User Info
+          Row(
+            children: [
+              // Avatar
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF2A2A2A),
+                  shape: BoxShape.circle,
+                  border: Border.all(color: const Color(0xFF3A3A3A)),
+                ),
+                child: const Icon(
+                  Icons.person,
+                  color: Color(0xFF808080),
+                  size: 24,
+                ),
+              ),
+
+              const SizedBox(width: 12),
+
+              // Name and Tier
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          review.user?.name ?? 'Anonymous',
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xFFE0E0E0),
+                          ),
+                        ),
+                        if (review.user?.memberTier != null) ...[
+                          const SizedBox(width: 8),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 6,
+                              vertical: 2,
+                            ),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFD4AF37).withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: Text(
+                              review.user!.memberTier!,
+                              style: const TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xFFD4AF37),
+                              ),
+                            ),
+                          ),
+                        ],
+                        if (review.isVerified == true) ...[
+                          const SizedBox(width: 4),
+                          const Icon(
+                            Icons.verified,
+                            size: 14,
+                            color: Color(0xFF4CAF50),
+                          ),
+                        ],
+                      ],
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      controller.formatTimeAgo(review.createdAt),
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: Color(0xFF606060),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              // Rating
+              Row(
+                children: [
+                  const Icon(Icons.star, color: Color(0xFFD4AF37), size: 16),
+                  const SizedBox(width: 4),
+                  Text(
+                    '${review.ratings?.overall ?? 0}',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFFE0E0E0),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 12),
+
+          // Review Title
+          if (review.review?.title != null) ...[
+            Text(
+              review.review!.title!,
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: Color(0xFFE0E0E0),
+              ),
+            ),
+            const SizedBox(height: 8),
+          ],
+
+          // Review Content
+          if (review.review?.content != null)
+            Text(
+              review.review!.content!,
+              style: const TextStyle(
+                fontSize: 13,
+                color: Color(0xFF808080),
+                height: 1.5,
+              ),
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+            ),
+
+          // Pros
+          if (review.review?.pros != null &&
+              review.review!.pros!.isNotEmpty) ...[
+            const SizedBox(height: 12),
+            Wrap(
+              spacing: 6,
+              runSpacing: 6,
+              children: review.review!.pros!.map<Widget>((pro) {
+                return Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF4CAF50).withOpacity(0.15),
+                    borderRadius: BorderRadius.circular(6),
+                    border: Border.all(
+                      color: const Color(0xFF4CAF50).withOpacity(0.3),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.check_circle,
+                        size: 12,
+                        color: Color(0xFF4CAF50),
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        pro,
+                        style: const TextStyle(
+                          fontSize: 11,
+                          color: Color(0xFF4CAF50),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }).toList(),
+            ),
+          ],
+
+          // Cons
+          if (review.review?.cons != null &&
+              review.review!.cons!.isNotEmpty) ...[
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 6,
+              runSpacing: 6,
+              children: review.review!.cons!.map<Widget>((con) {
+                return Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFF9800).withOpacity(0.15),
+                    borderRadius: BorderRadius.circular(6),
+                    border: Border.all(
+                      color: const Color(0xFFFF9800).withOpacity(0.3),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.warning_amber,
+                        size: 12,
+                        color: Color(0xFFFF9800),
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        con,
+                        style: const TextStyle(
+                          fontSize: 11,
+                          color: Color(0xFFFF9800),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }).toList(),
+            ),
+          ],
+
+          // Helpful Count
+          if (review.helpful?.count != null && review.helpful!.count! > 0) ...[
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                const Icon(
+                  Icons.thumb_up_outlined,
+                  size: 14,
+                  color: Color(0xFF606060),
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  '${review.helpful!.count} found this helpful',
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: Color(0xFF606060),
+                  ),
+                ),
+              ],
+            ),
+          ],
+
+          // Store Response
+          if (review.response != null && review.response!.content != null) ...[
+            const SizedBox(height: 12),
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: const Color(0xFF0A0A0A),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: const Color(0xFF2A2A2A)),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.store,
+                        size: 14,
+                        color: Color(0xFFD4AF37),
+                      ),
+                      const SizedBox(width: 6),
+                      const Text(
+                        'Store Response',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFFD4AF37),
+                        ),
+                      ),
+                      const Spacer(),
+                      Text(
+                        controller.formatTimeAgo(review.response!.respondedAt),
+                        style: const TextStyle(
+                          fontSize: 10,
+                          color: Color(0xFF606060),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    review.response!.content!,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: Color(0xFF808080),
+                      height: 1.4,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ],
       ),
     );
   }
