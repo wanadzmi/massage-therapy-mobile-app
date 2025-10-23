@@ -205,6 +205,94 @@ class BookingService extends BaseServices {
 
     return MyResponse.error(response.error);
   }
+
+  /// Accept a pending booking (changes status from pending to confirmed)
+  Future<MyResponse<Booking?, dynamic>> acceptBooking(String bookingId) async {
+    final response = await callAPI(
+      HttpRequestType.PUT,
+      '$_bookingsEndpoint/$bookingId/accept',
+    );
+
+    if (response.isSuccess && response.data != null) {
+      try {
+        final bookingData = response.data['data'] ?? response.data;
+        final booking = Booking.fromJson(bookingData);
+        return MyResponse.complete(booking);
+      } catch (e) {
+        return MyResponse.error('Failed to accept booking: $e');
+      }
+    }
+
+    return MyResponse.error(response.error);
+  }
+
+  /// Reject a pending booking with reason (changes status to cancelled and triggers refund)
+  Future<MyResponse<Booking?, dynamic>> rejectBooking(
+    String bookingId,
+    String reason,
+  ) async {
+    final response = await callAPI(
+      HttpRequestType.PUT,
+      '$_bookingsEndpoint/$bookingId/reject',
+      postBody: {'reason': reason},
+    );
+
+    if (response.isSuccess && response.data != null) {
+      try {
+        final bookingData = response.data['data'] ?? response.data;
+        final booking = Booking.fromJson(bookingData);
+        return MyResponse.complete(booking);
+      } catch (e) {
+        return MyResponse.error('Failed to reject booking: $e');
+      }
+    }
+
+    return MyResponse.error(response.error);
+  }
+
+  /// Start a confirmed booking session (changes status from confirmed to in_progress)
+  Future<MyResponse<Booking?, dynamic>> startSession(String bookingId) async {
+    final response = await callAPI(
+      HttpRequestType.PUT,
+      '$_bookingsEndpoint/$bookingId/start',
+    );
+
+    if (response.isSuccess && response.data != null) {
+      try {
+        final bookingData = response.data['data'] ?? response.data;
+        final booking = Booking.fromJson(bookingData);
+        return MyResponse.complete(booking);
+      } catch (e) {
+        return MyResponse.error('Failed to start session: $e');
+      }
+    }
+
+    return MyResponse.error(response.error);
+  }
+
+  /// Complete a booking session (only works for in_progress status)
+  Future<MyResponse<Booking?, dynamic>> completeBooking(
+    String bookingId,
+    int customerSatisfaction,
+  ) async {
+    final response = await callAPI(
+      HttpRequestType.PUT,
+      '$_bookingsEndpoint/$bookingId/complete',
+      postBody: {'customerSatisfaction': customerSatisfaction},
+    );
+
+    if (response.isSuccess && response.data != null) {
+      try {
+        final bookingData = response.data['data'] ?? response.data;
+        final booking = Booking.fromJson(bookingData);
+        return MyResponse.complete(booking);
+      } catch (e) {
+        return MyResponse.error('Failed to complete booking: $e');
+      }
+    }
+
+    return MyResponse.error(response.error);
+  }
 }
 
 /// Response model for my-bookings endpoint

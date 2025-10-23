@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/therapist_home_controller.dart';
 import '../../../global_widgets/cash_collection_dialog.dart';
+import '../../../global_widgets/session_timer.dart';
 import 'package:intl/intl.dart';
 
 class TherapistHomeView extends GetView<TherapistHomeController> {
@@ -194,17 +195,38 @@ class TherapistHomeView extends GetView<TherapistHomeController> {
                       color: _getStatusColor(booking.status).withOpacity(0.3),
                     ),
                   ),
-                  child: Text(
-                    booking.status?.toUpperCase() ?? '',
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                      color: _getStatusColor(booking.status),
-                    ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        _getStatusIcon(booking.status),
+                        size: 14,
+                        color: _getStatusColor(booking.status),
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        booking.status?.toUpperCase() ?? '',
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
+                          color: _getStatusColor(booking.status),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
+
+            // Session Timer for in_progress bookings
+            if (booking.status?.toLowerCase() == 'in_progress' &&
+                booking.date != null &&
+                booking.startTime != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 12),
+                child: SessionTimer(startTime: _parseSessionStartTime(booking)),
+              ),
+
             const SizedBox(height: 16),
 
             // Customer Name with Member Tier
@@ -404,54 +426,197 @@ class TherapistHomeView extends GetView<TherapistHomeController> {
                 ),
               ),
 
-            // Complete Button
-            if (booking.status == 'confirmed' ||
-                booking.status == 'in_progress')
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: isCompleting
-                      ? null
-                      : () => controller.showCompleteBookingDialog(booking),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF4CAF50),
-                    foregroundColor: Colors.white,
-                    disabledBackgroundColor: const Color(0xFF2A2A2A),
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  child: isCompleting
-                      ? const SizedBox(
-                          height: 20,
-                          width: 20,
-                          child: CircularProgressIndicator(
-                            color: Colors.white,
-                            strokeWidth: 2,
-                          ),
-                        )
-                      : const Text(
-                          'Complete Booking',
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                ),
-              ),
+            // Action Buttons based on status
+            _buildActionButtons(booking, isCompleting),
           ],
         ),
       ),
     );
   }
 
+  Widget _buildActionButtons(booking, bool isCompleting) {
+    final isProcessing = controller.isProcessingBooking(booking.id ?? '');
+    final status = booking.status?.toLowerCase();
+
+    // PENDING status - Show Accept/Reject buttons
+    if (status == 'pending') {
+      return Row(
+        children: [
+          Expanded(
+            child: OutlinedButton.icon(
+              onPressed: isProcessing
+                  ? null
+                  : () => controller.showRejectDialog(booking.id!),
+              icon: const Icon(Icons.close, size: 20),
+              label: const Text('Reject'),
+              style: OutlinedButton.styleFrom(
+                foregroundColor: const Color(0xFFFF5252),
+                side: const BorderSide(color: Color(0xFFFF5252)),
+                disabledForegroundColor: const Color(0xFF2A2A2A),
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: ElevatedButton.icon(
+              onPressed: isProcessing
+                  ? null
+                  : () => controller.acceptBooking(booking.id!),
+              icon: const Icon(Icons.check, size: 20),
+              label: isProcessing
+                  ? const SizedBox(
+                      height: 16,
+                      width: 16,
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
+                        strokeWidth: 2,
+                      ),
+                    )
+                  : const Text('Accept'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF4CAF50),
+                foregroundColor: Colors.white,
+                disabledBackgroundColor: const Color(0xFF2A2A2A),
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    }
+
+    // CONFIRMED status - Show Start Session button
+    if (status == 'confirmed') {
+      return SizedBox(
+        width: double.infinity,
+        child: ElevatedButton.icon(
+          onPressed: isProcessing
+              ? null
+              : () => controller.showStartSessionDialog(booking),
+          icon: const Icon(Icons.play_arrow, size: 20),
+          label: isProcessing
+              ? const SizedBox(
+                  height: 16,
+                  width: 16,
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                    strokeWidth: 2,
+                  ),
+                )
+              : const Text(
+                  'Start Session',
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                ),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF2196F3),
+            foregroundColor: Colors.white,
+            disabledBackgroundColor: const Color(0xFF2A2A2A),
+            padding: const EdgeInsets.symmetric(vertical: 14),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+        ),
+      );
+    }
+
+    // IN_PROGRESS status - Show Complete Session button
+    if (status == 'in_progress') {
+      return SizedBox(
+        width: double.infinity,
+        child: ElevatedButton.icon(
+          onPressed: isCompleting
+              ? null
+              : () => controller.showCompleteBookingDialog(booking),
+          icon: const Icon(Icons.check_circle, size: 20),
+          label: isCompleting
+              ? const SizedBox(
+                  height: 16,
+                  width: 16,
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                    strokeWidth: 2,
+                  ),
+                )
+              : const Text(
+                  'Complete Session',
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                ),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF4CAF50),
+            foregroundColor: Colors.white,
+            disabledBackgroundColor: const Color(0xFF2A2A2A),
+            padding: const EdgeInsets.symmetric(vertical: 14),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+        ),
+      );
+    }
+
+    // COMPLETED or other status - Show View Details button
+    return SizedBox(
+      width: double.infinity,
+      child: OutlinedButton.icon(
+        onPressed: () {
+          if (booking.id != null) {
+            Get.toNamed('/therapist-booking-detail/${booking.id}');
+          }
+        },
+        icon: const Icon(Icons.visibility, size: 20),
+        label: const Text(
+          'View Details',
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+        ),
+        style: OutlinedButton.styleFrom(
+          foregroundColor: const Color(0xFFD4AF37),
+          side: const BorderSide(color: Color(0xFFD4AF37)),
+          padding: const EdgeInsets.symmetric(vertical: 14),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      ),
+    );
+  }
+
+  IconData _getStatusIcon(String? status) {
+    switch (status?.toLowerCase()) {
+      case 'pending':
+        return Icons.hourglass_empty;
+      case 'confirmed':
+        return Icons.check_circle_outline;
+      case 'in_progress':
+        return Icons.play_circle_outline;
+      case 'completed':
+        return Icons.done_all;
+      case 'cancelled':
+        return Icons.cancel_outlined;
+      default:
+        return Icons.circle_outlined;
+    }
+  }
+
   Color _getStatusColor(String? status) {
     switch (status?.toLowerCase()) {
+      case 'pending':
+        return const Color(0xFFFF9800);
       case 'confirmed':
-        return const Color(0xFF4CAF50);
-      case 'in_progress':
         return const Color(0xFF2196F3);
+      case 'in_progress':
+        return const Color(0xFF4CAF50);
+      case 'completed':
+        return const Color(0xFF808080);
+      case 'cancelled':
+        return const Color(0xFFFF5252);
       default:
         return const Color(0xFF808080);
     }
@@ -460,6 +625,27 @@ class TherapistHomeView extends GetView<TherapistHomeController> {
   String _formatDate(DateTime? date) {
     if (date == null) return 'N/A';
     return DateFormat('MMM dd, yyyy').format(date);
+  }
+
+  DateTime _parseSessionStartTime(booking) {
+    // Try to parse the booking date + start time
+    // If booking is today and in_progress, use the scheduled time
+    if (booking.date != null && booking.startTime != null) {
+      try {
+        final date = booking.date as DateTime;
+        final timeStr = booking.startTime as String;
+        final timeParts = timeStr.split(':');
+        if (timeParts.length >= 2) {
+          final hour = int.tryParse(timeParts[0]) ?? 0;
+          final minute = int.tryParse(timeParts[1]) ?? 0;
+          return DateTime(date.year, date.month, date.day, hour, minute);
+        }
+      } catch (e) {
+        // Fall through to default
+      }
+    }
+    // Default to current time if parsing fails
+    return DateTime.now().subtract(const Duration(minutes: 5));
   }
 
   Color _getTierColor(String tier) {
