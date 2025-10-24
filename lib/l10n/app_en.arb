@@ -875,5 +875,290 @@
     "subscribe": "Subscribe",
     "@subscribe": {
         "description": "Subscribe button"
+    },
+    "insufficientBalance": "Insufficient Balance",
+    "@insufficientBalance": {
+        "description": "Insufficient balance dialog title"
+    },
+    "needToSubscribe": "You need {amount} to subscribe to {tierName} tier.",
+    "@needToSubscribe": {
+        "description": "Need amount to subscribe message",
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            },
+            "tierName": {
+                "type": "String"
+            }
+        }
+    },
+    "currentBalanceLabel": "Current Balance: {balance}",
+    "@currentBalanceLabel": {
+        "description": "Current balance label with amount",
+        "placeholders": {
+            "balance": {
+                "type": "String"
+            }
+        }
+    },
+    "subscribeTo": "Subscribe to {tierName}?",
+    "@subscribeTo": {
+        "description": "Subscribe confirmation title",
+        "placeholders": {
+            "tierName": {
+                "type": "String"
+            }
+        }
+    },
+    "subscriptionChargeMessage": "You will be charged {amount} for 1 month subscription.",
+    "@subscriptionChargeMessage": {
+        "description": "Subscription charge message",
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            }
+        }
+    },
+    "newBalanceLabel": "New Balance: {balance}",
+    "@newBalanceLabel": {
+        "description": "New balance label with amount",
+        "placeholders": {
+            "balance": {
+                "type": "String"
+            }
+        }
+    },
+    "confirm": "Confirm",
+    "@confirm": {
+        "description": "Confirm button"
+    },
+    "subscriptionSuccessful": "Subscription Successful!",
+    "@subscriptionSuccessful": {
+        "description": "Subscription success title"
+    },
+    "validUntil": "Valid until: {date}",
+    "@validUntil": {
+        "description": "Valid until date message",
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "great": "Great!",
+    "@great": {
+        "description": "Great button text"
+    },
+    "cannotSubscribe": "Cannot Subscribe",
+    "@cannotSubscribe": {
+        "description": "Cannot subscribe error title"
+    },
+    "alreadyMember": "You are already a {tierName} member",
+    "@alreadyMember": {
+        "description": "Already member message",
+        "placeholders": {
+            "tierName": {
+                "type": "String"
+            }
+        }
+    },
+    "tierNotAvailable": "This tier is not available for subscription",
+    "@tierNotAvailable": {
+        "description": "Tier not available message"
+    },
+    "subscriptionFailed": "Subscription Failed",
+    "@subscriptionFailed": {
+        "description": "Subscription failed title"
+    },
+    "failedToLoadTiers": "Failed to load tiers",
+    "@failedToLoadTiers": {
+        "description": "Failed to load tiers error"
+    },
+    "mySubscription": "My Subscription",
+    "@mySubscription": {
+        "description": "My subscription page title"
+    },
+    "noActiveSubscription": "No Active Subscription",
+    "@noActiveSubscription": {
+        "description": "No active subscription title"
+    },
+    "subscribeToUnlockBenefits": "Subscribe to a tier to unlock exclusive benefits and rewards",
+    "@subscribeToUnlockBenefits": {
+        "description": "Subscribe to unlock benefits message"
+    },
+    "browseTiers": "Browse Tiers",
+    "@browseTiers": {
+        "description": "Browse tiers button"
+    },
+    "memberSince": "Member since {date}",
+    "@memberSince": {
+        "description": "Member since label",
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "subscriptionStatus": "Subscription Status",
+    "@subscriptionStatus": {
+        "description": "Subscription status section title"
+    },
+    "started": "Started",
+    "@started": {
+        "description": "Started label"
+    },
+    "expires": "Expires",
+    "@expires": {
+        "description": "Expires label"
+    },
+    "lastRenewed": "Last Renewed",
+    "@lastRenewed": {
+        "description": "Last renewed label"
+    },
+    "autoRenewal": "Auto-Renewal",
+    "@autoRenewal": {
+        "description": "Auto-renewal label"
+    },
+    "enabled": "Enabled",
+    "@enabled": {
+        "description": "Enabled status"
+    },
+    "disabled": "Disabled",
+    "@disabled": {
+        "description": "Disabled status"
+    },
+    "yourBenefits": "Your Benefits",
+    "@yourBenefits": {
+        "description": "Your benefits section title"
+    },
+    "cashbackOnAllBookings": "Cashback on All Bookings",
+    "@cashbackOnAllBookings": {
+        "description": "Cashback on all bookings benefit"
+    },
+    "actions": "Actions",
+    "@actions": {
+        "description": "Actions section title"
+    },
+    "renewNow": "Renew Now",
+    "@renewNow": {
+        "description": "Renew now button"
+    },
+    "cancelSubscription": "Cancel Subscription",
+    "@cancelSubscription": {
+        "description": "Cancel subscription button"
+    },
+    "transactionHistory": "Transaction History",
+    "@transactionHistory": {
+        "description": "Transaction history section title"
+    },
+    "noTransactionsYet": "No transactions yet",
+    "@noTransactionsYet": {
+        "description": "No transactions message"
+    },
+    "loadMore": "Load More",
+    "@loadMore": {
+        "description": "Load more button"
+    },
+    "renewSubscription": "Renew Subscription?",
+    "@renewSubscription": {
+        "description": "Renew subscription dialog title"
+    },
+    "renewChargeMessage": "You will be charged {amount} for another month of {tierName} membership.",
+    "@renewChargeMessage": {
+        "description": "Renew charge message",
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            },
+            "tierName": {
+                "type": "String"
+            }
+        }
+    },
+    "renew": "Renew",
+    "@renew": {
+        "description": "Renew button"
+    },
+    "renewalSuccessful": "Renewal Successful!",
+    "@renewalSuccessful": {
+        "description": "Renewal successful title"
+    },
+    "newExpiryDate": "New expiry date: {date}",
+    "@newExpiryDate": {
+        "description": "New expiry date message",
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "renewalFailed": "Renewal Failed",
+    "@renewalFailed": {
+        "description": "Renewal failed title"
+    },
+    "failedToRenewSubscription": "Failed to renew subscription",
+    "@failedToRenewSubscription": {
+        "description": "Failed to renew subscription message"
+    },
+    "cancelSubscriptionConfirm": "Cancel Subscription?",
+    "@cancelSubscriptionConfirm": {
+        "description": "Cancel subscription confirm dialog title"
+    },
+    "cancelSubscriptionWarning": "Your benefits will remain active until {date}. After that, you'll lose access to tier benefits.",
+    "@cancelSubscriptionWarning": {
+        "description": "Cancel subscription warning message",
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "keepIt": "Keep It",
+    "@keepIt": {
+        "description": "Keep subscription button"
+    },
+    "cancelIt": "Cancel",
+    "@cancelIt": {
+        "description": "Cancel subscription confirm button"
+    },
+    "subscriptionCancelled": "Subscription Cancelled",
+    "@subscriptionCancelled": {
+        "description": "Subscription cancelled title"
+    },
+    "subscriptionCancelledMessage": "Your subscription has been cancelled. Benefits remain active until expiry.",
+    "@subscriptionCancelledMessage": {
+        "description": "Subscription cancelled message"
+    },
+    "cancellationFailed": "Cancellation Failed",
+    "@cancellationFailed": {
+        "description": "Cancellation failed title"
+    },
+    "failedToCancelSubscription": "Failed to cancel subscription",
+    "@failedToCancelSubscription": {
+        "description": "Failed to cancel subscription message"
+    },
+    "autoRenewalEnabled": "Auto-renewal enabled",
+    "@autoRenewalEnabled": {
+        "description": "Auto-renewal enabled snackbar"
+    },
+    "autoRenewalDisabled": "Auto-renewal disabled",
+    "@autoRenewalDisabled": {
+        "description": "Auto-renewal disabled snackbar"
+    },
+    "failedToUpdateAutoRenewal": "Failed to update auto-renewal",
+    "@failedToUpdateAutoRenewal": {
+        "description": "Failed to update auto-renewal message"
+    },
+    "ok": "OK",
+    "@ok": {
+        "description": "OK button"
+    },
+    "failedToLoadSubscription": "Failed to load subscription details",
+    "@failedToLoadSubscription": {
+        "description": "Failed to load subscription error"
+    },
+    "failedToLoadHistory": "Failed to load transaction history",
+    "@failedToLoadHistory": {
+        "description": "Failed to load transaction history error"
     }
 }

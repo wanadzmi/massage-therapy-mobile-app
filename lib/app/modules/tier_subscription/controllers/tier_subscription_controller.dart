@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../data/services/tier_service.dart';
 import '../../home/controllers/home_controller.dart';
 import '../../profile/controllers/profile_controller.dart';
@@ -56,9 +57,10 @@ class TierSubscriptionController extends GetxController {
         );
       } else {
         print('❌ Failed to load tiers: ${response.error}');
+        final l10n = AppLocalizations.of(Get.context!)!;
         Get.snackbar(
-          'Error',
-          response.error ?? 'Failed to load tiers',
+          l10n.error,
+          response.error ?? l10n.failedToLoadTiers,
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red.withOpacity(0.8),
           colorText: Colors.white,
@@ -66,9 +68,10 @@ class TierSubscriptionController extends GetxController {
       }
     } catch (e) {
       print('💥 Error loading tiers: $e');
+      final l10n = AppLocalizations.of(Get.context!)!;
       Get.snackbar(
-        'Error',
-        'An error occurred: $e',
+        l10n.error,
+        '${l10n.anErrorOccurred}: $e',
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red.withOpacity(0.8),
         colorText: Colors.white,
@@ -86,11 +89,10 @@ class TierSubscriptionController extends GetxController {
     }
 
     if (!tier.canSubscribe) {
+      final l10n = AppLocalizations.of(Get.context!)!;
       Get.snackbar(
-        'Cannot Subscribe',
-        tier.isCurrent
-            ? 'You are already a ${tier.name} member'
-            : 'This tier is not available for subscription',
+        l10n.cannotSubscribe,
+        tier.isCurrent ? l10n.alreadyMember(tier.name) : l10n.tierNotAvailable,
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.orange.withOpacity(0.8),
         colorText: Colors.white,
@@ -118,9 +120,10 @@ class TierSubscriptionController extends GetxController {
         _handleSubscribeError(response.error);
       }
     } catch (e) {
+      final l10n = AppLocalizations.of(Get.context!)!;
       Get.snackbar(
-        'Error',
-        'An error occurred: $e',
+        l10n.error,
+        '${l10n.anErrorOccurred}: $e',
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red.withOpacity(0.8),
         colorText: Colors.white,
@@ -131,6 +134,7 @@ class TierSubscriptionController extends GetxController {
   }
 
   void _showInsufficientBalanceDialog(TierInfo tier) {
+    final l10n = AppLocalizations.of(Get.context!)!;
     Get.dialog(
       Dialog(
         backgroundColor: const Color(0xFF1A1A1A),
@@ -157,9 +161,9 @@ class TierSubscriptionController extends GetxController {
                 ),
               ),
               const SizedBox(height: 20),
-              const Text(
-                'Insufficient Balance',
-                style: TextStyle(
+              Text(
+                l10n.insufficientBalance,
+                style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
                   color: Color(0xFFE0E0E0),
@@ -168,13 +172,18 @@ class TierSubscriptionController extends GetxController {
               ),
               const SizedBox(height: 12),
               Text(
-                'You need RM ${tier.price.toStringAsFixed(2)} to subscribe to ${tier.name} tier.',
+                l10n.needToSubscribe(
+                  'RM ${tier.price.toStringAsFixed(2)}',
+                  tier.name,
+                ),
                 style: const TextStyle(fontSize: 14, color: Color(0xFF808080)),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 8),
               Text(
-                'Current Balance: RM ${_currentBalance.value.toStringAsFixed(2)}',
+                l10n.currentBalanceLabel(
+                  'RM ${_currentBalance.value.toStringAsFixed(2)}',
+                ),
                 style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
@@ -196,7 +205,7 @@ class TierSubscriptionController extends GetxController {
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      child: const Text('Cancel'),
+                      child: Text(l10n.cancel),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -223,7 +232,7 @@ class TierSubscriptionController extends GetxController {
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      child: const Text('Top Up'),
+                      child: Text(l10n.topUp),
                     ),
                   ),
                 ],
@@ -237,6 +246,7 @@ class TierSubscriptionController extends GetxController {
   }
 
   Widget _buildSubscribeConfirmDialog(TierInfo tier) {
+    final l10n = AppLocalizations.of(Get.context!)!;
     return Dialog(
       backgroundColor: const Color(0xFF1A1A1A),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -263,7 +273,7 @@ class TierSubscriptionController extends GetxController {
             ),
             const SizedBox(height: 20),
             Text(
-              'Subscribe to ${tier.name}?',
+              l10n.subscribeTo(tier.name),
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
@@ -273,13 +283,17 @@ class TierSubscriptionController extends GetxController {
             ),
             const SizedBox(height: 12),
             Text(
-              'You will be charged RM ${tier.price.toStringAsFixed(2)} for 1 month subscription.',
+              l10n.subscriptionChargeMessage(
+                'RM ${tier.price.toStringAsFixed(2)}',
+              ),
               style: const TextStyle(fontSize: 14, color: Color(0xFF808080)),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
             Text(
-              'New Balance: RM ${(_currentBalance.value - tier.price).toStringAsFixed(2)}',
+              l10n.newBalanceLabel(
+                'RM ${(_currentBalance.value - tier.price).toStringAsFixed(2)}',
+              ),
               style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
@@ -301,7 +315,7 @@ class TierSubscriptionController extends GetxController {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    child: const Text('Cancel'),
+                    child: Text(l10n.cancel),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -316,7 +330,7 @@ class TierSubscriptionController extends GetxController {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    child: const Text('Confirm'),
+                    child: Text(l10n.confirm),
                   ),
                 ),
               ],
@@ -328,6 +342,7 @@ class TierSubscriptionController extends GetxController {
   }
 
   Future<void> _showSuccessDialog(SubscribeResponse response) async {
+    final l10n = AppLocalizations.of(Get.context!)!;
     await Get.dialog(
       Dialog(
         backgroundColor: const Color(0xFF1A1A1A),
@@ -355,7 +370,7 @@ class TierSubscriptionController extends GetxController {
               ),
               const SizedBox(height: 20),
               Text(
-                response.message ?? 'Subscription Successful!',
+                response.message ?? l10n.subscriptionSuccessful,
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
@@ -366,7 +381,7 @@ class TierSubscriptionController extends GetxController {
               const SizedBox(height: 12),
               if (response.data?.expiresAt != null)
                 Text(
-                  'Valid until: ${_formatDate(response.data!.expiresAt!)}',
+                  l10n.validUntil(_formatDate(response.data!.expiresAt!)),
                   style: const TextStyle(
                     fontSize: 14,
                     color: Color(0xFF808080),
@@ -377,7 +392,9 @@ class TierSubscriptionController extends GetxController {
                 Padding(
                   padding: const EdgeInsets.only(top: 8),
                   child: Text(
-                    'New Balance: RM ${response.data!.transaction!.newBalance!.toStringAsFixed(2)}',
+                    l10n.newBalanceLabel(
+                      'RM ${response.data!.transaction!.newBalance!.toStringAsFixed(2)}',
+                    ),
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -407,7 +424,7 @@ class TierSubscriptionController extends GetxController {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  child: const Text('Great!'),
+                  child: Text(l10n.great),
                 ),
               ),
             ],
@@ -419,7 +436,8 @@ class TierSubscriptionController extends GetxController {
   }
 
   void _handleSubscribeError(dynamic error) {
-    String message = 'Failed to subscribe to tier';
+    final l10n = AppLocalizations.of(Get.context!)!;
+    String message = l10n.failedToLoadTiers;
     if (error is Map) {
       message = error['message'] ?? error['error'] ?? message;
     } else if (error is String) {
@@ -427,7 +445,7 @@ class TierSubscriptionController extends GetxController {
     }
 
     Get.snackbar(
-      'Subscription Failed',
+      l10n.subscriptionFailed,
       message,
       snackPosition: SnackPosition.BOTTOM,
       backgroundColor: Colors.red.withOpacity(0.8),

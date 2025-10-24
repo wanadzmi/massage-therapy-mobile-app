@@ -1389,6 +1389,342 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Subscribe'**
   String get subscribe;
+
+  /// Insufficient balance dialog title
+  ///
+  /// In en, this message translates to:
+  /// **'Insufficient Balance'**
+  String get insufficientBalance;
+
+  /// Need amount to subscribe message
+  ///
+  /// In en, this message translates to:
+  /// **'You need {amount} to subscribe to {tierName} tier.'**
+  String needToSubscribe(String amount, String tierName);
+
+  /// Current balance label with amount
+  ///
+  /// In en, this message translates to:
+  /// **'Current Balance: {balance}'**
+  String currentBalanceLabel(String balance);
+
+  /// Subscribe confirmation title
+  ///
+  /// In en, this message translates to:
+  /// **'Subscribe to {tierName}?'**
+  String subscribeTo(String tierName);
+
+  /// Subscription charge message
+  ///
+  /// In en, this message translates to:
+  /// **'You will be charged {amount} for 1 month subscription.'**
+  String subscriptionChargeMessage(String amount);
+
+  /// New balance label with amount
+  ///
+  /// In en, this message translates to:
+  /// **'New Balance: {balance}'**
+  String newBalanceLabel(String balance);
+
+  /// Confirm button
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirm;
+
+  /// Subscription success title
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription Successful!'**
+  String get subscriptionSuccessful;
+
+  /// Valid until date message
+  ///
+  /// In en, this message translates to:
+  /// **'Valid until: {date}'**
+  String validUntil(String date);
+
+  /// Great button text
+  ///
+  /// In en, this message translates to:
+  /// **'Great!'**
+  String get great;
+
+  /// Cannot subscribe error title
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot Subscribe'**
+  String get cannotSubscribe;
+
+  /// Already member message
+  ///
+  /// In en, this message translates to:
+  /// **'You are already a {tierName} member'**
+  String alreadyMember(String tierName);
+
+  /// Tier not available message
+  ///
+  /// In en, this message translates to:
+  /// **'This tier is not available for subscription'**
+  String get tierNotAvailable;
+
+  /// Subscription failed title
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription Failed'**
+  String get subscriptionFailed;
+
+  /// Failed to load tiers error
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load tiers'**
+  String get failedToLoadTiers;
+
+  /// My subscription page title
+  ///
+  /// In en, this message translates to:
+  /// **'My Subscription'**
+  String get mySubscription;
+
+  /// No active subscription title
+  ///
+  /// In en, this message translates to:
+  /// **'No Active Subscription'**
+  String get noActiveSubscription;
+
+  /// Subscribe to unlock benefits message
+  ///
+  /// In en, this message translates to:
+  /// **'Subscribe to a tier to unlock exclusive benefits and rewards'**
+  String get subscribeToUnlockBenefits;
+
+  /// Browse tiers button
+  ///
+  /// In en, this message translates to:
+  /// **'Browse Tiers'**
+  String get browseTiers;
+
+  /// Member since label
+  ///
+  /// In en, this message translates to:
+  /// **'Member since {date}'**
+  String memberSince(String date);
+
+  /// Subscription status section title
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription Status'**
+  String get subscriptionStatus;
+
+  /// Started label
+  ///
+  /// In en, this message translates to:
+  /// **'Started'**
+  String get started;
+
+  /// Expires label
+  ///
+  /// In en, this message translates to:
+  /// **'Expires'**
+  String get expires;
+
+  /// Last renewed label
+  ///
+  /// In en, this message translates to:
+  /// **'Last Renewed'**
+  String get lastRenewed;
+
+  /// Auto-renewal label
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-Renewal'**
+  String get autoRenewal;
+
+  /// Enabled status
+  ///
+  /// In en, this message translates to:
+  /// **'Enabled'**
+  String get enabled;
+
+  /// Disabled status
+  ///
+  /// In en, this message translates to:
+  /// **'Disabled'**
+  String get disabled;
+
+  /// Your benefits section title
+  ///
+  /// In en, this message translates to:
+  /// **'Your Benefits'**
+  String get yourBenefits;
+
+  /// Cashback on all bookings benefit
+  ///
+  /// In en, this message translates to:
+  /// **'Cashback on All Bookings'**
+  String get cashbackOnAllBookings;
+
+  /// Actions section title
+  ///
+  /// In en, this message translates to:
+  /// **'Actions'**
+  String get actions;
+
+  /// Renew now button
+  ///
+  /// In en, this message translates to:
+  /// **'Renew Now'**
+  String get renewNow;
+
+  /// Cancel subscription button
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Subscription'**
+  String get cancelSubscription;
+
+  /// Transaction history section title
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction History'**
+  String get transactionHistory;
+
+  /// No transactions message
+  ///
+  /// In en, this message translates to:
+  /// **'No transactions yet'**
+  String get noTransactionsYet;
+
+  /// Load more button
+  ///
+  /// In en, this message translates to:
+  /// **'Load More'**
+  String get loadMore;
+
+  /// Renew subscription dialog title
+  ///
+  /// In en, this message translates to:
+  /// **'Renew Subscription?'**
+  String get renewSubscription;
+
+  /// Renew charge message
+  ///
+  /// In en, this message translates to:
+  /// **'You will be charged {amount} for another month of {tierName} membership.'**
+  String renewChargeMessage(String amount, String tierName);
+
+  /// Renew button
+  ///
+  /// In en, this message translates to:
+  /// **'Renew'**
+  String get renew;
+
+  /// Renewal successful title
+  ///
+  /// In en, this message translates to:
+  /// **'Renewal Successful!'**
+  String get renewalSuccessful;
+
+  /// New expiry date message
+  ///
+  /// In en, this message translates to:
+  /// **'New expiry date: {date}'**
+  String newExpiryDate(String date);
+
+  /// Renewal failed title
+  ///
+  /// In en, this message translates to:
+  /// **'Renewal Failed'**
+  String get renewalFailed;
+
+  /// Failed to renew subscription message
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to renew subscription'**
+  String get failedToRenewSubscription;
+
+  /// Cancel subscription confirm dialog title
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Subscription?'**
+  String get cancelSubscriptionConfirm;
+
+  /// Cancel subscription warning message
+  ///
+  /// In en, this message translates to:
+  /// **'Your benefits will remain active until {date}. After that, you\'ll lose access to tier benefits.'**
+  String cancelSubscriptionWarning(String date);
+
+  /// Keep subscription button
+  ///
+  /// In en, this message translates to:
+  /// **'Keep It'**
+  String get keepIt;
+
+  /// Cancel subscription confirm button
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancelIt;
+
+  /// Subscription cancelled title
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription Cancelled'**
+  String get subscriptionCancelled;
+
+  /// Subscription cancelled message
+  ///
+  /// In en, this message translates to:
+  /// **'Your subscription has been cancelled. Benefits remain active until expiry.'**
+  String get subscriptionCancelledMessage;
+
+  /// Cancellation failed title
+  ///
+  /// In en, this message translates to:
+  /// **'Cancellation Failed'**
+  String get cancellationFailed;
+
+  /// Failed to cancel subscription message
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to cancel subscription'**
+  String get failedToCancelSubscription;
+
+  /// Auto-renewal enabled snackbar
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-renewal enabled'**
+  String get autoRenewalEnabled;
+
+  /// Auto-renewal disabled snackbar
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-renewal disabled'**
+  String get autoRenewalDisabled;
+
+  /// Failed to update auto-renewal message
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to update auto-renewal'**
+  String get failedToUpdateAutoRenewal;
+
+  /// OK button
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get ok;
+
+  /// Failed to load subscription error
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load subscription details'**
+  String get failedToLoadSubscription;
+
+  /// Failed to load transaction history error
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load transaction history'**
+  String get failedToLoadHistory;
 }
 
 class _AppLocalizationsDelegate

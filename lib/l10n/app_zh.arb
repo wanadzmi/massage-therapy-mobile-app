@@ -875,5 +875,290 @@
     "subscribe": "订阅",
     "@subscribe": {
         "description": "Subscribe button"
+    },
+    "insufficientBalance": "余额不足",
+    "@insufficientBalance": {
+        "description": "Insufficient balance dialog title"
+    },
+    "needToSubscribe": "您需要 {amount} 来订阅 {tierName} 等级。",
+    "@needToSubscribe": {
+        "description": "Need amount to subscribe message",
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            },
+            "tierName": {
+                "type": "String"
+            }
+        }
+    },
+    "currentBalanceLabel": "当前余额：{balance}",
+    "@currentBalanceLabel": {
+        "description": "Current balance label with amount",
+        "placeholders": {
+            "balance": {
+                "type": "String"
+            }
+        }
+    },
+    "subscribeTo": "订阅 {tierName}？",
+    "@subscribeTo": {
+        "description": "Subscribe confirmation title",
+        "placeholders": {
+            "tierName": {
+                "type": "String"
+            }
+        }
+    },
+    "subscriptionChargeMessage": "您将支付 {amount} 进行1个月订阅。",
+    "@subscriptionChargeMessage": {
+        "description": "Subscription charge message",
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            }
+        }
+    },
+    "newBalanceLabel": "新余额：{balance}",
+    "@newBalanceLabel": {
+        "description": "New balance label with amount",
+        "placeholders": {
+            "balance": {
+                "type": "String"
+            }
+        }
+    },
+    "confirm": "确认",
+    "@confirm": {
+        "description": "Confirm button"
+    },
+    "subscriptionSuccessful": "订阅成功！",
+    "@subscriptionSuccessful": {
+        "description": "Subscription success title"
+    },
+    "validUntil": "有效期至：{date}",
+    "@validUntil": {
+        "description": "Valid until date message",
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "great": "太棒了！",
+    "@great": {
+        "description": "Great button text"
+    },
+    "cannotSubscribe": "无法订阅",
+    "@cannotSubscribe": {
+        "description": "Cannot subscribe error title"
+    },
+    "alreadyMember": "您已经是 {tierName} 会员",
+    "@alreadyMember": {
+        "description": "Already member message",
+        "placeholders": {
+            "tierName": {
+                "type": "String"
+            }
+        }
+    },
+    "tierNotAvailable": "此等级不可用于订阅",
+    "@tierNotAvailable": {
+        "description": "Tier not available message"
+    },
+    "subscriptionFailed": "订阅失败",
+    "@subscriptionFailed": {
+        "description": "Subscription failed title"
+    },
+    "failedToLoadTiers": "无法加载等级",
+    "@failedToLoadTiers": {
+        "description": "Failed to load tiers error"
+    },
+    "mySubscription": "我的订阅",
+    "@mySubscription": {
+        "description": "My subscription page title"
+    },
+    "noActiveSubscription": "无有效订阅",
+    "@noActiveSubscription": {
+        "description": "No active subscription title"
+    },
+    "subscribeToUnlockBenefits": "订阅等级以解锁专属福利和奖励",
+    "@subscribeToUnlockBenefits": {
+        "description": "Subscribe to unlock benefits message"
+    },
+    "browseTiers": "浏览等级",
+    "@browseTiers": {
+        "description": "Browse tiers button"
+    },
+    "memberSince": "会员自 {date}",
+    "@memberSince": {
+        "description": "Member since label",
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "subscriptionStatus": "订阅状态",
+    "@subscriptionStatus": {
+        "description": "Subscription status section title"
+    },
+    "started": "开始",
+    "@started": {
+        "description": "Started label"
+    },
+    "expires": "到期",
+    "@expires": {
+        "description": "Expires label"
+    },
+    "lastRenewed": "最后续订",
+    "@lastRenewed": {
+        "description": "Last renewed label"
+    },
+    "autoRenewal": "自动续订",
+    "@autoRenewal": {
+        "description": "Auto-renewal label"
+    },
+    "enabled": "已启用",
+    "@enabled": {
+        "description": "Enabled status"
+    },
+    "disabled": "已禁用",
+    "@disabled": {
+        "description": "Disabled status"
+    },
+    "yourBenefits": "您的福利",
+    "@yourBenefits": {
+        "description": "Your benefits section title"
+    },
+    "cashbackOnAllBookings": "所有预订返现",
+    "@cashbackOnAllBookings": {
+        "description": "Cashback on all bookings benefit"
+    },
+    "actions": "操作",
+    "@actions": {
+        "description": "Actions section title"
+    },
+    "renewNow": "立即续订",
+    "@renewNow": {
+        "description": "Renew now button"
+    },
+    "cancelSubscription": "取消订阅",
+    "@cancelSubscription": {
+        "description": "Cancel subscription button"
+    },
+    "transactionHistory": "交易历史",
+    "@transactionHistory": {
+        "description": "Transaction history section title"
+    },
+    "noTransactionsYet": "暂无交易",
+    "@noTransactionsYet": {
+        "description": "No transactions message"
+    },
+    "loadMore": "加载更多",
+    "@loadMore": {
+        "description": "Load more button"
+    },
+    "renewSubscription": "续订订阅？",
+    "@renewSubscription": {
+        "description": "Renew subscription dialog title"
+    },
+    "renewChargeMessage": "您将被收取 {amount} 以续订一个月的 {tierName} 会员资格。",
+    "@renewChargeMessage": {
+        "description": "Renew charge message",
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            },
+            "tierName": {
+                "type": "String"
+            }
+        }
+    },
+    "renew": "续订",
+    "@renew": {
+        "description": "Renew button"
+    },
+    "renewalSuccessful": "续订成功！",
+    "@renewalSuccessful": {
+        "description": "Renewal successful title"
+    },
+    "newExpiryDate": "新到期日期：{date}",
+    "@newExpiryDate": {
+        "description": "New expiry date message",
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "renewalFailed": "续订失败",
+    "@renewalFailed": {
+        "description": "Renewal failed title"
+    },
+    "failedToRenewSubscription": "无法续订订阅",
+    "@failedToRenewSubscription": {
+        "description": "Failed to renew subscription message"
+    },
+    "cancelSubscriptionConfirm": "取消订阅？",
+    "@cancelSubscriptionConfirm": {
+        "description": "Cancel subscription confirm dialog title"
+    },
+    "cancelSubscriptionWarning": "您的福利将保持有效直到 {date}。之后，您将失去对等级福利的访问权限。",
+    "@cancelSubscriptionWarning": {
+        "description": "Cancel subscription warning message",
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "keepIt": "保留",
+    "@keepIt": {
+        "description": "Keep subscription button"
+    },
+    "cancelIt": "取消",
+    "@cancelIt": {
+        "description": "Cancel subscription confirm button"
+    },
+    "subscriptionCancelled": "订阅已取消",
+    "@subscriptionCancelled": {
+        "description": "Subscription cancelled title"
+    },
+    "subscriptionCancelledMessage": "您的订阅已被取消。福利在到期前保持有效。",
+    "@subscriptionCancelledMessage": {
+        "description": "Subscription cancelled message"
+    },
+    "cancellationFailed": "取消失败",
+    "@cancellationFailed": {
+        "description": "Cancellation failed title"
+    },
+    "failedToCancelSubscription": "无法取消订阅",
+    "@failedToCancelSubscription": {
+        "description": "Failed to cancel subscription message"
+    },
+    "autoRenewalEnabled": "自动续订已启用",
+    "@autoRenewalEnabled": {
+        "description": "Auto-renewal enabled snackbar"
+    },
+    "autoRenewalDisabled": "自动续订已禁用",
+    "@autoRenewalDisabled": {
+        "description": "Auto-renewal disabled snackbar"
+    },
+    "failedToUpdateAutoRenewal": "无法更新自动续订",
+    "@failedToUpdateAutoRenewal": {
+        "description": "Failed to update auto-renewal message"
+    },
+    "ok": "确定",
+    "@ok": {
+        "description": "OK button"
+    },
+    "failedToLoadSubscription": "无法加载订阅详情",
+    "@failedToLoadSubscription": {
+        "description": "Failed to load subscription error"
+    },
+    "failedToLoadHistory": "无法加载交易历史",
+    "@failedToLoadHistory": {
+        "description": "Failed to load transaction history error"
     }
 }

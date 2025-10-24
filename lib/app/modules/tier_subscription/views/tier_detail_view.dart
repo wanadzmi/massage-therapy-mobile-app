@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/tier_detail_controller.dart';
 import '../../../data/services/tier_service.dart';
+import '../../../../l10n/app_localizations.dart';
 
 class TierDetailView extends GetView<TierDetailController> {
   const TierDetailView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       backgroundColor: const Color(0xFF0A0A0A),
       appBar: AppBar(
@@ -17,14 +20,23 @@ class TierDetailView extends GetView<TierDetailController> {
           icon: const Icon(Icons.arrow_back, color: Color(0xFFE0E0E0)),
           onPressed: () => Get.back(),
         ),
-        title: const Text(
-          'My Subscription',
-          style: TextStyle(
+        title: Text(
+          l10n.mySubscription,
+          style: const TextStyle(
             color: Color(0xFFE0E0E0),
             fontSize: 18,
             fontWeight: FontWeight.w600,
           ),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.info_outline, color: Color(0xFFE0E0E0)),
+            onPressed: () {
+              // Show subscription info dialog
+              _showSubscriptionInfoDialog(context);
+            },
+          ),
+        ],
       ),
       body: Obx(
         () => controller.isLoading
@@ -32,7 +44,7 @@ class TierDetailView extends GetView<TierDetailController> {
                 child: CircularProgressIndicator(color: Color(0xFFD4AF37)),
               )
             : controller.currentTierData == null
-            ? _buildEmptyState()
+            ? _buildEmptyState(context)
             : RefreshIndicator(
                 color: const Color(0xFFD4AF37),
                 backgroundColor: const Color(0xFF1A1A1A),
@@ -46,15 +58,15 @@ class TierDetailView extends GetView<TierDetailController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _buildTierInfoCard(),
+                      _buildTierInfoCard(context),
                       const SizedBox(height: 16),
-                      _buildSubscriptionCard(),
+                      _buildSubscriptionCard(context),
                       const SizedBox(height: 16),
-                      _buildBenefitsCard(),
+                      _buildBenefitsCard(context),
                       const SizedBox(height: 16),
-                      _buildActionsCard(),
+                      _buildActionsCard(context),
                       const SizedBox(height: 24),
-                      _buildHistorySection(),
+                      _buildHistorySection(context),
                       const SizedBox(height: 20),
                     ],
                   ),
@@ -64,7 +76,9 @@ class TierDetailView extends GetView<TierDetailController> {
     );
   }
 
-  Widget _buildEmptyState() {
+  Widget _buildEmptyState(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -75,18 +89,18 @@ class TierDetailView extends GetView<TierDetailController> {
             color: Colors.grey.shade700,
           ),
           const SizedBox(height: 16),
-          const Text(
-            'No Active Subscription',
-            style: TextStyle(
+          Text(
+            l10n.noActiveSubscription,
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w600,
               color: Color(0xFF808080),
             ),
           ),
           const SizedBox(height: 8),
-          const Text(
-            'Subscribe to a tier to unlock exclusive benefits',
-            style: TextStyle(fontSize: 14, color: Color(0xFF606060)),
+          Text(
+            l10n.subscribeToUnlockBenefits,
+            style: const TextStyle(fontSize: 14, color: Color(0xFF606060)),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 24),
@@ -100,16 +114,17 @@ class TierDetailView extends GetView<TierDetailController> {
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
-            child: const Text('Browse Tiers'),
+            child: Text(l10n.browseTiers),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildTierInfoCard() {
+  Widget _buildTierInfoCard(BuildContext context) {
     final tier = controller.currentTierData!;
     final tierColor = _getTierColor(tier.tier);
+    final l10n = AppLocalizations.of(context)!;
 
     return Container(
       padding: const EdgeInsets.all(24),
@@ -146,7 +161,7 @@ class TierDetailView extends GetView<TierDetailController> {
           if (tier.memberSince != null) ...[
             const SizedBox(height: 12),
             Text(
-              'Member since ${controller.formatDate(tier.memberSince!)}',
+              l10n.memberSince(controller.formatDate(tier.memberSince!)),
               style: const TextStyle(fontSize: 12, color: Color(0xFF606060)),
             ),
           ],
@@ -155,9 +170,10 @@ class TierDetailView extends GetView<TierDetailController> {
     );
   }
 
-  Widget _buildSubscriptionCard() {
+  Widget _buildSubscriptionCard(BuildContext context) {
     final tier = controller.currentTierData!;
     final subscription = tier.subscription;
+    final l10n = AppLocalizations.of(context)!;
 
     if (subscription == null) {
       return const SizedBox.shrink();
@@ -179,9 +195,9 @@ class TierDetailView extends GetView<TierDetailController> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                'Subscription Status',
-                style: TextStyle(
+              Text(
+                l10n.subscriptionStatus,
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                   color: Color(0xFFE0E0E0),
@@ -217,20 +233,20 @@ class TierDetailView extends GetView<TierDetailController> {
           ),
           const SizedBox(height: 16),
           _buildInfoRow(
-            'Started',
+            l10n.started,
             controller.formatDate(subscription.subscribedAt),
             Icons.calendar_today,
           ),
           const SizedBox(height: 12),
           _buildInfoRow(
-            'Expires',
+            l10n.expires,
             controller.formatDate(subscription.expiresAt),
             Icons.event,
           ),
           if (subscription.lastRenewedAt != null) ...[
             const SizedBox(height: 12),
             _buildInfoRow(
-              'Last Renewed',
+              l10n.lastRenewed,
               controller.formatDate(subscription.lastRenewedAt!),
               Icons.autorenew,
             ),
@@ -239,9 +255,9 @@ class TierDetailView extends GetView<TierDetailController> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                'Auto-Renewal',
-                style: TextStyle(fontSize: 14, color: Color(0xFF808080)),
+              Text(
+                l10n.autoRenewal,
+                style: const TextStyle(fontSize: 14, color: Color(0xFF808080)),
               ),
               Obx(
                 () => Switch(
@@ -281,9 +297,10 @@ class TierDetailView extends GetView<TierDetailController> {
     );
   }
 
-  Widget _buildBenefitsCard() {
+  Widget _buildBenefitsCard(BuildContext context) {
     final tier = controller.currentTierData!;
     final benefits = tier.benefits;
+    final l10n = AppLocalizations.of(context)!;
 
     if (benefits == null) {
       return const SizedBox.shrink();
@@ -299,9 +316,9 @@ class TierDetailView extends GetView<TierDetailController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Your Benefits',
-            style: TextStyle(
+          Text(
+            l10n.yourBenefits,
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
               color: Color(0xFFE0E0E0),
@@ -323,7 +340,7 @@ class TierDetailView extends GetView<TierDetailController> {
                 ),
                 const SizedBox(width: 12),
                 Text(
-                  '${benefits.cashbackPercentage}% Cashback on All Bookings',
+                  '${benefits.cashbackPercentage}% ${l10n.cashbackOnAllBookings}',
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
@@ -366,8 +383,10 @@ class TierDetailView extends GetView<TierDetailController> {
     );
   }
 
-  Widget _buildActionsCard() {
+  Widget _buildActionsCard(BuildContext context) {
     final subscription = controller.currentTierData?.subscription;
+    final l10n = AppLocalizations.of(context)!;
+
     if (subscription == null) return const SizedBox.shrink();
 
     final isActive = subscription.status == 'active';
@@ -382,9 +401,9 @@ class TierDetailView extends GetView<TierDetailController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Actions',
-            style: TextStyle(
+          Text(
+            l10n.actions,
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
               color: Color(0xFFE0E0E0),
@@ -403,14 +422,17 @@ class TierDetailView extends GetView<TierDetailController> {
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.autorenew, size: 18),
-                  SizedBox(width: 8),
+                  const Icon(Icons.autorenew, size: 18),
+                  const SizedBox(width: 8),
                   Text(
-                    'Renew Now',
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                    l10n.renewNow,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ],
               ),
@@ -430,14 +452,14 @@ class TierDetailView extends GetView<TierDetailController> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.cancel_outlined, size: 18),
-                    SizedBox(width: 8),
+                    const Icon(Icons.cancel_outlined, size: 18),
+                    const SizedBox(width: 8),
                     Text(
-                      'Cancel Subscription',
-                      style: TextStyle(
+                      l10n.cancelSubscription,
+                      style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w600,
                       ),
@@ -452,14 +474,16 @@ class TierDetailView extends GetView<TierDetailController> {
     );
   }
 
-  Widget _buildHistorySection() {
+  Widget _buildHistorySection(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Obx(
       () => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Transaction History',
-            style: TextStyle(
+          Text(
+            l10n.transactionHistory,
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
               color: Color(0xFFE0E0E0),
@@ -483,9 +507,12 @@ class TierDetailView extends GetView<TierDetailController> {
                       color: Colors.grey.shade700,
                     ),
                     const SizedBox(height: 12),
-                    const Text(
-                      'No transactions yet',
-                      style: TextStyle(fontSize: 14, color: Color(0xFF808080)),
+                    Text(
+                      l10n.noTransactionsYet,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Color(0xFF808080),
+                      ),
                     ),
                   ],
                 ),
@@ -525,7 +552,7 @@ class TierDetailView extends GetView<TierDetailController> {
                           color: Color(0xFFD4AF37),
                         ),
                       )
-                    : const Text('Load More'),
+                    : Text(l10n.loadMore),
               ),
             ),
           ],
@@ -619,5 +646,112 @@ class TierDetailView extends GetView<TierDetailController> {
       default:
         return const Color(0xFFCD7F32);
     }
+  }
+
+  void _showSubscriptionInfoDialog(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
+    Get.dialog(
+      Dialog(
+        backgroundColor: const Color(0xFF1A1A1A),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFD4AF37).withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Icon(
+                      Icons.info_outline,
+                      color: Color(0xFFD4AF37),
+                      size: 24,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      l10n.subscriptionStatus,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFFE0E0E0),
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.close, color: Color(0xFF808080)),
+                    onPressed: () => Get.back(),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              _buildInfoItem(
+                l10n.autoRenewal,
+                'Your subscription will automatically renew before expiry if enabled.',
+              ),
+              const SizedBox(height: 16),
+              _buildInfoItem(
+                l10n.cancelSubscription,
+                'You can cancel anytime. Benefits remain active until expiry date.',
+              ),
+              const SizedBox(height: 16),
+              _buildInfoItem(
+                l10n.yourBenefits,
+                'Cashback and exclusive features are available throughout your subscription period.',
+              ),
+              const SizedBox(height: 24),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () => Get.back(),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFD4AF37),
+                    foregroundColor: Colors.black,
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: Text(l10n.ok),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInfoItem(String title, String description) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFFD4AF37),
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          description,
+          style: const TextStyle(
+            fontSize: 13,
+            color: Color(0xFF808080),
+            height: 1.4,
+          ),
+        ),
+      ],
+    );
   }
 }

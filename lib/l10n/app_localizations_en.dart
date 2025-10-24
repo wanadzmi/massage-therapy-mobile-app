@@ -669,4 +669,196 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get subscribe => 'Subscribe';
+
+  @override
+  String get insufficientBalance => 'Insufficient Balance';
+
+  @override
+  String needToSubscribe(String amount, String tierName) {
+    return 'You need $amount to subscribe to $tierName tier.';
+  }
+
+  @override
+  String currentBalanceLabel(String balance) {
+    return 'Current Balance: $balance';
+  }
+
+  @override
+  String subscribeTo(String tierName) {
+    return 'Subscribe to $tierName?';
+  }
+
+  @override
+  String subscriptionChargeMessage(String amount) {
+    return 'You will be charged $amount for 1 month subscription.';
+  }
+
+  @override
+  String newBalanceLabel(String balance) {
+    return 'New Balance: $balance';
+  }
+
+  @override
+  String get confirm => 'Confirm';
+
+  @override
+  String get subscriptionSuccessful => 'Subscription Successful!';
+
+  @override
+  String validUntil(String date) {
+    return 'Valid until: $date';
+  }
+
+  @override
+  String get great => 'Great!';
+
+  @override
+  String get cannotSubscribe => 'Cannot Subscribe';
+
+  @override
+  String alreadyMember(String tierName) {
+    return 'You are already a $tierName member';
+  }
+
+  @override
+  String get tierNotAvailable => 'This tier is not available for subscription';
+
+  @override
+  String get subscriptionFailed => 'Subscription Failed';
+
+  @override
+  String get failedToLoadTiers => 'Failed to load tiers';
+
+  @override
+  String get mySubscription => 'My Subscription';
+
+  @override
+  String get noActiveSubscription => 'No Active Subscription';
+
+  @override
+  String get subscribeToUnlockBenefits =>
+      'Subscribe to a tier to unlock exclusive benefits and rewards';
+
+  @override
+  String get browseTiers => 'Browse Tiers';
+
+  @override
+  String memberSince(String date) {
+    return 'Member since $date';
+  }
+
+  @override
+  String get subscriptionStatus => 'Subscription Status';
+
+  @override
+  String get started => 'Started';
+
+  @override
+  String get expires => 'Expires';
+
+  @override
+  String get lastRenewed => 'Last Renewed';
+
+  @override
+  String get autoRenewal => 'Auto-Renewal';
+
+  @override
+  String get enabled => 'Enabled';
+
+  @override
+  String get disabled => 'Disabled';
+
+  @override
+  String get yourBenefits => 'Your Benefits';
+
+  @override
+  String get cashbackOnAllBookings => 'Cashback on All Bookings';
+
+  @override
+  String get actions => 'Actions';
+
+  @override
+  String get renewNow => 'Renew Now';
+
+  @override
+  String get cancelSubscription => 'Cancel Subscription';
+
+  @override
+  String get transactionHistory => 'Transaction History';
+
+  @override
+  String get noTransactionsYet => 'No transactions yet';
+
+  @override
+  String get loadMore => 'Load More';
+
+  @override
+  String get renewSubscription => 'Renew Subscription?';
+
+  @override
+  String renewChargeMessage(String amount, String tierName) {
+    return 'You will be charged $amount for another month of $tierName membership.';
+  }
+
+  @override
+  String get renew => 'Renew';
+
+  @override
+  String get renewalSuccessful => 'Renewal Successful!';
+
+  @override
+  String newExpiryDate(String date) {
+    return 'New expiry date: $date';
+  }
+
+  @override
+  String get renewalFailed => 'Renewal Failed';
+
+  @override
+  String get failedToRenewSubscription => 'Failed to renew subscription';
+
+  @override
+  String get cancelSubscriptionConfirm => 'Cancel Subscription?';
+
+  @override
+  String cancelSubscriptionWarning(String date) {
+    return 'Your benefits will remain active until $date. After that, you\'ll lose access to tier benefits.';
+  }
+
+  @override
+  String get keepIt => 'Keep It';
+
+  @override
+  String get cancelIt => 'Cancel';
+
+  @override
+  String get subscriptionCancelled => 'Subscription Cancelled';
+
+  @override
+  String get subscriptionCancelledMessage =>
+      'Your subscription has been cancelled. Benefits remain active until expiry.';
+
+  @override
+  String get cancellationFailed => 'Cancellation Failed';
+
+  @override
+  String get failedToCancelSubscription => 'Failed to cancel subscription';
+
+  @override
+  String get autoRenewalEnabled => 'Auto-renewal enabled';
+
+  @override
+  String get autoRenewalDisabled => 'Auto-renewal disabled';
+
+  @override
+  String get failedToUpdateAutoRenewal => 'Failed to update auto-renewal';
+
+  @override
+  String get ok => 'OK';
+
+  @override
+  String get failedToLoadSubscription => 'Failed to load subscription details';
+
+  @override
+  String get failedToLoadHistory => 'Failed to load transaction history';
 }

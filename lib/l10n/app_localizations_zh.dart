@@ -657,4 +657,194 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get subscribe => '订阅';
+
+  @override
+  String get insufficientBalance => '余额不足';
+
+  @override
+  String needToSubscribe(String amount, String tierName) {
+    return '您需要 $amount 来订阅 $tierName 等级。';
+  }
+
+  @override
+  String currentBalanceLabel(String balance) {
+    return '当前余额：$balance';
+  }
+
+  @override
+  String subscribeTo(String tierName) {
+    return '订阅 $tierName？';
+  }
+
+  @override
+  String subscriptionChargeMessage(String amount) {
+    return '您将支付 $amount 进行1个月订阅。';
+  }
+
+  @override
+  String newBalanceLabel(String balance) {
+    return '新余额：$balance';
+  }
+
+  @override
+  String get confirm => '确认';
+
+  @override
+  String get subscriptionSuccessful => '订阅成功！';
+
+  @override
+  String validUntil(String date) {
+    return '有效期至：$date';
+  }
+
+  @override
+  String get great => '太棒了！';
+
+  @override
+  String get cannotSubscribe => '无法订阅';
+
+  @override
+  String alreadyMember(String tierName) {
+    return '您已经是 $tierName 会员';
+  }
+
+  @override
+  String get tierNotAvailable => '此等级不可用于订阅';
+
+  @override
+  String get subscriptionFailed => '订阅失败';
+
+  @override
+  String get failedToLoadTiers => '无法加载等级';
+
+  @override
+  String get mySubscription => '我的订阅';
+
+  @override
+  String get noActiveSubscription => '无有效订阅';
+
+  @override
+  String get subscribeToUnlockBenefits => '订阅等级以解锁专属福利和奖励';
+
+  @override
+  String get browseTiers => '浏览等级';
+
+  @override
+  String memberSince(String date) {
+    return '会员自 $date';
+  }
+
+  @override
+  String get subscriptionStatus => '订阅状态';
+
+  @override
+  String get started => '开始';
+
+  @override
+  String get expires => '到期';
+
+  @override
+  String get lastRenewed => '最后续订';
+
+  @override
+  String get autoRenewal => '自动续订';
+
+  @override
+  String get enabled => '已启用';
+
+  @override
+  String get disabled => '已禁用';
+
+  @override
+  String get yourBenefits => '您的福利';
+
+  @override
+  String get cashbackOnAllBookings => '所有预订返现';
+
+  @override
+  String get actions => '操作';
+
+  @override
+  String get renewNow => '立即续订';
+
+  @override
+  String get cancelSubscription => '取消订阅';
+
+  @override
+  String get transactionHistory => '交易历史';
+
+  @override
+  String get noTransactionsYet => '暂无交易';
+
+  @override
+  String get loadMore => '加载更多';
+
+  @override
+  String get renewSubscription => '续订订阅？';
+
+  @override
+  String renewChargeMessage(String amount, String tierName) {
+    return '您将被收取 $amount 以续订一个月的 $tierName 会员资格。';
+  }
+
+  @override
+  String get renew => '续订';
+
+  @override
+  String get renewalSuccessful => '续订成功！';
+
+  @override
+  String newExpiryDate(String date) {
+    return '新到期日期：$date';
+  }
+
+  @override
+  String get renewalFailed => '续订失败';
+
+  @override
+  String get failedToRenewSubscription => '无法续订订阅';
+
+  @override
+  String get cancelSubscriptionConfirm => '取消订阅？';
+
+  @override
+  String cancelSubscriptionWarning(String date) {
+    return '您的福利将保持有效直到 $date。之后，您将失去对等级福利的访问权限。';
+  }
+
+  @override
+  String get keepIt => '保留';
+
+  @override
+  String get cancelIt => '取消';
+
+  @override
+  String get subscriptionCancelled => '订阅已取消';
+
+  @override
+  String get subscriptionCancelledMessage => '您的订阅已被取消。福利在到期前保持有效。';
+
+  @override
+  String get cancellationFailed => '取消失败';
+
+  @override
+  String get failedToCancelSubscription => '无法取消订阅';
+
+  @override
+  String get autoRenewalEnabled => '自动续订已启用';
+
+  @override
+  String get autoRenewalDisabled => '自动续订已禁用';
+
+  @override
+  String get failedToUpdateAutoRenewal => '无法更新自动续订';
+
+  @override
+  String get ok => '确定';
+
+  @override
+  String get failedToLoadSubscription => '无法加载订阅详情';
+
+  @override
+  String get failedToLoadHistory => '无法加载交易历史';
 }

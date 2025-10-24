@@ -875,5 +875,290 @@
     "subscribe": "Langgan",
     "@subscribe": {
         "description": "Subscribe button"
+    },
+    "insufficientBalance": "Baki Tidak Mencukupi",
+    "@insufficientBalance": {
+        "description": "Insufficient balance dialog title"
+    },
+    "needToSubscribe": "Anda memerlukan {amount} untuk melanggan tahap {tierName}.",
+    "@needToSubscribe": {
+        "description": "Need amount to subscribe message",
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            },
+            "tierName": {
+                "type": "String"
+            }
+        }
+    },
+    "currentBalanceLabel": "Baki Semasa: {balance}",
+    "@currentBalanceLabel": {
+        "description": "Current balance label with amount",
+        "placeholders": {
+            "balance": {
+                "type": "String"
+            }
+        }
+    },
+    "subscribeTo": "Langgan {tierName}?",
+    "@subscribeTo": {
+        "description": "Subscribe confirmation title",
+        "placeholders": {
+            "tierName": {
+                "type": "String"
+            }
+        }
+    },
+    "subscriptionChargeMessage": "Anda akan dikenakan bayaran {amount} untuk langganan 1 bulan.",
+    "@subscriptionChargeMessage": {
+        "description": "Subscription charge message",
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            }
+        }
+    },
+    "newBalanceLabel": "Baki Baharu: {balance}",
+    "@newBalanceLabel": {
+        "description": "New balance label with amount",
+        "placeholders": {
+            "balance": {
+                "type": "String"
+            }
+        }
+    },
+    "confirm": "Sahkan",
+    "@confirm": {
+        "description": "Confirm button"
+    },
+    "subscriptionSuccessful": "Langganan Berjaya!",
+    "@subscriptionSuccessful": {
+        "description": "Subscription success title"
+    },
+    "validUntil": "Sah sehingga: {date}",
+    "@validUntil": {
+        "description": "Valid until date message",
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "great": "Hebat!",
+    "@great": {
+        "description": "Great button text"
+    },
+    "cannotSubscribe": "Tidak Boleh Langgan",
+    "@cannotSubscribe": {
+        "description": "Cannot subscribe error title"
+    },
+    "alreadyMember": "Anda sudah menjadi ahli {tierName}",
+    "@alreadyMember": {
+        "description": "Already member message",
+        "placeholders": {
+            "tierName": {
+                "type": "String"
+            }
+        }
+    },
+    "tierNotAvailable": "Tahap ini tidak tersedia untuk langganan",
+    "@tierNotAvailable": {
+        "description": "Tier not available message"
+    },
+    "subscriptionFailed": "Langganan Gagal",
+    "@subscriptionFailed": {
+        "description": "Subscription failed title"
+    },
+    "failedToLoadTiers": "Gagal memuatkan tahap",
+    "@failedToLoadTiers": {
+        "description": "Failed to load tiers error"
+    },
+    "mySubscription": "Langganan Saya",
+    "@mySubscription": {
+        "description": "My subscription page title"
+    },
+    "noActiveSubscription": "Tiada Langganan Aktif",
+    "@noActiveSubscription": {
+        "description": "No active subscription title"
+    },
+    "subscribeToUnlockBenefits": "Langgan tahap untuk membuka faedah dan ganjaran eksklusif",
+    "@subscribeToUnlockBenefits": {
+        "description": "Subscribe to unlock benefits message"
+    },
+    "browseTiers": "Lihat Tahap",
+    "@browseTiers": {
+        "description": "Browse tiers button"
+    },
+    "memberSince": "Ahli sejak {date}",
+    "@memberSince": {
+        "description": "Member since label",
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "subscriptionStatus": "Status Langganan",
+    "@subscriptionStatus": {
+        "description": "Subscription status section title"
+    },
+    "started": "Bermula",
+    "@started": {
+        "description": "Started label"
+    },
+    "expires": "Tamat Tempoh",
+    "@expires": {
+        "description": "Expires label"
+    },
+    "lastRenewed": "Diperbaharui Terakhir",
+    "@lastRenewed": {
+        "description": "Last renewed label"
+    },
+    "autoRenewal": "Pembaharuan Auto",
+    "@autoRenewal": {
+        "description": "Auto-renewal label"
+    },
+    "enabled": "Diaktifkan",
+    "@enabled": {
+        "description": "Enabled status"
+    },
+    "disabled": "Dimatikan",
+    "@disabled": {
+        "description": "Disabled status"
+    },
+    "yourBenefits": "Faedah Anda",
+    "@yourBenefits": {
+        "description": "Your benefits section title"
+    },
+    "cashbackOnAllBookings": "Pulangan Tunai untuk Semua Tempahan",
+    "@cashbackOnAllBookings": {
+        "description": "Cashback on all bookings benefit"
+    },
+    "actions": "Tindakan",
+    "@actions": {
+        "description": "Actions section title"
+    },
+    "renewNow": "Perbaharui Sekarang",
+    "@renewNow": {
+        "description": "Renew now button"
+    },
+    "cancelSubscription": "Batal Langganan",
+    "@cancelSubscription": {
+        "description": "Cancel subscription button"
+    },
+    "transactionHistory": "Sejarah Transaksi",
+    "@transactionHistory": {
+        "description": "Transaction history section title"
+    },
+    "noTransactionsYet": "Tiada transaksi lagi",
+    "@noTransactionsYet": {
+        "description": "No transactions message"
+    },
+    "loadMore": "Muatkan Lagi",
+    "@loadMore": {
+        "description": "Load more button"
+    },
+    "renewSubscription": "Perbaharui Langganan?",
+    "@renewSubscription": {
+        "description": "Renew subscription dialog title"
+    },
+    "renewChargeMessage": "Anda akan dikenakan bayaran {amount} untuk sebulan lagi keahlian {tierName}.",
+    "@renewChargeMessage": {
+        "description": "Renew charge message",
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            },
+            "tierName": {
+                "type": "String"
+            }
+        }
+    },
+    "renew": "Perbaharui",
+    "@renew": {
+        "description": "Renew button"
+    },
+    "renewalSuccessful": "Pembaharuan Berjaya!",
+    "@renewalSuccessful": {
+        "description": "Renewal successful title"
+    },
+    "newExpiryDate": "Tarikh tamat baru: {date}",
+    "@newExpiryDate": {
+        "description": "New expiry date message",
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "renewalFailed": "Pembaharuan Gagal",
+    "@renewalFailed": {
+        "description": "Renewal failed title"
+    },
+    "failedToRenewSubscription": "Gagal memperbaharui langganan",
+    "@failedToRenewSubscription": {
+        "description": "Failed to renew subscription message"
+    },
+    "cancelSubscriptionConfirm": "Batal Langganan?",
+    "@cancelSubscriptionConfirm": {
+        "description": "Cancel subscription confirm dialog title"
+    },
+    "cancelSubscriptionWarning": "Faedah anda akan kekal aktif sehingga {date}. Selepas itu, anda akan kehilangan akses kepada faedah tahap.",
+    "@cancelSubscriptionWarning": {
+        "description": "Cancel subscription warning message",
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "keepIt": "Kekalkan",
+    "@keepIt": {
+        "description": "Keep subscription button"
+    },
+    "cancelIt": "Batal",
+    "@cancelIt": {
+        "description": "Cancel subscription confirm button"
+    },
+    "subscriptionCancelled": "Langganan Dibatalkan",
+    "@subscriptionCancelled": {
+        "description": "Subscription cancelled title"
+    },
+    "subscriptionCancelledMessage": "Langganan anda telah dibatalkan. Faedah kekal aktif sehingga tamat tempoh.",
+    "@subscriptionCancelledMessage": {
+        "description": "Subscription cancelled message"
+    },
+    "cancellationFailed": "Pembatalan Gagal",
+    "@cancellationFailed": {
+        "description": "Cancellation failed title"
+    },
+    "failedToCancelSubscription": "Gagal membatalkan langganan",
+    "@failedToCancelSubscription": {
+        "description": "Failed to cancel subscription message"
+    },
+    "autoRenewalEnabled": "Pembaharuan auto diaktifkan",
+    "@autoRenewalEnabled": {
+        "description": "Auto-renewal enabled snackbar"
+    },
+    "autoRenewalDisabled": "Pembaharuan auto dimatikan",
+    "@autoRenewalDisabled": {
+        "description": "Auto-renewal disabled snackbar"
+    },
+    "failedToUpdateAutoRenewal": "Gagal mengemas kini pembaharuan auto",
+    "@failedToUpdateAutoRenewal": {
+        "description": "Failed to update auto-renewal message"
+    },
+    "ok": "OK",
+    "@ok": {
+        "description": "OK button"
+    },
+    "failedToLoadSubscription": "Gagal memuatkan butiran langganan",
+    "@failedToLoadSubscription": {
+        "description": "Failed to load subscription error"
+    },
+    "failedToLoadHistory": "Gagal memuatkan sejarah transaksi",
+    "@failedToLoadHistory": {
+        "description": "Failed to load transaction history error"
     }
 }

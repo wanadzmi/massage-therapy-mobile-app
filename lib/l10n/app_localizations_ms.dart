@@ -668,4 +668,197 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get subscribe => 'Langgan';
+
+  @override
+  String get insufficientBalance => 'Baki Tidak Mencukupi';
+
+  @override
+  String needToSubscribe(String amount, String tierName) {
+    return 'Anda memerlukan $amount untuk melanggan tahap $tierName.';
+  }
+
+  @override
+  String currentBalanceLabel(String balance) {
+    return 'Baki Semasa: $balance';
+  }
+
+  @override
+  String subscribeTo(String tierName) {
+    return 'Langgan $tierName?';
+  }
+
+  @override
+  String subscriptionChargeMessage(String amount) {
+    return 'Anda akan dikenakan bayaran $amount untuk langganan 1 bulan.';
+  }
+
+  @override
+  String newBalanceLabel(String balance) {
+    return 'Baki Baharu: $balance';
+  }
+
+  @override
+  String get confirm => 'Sahkan';
+
+  @override
+  String get subscriptionSuccessful => 'Langganan Berjaya!';
+
+  @override
+  String validUntil(String date) {
+    return 'Sah sehingga: $date';
+  }
+
+  @override
+  String get great => 'Hebat!';
+
+  @override
+  String get cannotSubscribe => 'Tidak Boleh Langgan';
+
+  @override
+  String alreadyMember(String tierName) {
+    return 'Anda sudah menjadi ahli $tierName';
+  }
+
+  @override
+  String get tierNotAvailable => 'Tahap ini tidak tersedia untuk langganan';
+
+  @override
+  String get subscriptionFailed => 'Langganan Gagal';
+
+  @override
+  String get failedToLoadTiers => 'Gagal memuatkan tahap';
+
+  @override
+  String get mySubscription => 'Langganan Saya';
+
+  @override
+  String get noActiveSubscription => 'Tiada Langganan Aktif';
+
+  @override
+  String get subscribeToUnlockBenefits =>
+      'Langgan tahap untuk membuka faedah dan ganjaran eksklusif';
+
+  @override
+  String get browseTiers => 'Lihat Tahap';
+
+  @override
+  String memberSince(String date) {
+    return 'Ahli sejak $date';
+  }
+
+  @override
+  String get subscriptionStatus => 'Status Langganan';
+
+  @override
+  String get started => 'Bermula';
+
+  @override
+  String get expires => 'Tamat Tempoh';
+
+  @override
+  String get lastRenewed => 'Diperbaharui Terakhir';
+
+  @override
+  String get autoRenewal => 'Pembaharuan Auto';
+
+  @override
+  String get enabled => 'Diaktifkan';
+
+  @override
+  String get disabled => 'Dimatikan';
+
+  @override
+  String get yourBenefits => 'Faedah Anda';
+
+  @override
+  String get cashbackOnAllBookings => 'Pulangan Tunai untuk Semua Tempahan';
+
+  @override
+  String get actions => 'Tindakan';
+
+  @override
+  String get renewNow => 'Perbaharui Sekarang';
+
+  @override
+  String get cancelSubscription => 'Batal Langganan';
+
+  @override
+  String get transactionHistory => 'Sejarah Transaksi';
+
+  @override
+  String get noTransactionsYet => 'Tiada transaksi lagi';
+
+  @override
+  String get loadMore => 'Muatkan Lagi';
+
+  @override
+  String get renewSubscription => 'Perbaharui Langganan?';
+
+  @override
+  String renewChargeMessage(String amount, String tierName) {
+    return 'Anda akan dikenakan bayaran $amount untuk sebulan lagi keahlian $tierName.';
+  }
+
+  @override
+  String get renew => 'Perbaharui';
+
+  @override
+  String get renewalSuccessful => 'Pembaharuan Berjaya!';
+
+  @override
+  String newExpiryDate(String date) {
+    return 'Tarikh tamat baru: $date';
+  }
+
+  @override
+  String get renewalFailed => 'Pembaharuan Gagal';
+
+  @override
+  String get failedToRenewSubscription => 'Gagal memperbaharui langganan';
+
+  @override
+  String get cancelSubscriptionConfirm => 'Batal Langganan?';
+
+  @override
+  String cancelSubscriptionWarning(String date) {
+    return 'Faedah anda akan kekal aktif sehingga $date. Selepas itu, anda akan kehilangan akses kepada faedah tahap.';
+  }
+
+  @override
+  String get keepIt => 'Kekalkan';
+
+  @override
+  String get cancelIt => 'Batal';
+
+  @override
+  String get subscriptionCancelled => 'Langganan Dibatalkan';
+
+  @override
+  String get subscriptionCancelledMessage =>
+      'Langganan anda telah dibatalkan. Faedah kekal aktif sehingga tamat tempoh.';
+
+  @override
+  String get cancellationFailed => 'Pembatalan Gagal';
+
+  @override
+  String get failedToCancelSubscription => 'Gagal membatalkan langganan';
+
+  @override
+  String get autoRenewalEnabled => 'Pembaharuan auto diaktifkan';
+
+  @override
+  String get autoRenewalDisabled => 'Pembaharuan auto dimatikan';
+
+  @override
+  String get failedToUpdateAutoRenewal =>
+      'Gagal mengemas kini pembaharuan auto';
+
+  @override
+  String get ok => 'OK';
+
+  @override
+  String get failedToLoadSubscription => 'Gagal memuatkan butiran langganan';
+
+  @override
+  String get failedToLoadHistory => 'Gagal memuatkan sejarah transaksi';
 }

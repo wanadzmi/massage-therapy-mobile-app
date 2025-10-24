@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../../data/services/tier_service.dart';
+import '../../../../l10n/app_localizations.dart';
 
 class TierDetailController extends GetxController {
   final TierService _tierService = TierService();
@@ -31,71 +32,47 @@ class TierDetailController extends GetxController {
     try {
       _isLoading.value = true;
       final response = await _tierService.getCurrentTier();
-
-      if (response.isSuccess && response.data != null) {
+      if (response.isSuccess && response.data?.data != null) {
         _currentTierData.value = response.data!.data;
-      } else {
-        Get.snackbar(
-          'Error',
-          response.error ?? 'Failed to load tier details',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red.withOpacity(0.8),
-          colorText: Colors.white,
-        );
       }
     } catch (e) {
-      Get.snackbar(
-        'Error',
-        'An error occurred: $e',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.8),
-        colorText: Colors.white,
-      );
+      final l10n = AppLocalizations.of(Get.context!)!;
+      _handleError(e, l10n.failedToLoadSubscription);
     } finally {
       _isLoading.value = false;
     }
   }
 
-  /// Load subscription history
+  /// Load transaction history
   Future<void> loadHistory({bool loadMore = false}) async {
-    if (loadMore && !hasMorePages) return;
-
     try {
       if (loadMore) {
         _isLoadingMore.value = true;
-        _currentPage.value++;
       } else {
         _currentPage.value = 1;
         _transactions.clear();
       }
 
-      final response = await _tierService.getSubscriptionHistory(
-        page: _currentPage.value,
-      );
+      // TODO: Implement getTierHistory in TierService
+      // final response = await _tierService.getTierHistory(
+      //   page: loadMore ? _currentPage.value + 1 : 1,
+      // );
 
-      if (response.isSuccess && response.data != null) {
-        final newTransactions = response.data!.data?.transactions ?? [];
-        _transactions.addAll(newTransactions);
-        _totalPages.value = response.data!.data?.pagination?.total ?? 1;
-      } else {
-        Get.snackbar(
-          'Error',
-          response.error ?? 'Failed to load history',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red.withOpacity(0.8),
-          colorText: Colors.white,
-        );
-      }
+      // if (loadMore) {
+      //   _transactions.addAll(response.data);
+      //   _currentPage.value++;
+      // } else {
+      //   _transactions.assignAll(response.data);
+      // }
+
+      // _totalPages.value = response.pagination.totalPages;
     } catch (e) {
-      Get.snackbar(
-        'Error',
-        'An error occurred: $e',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.8),
-        colorText: Colors.white,
-      );
+      final l10n = AppLocalizations.of(Get.context!)!;
+      _handleError(e, l10n.failedToLoadHistory);
     } finally {
-      _isLoadingMore.value = false;
+      if (loadMore) {
+        _isLoadingMore.value = false;
+      }
     }
   }
 
@@ -107,22 +84,23 @@ class TierDetailController extends GetxController {
     try {
       _isLoading.value = true;
       final response = await _tierService.renewSubscription();
+      final l10n = AppLocalizations.of(Get.context!)!;
 
       if (response.isSuccess && response.data != null) {
         await _showSuccessDialog(
-          'Subscription Renewed!',
-          response.data!.message ??
-              'Your subscription has been renewed successfully.',
+          l10n.renewalSuccessful,
+          response.data!.message ?? l10n.subscriptionCancelledMessage,
         );
         await loadCurrentTier();
         await loadHistory();
       } else {
-        _handleError(response.error, 'Failed to renew subscription');
+        _handleError(response.error, l10n.failedToRenewSubscription);
       }
     } catch (e) {
+      final l10n = AppLocalizations.of(Get.context!)!;
       Get.snackbar(
-        'Error',
-        'An error occurred: $e',
+        l10n.error,
+        '${l10n.anErrorOccurred}: $e',
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red.withOpacity(0.8),
         colorText: Colors.white,
@@ -140,21 +118,22 @@ class TierDetailController extends GetxController {
     try {
       _isLoading.value = true;
       final response = await _tierService.cancelSubscription();
+      final l10n = AppLocalizations.of(Get.context!)!;
 
       if (response.isSuccess && response.data != null) {
         await _showInfoDialog(
-          'Subscription Cancelled',
-          response.data!.data?.note ??
-              'Your subscription has been cancelled. Benefits will remain active until expiry.',
+          l10n.subscriptionCancelled,
+          response.data!.data?.note ?? l10n.subscriptionCancelledMessage,
         );
         await loadCurrentTier();
       } else {
-        _handleError(response.error, 'Failed to cancel subscription');
+        _handleError(response.error, l10n.failedToCancelSubscription);
       }
     } catch (e) {
+      final l10n = AppLocalizations.of(Get.context!)!;
       Get.snackbar(
-        'Error',
-        'An error occurred: $e',
+        l10n.error,
+        '${l10n.anErrorOccurred}: $e',
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red.withOpacity(0.8),
         colorText: Colors.white,
@@ -168,11 +147,12 @@ class TierDetailController extends GetxController {
   Future<void> toggleAutoRenew(bool value) async {
     try {
       final response = await _tierService.toggleAutoRenew(autoRenew: value);
+      final l10n = AppLocalizations.of(Get.context!)!;
 
       if (response.isSuccess && response.data != null) {
         Get.snackbar(
-          'Success',
-          value ? 'Auto-renewal enabled' : 'Auto-renewal disabled',
+          l10n.success,
+          value ? l10n.autoRenewalEnabled : l10n.autoRenewalDisabled,
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: const Color(0xFF4CAF50),
           colorText: Colors.white,
@@ -180,14 +160,15 @@ class TierDetailController extends GetxController {
         );
         await loadCurrentTier();
       } else {
-        _handleError(response.error, 'Failed to update auto-renewal');
+        _handleError(response.error, l10n.failedToUpdateAutoRenewal);
         // Reload to revert UI state
         await loadCurrentTier();
       }
     } catch (e) {
+      final l10n = AppLocalizations.of(Get.context!)!;
       Get.snackbar(
-        'Error',
-        'An error occurred: $e',
+        l10n.error,
+        '${l10n.anErrorOccurred}: $e',
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red.withOpacity(0.8),
         colorText: Colors.white,
@@ -199,6 +180,8 @@ class TierDetailController extends GetxController {
   Future<bool?> _showRenewConfirmDialog() {
     final tier = _currentTierData.value;
     if (tier == null) return Future.value(false);
+
+    final l10n = AppLocalizations.of(Get.context!)!;
 
     return Get.dialog<bool>(
       Dialog(
@@ -226,9 +209,9 @@ class TierDetailController extends GetxController {
                 ),
               ),
               const SizedBox(height: 20),
-              const Text(
-                'Renew Subscription?',
-                style: TextStyle(
+              Text(
+                l10n.renewSubscription,
+                style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
                   color: Color(0xFFE0E0E0),
@@ -237,7 +220,10 @@ class TierDetailController extends GetxController {
               ),
               const SizedBox(height: 12),
               Text(
-                'You will be charged RM ${tier.price.toStringAsFixed(2)} for another month.',
+                l10n.renewChargeMessage(
+                  'RM ${tier.price.toStringAsFixed(2)}',
+                  tier.name,
+                ),
                 style: const TextStyle(fontSize: 14, color: Color(0xFF808080)),
                 textAlign: TextAlign.center,
               ),
@@ -245,7 +231,9 @@ class TierDetailController extends GetxController {
                 Padding(
                   padding: const EdgeInsets.only(top: 8),
                   child: Text(
-                    'New Balance: RM ${(tier.currentBalance! - tier.price).toStringAsFixed(2)}',
+                    l10n.newBalanceLabel(
+                      'RM ${(tier.currentBalance! - tier.price).toStringAsFixed(2)}',
+                    ),
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -268,7 +256,7 @@ class TierDetailController extends GetxController {
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      child: const Text('Cancel'),
+                      child: Text(l10n.cancel),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -283,7 +271,7 @@ class TierDetailController extends GetxController {
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      child: const Text('Renew'),
+                      child: Text(l10n.renew),
                     ),
                   ),
                 ],
@@ -297,6 +285,9 @@ class TierDetailController extends GetxController {
   }
 
   Future<bool?> _showCancelConfirmDialog() {
+    final l10n = AppLocalizations.of(Get.context!)!;
+    final tier = _currentTierData.value;
+
     return Get.dialog<bool>(
       Dialog(
         backgroundColor: const Color(0xFF1A1A1A),
@@ -323,9 +314,9 @@ class TierDetailController extends GetxController {
                 ),
               ),
               const SizedBox(height: 20),
-              const Text(
-                'Cancel Subscription?',
-                style: TextStyle(
+              Text(
+                l10n.cancelSubscriptionConfirm,
+                style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
                   color: Color(0xFFE0E0E0),
@@ -333,9 +324,13 @@ class TierDetailController extends GetxController {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 12),
-              const Text(
-                'Your benefits will remain active until the expiry date. After that, you will be downgraded to Normal tier.',
-                style: TextStyle(fontSize: 14, color: Color(0xFF808080)),
+              Text(
+                tier?.subscription?.expiresAt != null
+                    ? l10n.cancelSubscriptionWarning(
+                        formatDate(tier!.subscription!.expiresAt),
+                      )
+                    : l10n.subscriptionCancelledMessage,
+                style: const TextStyle(fontSize: 14, color: Color(0xFF808080)),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 24),
@@ -352,7 +347,7 @@ class TierDetailController extends GetxController {
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      child: const Text('Keep It'),
+                      child: Text(l10n.keepIt),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -367,7 +362,7 @@ class TierDetailController extends GetxController {
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      child: const Text('Cancel'),
+                      child: Text(l10n.cancelIt),
                     ),
                   ),
                 ],
@@ -447,6 +442,8 @@ class TierDetailController extends GetxController {
   }
 
   Future<void> _showInfoDialog(String title, String message) async {
+    final l10n = AppLocalizations.of(Get.context!)!;
+
     await Get.dialog(
       Dialog(
         backgroundColor: const Color(0xFF1A1A1A),
@@ -501,7 +498,7 @@ class TierDetailController extends GetxController {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  child: const Text('OK'),
+                  child: Text(l10n.ok),
                 ),
               ),
             ],
@@ -520,8 +517,9 @@ class TierDetailController extends GetxController {
       message = error;
     }
 
+    final l10n = AppLocalizations.of(Get.context!)!;
     Get.snackbar(
-      'Error',
+      l10n.error,
       message,
       snackPosition: SnackPosition.BOTTOM,
       backgroundColor: Colors.red.withOpacity(0.8),
