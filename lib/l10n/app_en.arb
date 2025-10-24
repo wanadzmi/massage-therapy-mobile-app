@@ -1782,6 +1782,10 @@
     "@navigateUsingWaze": {
         "description": "Waze navigation option"
     },
+    "price": "Price",
+    "@price": {
+        "description": "Price label"
+    },
     "@_THERAPIST_SELECTION": {},
     "confirmBooking": "Confirm Booking",
     "@confirmBooking": {
@@ -1871,5 +1875,152 @@
     "pleaseSelectTimeSlot": "Please select a time slot",
     "@pleaseSelectTimeSlot": {
         "description": "Select time slot validation"
+    },
+    "@_BOOKING_CONFIRMATION": {},
+    "pressureLevel": "Pressure Level",
+    "@pressureLevel": {
+        "description": "Pressure level label"
+    },
+    "light": "Light",
+    "@light": {
+        "description": "Light pressure option"
+    },
+    "medium": "Medium",
+    "@medium": {
+        "description": "Medium pressure option"
+    },
+    "firm": "Firm",
+    "@firm": {
+        "description": "Firm pressure option"
+    },
+    "focusAreas": "Focus Areas",
+    "@focusAreas": {
+        "description": "Focus areas label"
+    },
+    "neck": "Neck",
+    "@neck": {
+        "description": "Neck focus area"
+    },
+    "shoulders": "Shoulders",
+    "@shoulders": {
+        "description": "Shoulders focus area"
+    },
+    "back": "Back",
+    "@back": {
+        "description": "Back focus area"
+    },
+    "lowerBack": "Lower Back",
+    "@lowerBack": {
+        "description": "Lower back focus area"
+    },
+    "arms": "Arms",
+    "@arms": {
+        "description": "Arms focus area"
+    },
+    "legs": "Legs",
+    "@legs": {
+        "description": "Legs focus area"
+    },
+    "feet": "Feet",
+    "@feet": {
+        "description": "Feet focus area"
+    },
+    "specialInstructions": "Special Instructions",
+    "@specialInstructions": {
+        "description": "Special instructions section title"
+    },
+    "specialInstructionsHint": "E.g., Please use lavender oil, focus on lower back...",
+    "@specialInstructionsHint": {
+        "description": "Special instructions input hint"
+    },
+    "voucherCode": "Voucher Code",
+    "@voucherCode": {
+        "description": "Voucher code section title"
+    },
+    "enterVoucherCodeOptional": "Enter voucher code (optional)",
+    "@enterVoucherCodeOptional": {
+        "description": "Voucher code input hint"
+    },
+    "paymentMethod": "Payment Method",
+    "@paymentMethod": {
+        "description": "Payment method section title"
+    },
+    "cash": "Cash",
+    "@cash": {
+        "description": "Cash payment option"
+    },
+    "payAtTherapistLocation": "Pay at therapist location",
+    "@payAtTherapistLocation": {
+        "description": "Cash payment description"
+    },
+    "pleaseBringCash": "Please bring RM {amount} in cash to the therapist location.",
+    "@pleaseBringCash": {
+        "description": "Cash payment reminder",
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            }
+        }
+    },
+    "insufficientBalanceTopUp": "Insufficient balance. Please top up.",
+    "@insufficientBalanceTopUp": {
+        "description": "Insufficient balance message"
+    },
+    "insufficientWalletBalance": "Insufficient Wallet Balance",
+    "@insufficientWalletBalance": {
+        "description": "Insufficient balance dialog title"
+    },
+    "insufficientWalletBalanceMessage": "Your wallet balance is insufficient. Please top up your wallet or select cash payment.",
+    "@insufficientWalletBalanceMessage": {
+        "description": "Insufficient balance dialog message"
+    },
+    "bookingConfirmedTitle": "Booking Confirmed!",
+    "@bookingConfirmedTitle": {
+        "description": "Booking confirmed dialog title"
+    },
+    "paymentSuccessful": "Payment successful. Your booking has been confirmed.",
+    "@paymentSuccessful": {
+        "description": "Wallet payment success message"
+    },
+    "bookingConfirmedCash": "Your booking has been confirmed. Please bring RM {amount} in cash to the therapist location.",
+    "@bookingConfirmedCash": {
+        "description": "Cash booking confirmed message",
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            }
+        }
+    },
+    "paymentCollectedAtLocation": "Payment will be collected at the location",
+    "@paymentCollectedAtLocation": {
+        "description": "Cash payment info"
+    },
+    "bookingFailed": "Booking Failed",
+    "@bookingFailed": {
+        "description": "Booking failed dialog title"
+    },
+    "failedToCreateBooking": "Failed to create booking. Please try again.",
+    "@failedToCreateBooking": {
+        "description": "Booking failed message"
+    },
+    "missingBookingInfo": "Missing required booking information",
+    "@missingBookingInfo": {
+        "description": "Missing info error"
+    },
+    "invalidPaymentMethod": "Invalid Payment Method",
+    "@invalidPaymentMethod": {
+        "description": "Invalid payment method error title"
+    },
+    "invalidPaymentMethodMessage": "Only wallet and cash payments are accepted for bookings.",
+    "@invalidPaymentMethodMessage": {
+        "description": "Invalid payment method error message"
+    },
+    "invalidInformation": "Invalid Information",
+    "@invalidInformation": {
+        "description": "Invalid information error title"
+    },
+    "invalidInformationMessage": "Please check your booking information and try again.",
+    "@invalidInformationMessage": {
+        "description": "Invalid information error message"
     }
 }

@@ -1292,6 +1292,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get navigateUsingWaze => '使用 Waze 导航';
 
   @override
+  String get price => '价格';
+
+  @override
   String get confirmBooking => '确认预约';
 
   @override
@@ -1355,4 +1358,110 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get pleaseSelectTimeSlot => '请选择时段';
+
+  @override
+  String get pressureLevel => '压力强度';
+
+  @override
+  String get light => '轻柔';
+
+  @override
+  String get medium => '中等';
+
+  @override
+  String get firm => '强力';
+
+  @override
+  String get focusAreas => '重点部位';
+
+  @override
+  String get neck => '颈部';
+
+  @override
+  String get shoulders => '肩部';
+
+  @override
+  String get back => '背部';
+
+  @override
+  String get lowerBack => '下背部';
+
+  @override
+  String get arms => '手臂';
+
+  @override
+  String get legs => '腿部';
+
+  @override
+  String get feet => '足部';
+
+  @override
+  String get specialInstructions => '特殊说明';
+
+  @override
+  String get specialInstructionsHint => '例如：请使用薰衣草精油，重点按摩下背部...';
+
+  @override
+  String get voucherCode => '优惠券代码';
+
+  @override
+  String get enterVoucherCodeOptional => '输入优惠券代码（可选）';
+
+  @override
+  String get paymentMethod => '付款方式';
+
+  @override
+  String get cash => '现金';
+
+  @override
+  String get payAtTherapistLocation => '在治疗师处付款';
+
+  @override
+  String pleaseBringCash(String amount) {
+    return '请携带 RM $amount 现金到治疗师处。';
+  }
+
+  @override
+  String get insufficientBalanceTopUp => '余额不足。请充值。';
+
+  @override
+  String get insufficientWalletBalance => '钱包余额不足';
+
+  @override
+  String get insufficientWalletBalanceMessage => '您的钱包余额不足。请充值钱包或选择现金付款。';
+
+  @override
+  String get bookingConfirmedTitle => '预约已确认！';
+
+  @override
+  String get paymentSuccessful => '付款成功。您的预约已确认。';
+
+  @override
+  String bookingConfirmedCash(String amount) {
+    return '您的预约已确认。请携带 RM $amount 现金到治疗师处。';
+  }
+
+  @override
+  String get paymentCollectedAtLocation => '付款将在现场收取';
+
+  @override
+  String get bookingFailed => '预约失败';
+
+  @override
+  String get failedToCreateBooking => '创建预约失败。请重试。';
+
+  @override
+  String get missingBookingInfo => '缺少必需的预约信息';
+
+  @override
+  String get invalidPaymentMethod => '无效的付款方式';
+
+  @override
+  String get invalidPaymentMethodMessage => '预约仅接受钱包和现金付款。';
+
+  @override
+  String get invalidInformation => '无效信息';
+
+  @override
+  String get invalidInformationMessage => '请检查您的预约信息并重试。';
 }

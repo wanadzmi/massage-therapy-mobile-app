@@ -1316,6 +1316,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navigateUsingWaze => 'Navigate using Waze';
 
   @override
+  String get price => 'Price';
+
+  @override
   String get confirmBooking => 'Confirm Booking';
 
   @override
@@ -1383,4 +1386,117 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pleaseSelectTimeSlot => 'Please select a time slot';
+
+  @override
+  String get pressureLevel => 'Pressure Level';
+
+  @override
+  String get light => 'Light';
+
+  @override
+  String get medium => 'Medium';
+
+  @override
+  String get firm => 'Firm';
+
+  @override
+  String get focusAreas => 'Focus Areas';
+
+  @override
+  String get neck => 'Neck';
+
+  @override
+  String get shoulders => 'Shoulders';
+
+  @override
+  String get back => 'Back';
+
+  @override
+  String get lowerBack => 'Lower Back';
+
+  @override
+  String get arms => 'Arms';
+
+  @override
+  String get legs => 'Legs';
+
+  @override
+  String get feet => 'Feet';
+
+  @override
+  String get specialInstructions => 'Special Instructions';
+
+  @override
+  String get specialInstructionsHint =>
+      'E.g., Please use lavender oil, focus on lower back...';
+
+  @override
+  String get voucherCode => 'Voucher Code';
+
+  @override
+  String get enterVoucherCodeOptional => 'Enter voucher code (optional)';
+
+  @override
+  String get paymentMethod => 'Payment Method';
+
+  @override
+  String get cash => 'Cash';
+
+  @override
+  String get payAtTherapistLocation => 'Pay at therapist location';
+
+  @override
+  String pleaseBringCash(String amount) {
+    return 'Please bring RM $amount in cash to the therapist location.';
+  }
+
+  @override
+  String get insufficientBalanceTopUp => 'Insufficient balance. Please top up.';
+
+  @override
+  String get insufficientWalletBalance => 'Insufficient Wallet Balance';
+
+  @override
+  String get insufficientWalletBalanceMessage =>
+      'Your wallet balance is insufficient. Please top up your wallet or select cash payment.';
+
+  @override
+  String get bookingConfirmedTitle => 'Booking Confirmed!';
+
+  @override
+  String get paymentSuccessful =>
+      'Payment successful. Your booking has been confirmed.';
+
+  @override
+  String bookingConfirmedCash(String amount) {
+    return 'Your booking has been confirmed. Please bring RM $amount in cash to the therapist location.';
+  }
+
+  @override
+  String get paymentCollectedAtLocation =>
+      'Payment will be collected at the location';
+
+  @override
+  String get bookingFailed => 'Booking Failed';
+
+  @override
+  String get failedToCreateBooking =>
+      'Failed to create booking. Please try again.';
+
+  @override
+  String get missingBookingInfo => 'Missing required booking information';
+
+  @override
+  String get invalidPaymentMethod => 'Invalid Payment Method';
+
+  @override
+  String get invalidPaymentMethodMessage =>
+      'Only wallet and cash payments are accepted for bookings.';
+
+  @override
+  String get invalidInformation => 'Invalid Information';
+
+  @override
+  String get invalidInformationMessage =>
+      'Please check your booking information and try again.';
 }

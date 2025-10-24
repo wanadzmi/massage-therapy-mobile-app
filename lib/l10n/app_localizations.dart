@@ -2559,6 +2559,12 @@ abstract class AppLocalizations {
   /// **'Navigate using Waze'**
   String get navigateUsingWaze;
 
+  /// Price label
+  ///
+  /// In en, this message translates to:
+  /// **'Price'**
+  String get price;
+
   /// Confirm booking page title
   ///
   /// In en, this message translates to:
@@ -2684,6 +2690,210 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please select a time slot'**
   String get pleaseSelectTimeSlot;
+
+  /// Pressure level label
+  ///
+  /// In en, this message translates to:
+  /// **'Pressure Level'**
+  String get pressureLevel;
+
+  /// Light pressure option
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get light;
+
+  /// Medium pressure option
+  ///
+  /// In en, this message translates to:
+  /// **'Medium'**
+  String get medium;
+
+  /// Firm pressure option
+  ///
+  /// In en, this message translates to:
+  /// **'Firm'**
+  String get firm;
+
+  /// Focus areas label
+  ///
+  /// In en, this message translates to:
+  /// **'Focus Areas'**
+  String get focusAreas;
+
+  /// Neck focus area
+  ///
+  /// In en, this message translates to:
+  /// **'Neck'**
+  String get neck;
+
+  /// Shoulders focus area
+  ///
+  /// In en, this message translates to:
+  /// **'Shoulders'**
+  String get shoulders;
+
+  /// Back focus area
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
+  /// Lower back focus area
+  ///
+  /// In en, this message translates to:
+  /// **'Lower Back'**
+  String get lowerBack;
+
+  /// Arms focus area
+  ///
+  /// In en, this message translates to:
+  /// **'Arms'**
+  String get arms;
+
+  /// Legs focus area
+  ///
+  /// In en, this message translates to:
+  /// **'Legs'**
+  String get legs;
+
+  /// Feet focus area
+  ///
+  /// In en, this message translates to:
+  /// **'Feet'**
+  String get feet;
+
+  /// Special instructions section title
+  ///
+  /// In en, this message translates to:
+  /// **'Special Instructions'**
+  String get specialInstructions;
+
+  /// Special instructions input hint
+  ///
+  /// In en, this message translates to:
+  /// **'E.g., Please use lavender oil, focus on lower back...'**
+  String get specialInstructionsHint;
+
+  /// Voucher code section title
+  ///
+  /// In en, this message translates to:
+  /// **'Voucher Code'**
+  String get voucherCode;
+
+  /// Voucher code input hint
+  ///
+  /// In en, this message translates to:
+  /// **'Enter voucher code (optional)'**
+  String get enterVoucherCodeOptional;
+
+  /// Payment method section title
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Method'**
+  String get paymentMethod;
+
+  /// Cash payment option
+  ///
+  /// In en, this message translates to:
+  /// **'Cash'**
+  String get cash;
+
+  /// Cash payment description
+  ///
+  /// In en, this message translates to:
+  /// **'Pay at therapist location'**
+  String get payAtTherapistLocation;
+
+  /// Cash payment reminder
+  ///
+  /// In en, this message translates to:
+  /// **'Please bring RM {amount} in cash to the therapist location.'**
+  String pleaseBringCash(String amount);
+
+  /// Insufficient balance message
+  ///
+  /// In en, this message translates to:
+  /// **'Insufficient balance. Please top up.'**
+  String get insufficientBalanceTopUp;
+
+  /// Insufficient balance dialog title
+  ///
+  /// In en, this message translates to:
+  /// **'Insufficient Wallet Balance'**
+  String get insufficientWalletBalance;
+
+  /// Insufficient balance dialog message
+  ///
+  /// In en, this message translates to:
+  /// **'Your wallet balance is insufficient. Please top up your wallet or select cash payment.'**
+  String get insufficientWalletBalanceMessage;
+
+  /// Booking confirmed dialog title
+  ///
+  /// In en, this message translates to:
+  /// **'Booking Confirmed!'**
+  String get bookingConfirmedTitle;
+
+  /// Wallet payment success message
+  ///
+  /// In en, this message translates to:
+  /// **'Payment successful. Your booking has been confirmed.'**
+  String get paymentSuccessful;
+
+  /// Cash booking confirmed message
+  ///
+  /// In en, this message translates to:
+  /// **'Your booking has been confirmed. Please bring RM {amount} in cash to the therapist location.'**
+  String bookingConfirmedCash(String amount);
+
+  /// Cash payment info
+  ///
+  /// In en, this message translates to:
+  /// **'Payment will be collected at the location'**
+  String get paymentCollectedAtLocation;
+
+  /// Booking failed dialog title
+  ///
+  /// In en, this message translates to:
+  /// **'Booking Failed'**
+  String get bookingFailed;
+
+  /// Booking failed message
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to create booking. Please try again.'**
+  String get failedToCreateBooking;
+
+  /// Missing info error
+  ///
+  /// In en, this message translates to:
+  /// **'Missing required booking information'**
+  String get missingBookingInfo;
+
+  /// Invalid payment method error title
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid Payment Method'**
+  String get invalidPaymentMethod;
+
+  /// Invalid payment method error message
+  ///
+  /// In en, this message translates to:
+  /// **'Only wallet and cash payments are accepted for bookings.'**
+  String get invalidPaymentMethodMessage;
+
+  /// Invalid information error title
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid Information'**
+  String get invalidInformation;
+
+  /// Invalid information error message
+  ///
+  /// In en, this message translates to:
+  /// **'Please check your booking information and try again.'**
+  String get invalidInformationMessage;
 }
 
 class _AppLocalizationsDelegate

@@ -5,6 +5,10 @@ import '../../../data/models/service_model.dart' as service_model;
 import '../../../data/models/therapist_model.dart';
 import '../../../data/services/booking_service.dart';
 import '../../home/controllers/home_controller.dart';
+import '../../main_navigation/main_navigation_view.dart';
+import '../../main_navigation/main_navigation_binding.dart';
+import '../../main_navigation/main_navigation_controller.dart';
+import '../../../../l10n/app_localizations.dart';
 
 class BookingCreateController extends GetxController {
   final BookingService _bookingService = BookingService();
@@ -88,76 +92,53 @@ class BookingCreateController extends GetxController {
   }
 
   void _showInsufficientBalanceDialog() {
+    final l10n = AppLocalizations.of(Get.context!)!;
     Get.dialog(
       Dialog(
         backgroundColor: const Color(0xFF1A1A1A),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-          side: const BorderSide(color: Color(0xFF2A2A2A)),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: Padding(
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.all(24.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // Icon
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFF9800).withOpacity(0.1),
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: const Color(0xFFFF9800).withOpacity(0.3),
-                    width: 2,
-                  ),
-                ),
-                child: const Icon(
-                  Icons.account_balance_wallet_outlined,
-                  size: 48,
-                  color: Color(0xFFFF9800),
-                ),
+              const Icon(
+                Icons.account_balance_wallet,
+                color: Colors.red,
+                size: 48,
               ),
-              const SizedBox(height: 20),
-
-              // Title
-              const Text(
-                'Insufficient Wallet Balance',
-                style: TextStyle(
+              const SizedBox(height: 16),
+              Text(
+                l10n.insufficientWalletBalance,
+                style: const TextStyle(
                   fontSize: 20,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.bold,
                   color: Color(0xFFE0E0E0),
                 ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 12),
-
-              // Message
-              const Text(
-                'Your wallet balance is insufficient. Please top up your wallet or select cash payment.',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Color(0xFF808080),
-                  height: 1.5,
-                ),
+              Text(
+                l10n.insufficientWalletBalanceMessage,
+                style: const TextStyle(fontSize: 14, color: Color(0xFF808080)),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 24),
-
-              // Actions
               Row(
                 children: [
                   Expanded(
                     child: OutlinedButton(
                       onPressed: () => Get.back(),
                       style: OutlinedButton.styleFrom(
-                        foregroundColor: const Color(0xFF808080),
                         side: const BorderSide(color: Color(0xFF2A2A2A)),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                        padding: const EdgeInsets.symmetric(vertical: 14),
                       ),
-                      child: const Text('Cancel'),
+                      child: Text(
+                        l10n.cancel,
+                        style: const TextStyle(color: Color(0xFFE0E0E0)),
+                      ),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -169,16 +150,13 @@ class BookingCreateController extends GetxController {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFD4AF37),
-                        foregroundColor: Colors.black,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        elevation: 0,
                       ),
-                      child: const Text(
-                        'Top Up Wallet',
-                        style: TextStyle(fontWeight: FontWeight.w600),
+                      child: Text(
+                        l10n.topUpWallet,
+                        style: const TextStyle(color: Colors.black),
                       ),
                     ),
                   ),
@@ -188,98 +166,70 @@ class BookingCreateController extends GetxController {
           ),
         ),
       ),
-      barrierDismissible: true,
     );
   }
 
   void _showBookingSuccessDialog() {
-    final isWalletPayment = _paymentMethod.value == 'wallet';
+    final l10n = AppLocalizations.of(Get.context!)!;
     final servicePrice = service?.pricing?.price ?? 0.0;
+    final isWalletPayment = paymentMethod == 'wallet';
 
     Get.dialog(
       Dialog(
         backgroundColor: const Color(0xFF1A1A1A),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-          side: const BorderSide(color: Color(0xFF2A2A2A)),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: Padding(
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.all(24.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // Icon
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF4CAF50).withOpacity(0.1),
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: const Color(0xFF4CAF50).withOpacity(0.3),
-                    width: 2,
-                  ),
-                ),
-                child: const Icon(
-                  Icons.check_circle_outline,
-                  size: 48,
-                  color: Color(0xFF4CAF50),
-                ),
-              ),
-              const SizedBox(height: 20),
-
-              // Title
-              const Text(
-                'Booking Confirmed!',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
+              const Icon(Icons.check_circle, color: Colors.green, size: 64),
+              const SizedBox(height: 16),
+              Text(
+                l10n.bookingConfirmedTitle,
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
                   color: Color(0xFFE0E0E0),
                 ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 12),
-
-              // Message
               Text(
                 isWalletPayment
-                    ? 'Payment successful. Your booking has been confirmed.'
-                    : 'Your booking has been confirmed. Please bring RM ${servicePrice.toStringAsFixed(2)} in cash to the therapist location.',
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: Color(0xFF808080),
-                  height: 1.5,
-                ),
+                    ? l10n.paymentSuccessful
+                    : l10n.bookingConfirmedCash(
+                        servicePrice.toStringAsFixed(2),
+                      ),
+                style: const TextStyle(fontSize: 14, color: Color(0xFF808080)),
                 textAlign: TextAlign.center,
               ),
-
-              // Cash payment reminder box
               if (!isWalletPayment) ...[
                 const SizedBox(height: 16),
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: Colors.orange.withOpacity(0.1),
+                    color: Colors.orange.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
-                      color: Colors.orange.withOpacity(0.3),
-                      width: 1,
+                      color: Colors.orange.withValues(alpha: 0.3),
                     ),
                   ),
                   child: Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       const Icon(
                         Icons.info_outline,
                         color: Colors.orange,
                         size: 20,
                       ),
-                      const SizedBox(width: 12),
+                      const SizedBox(width: 8),
                       Expanded(
                         child: Text(
-                          'Payment will be collected at the location',
-                          style: TextStyle(
+                          l10n.paymentCollectedAtLocation,
+                          style: const TextStyle(
                             fontSize: 12,
-                            color: Colors.orange.shade200,
-                            height: 1.3,
+                            color: Color(0xFFE0E0E0),
                           ),
                         ),
                       ),
@@ -287,38 +237,37 @@ class BookingCreateController extends GetxController {
                   ),
                 ),
               ],
-
               const SizedBox(height: 24),
-
-              // OK Button
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    Get.back();
-                    // Navigate back to main navigation (preserves bottom nav bar)
-                    Get.until((route) => route.isFirst);
-
-                    // Refresh home page data to update wallet balance
-                    try {
-                      final homeController = Get.find<HomeController>();
-                      homeController.loadUserData();
-                    } catch (e) {
-                      print('⚠️ HomeController not found: $e');
-                    }
+                    Get.back(); // Close dialog
+                    // Navigate back to MainNavigationView with bookings tab
+                    Get.offAll(
+                      () => const MainNavigationView(),
+                      binding: MainNavigationBinding(),
+                    );
+                    // Switch to bookings tab (index 1)
+                    Future.delayed(const Duration(milliseconds: 100), () {
+                      try {
+                        final navController =
+                            Get.find<MainNavigationController>();
+                        navController.changePage(1);
+                      } catch (e) {
+                        print('⚠️ Could not switch to bookings tab: $e');
+                      }
+                    });
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFD4AF37),
-                    foregroundColor: Colors.black,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    elevation: 0,
                   ),
-                  child: const Text(
-                    'OK',
-                    style: TextStyle(fontWeight: FontWeight.w600),
+                  child: Text(
+                    l10n.ok,
+                    style: const TextStyle(color: Colors.black),
                   ),
                 ),
               ),
@@ -358,16 +307,26 @@ class BookingCreateController extends GetxController {
   }
 
   Future<void> createBooking() async {
-    if (therapistId == null ||
-        service?.id == null ||
+    if (service == null ||
         selectedDate == null ||
-        selectedTime == null) {
+        selectedTime == null ||
+        therapistId == null ||
+        paymentMethod.isEmpty) {
+      final l10n = AppLocalizations.of(Get.context!)!;
+
+      print('❌ Missing booking information:');
+      print('   service: ${service != null ? "✓" : "✗"}');
+      print('   selectedDate: ${selectedDate != null ? "✓" : "✗"}');
+      print('   selectedTime: ${selectedTime != null ? "✓" : "✗"}');
+      print('   therapistId: ${therapistId != null ? "✓" : "✗"}');
+      print('   paymentMethod: ${paymentMethod.isNotEmpty ? "✓" : "✗"}');
+
       Get.snackbar(
-        'Error',
-        'Missing required booking information',
+        l10n.error,
+        l10n.missingBookingInfo,
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.8),
-        colorText: Colors.white,
+        backgroundColor: Colors.red.withValues(alpha: 0.1),
+        colorText: Colors.red,
       );
       return;
     }
@@ -424,175 +383,104 @@ class BookingCreateController extends GetxController {
     }
   }
 
-  void _showBookingErrorDialog(dynamic error) {
-    String title = 'Booking Failed';
-    String message = 'Failed to create booking. Please try again.';
-    IconData icon = Icons.error_outline;
-    Color iconColor = Colors.red;
-    bool showTopUpOption = false;
+  void _showBookingErrorDialog(String errorType) {
+    final l10n = AppLocalizations.of(Get.context!)!;
+    String title;
+    String message;
+    String actionButtonText = l10n.ok;
+    VoidCallback? onActionPressed;
 
-    // Parse error response
-    if (error is Map<String, dynamic>) {
-      // Handle structured error response
-      final errorType = error['error'] ?? '';
-      final errorMessage = error['message'] ?? '';
-
-      if (errorType == 'Insufficient Balance') {
-        // This should only happen if backend validation catches it
-        // But we already check on client side
-        title = 'Insufficient Wallet Balance';
-        message = errorMessage.isNotEmpty
-            ? errorMessage
-            : 'Your wallet balance is insufficient. Please top up your wallet to proceed.';
-        icon = Icons.account_balance_wallet_outlined;
-        iconColor = const Color(0xFFFF9800);
-        showTopUpOption = true;
-      } else if (errorType == 'Invalid Payment Method') {
-        title = 'Invalid Payment Method';
-        message = errorMessage.isNotEmpty
-            ? errorMessage
-            : 'Only wallet and cash payments are accepted for bookings.';
-        icon = Icons.payment;
-        iconColor = Colors.orange;
-      } else if (errorType.toString().toLowerCase().contains('validation')) {
-        title = 'Invalid Information';
-        message = errorMessage.isNotEmpty
-            ? errorMessage
-            : 'Please check your booking information and try again.';
-        icon = Icons.info_outline;
-        iconColor = Colors.orange;
-      } else {
-        title = errorType.isNotEmpty ? errorType.toString() : 'Booking Failed';
-        message = errorMessage.isNotEmpty
-            ? errorMessage
-            : 'An error occurred while creating your booking.';
-      }
-    } else if (error is String) {
-      message = error;
+    switch (errorType) {
+      case 'insufficient_balance':
+        title = l10n.insufficientWalletBalance;
+        message = l10n.insufficientWalletBalanceMessage;
+        actionButtonText = l10n.topUpWallet;
+        onActionPressed = () {
+          Get.back();
+          Get.toNamed('/wallet-topup');
+        };
+        break;
+      case 'invalid_payment_method':
+        title = l10n.invalidPaymentMethod;
+        message = l10n.invalidPaymentMethodMessage;
+        break;
+      case 'invalid_information':
+        title = l10n.invalidInformation;
+        message = l10n.invalidInformationMessage;
+        break;
+      default:
+        title = l10n.bookingFailed;
+        message = l10n.failedToCreateBooking;
     }
 
     Get.dialog(
       Dialog(
         backgroundColor: const Color(0xFF1A1A1A),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-          side: const BorderSide(color: Color(0xFF2A2A2A)),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: Padding(
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.all(24.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // Icon
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: iconColor.withOpacity(0.1),
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: iconColor.withOpacity(0.3),
-                    width: 2,
-                  ),
-                ),
-                child: Icon(icon, size: 48, color: iconColor),
-              ),
-              const SizedBox(height: 20),
-
-              // Title
+              const Icon(Icons.error_outline, color: Colors.red, size: 48),
+              const SizedBox(height: 16),
               Text(
                 title,
                 style: const TextStyle(
                   fontSize: 20,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.bold,
                   color: Color(0xFFE0E0E0),
                 ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 12),
-
-              // Message
               Text(
                 message,
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: Color(0xFF808080),
-                  height: 1.5,
-                ),
+                style: const TextStyle(fontSize: 14, color: Color(0xFF808080)),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 24),
-
-              // Actions
-              if (showTopUpOption) ...[
-                // Show two buttons for insufficient balance
-                Row(
-                  children: [
+              Row(
+                children: [
+                  if (onActionPressed != null) ...[
                     Expanded(
                       child: OutlinedButton(
                         onPressed: () => Get.back(),
                         style: OutlinedButton.styleFrom(
-                          foregroundColor: const Color(0xFF808080),
                           side: const BorderSide(color: Color(0xFF2A2A2A)),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
+                            borderRadius: BorderRadius.circular(8),
                           ),
-                          padding: const EdgeInsets.symmetric(vertical: 14),
                         ),
-                        child: const Text('Cancel'),
+                        child: Text(
+                          l10n.cancel,
+                          style: const TextStyle(color: Color(0xFFE0E0E0)),
+                        ),
                       ),
                     ),
                     const SizedBox(width: 12),
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Get.back();
-                          // Navigate to wallet top-up page
-                          Get.toNamed('/wallet-topup');
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFD4AF37),
-                          foregroundColor: Colors.black,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          elevation: 0,
-                        ),
-                        child: const Text(
-                          'Top Up Wallet',
-                          style: TextStyle(fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                    ),
                   ],
-                ),
-              ] else ...[
-                // Single OK button for other errors
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () => Get.back(),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFD4AF37),
-                      foregroundColor: Colors.black,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: onActionPressed ?? () => Get.back(),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFD4AF37),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
                       ),
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      elevation: 0,
-                    ),
-                    child: const Text(
-                      'OK',
-                      style: TextStyle(fontWeight: FontWeight.w600),
+                      child: Text(
+                        actionButtonText,
+                        style: const TextStyle(color: Colors.black),
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ],
           ),
         ),
       ),
-      barrierDismissible: true,
     );
   }
 }

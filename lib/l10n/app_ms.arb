@@ -1782,6 +1782,10 @@
     "@navigateUsingWaze": {
         "description": "Waze navigation option"
     },
+    "price": "Harga",
+    "@price": {
+        "description": "Label harga"
+    },
     "@_THERAPIST_SELECTION": {},
     "confirmBooking": "Sahkan Tempahan",
     "@confirmBooking": {
@@ -1871,5 +1875,152 @@
     "pleaseSelectTimeSlot": "Sila pilih slot masa",
     "@pleaseSelectTimeSlot": {
         "description": "Select time slot validation"
+    },
+    "@_BOOKING_CONFIRMATION": {},
+    "pressureLevel": "Tahap Tekanan",
+    "@pressureLevel": {
+        "description": "Pressure level label"
+    },
+    "light": "Ringan",
+    "@light": {
+        "description": "Light pressure option"
+    },
+    "medium": "Sederhana",
+    "@medium": {
+        "description": "Medium pressure option"
+    },
+    "firm": "Kuat",
+    "@firm": {
+        "description": "Firm pressure option"
+    },
+    "focusAreas": "Kawasan Fokus",
+    "@focusAreas": {
+        "description": "Focus areas label"
+    },
+    "neck": "Leher",
+    "@neck": {
+        "description": "Neck focus area"
+    },
+    "shoulders": "Bahu",
+    "@shoulders": {
+        "description": "Shoulders focus area"
+    },
+    "back": "Belakang",
+    "@back": {
+        "description": "Back focus area"
+    },
+    "lowerBack": "Belakang Bawah",
+    "@lowerBack": {
+        "description": "Lower back focus area"
+    },
+    "arms": "Lengan",
+    "@arms": {
+        "description": "Arms focus area"
+    },
+    "legs": "Kaki",
+    "@legs": {
+        "description": "Legs focus area"
+    },
+    "feet": "Telapak Kaki",
+    "@feet": {
+        "description": "Feet focus area"
+    },
+    "specialInstructions": "Arahan Khas",
+    "@specialInstructions": {
+        "description": "Special instructions section title"
+    },
+    "specialInstructionsHint": "Contoh: Sila gunakan minyak lavender, fokus pada belakang bawah...",
+    "@specialInstructionsHint": {
+        "description": "Special instructions input hint"
+    },
+    "voucherCode": "Kod Baucar",
+    "@voucherCode": {
+        "description": "Voucher code section title"
+    },
+    "enterVoucherCodeOptional": "Masukkan kod baucar (pilihan)",
+    "@enterVoucherCodeOptional": {
+        "description": "Voucher code input hint"
+    },
+    "paymentMethod": "Kaedah Pembayaran",
+    "@paymentMethod": {
+        "description": "Payment method section title"
+    },
+    "cash": "Tunai",
+    "@cash": {
+        "description": "Cash payment option"
+    },
+    "payAtTherapistLocation": "Bayar di lokasi ahli terapi",
+    "@payAtTherapistLocation": {
+        "description": "Cash payment description"
+    },
+    "pleaseBringCash": "Sila bawa RM {amount} dalam bentuk tunai ke lokasi ahli terapi.",
+    "@pleaseBringCash": {
+        "description": "Cash payment reminder",
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            }
+        }
+    },
+    "insufficientBalanceTopUp": "Baki tidak mencukupi. Sila tambah nilai.",
+    "@insufficientBalanceTopUp": {
+        "description": "Insufficient balance message"
+    },
+    "insufficientWalletBalance": "Baki Wallet Tidak Mencukupi",
+    "@insufficientWalletBalance": {
+        "description": "Insufficient balance dialog title"
+    },
+    "insufficientWalletBalanceMessage": "Baki wallet anda tidak mencukupi. Sila tambah nilai wallet anda atau pilih pembayaran tunai.",
+    "@insufficientWalletBalanceMessage": {
+        "description": "Insufficient balance dialog message"
+    },
+    "bookingConfirmedTitle": "Tempahan Disahkan!",
+    "@bookingConfirmedTitle": {
+        "description": "Booking confirmed dialog title"
+    },
+    "paymentSuccessful": "Pembayaran berjaya. Tempahan anda telah disahkan.",
+    "@paymentSuccessful": {
+        "description": "Wallet payment success message"
+    },
+    "bookingConfirmedCash": "Tempahan anda telah disahkan. Sila bawa RM {amount} dalam bentuk tunai ke lokasi ahli terapi.",
+    "@bookingConfirmedCash": {
+        "description": "Cash booking confirmed message",
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            }
+        }
+    },
+    "paymentCollectedAtLocation": "Pembayaran akan dikutip di lokasi",
+    "@paymentCollectedAtLocation": {
+        "description": "Cash payment info"
+    },
+    "bookingFailed": "Tempahan Gagal",
+    "@bookingFailed": {
+        "description": "Booking failed dialog title"
+    },
+    "failedToCreateBooking": "Gagal membuat tempahan. Sila cuba lagi.",
+    "@failedToCreateBooking": {
+        "description": "Booking failed message"
+    },
+    "missingBookingInfo": "Maklumat tempahan yang diperlukan tiada",
+    "@missingBookingInfo": {
+        "description": "Missing info error"
+    },
+    "invalidPaymentMethod": "Kaedah Pembayaran Tidak Sah",
+    "@invalidPaymentMethod": {
+        "description": "Invalid payment method error title"
+    },
+    "invalidPaymentMethodMessage": "Hanya pembayaran wallet dan tunai diterima untuk tempahan.",
+    "@invalidPaymentMethodMessage": {
+        "description": "Invalid payment method error message"
+    },
+    "invalidInformation": "Maklumat Tidak Sah",
+    "@invalidInformation": {
+        "description": "Invalid information error title"
+    },
+    "invalidInformationMessage": "Sila semak maklumat tempahan anda dan cuba lagi.",
+    "@invalidInformationMessage": {
+        "description": "Invalid information error message"
     }
 }

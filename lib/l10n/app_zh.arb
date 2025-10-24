@@ -1782,6 +1782,10 @@
     "@navigateUsingWaze": {
         "description": "Waze navigation option"
     },
+    "price": "价格",
+    "@price": {
+        "description": "价格标签"
+    },
     "@_THERAPIST_SELECTION": {},
     "confirmBooking": "确认预约",
     "@confirmBooking": {
@@ -1871,5 +1875,152 @@
     "pleaseSelectTimeSlot": "请选择时段",
     "@pleaseSelectTimeSlot": {
         "description": "Select time slot validation"
+    },
+    "@_BOOKING_CONFIRMATION": {},
+    "pressureLevel": "压力强度",
+    "@pressureLevel": {
+        "description": "Pressure level label"
+    },
+    "light": "轻柔",
+    "@light": {
+        "description": "Light pressure option"
+    },
+    "medium": "中等",
+    "@medium": {
+        "description": "Medium pressure option"
+    },
+    "firm": "强力",
+    "@firm": {
+        "description": "Firm pressure option"
+    },
+    "focusAreas": "重点部位",
+    "@focusAreas": {
+        "description": "Focus areas label"
+    },
+    "neck": "颈部",
+    "@neck": {
+        "description": "Neck focus area"
+    },
+    "shoulders": "肩部",
+    "@shoulders": {
+        "description": "Shoulders focus area"
+    },
+    "back": "背部",
+    "@back": {
+        "description": "Back focus area"
+    },
+    "lowerBack": "下背部",
+    "@lowerBack": {
+        "description": "Lower back focus area"
+    },
+    "arms": "手臂",
+    "@arms": {
+        "description": "Arms focus area"
+    },
+    "legs": "腿部",
+    "@legs": {
+        "description": "Legs focus area"
+    },
+    "feet": "足部",
+    "@feet": {
+        "description": "Feet focus area"
+    },
+    "specialInstructions": "特殊说明",
+    "@specialInstructions": {
+        "description": "Special instructions section title"
+    },
+    "specialInstructionsHint": "例如：请使用薰衣草精油，重点按摩下背部...",
+    "@specialInstructionsHint": {
+        "description": "Special instructions input hint"
+    },
+    "voucherCode": "优惠券代码",
+    "@voucherCode": {
+        "description": "Voucher code section title"
+    },
+    "enterVoucherCodeOptional": "输入优惠券代码（可选）",
+    "@enterVoucherCodeOptional": {
+        "description": "Voucher code input hint"
+    },
+    "paymentMethod": "付款方式",
+    "@paymentMethod": {
+        "description": "Payment method section title"
+    },
+    "cash": "现金",
+    "@cash": {
+        "description": "Cash payment option"
+    },
+    "payAtTherapistLocation": "在治疗师处付款",
+    "@payAtTherapistLocation": {
+        "description": "Cash payment description"
+    },
+    "pleaseBringCash": "请携带 RM {amount} 现金到治疗师处。",
+    "@pleaseBringCash": {
+        "description": "Cash payment reminder",
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            }
+        }
+    },
+    "insufficientBalanceTopUp": "余额不足。请充值。",
+    "@insufficientBalanceTopUp": {
+        "description": "Insufficient balance message"
+    },
+    "insufficientWalletBalance": "钱包余额不足",
+    "@insufficientWalletBalance": {
+        "description": "Insufficient balance dialog title"
+    },
+    "insufficientWalletBalanceMessage": "您的钱包余额不足。请充值钱包或选择现金付款。",
+    "@insufficientWalletBalanceMessage": {
+        "description": "Insufficient balance dialog message"
+    },
+    "bookingConfirmedTitle": "预约已确认！",
+    "@bookingConfirmedTitle": {
+        "description": "Booking confirmed dialog title"
+    },
+    "paymentSuccessful": "付款成功。您的预约已确认。",
+    "@paymentSuccessful": {
+        "description": "Wallet payment success message"
+    },
+    "bookingConfirmedCash": "您的预约已确认。请携带 RM {amount} 现金到治疗师处。",
+    "@bookingConfirmedCash": {
+        "description": "Cash booking confirmed message",
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            }
+        }
+    },
+    "paymentCollectedAtLocation": "付款将在现场收取",
+    "@paymentCollectedAtLocation": {
+        "description": "Cash payment info"
+    },
+    "bookingFailed": "预约失败",
+    "@bookingFailed": {
+        "description": "Booking failed dialog title"
+    },
+    "failedToCreateBooking": "创建预约失败。请重试。",
+    "@failedToCreateBooking": {
+        "description": "Booking failed message"
+    },
+    "missingBookingInfo": "缺少必需的预约信息",
+    "@missingBookingInfo": {
+        "description": "Missing info error"
+    },
+    "invalidPaymentMethod": "无效的付款方式",
+    "@invalidPaymentMethod": {
+        "description": "Invalid payment method error title"
+    },
+    "invalidPaymentMethodMessage": "预约仅接受钱包和现金付款。",
+    "@invalidPaymentMethodMessage": {
+        "description": "Invalid payment method error message"
+    },
+    "invalidInformation": "无效信息",
+    "@invalidInformation": {
+        "description": "Invalid information error title"
+    },
+    "invalidInformationMessage": "请检查您的预约信息并重试。",
+    "@invalidInformationMessage": {
+        "description": "Invalid information error message"
     }
 }

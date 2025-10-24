@@ -1320,6 +1320,9 @@ class AppLocalizationsMs extends AppLocalizations {
   String get navigateUsingWaze => 'Navigasi menggunakan Waze';
 
   @override
+  String get price => 'Harga';
+
+  @override
   String get confirmBooking => 'Sahkan Tempahan';
 
   @override
@@ -1388,4 +1391,116 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get pleaseSelectTimeSlot => 'Sila pilih slot masa';
+
+  @override
+  String get pressureLevel => 'Tahap Tekanan';
+
+  @override
+  String get light => 'Ringan';
+
+  @override
+  String get medium => 'Sederhana';
+
+  @override
+  String get firm => 'Kuat';
+
+  @override
+  String get focusAreas => 'Kawasan Fokus';
+
+  @override
+  String get neck => 'Leher';
+
+  @override
+  String get shoulders => 'Bahu';
+
+  @override
+  String get back => 'Belakang';
+
+  @override
+  String get lowerBack => 'Belakang Bawah';
+
+  @override
+  String get arms => 'Lengan';
+
+  @override
+  String get legs => 'Kaki';
+
+  @override
+  String get feet => 'Telapak Kaki';
+
+  @override
+  String get specialInstructions => 'Arahan Khas';
+
+  @override
+  String get specialInstructionsHint =>
+      'Contoh: Sila gunakan minyak lavender, fokus pada belakang bawah...';
+
+  @override
+  String get voucherCode => 'Kod Baucar';
+
+  @override
+  String get enterVoucherCodeOptional => 'Masukkan kod baucar (pilihan)';
+
+  @override
+  String get paymentMethod => 'Kaedah Pembayaran';
+
+  @override
+  String get cash => 'Tunai';
+
+  @override
+  String get payAtTherapistLocation => 'Bayar di lokasi ahli terapi';
+
+  @override
+  String pleaseBringCash(String amount) {
+    return 'Sila bawa RM $amount dalam bentuk tunai ke lokasi ahli terapi.';
+  }
+
+  @override
+  String get insufficientBalanceTopUp =>
+      'Baki tidak mencukupi. Sila tambah nilai.';
+
+  @override
+  String get insufficientWalletBalance => 'Baki Wallet Tidak Mencukupi';
+
+  @override
+  String get insufficientWalletBalanceMessage =>
+      'Baki wallet anda tidak mencukupi. Sila tambah nilai wallet anda atau pilih pembayaran tunai.';
+
+  @override
+  String get bookingConfirmedTitle => 'Tempahan Disahkan!';
+
+  @override
+  String get paymentSuccessful =>
+      'Pembayaran berjaya. Tempahan anda telah disahkan.';
+
+  @override
+  String bookingConfirmedCash(String amount) {
+    return 'Tempahan anda telah disahkan. Sila bawa RM $amount dalam bentuk tunai ke lokasi ahli terapi.';
+  }
+
+  @override
+  String get paymentCollectedAtLocation => 'Pembayaran akan dikutip di lokasi';
+
+  @override
+  String get bookingFailed => 'Tempahan Gagal';
+
+  @override
+  String get failedToCreateBooking => 'Gagal membuat tempahan. Sila cuba lagi.';
+
+  @override
+  String get missingBookingInfo => 'Maklumat tempahan yang diperlukan tiada';
+
+  @override
+  String get invalidPaymentMethod => 'Kaedah Pembayaran Tidak Sah';
+
+  @override
+  String get invalidPaymentMethodMessage =>
+      'Hanya pembayaran wallet dan tunai diterima untuk tempahan.';
+
+  @override
+  String get invalidInformation => 'Maklumat Tidak Sah';
+
+  @override
+  String get invalidInformationMessage =>
+      'Sila semak maklumat tempahan anda dan cuba lagi.';
 }
