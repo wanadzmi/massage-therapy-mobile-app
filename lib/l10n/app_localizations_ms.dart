@@ -982,4 +982,112 @@ class AppLocalizationsMs extends AppLocalizations {
   @override
   String get failedToLoadTransactionHistory =>
       'Gagal memuatkan sejarah transaksi';
+
+  @override
+  String get messages => 'Mesej';
+
+  @override
+  String get newChat => 'Sembang Baharu';
+
+  @override
+  String get active => 'Aktif';
+
+  @override
+  String get closed => 'Ditutup';
+
+  @override
+  String get noConversationsYet => 'Tiada perbualan lagi';
+
+  @override
+  String get startNewChatToGetSupport =>
+      'Mulakan sembang baharu untuk mendapat sokongan';
+
+  @override
+  String get startNewChat => 'Mula Sembang Baharu';
+
+  @override
+  String get supportChat => 'Sembang Sokongan';
+
+  @override
+  String get howCanWeHelp => 'Bagaimana kami boleh membantu?';
+
+  @override
+  String get weTypicallyRespondWithinMinutes =>
+      'Kami biasanya membalas dalam beberapa minit';
+
+  @override
+  String get selectCategory => 'Pilih Kategori';
+
+  @override
+  String get general => 'Umum';
+
+  @override
+  String get technical => 'Teknikal';
+
+  @override
+  String get subjectOptional => 'Subjek (Pilihan)';
+
+  @override
+  String get briefSubjectLine => 'Tajuk subjek ringkas...';
+
+  @override
+  String get message => 'Mesej';
+
+  @override
+  String get required => 'Diperlukan';
+
+  @override
+  String get describeYourIssue =>
+      'Huraikan isu atau soalan anda secara terperinci...\n\nMinimum 10 aksara';
+
+  @override
+  String get supportTeamNotified =>
+      'Pasukan sokongan kami akan dimaklumkan serta-merta dan akan membalas secepat mungkin. Anda boleh melihat sejarah perbualan anda di skrin sembang.';
+
+  @override
+  String get startChat => 'Mula Sembang';
+
+  @override
+  String get adminSupport => 'Sokongan Admin';
+
+  @override
+  String get online => 'Dalam Talian';
+
+  @override
+  String get waitingForAgent => 'Menunggu ejen...';
+
+  @override
+  String get offline => 'Luar Talian';
+
+  @override
+  String get closeChat => 'Tutup Sembang';
+
+  @override
+  String get thisChatHasBeenClosed => 'Sembang ini telah ditutup';
+
+  @override
+  String get agentIsTyping => 'Ejen sedang menaip...';
+
+  @override
+  String get startAConversation => 'Mulakan Perbualan';
+
+  @override
+  String get sendMessageToSupport =>
+      'Hantar mesej kepada pasukan sokongan kami\nKami biasanya membalas dalam beberapa minit';
+
+  @override
+  String get quickTips => 'Petua Pantas';
+
+  @override
+  String get askAboutBookingsAndServices =>
+      'Tanya tentang tempahan dan perkhidmatan';
+
+  @override
+  String get getHelpWithPayments => 'Dapatkan bantuan dengan pembayaran';
+
+  @override
+  String get reportAnyIssues => 'Laporkan sebarang isu';
+
+  @override
+  String get typeYourMessage => 'Taip mesej anda...';
 }

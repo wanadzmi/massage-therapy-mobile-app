@@ -1953,6 +1953,210 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Failed to load transaction history'**
   String get failedToLoadTransactionHistory;
+
+  /// Messages page title
+  ///
+  /// In en, this message translates to:
+  /// **'Messages'**
+  String get messages;
+
+  /// New chat button tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'New Chat'**
+  String get newChat;
+
+  /// Active filter label
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get active;
+
+  /// Closed filter label
+  ///
+  /// In en, this message translates to:
+  /// **'Closed'**
+  String get closed;
+
+  /// Empty state title for chat list
+  ///
+  /// In en, this message translates to:
+  /// **'No conversations yet'**
+  String get noConversationsYet;
+
+  /// Empty state message for chat list
+  ///
+  /// In en, this message translates to:
+  /// **'Start a new chat to get support'**
+  String get startNewChatToGetSupport;
+
+  /// Start new chat button text
+  ///
+  /// In en, this message translates to:
+  /// **'Start New Chat'**
+  String get startNewChat;
+
+  /// Default chat name
+  ///
+  /// In en, this message translates to:
+  /// **'Support Chat'**
+  String get supportChat;
+
+  /// Support header question
+  ///
+  /// In en, this message translates to:
+  /// **'How can we help?'**
+  String get howCanWeHelp;
+
+  /// Support response time message
+  ///
+  /// In en, this message translates to:
+  /// **'We typically respond within minutes'**
+  String get weTypicallyRespondWithinMinutes;
+
+  /// Category selection label
+  ///
+  /// In en, this message translates to:
+  /// **'Select Category'**
+  String get selectCategory;
+
+  /// General category
+  ///
+  /// In en, this message translates to:
+  /// **'General'**
+  String get general;
+
+  /// Technical category
+  ///
+  /// In en, this message translates to:
+  /// **'Technical'**
+  String get technical;
+
+  /// Subject field label
+  ///
+  /// In en, this message translates to:
+  /// **'Subject (Optional)'**
+  String get subjectOptional;
+
+  /// Subject field hint
+  ///
+  /// In en, this message translates to:
+  /// **'Brief subject line...'**
+  String get briefSubjectLine;
+
+  /// Message field label
+  ///
+  /// In en, this message translates to:
+  /// **'Message'**
+  String get message;
+
+  /// Required field indicator
+  ///
+  /// In en, this message translates to:
+  /// **'Required'**
+  String get required;
+
+  /// Message field hint
+  ///
+  /// In en, this message translates to:
+  /// **'Describe your issue or question in detail...\n\nMinimum 10 characters'**
+  String get describeYourIssue;
+
+  /// Support info message
+  ///
+  /// In en, this message translates to:
+  /// **'Our support team will be notified immediately and will respond as soon as possible. You can view your conversation history in the chat screen.'**
+  String get supportTeamNotified;
+
+  /// Start chat button text
+  ///
+  /// In en, this message translates to:
+  /// **'Start Chat'**
+  String get startChat;
+
+  /// Default admin support name
+  ///
+  /// In en, this message translates to:
+  /// **'Admin Support'**
+  String get adminSupport;
+
+  /// Online status
+  ///
+  /// In en, this message translates to:
+  /// **'Online'**
+  String get online;
+
+  /// Waiting status
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for agent...'**
+  String get waitingForAgent;
+
+  /// Offline status
+  ///
+  /// In en, this message translates to:
+  /// **'Offline'**
+  String get offline;
+
+  /// Close chat menu item
+  ///
+  /// In en, this message translates to:
+  /// **'Close Chat'**
+  String get closeChat;
+
+  /// Closed chat banner message
+  ///
+  /// In en, this message translates to:
+  /// **'This chat has been closed'**
+  String get thisChatHasBeenClosed;
+
+  /// Typing indicator text
+  ///
+  /// In en, this message translates to:
+  /// **'Agent is typing...'**
+  String get agentIsTyping;
+
+  /// Empty chat state title
+  ///
+  /// In en, this message translates to:
+  /// **'Start a Conversation'**
+  String get startAConversation;
+
+  /// Empty chat state message
+  ///
+  /// In en, this message translates to:
+  /// **'Send a message to our support team\nWe typically reply within a few minutes'**
+  String get sendMessageToSupport;
+
+  /// Quick tips label
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Tips'**
+  String get quickTips;
+
+  /// Tip 1
+  ///
+  /// In en, this message translates to:
+  /// **'Ask about bookings and services'**
+  String get askAboutBookingsAndServices;
+
+  /// Tip 2
+  ///
+  /// In en, this message translates to:
+  /// **'Get help with payments'**
+  String get getHelpWithPayments;
+
+  /// Tip 3
+  ///
+  /// In en, this message translates to:
+  /// **'Report any issues'**
+  String get reportAnyIssues;
+
+  /// Message input hint
+  ///
+  /// In en, this message translates to:
+  /// **'Type your message...'**
+  String get typeYourMessage;
 }
 
 class _AppLocalizationsDelegate

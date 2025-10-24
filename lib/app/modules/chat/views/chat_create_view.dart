@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../controllers/chat_create_controller.dart';
 
 class ChatCreateView extends GetView<ChatCreateController> {
@@ -16,9 +17,9 @@ class ChatCreateView extends GetView<ChatCreateController> {
           icon: const Icon(Icons.arrow_back, color: Color(0xFFE0E0E0)),
           onPressed: () => Get.back(),
         ),
-        title: const Text(
-          'Contact Support',
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context)!.contactSupport,
+          style: const TextStyle(
             color: Color(0xFFE0E0E0),
             fontWeight: FontWeight.w600,
             fontSize: 18,
@@ -53,22 +54,24 @@ class ChatCreateView extends GetView<ChatCreateController> {
                     ),
                   ),
                   const SizedBox(width: 16),
-                  const Expanded(
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'How can we help?',
-                          style: TextStyle(
+                          AppLocalizations.of(context)!.howCanWeHelp,
+                          style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
                             color: Color(0xFFE0E0E0),
                           ),
                         ),
-                        SizedBox(height: 4),
+                        const SizedBox(height: 4),
                         Text(
-                          'We typically respond within minutes',
-                          style: TextStyle(
+                          AppLocalizations.of(
+                            context,
+                          )!.weTypicallyRespondWithinMinutes,
+                          style: const TextStyle(
                             fontSize: 12,
                             color: Color(0xFF808080),
                           ),
@@ -83,9 +86,9 @@ class ChatCreateView extends GetView<ChatCreateController> {
             const SizedBox(height: 24),
 
             // Category Selection
-            const Text(
-              'Select Category',
-              style: TextStyle(
+            Text(
+              AppLocalizations.of(context)!.selectCategory,
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
                 color: Color(0xFFE0E0E0),
@@ -97,25 +100,16 @@ class ChatCreateView extends GetView<ChatCreateController> {
               () => Wrap(
                 spacing: 12,
                 runSpacing: 12,
-                children: controller.categories.map((category) {
-                  final isSelected =
-                      controller.selectedCategory == category['value'];
-                  return _buildCategoryChip(
-                    category['label'] as String,
-                    category['icon'] as IconData,
-                    category['value'] as String,
-                    isSelected,
-                  );
-                }).toList(),
+                children: _buildCategoryChips(context),
               ),
             ),
 
             const SizedBox(height: 24),
 
             // Subject (Optional)
-            const Text(
-              'Subject (Optional)',
-              style: TextStyle(
+            Text(
+              AppLocalizations.of(context)!.subjectOptional,
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
                 color: Color(0xFFE0E0E0),
@@ -126,7 +120,7 @@ class ChatCreateView extends GetView<ChatCreateController> {
               controller: controller.subjectController,
               style: const TextStyle(color: Color(0xFFE0E0E0)),
               decoration: InputDecoration(
-                hintText: 'Brief subject line...',
+                hintText: AppLocalizations.of(context)!.briefSubjectLine,
                 hintStyle: const TextStyle(color: Color(0xFF606060)),
                 filled: true,
                 fillColor: const Color(0xFF1A1A1A),
@@ -151,9 +145,9 @@ class ChatCreateView extends GetView<ChatCreateController> {
             // Message (Required)
             Row(
               children: [
-                const Text(
-                  'Message',
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context)!.message,
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                     color: Color(0xFFE0E0E0),
@@ -169,9 +163,9 @@ class ChatCreateView extends GetView<ChatCreateController> {
                     color: const Color(0xFFD4AF37).withOpacity(0.2),
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: const Text(
-                    'Required',
-                    style: TextStyle(
+                  child: Text(
+                    AppLocalizations.of(context)!.required,
+                    style: const TextStyle(
                       fontSize: 10,
                       color: Color(0xFFD4AF37),
                       fontWeight: FontWeight.w600,
@@ -187,8 +181,7 @@ class ChatCreateView extends GetView<ChatCreateController> {
               maxLines: 6,
               textCapitalization: TextCapitalization.sentences,
               decoration: InputDecoration(
-                hintText:
-                    'Describe your issue or question in detail...\n\nMinimum 10 characters',
+                hintText: AppLocalizations.of(context)!.describeYourIssue,
                 hintStyle: const TextStyle(color: Color(0xFF606060)),
                 filled: true,
                 fillColor: const Color(0xFF1A1A1A),
@@ -220,15 +213,19 @@ class ChatCreateView extends GetView<ChatCreateController> {
                   color: const Color(0xFFD4AF37).withOpacity(0.3),
                 ),
               ),
-              child: const Row(
+              child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(Icons.info_outline, color: Color(0xFFD4AF37), size: 20),
-                  SizedBox(width: 12),
+                  const Icon(
+                    Icons.info_outline,
+                    color: Color(0xFFD4AF37),
+                    size: 20,
+                  ),
+                  const SizedBox(width: 12),
                   Expanded(
                     child: Text(
-                      'Our support team will be notified immediately and will respond as soon as possible. You can view your conversation history in the chat screen.',
-                      style: TextStyle(
+                      AppLocalizations.of(context)!.supportTeamNotified,
+                      style: const TextStyle(
                         fontSize: 12,
                         color: Color(0xFFE0E0E0),
                         height: 1.5,
@@ -269,8 +266,8 @@ class ChatCreateView extends GetView<ChatCreateController> {
                             strokeWidth: 2,
                           ),
                         )
-                      : const Text(
-                          'Start Chat',
+                      : Text(
+                          AppLocalizations.of(context)!.startChat,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
@@ -285,6 +282,27 @@ class ChatCreateView extends GetView<ChatCreateController> {
         ),
       ),
     );
+  }
+
+  List<Widget> _buildCategoryChips(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final categories = [
+      {'label': l10n.general, 'icon': Icons.help_outline, 'value': 'general'},
+      {'label': l10n.booking, 'icon': Icons.calendar_today, 'value': 'booking'},
+      {'label': l10n.payment, 'icon': Icons.payment, 'value': 'payment'},
+      {'label': l10n.service, 'icon': Icons.spa, 'value': 'service'},
+      {'label': l10n.technical, 'icon': Icons.build, 'value': 'technical'},
+    ];
+
+    return categories.map((category) {
+      final isSelected = controller.selectedCategory == category['value'];
+      return _buildCategoryChip(
+        category['label'] as String,
+        category['icon'] as IconData,
+        category['value'] as String,
+        isSelected,
+      );
+    }).toList();
   }
 
   Widget _buildCategoryChip(

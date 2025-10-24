@@ -1322,5 +1322,141 @@
     "failedToLoadTransactionHistory": "Failed to load transaction history",
     "@failedToLoadTransactionHistory": {
         "description": "Error message when transaction history fails to load"
+    },
+    "messages": "Messages",
+    "@messages": {
+        "description": "Messages page title"
+    },
+    "newChat": "New Chat",
+    "@newChat": {
+        "description": "New chat button tooltip"
+    },
+    "active": "Active",
+    "@active": {
+        "description": "Active filter label"
+    },
+    "closed": "Closed",
+    "@closed": {
+        "description": "Closed filter label"
+    },
+    "noConversationsYet": "No conversations yet",
+    "@noConversationsYet": {
+        "description": "Empty state title for chat list"
+    },
+    "startNewChatToGetSupport": "Start a new chat to get support",
+    "@startNewChatToGetSupport": {
+        "description": "Empty state message for chat list"
+    },
+    "startNewChat": "Start New Chat",
+    "@startNewChat": {
+        "description": "Start new chat button text"
+    },
+    "supportChat": "Support Chat",
+    "@supportChat": {
+        "description": "Default chat name"
+    },
+    "howCanWeHelp": "How can we help?",
+    "@howCanWeHelp": {
+        "description": "Support header question"
+    },
+    "weTypicallyRespondWithinMinutes": "We typically respond within minutes",
+    "@weTypicallyRespondWithinMinutes": {
+        "description": "Support response time message"
+    },
+    "selectCategory": "Select Category",
+    "@selectCategory": {
+        "description": "Category selection label"
+    },
+    "general": "General",
+    "@general": {
+        "description": "General category"
+    },
+    "technical": "Technical",
+    "@technical": {
+        "description": "Technical category"
+    },
+    "subjectOptional": "Subject (Optional)",
+    "@subjectOptional": {
+        "description": "Subject field label"
+    },
+    "briefSubjectLine": "Brief subject line...",
+    "@briefSubjectLine": {
+        "description": "Subject field hint"
+    },
+    "message": "Message",
+    "@message": {
+        "description": "Message field label"
+    },
+    "required": "Required",
+    "@required": {
+        "description": "Required field indicator"
+    },
+    "describeYourIssue": "Describe your issue or question in detail...\n\nMinimum 10 characters",
+    "@describeYourIssue": {
+        "description": "Message field hint"
+    },
+    "supportTeamNotified": "Our support team will be notified immediately and will respond as soon as possible. You can view your conversation history in the chat screen.",
+    "@supportTeamNotified": {
+        "description": "Support info message"
+    },
+    "startChat": "Start Chat",
+    "@startChat": {
+        "description": "Start chat button text"
+    },
+    "adminSupport": "Admin Support",
+    "@adminSupport": {
+        "description": "Default admin support name"
+    },
+    "online": "Online",
+    "@online": {
+        "description": "Online status"
+    },
+    "waitingForAgent": "Waiting for agent...",
+    "@waitingForAgent": {
+        "description": "Waiting status"
+    },
+    "offline": "Offline",
+    "@offline": {
+        "description": "Offline status"
+    },
+    "closeChat": "Close Chat",
+    "@closeChat": {
+        "description": "Close chat menu item"
+    },
+    "thisChatHasBeenClosed": "This chat has been closed",
+    "@thisChatHasBeenClosed": {
+        "description": "Closed chat banner message"
+    },
+    "agentIsTyping": "Agent is typing...",
+    "@agentIsTyping": {
+        "description": "Typing indicator text"
+    },
+    "startAConversation": "Start a Conversation",
+    "@startAConversation": {
+        "description": "Empty chat state title"
+    },
+    "sendMessageToSupport": "Send a message to our support team\nWe typically reply within a few minutes",
+    "@sendMessageToSupport": {
+        "description": "Empty chat state message"
+    },
+    "quickTips": "Quick Tips",
+    "@quickTips": {
+        "description": "Quick tips label"
+    },
+    "askAboutBookingsAndServices": "Ask about bookings and services",
+    "@askAboutBookingsAndServices": {
+        "description": "Tip 1"
+    },
+    "getHelpWithPayments": "Get help with payments",
+    "@getHelpWithPayments": {
+        "description": "Tip 2"
+    },
+    "reportAnyIssues": "Report any issues",
+    "@reportAnyIssues": {
+        "description": "Tip 3"
+    },
+    "typeYourMessage": "Type your message...",
+    "@typeYourMessage": {
+        "description": "Message input hint"
     }
 }

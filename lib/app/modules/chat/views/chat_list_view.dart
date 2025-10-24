@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../data/models/chat_model.dart';
 import '../controllers/chat_list_controller.dart';
 import '../controllers/chat_create_controller.dart';
@@ -19,9 +20,9 @@ class ChatListView extends GetView<ChatListController> {
           icon: const Icon(Icons.arrow_back, color: Color(0xFFD4AF37)),
           onPressed: () => Get.back(),
         ),
-        title: const Text(
-          'Messages',
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context)!.messages,
+          style: const TextStyle(
             color: Color(0xFFE0E0E0),
             fontWeight: FontWeight.w600,
             fontSize: 18,
@@ -49,7 +50,7 @@ class ChatListView extends GetView<ChatListController> {
               print('🔄 Returned from chat creation, refreshing list...');
               controller.refreshChats();
             },
-            tooltip: 'New Chat',
+            tooltip: AppLocalizations.of(context)!.newChat,
           ),
           const SizedBox(width: 8),
         ],
@@ -57,7 +58,7 @@ class ChatListView extends GetView<ChatListController> {
       body: Column(
         children: [
           // Filter Tabs
-          _buildFilterTabs(),
+          _buildFilterTabs(context),
 
           // Chat List
           Expanded(
@@ -69,7 +70,7 @@ class ChatListView extends GetView<ChatListController> {
               }
 
               if (controller.chats.isEmpty) {
-                return _buildEmptyState();
+                return _buildEmptyState(context);
               }
 
               return RefreshIndicator(
@@ -93,9 +94,9 @@ class ChatListView extends GetView<ChatListController> {
                                   )
                                 : TextButton(
                                     onPressed: controller.loadMoreChats,
-                                    child: const Text(
-                                      'Load More',
-                                      style: TextStyle(
+                                    child: Text(
+                                      AppLocalizations.of(context)!.loadMore,
+                                      style: const TextStyle(
                                         color: Color(0xFFD4AF37),
                                       ),
                                     ),
@@ -106,7 +107,7 @@ class ChatListView extends GetView<ChatListController> {
                     }
 
                     final chat = controller.chats[index];
-                    return _buildChatCard(chat);
+                    return _buildChatCard(context, chat);
                   },
                 ),
               );
@@ -117,17 +118,18 @@ class ChatListView extends GetView<ChatListController> {
     );
   }
 
-  Widget _buildFilterTabs() {
+  Widget _buildFilterTabs(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       height: 60,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Row(
         children: [
-          Obx(() => _buildFilterChip('All', 'all')),
+          Obx(() => _buildFilterChip(l10n.all, 'all')),
           const SizedBox(width: 8),
-          Obx(() => _buildFilterChip('Active', 'active')),
+          Obx(() => _buildFilterChip(l10n.active, 'active')),
           const SizedBox(width: 8),
-          Obx(() => _buildFilterChip('Closed', 'closed')),
+          Obx(() => _buildFilterChip(l10n.closed, 'closed')),
         ],
       ),
     );
@@ -167,7 +169,8 @@ class ChatListView extends GetView<ChatListController> {
     );
   }
 
-  Widget _buildChatCard(chat) {
+  Widget _buildChatCard(BuildContext context, chat) {
+    final l10n = AppLocalizations.of(context)!;
     final lastMessage = chat.lastMessage;
 
     // Find agent participant, or fallback to customer (first participant)
@@ -226,7 +229,7 @@ class ChatListView extends GetView<ChatListController> {
                       // Name
                       Expanded(
                         child: Text(
-                          participant?.user?.name ?? 'Support Chat',
+                          participant?.user?.name ?? l10n.supportChat,
                           style: const TextStyle(
                             color: Color(0xFFE0E0E0),
                             fontSize: 15,
@@ -344,7 +347,8 @@ class ChatListView extends GetView<ChatListController> {
     );
   }
 
-  Widget _buildEmptyState() {
+  Widget _buildEmptyState(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -363,18 +367,18 @@ class ChatListView extends GetView<ChatListController> {
             ),
           ),
           const SizedBox(height: 24),
-          const Text(
-            'No conversations yet',
-            style: TextStyle(
+          Text(
+            l10n.noConversationsYet,
+            style: const TextStyle(
               color: Color(0xFFE0E0E0),
               fontSize: 18,
               fontWeight: FontWeight.w600,
             ),
           ),
           const SizedBox(height: 8),
-          const Text(
-            'Start a new chat to get support',
-            style: TextStyle(color: Color(0xFF808080), fontSize: 14),
+          Text(
+            l10n.startNewChatToGetSupport,
+            style: const TextStyle(color: Color(0xFF808080), fontSize: 14),
           ),
           const SizedBox(height: 32),
           ElevatedButton.icon(
@@ -390,7 +394,7 @@ class ChatListView extends GetView<ChatListController> {
               controller.refreshChats();
             },
             icon: const Icon(Icons.add, size: 18),
-            label: const Text('Start New Chat'),
+            label: Text(l10n.startNewChat),
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFFD4AF37),
               foregroundColor: Colors.black,

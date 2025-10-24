@@ -66,9 +66,6 @@ class NotificationView extends GetView<NotificationController> {
       ),
       body: Column(
         children: [
-          // Category filter tabs
-          _buildCategoryTabs(context),
-
           // Unread only toggle
           _buildUnreadToggle(context),
 
@@ -127,67 +124,6 @@ class NotificationView extends GetView<NotificationController> {
             }),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildCategoryTabs(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final categories = [
-      {'key': 'all', 'label': l10n.all},
-      {'key': 'transactional', 'label': l10n.transactional},
-      {'key': 'promotional', 'label': l10n.promotional},
-      {'key': 'reminder', 'label': l10n.reminder},
-      {'key': 'system', 'label': l10n.system},
-    ];
-
-    return Container(
-      height: 50,
-      color: const Color(0xFF1A1A1A),
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-        itemCount: categories.length,
-        itemBuilder: (context, index) {
-          final category = categories[index];
-
-          return Obx(() {
-            final isSelected = controller.selectedCategory == category['key'];
-
-            return GestureDetector(
-              onTap: () => controller.setCategory(category['key']!),
-              child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 4),
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                decoration: BoxDecoration(
-                  color: isSelected
-                      ? const Color(0xFFD4AF37)
-                      : const Color(0xFF0A0A0A),
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    color: isSelected
-                        ? const Color(0xFFD4AF37)
-                        : const Color(0xFF2A2A2A),
-                  ),
-                ),
-                child: Center(
-                  child: Text(
-                    category['label']!,
-                    style: TextStyle(
-                      color: isSelected
-                          ? Colors.black
-                          : const Color(0xFF808080),
-                      fontSize: 13,
-                      fontWeight: isSelected
-                          ? FontWeight.w600
-                          : FontWeight.normal,
-                    ),
-                  ),
-                ),
-              ),
-            );
-          });
-        },
       ),
     );
   }

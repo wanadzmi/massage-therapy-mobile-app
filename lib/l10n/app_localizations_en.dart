@@ -982,4 +982,110 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get failedToLoadTransactionHistory =>
       'Failed to load transaction history';
+
+  @override
+  String get messages => 'Messages';
+
+  @override
+  String get newChat => 'New Chat';
+
+  @override
+  String get active => 'Active';
+
+  @override
+  String get closed => 'Closed';
+
+  @override
+  String get noConversationsYet => 'No conversations yet';
+
+  @override
+  String get startNewChatToGetSupport => 'Start a new chat to get support';
+
+  @override
+  String get startNewChat => 'Start New Chat';
+
+  @override
+  String get supportChat => 'Support Chat';
+
+  @override
+  String get howCanWeHelp => 'How can we help?';
+
+  @override
+  String get weTypicallyRespondWithinMinutes =>
+      'We typically respond within minutes';
+
+  @override
+  String get selectCategory => 'Select Category';
+
+  @override
+  String get general => 'General';
+
+  @override
+  String get technical => 'Technical';
+
+  @override
+  String get subjectOptional => 'Subject (Optional)';
+
+  @override
+  String get briefSubjectLine => 'Brief subject line...';
+
+  @override
+  String get message => 'Message';
+
+  @override
+  String get required => 'Required';
+
+  @override
+  String get describeYourIssue =>
+      'Describe your issue or question in detail...\n\nMinimum 10 characters';
+
+  @override
+  String get supportTeamNotified =>
+      'Our support team will be notified immediately and will respond as soon as possible. You can view your conversation history in the chat screen.';
+
+  @override
+  String get startChat => 'Start Chat';
+
+  @override
+  String get adminSupport => 'Admin Support';
+
+  @override
+  String get online => 'Online';
+
+  @override
+  String get waitingForAgent => 'Waiting for agent...';
+
+  @override
+  String get offline => 'Offline';
+
+  @override
+  String get closeChat => 'Close Chat';
+
+  @override
+  String get thisChatHasBeenClosed => 'This chat has been closed';
+
+  @override
+  String get agentIsTyping => 'Agent is typing...';
+
+  @override
+  String get startAConversation => 'Start a Conversation';
+
+  @override
+  String get sendMessageToSupport =>
+      'Send a message to our support team\nWe typically reply within a few minutes';
+
+  @override
+  String get quickTips => 'Quick Tips';
+
+  @override
+  String get askAboutBookingsAndServices => 'Ask about bookings and services';
+
+  @override
+  String get getHelpWithPayments => 'Get help with payments';
+
+  @override
+  String get reportAnyIssues => 'Report any issues';
+
+  @override
+  String get typeYourMessage => 'Type your message...';
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../controllers/chat_controller.dart';
 import '../../../data/models/chat_model.dart';
 
@@ -11,7 +12,7 @@ class ChatView extends GetView<ChatController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF0A0A0A),
-      appBar: _buildAppBar(),
+      appBar: _buildAppBar(context),
       body: Obx(() {
         if (controller.isLoading) {
           return const Center(
@@ -38,10 +39,10 @@ class ChatView extends GetView<ChatController> {
                       size: 16,
                     ),
                     const SizedBox(width: 8),
-                    const Expanded(
+                    Expanded(
                       child: Text(
-                        'This chat has been closed',
-                        style: TextStyle(
+                        AppLocalizations.of(context)!.thisChatHasBeenClosed,
+                        style: const TextStyle(
                           color: Color(0xFFFF9800),
                           fontSize: 12,
                         ),
@@ -85,9 +86,9 @@ class ChatView extends GetView<ChatController> {
                       ),
                     ),
                     const SizedBox(width: 8),
-                    const Text(
-                      'Agent is typing...',
-                      style: TextStyle(
+                    Text(
+                      AppLocalizations.of(context)!.agentIsTyping,
+                      style: const TextStyle(
                         color: Color(0xFF808080),
                         fontSize: 12,
                         fontStyle: FontStyle.italic,
@@ -105,7 +106,8 @@ class ChatView extends GetView<ChatController> {
     );
   }
 
-  PreferredSizeWidget _buildAppBar() {
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return AppBar(
       backgroundColor: const Color(0xFF0A0A0A),
       elevation: 0,
@@ -115,7 +117,7 @@ class ChatView extends GetView<ChatController> {
       ),
       title: Obx(() {
         final agent = controller.chat?.assignment?.assignedAgent;
-        final agentName = agent?.name ?? 'Admin Support';
+        final agentName = agent?.name ?? l10n.adminSupport;
         final agentAvatar = agent?.avatar;
 
         return Row(
@@ -161,10 +163,10 @@ class ChatView extends GetView<ChatController> {
                   ),
                   Text(
                     controller.chat?.status == 'active'
-                        ? 'Online'
+                        ? l10n.online
                         : controller.chat?.status == 'waiting'
-                        ? 'Waiting for agent...'
-                        : 'Offline',
+                        ? l10n.waitingForAgent
+                        : l10n.offline,
                     style: const TextStyle(
                       color: Color(0xFF808080),
                       fontSize: 11,
@@ -188,15 +190,15 @@ class ChatView extends GetView<ChatController> {
               }
             },
             itemBuilder: (context) => [
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'close',
                 child: Row(
                   children: [
-                    Icon(Icons.close, color: Color(0xFFFF5252), size: 20),
-                    SizedBox(width: 12),
+                    const Icon(Icons.close, color: Color(0xFFFF5252), size: 20),
+                    const SizedBox(width: 12),
                     Text(
-                      'Close Chat',
-                      style: TextStyle(color: Color(0xFFE0E0E0)),
+                      l10n.closeChat,
+                      style: const TextStyle(color: Color(0xFFE0E0E0)),
                     ),
                   ],
                 ),
@@ -208,84 +210,92 @@ class ChatView extends GetView<ChatController> {
   }
 
   Widget _buildEmptyState() {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                color: const Color(0xFF1A1A1A),
-                shape: BoxShape.circle,
-                border: Border.all(color: const Color(0xFF2A2A2A), width: 2),
-              ),
-              child: const Icon(
-                Icons.chat_bubble_outline,
-                size: 48,
-                color: Color(0xFFD4AF37),
-              ),
-            ),
-            const SizedBox(height: 24),
-            const Text(
-              'Start a Conversation',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                color: Color(0xFFE0E0E0),
-              ),
-            ),
-            const SizedBox(height: 12),
-            const Text(
-              'Send a message to our support team\nWe typically reply within a few minutes',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 14,
-                color: Color(0xFF808080),
-                height: 1.5,
-              ),
-            ),
-            const SizedBox(height: 32),
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: const Color(0xFF1A1A1A),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: const Color(0xFF2A2A2A)),
-              ),
-              child: Column(
-                children: [
-                  Row(
+    return Builder(
+      builder: (context) {
+        final l10n = AppLocalizations.of(context)!;
+        return Container(
+          padding: const EdgeInsets.all(20),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(24),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF1A1A1A),
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: const Color(0xFF2A2A2A),
+                      width: 2,
+                    ),
+                  ),
+                  child: const Icon(
+                    Icons.chat_bubble_outline,
+                    size: 48,
+                    color: Color(0xFFD4AF37),
+                  ),
+                ),
+                const SizedBox(height: 24),
+                Text(
+                  l10n.startAConversation,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFFE0E0E0),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  l10n.sendMessageToSupport,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color(0xFF808080),
+                    height: 1.5,
+                  ),
+                ),
+                const SizedBox(height: 32),
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF1A1A1A),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: const Color(0xFF2A2A2A)),
+                  ),
+                  child: Column(
                     children: [
-                      const Icon(
-                        Icons.info_outline,
-                        color: Color(0xFFD4AF37),
-                        size: 16,
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.info_outline,
+                            color: Color(0xFFD4AF37),
+                            size: 16,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            l10n.quickTips,
+                            style: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFFE0E0E0),
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(width: 8),
-                      const Text(
-                        'Quick Tips',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFFE0E0E0),
-                        ),
-                      ),
+                      const SizedBox(height: 12),
+                      _buildTip(l10n.askAboutBookingsAndServices),
+                      const SizedBox(height: 8),
+                      _buildTip(l10n.getHelpWithPayments),
+                      const SizedBox(height: 8),
+                      _buildTip(l10n.reportAnyIssues),
                     ],
                   ),
-                  const SizedBox(height: 12),
-                  _buildTip('Ask about bookings and services'),
-                  const SizedBox(height: 8),
-                  _buildTip('Get help with payments'),
-                  const SizedBox(height: 8),
-                  _buildTip('Report any issues'),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 

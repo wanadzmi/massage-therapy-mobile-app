@@ -1322,5 +1322,141 @@
     "failedToLoadTransactionHistory": "加载交易记录失败",
     "@failedToLoadTransactionHistory": {
         "description": "Error message when transaction history fails to load"
+    },
+    "messages": "消息",
+    "@messages": {
+        "description": "Messages page title"
+    },
+    "newChat": "新对话",
+    "@newChat": {
+        "description": "New chat button tooltip"
+    },
+    "active": "活跃",
+    "@active": {
+        "description": "Active filter label"
+    },
+    "closed": "已关闭",
+    "@closed": {
+        "description": "Closed filter label"
+    },
+    "noConversationsYet": "暂无对话",
+    "@noConversationsYet": {
+        "description": "Empty state title for chat list"
+    },
+    "startNewChatToGetSupport": "开始新对话以获得支持",
+    "@startNewChatToGetSupport": {
+        "description": "Empty state message for chat list"
+    },
+    "startNewChat": "开始新对话",
+    "@startNewChat": {
+        "description": "Start new chat button text"
+    },
+    "supportChat": "支持对话",
+    "@supportChat": {
+        "description": "Default chat name"
+    },
+    "howCanWeHelp": "我们能帮您什么？",
+    "@howCanWeHelp": {
+        "description": "Support header question"
+    },
+    "weTypicallyRespondWithinMinutes": "我们通常在几分钟内回复",
+    "@weTypicallyRespondWithinMinutes": {
+        "description": "Support response time message"
+    },
+    "selectCategory": "选择类别",
+    "@selectCategory": {
+        "description": "Category selection label"
+    },
+    "general": "一般",
+    "@general": {
+        "description": "General category"
+    },
+    "technical": "技术",
+    "@technical": {
+        "description": "Technical category"
+    },
+    "subjectOptional": "主题（可选）",
+    "@subjectOptional": {
+        "description": "Subject field label"
+    },
+    "briefSubjectLine": "简短的主题...",
+    "@briefSubjectLine": {
+        "description": "Subject field hint"
+    },
+    "message": "消息",
+    "@message": {
+        "description": "Message field label"
+    },
+    "required": "必填",
+    "@required": {
+        "description": "Required field indicator"
+    },
+    "describeYourIssue": "详细描述您的问题或疑问...\n\n最少10个字符",
+    "@describeYourIssue": {
+        "description": "Message field hint"
+    },
+    "supportTeamNotified": "我们的支持团队将立即收到通知并尽快回复。您可以在聊天屏幕中查看对话历史记录。",
+    "@supportTeamNotified": {
+        "description": "Support info message"
+    },
+    "startChat": "开始对话",
+    "@startChat": {
+        "description": "Start chat button text"
+    },
+    "adminSupport": "管理员支持",
+    "@adminSupport": {
+        "description": "Default admin support name"
+    },
+    "online": "在线",
+    "@online": {
+        "description": "Online status"
+    },
+    "waitingForAgent": "等待客服...",
+    "@waitingForAgent": {
+        "description": "Waiting status"
+    },
+    "offline": "离线",
+    "@offline": {
+        "description": "Offline status"
+    },
+    "closeChat": "关闭对话",
+    "@closeChat": {
+        "description": "Close chat menu item"
+    },
+    "thisChatHasBeenClosed": "此对话已关闭",
+    "@thisChatHasBeenClosed": {
+        "description": "Closed chat banner message"
+    },
+    "agentIsTyping": "客服正在输入...",
+    "@agentIsTyping": {
+        "description": "Typing indicator text"
+    },
+    "startAConversation": "开始对话",
+    "@startAConversation": {
+        "description": "Empty chat state title"
+    },
+    "sendMessageToSupport": "向我们的支持团队发送消息\n我们通常在几分钟内回复",
+    "@sendMessageToSupport": {
+        "description": "Empty chat state message"
+    },
+    "quickTips": "快速提示",
+    "@quickTips": {
+        "description": "Quick tips label"
+    },
+    "askAboutBookingsAndServices": "询问预订和服务",
+    "@askAboutBookingsAndServices": {
+        "description": "Tip 1"
+    },
+    "getHelpWithPayments": "获取付款帮助",
+    "@getHelpWithPayments": {
+        "description": "Tip 2"
+    },
+    "reportAnyIssues": "报告任何问题",
+    "@reportAnyIssues": {
+        "description": "Tip 3"
+    },
+    "typeYourMessage": "输入您的消息...",
+    "@typeYourMessage": {
+        "description": "Message input hint"
     }
 }

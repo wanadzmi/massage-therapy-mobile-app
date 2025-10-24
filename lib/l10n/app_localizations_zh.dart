@@ -965,4 +965,106 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get failedToLoadTransactionHistory => '加载交易记录失败';
+
+  @override
+  String get messages => '消息';
+
+  @override
+  String get newChat => '新对话';
+
+  @override
+  String get active => '活跃';
+
+  @override
+  String get closed => '已关闭';
+
+  @override
+  String get noConversationsYet => '暂无对话';
+
+  @override
+  String get startNewChatToGetSupport => '开始新对话以获得支持';
+
+  @override
+  String get startNewChat => '开始新对话';
+
+  @override
+  String get supportChat => '支持对话';
+
+  @override
+  String get howCanWeHelp => '我们能帮您什么？';
+
+  @override
+  String get weTypicallyRespondWithinMinutes => '我们通常在几分钟内回复';
+
+  @override
+  String get selectCategory => '选择类别';
+
+  @override
+  String get general => '一般';
+
+  @override
+  String get technical => '技术';
+
+  @override
+  String get subjectOptional => '主题（可选）';
+
+  @override
+  String get briefSubjectLine => '简短的主题...';
+
+  @override
+  String get message => '消息';
+
+  @override
+  String get required => '必填';
+
+  @override
+  String get describeYourIssue => '详细描述您的问题或疑问...\n\n最少10个字符';
+
+  @override
+  String get supportTeamNotified => '我们的支持团队将立即收到通知并尽快回复。您可以在聊天屏幕中查看对话历史记录。';
+
+  @override
+  String get startChat => '开始对话';
+
+  @override
+  String get adminSupport => '管理员支持';
+
+  @override
+  String get online => '在线';
+
+  @override
+  String get waitingForAgent => '等待客服...';
+
+  @override
+  String get offline => '离线';
+
+  @override
+  String get closeChat => '关闭对话';
+
+  @override
+  String get thisChatHasBeenClosed => '此对话已关闭';
+
+  @override
+  String get agentIsTyping => '客服正在输入...';
+
+  @override
+  String get startAConversation => '开始对话';
+
+  @override
+  String get sendMessageToSupport => '向我们的支持团队发送消息\n我们通常在几分钟内回复';
+
+  @override
+  String get quickTips => '快速提示';
+
+  @override
+  String get askAboutBookingsAndServices => '询问预订和服务';
+
+  @override
+  String get getHelpWithPayments => '获取付款帮助';
+
+  @override
+  String get reportAnyIssues => '报告任何问题';
+
+  @override
+  String get typeYourMessage => '输入您的消息...';
 }

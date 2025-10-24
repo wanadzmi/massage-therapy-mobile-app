@@ -1322,5 +1322,141 @@
     "failedToLoadTransactionHistory": "Gagal memuatkan sejarah transaksi",
     "@failedToLoadTransactionHistory": {
         "description": "Error message when transaction history fails to load"
+    },
+    "messages": "Mesej",
+    "@messages": {
+        "description": "Messages page title"
+    },
+    "newChat": "Sembang Baharu",
+    "@newChat": {
+        "description": "New chat button tooltip"
+    },
+    "active": "Aktif",
+    "@active": {
+        "description": "Active filter label"
+    },
+    "closed": "Ditutup",
+    "@closed": {
+        "description": "Closed filter label"
+    },
+    "noConversationsYet": "Tiada perbualan lagi",
+    "@noConversationsYet": {
+        "description": "Empty state title for chat list"
+    },
+    "startNewChatToGetSupport": "Mulakan sembang baharu untuk mendapat sokongan",
+    "@startNewChatToGetSupport": {
+        "description": "Empty state message for chat list"
+    },
+    "startNewChat": "Mula Sembang Baharu",
+    "@startNewChat": {
+        "description": "Start new chat button text"
+    },
+    "supportChat": "Sembang Sokongan",
+    "@supportChat": {
+        "description": "Default chat name"
+    },
+    "howCanWeHelp": "Bagaimana kami boleh membantu?",
+    "@howCanWeHelp": {
+        "description": "Support header question"
+    },
+    "weTypicallyRespondWithinMinutes": "Kami biasanya membalas dalam beberapa minit",
+    "@weTypicallyRespondWithinMinutes": {
+        "description": "Support response time message"
+    },
+    "selectCategory": "Pilih Kategori",
+    "@selectCategory": {
+        "description": "Category selection label"
+    },
+    "general": "Umum",
+    "@general": {
+        "description": "General category"
+    },
+    "technical": "Teknikal",
+    "@technical": {
+        "description": "Technical category"
+    },
+    "subjectOptional": "Subjek (Pilihan)",
+    "@subjectOptional": {
+        "description": "Subject field label"
+    },
+    "briefSubjectLine": "Tajuk subjek ringkas...",
+    "@briefSubjectLine": {
+        "description": "Subject field hint"
+    },
+    "message": "Mesej",
+    "@message": {
+        "description": "Message field label"
+    },
+    "required": "Diperlukan",
+    "@required": {
+        "description": "Required field indicator"
+    },
+    "describeYourIssue": "Huraikan isu atau soalan anda secara terperinci...\n\nMinimum 10 aksara",
+    "@describeYourIssue": {
+        "description": "Message field hint"
+    },
+    "supportTeamNotified": "Pasukan sokongan kami akan dimaklumkan serta-merta dan akan membalas secepat mungkin. Anda boleh melihat sejarah perbualan anda di skrin sembang.",
+    "@supportTeamNotified": {
+        "description": "Support info message"
+    },
+    "startChat": "Mula Sembang",
+    "@startChat": {
+        "description": "Start chat button text"
+    },
+    "adminSupport": "Sokongan Admin",
+    "@adminSupport": {
+        "description": "Default admin support name"
+    },
+    "online": "Dalam Talian",
+    "@online": {
+        "description": "Online status"
+    },
+    "waitingForAgent": "Menunggu ejen...",
+    "@waitingForAgent": {
+        "description": "Waiting status"
+    },
+    "offline": "Luar Talian",
+    "@offline": {
+        "description": "Offline status"
+    },
+    "closeChat": "Tutup Sembang",
+    "@closeChat": {
+        "description": "Close chat menu item"
+    },
+    "thisChatHasBeenClosed": "Sembang ini telah ditutup",
+    "@thisChatHasBeenClosed": {
+        "description": "Closed chat banner message"
+    },
+    "agentIsTyping": "Ejen sedang menaip...",
+    "@agentIsTyping": {
+        "description": "Typing indicator text"
+    },
+    "startAConversation": "Mulakan Perbualan",
+    "@startAConversation": {
+        "description": "Empty chat state title"
+    },
+    "sendMessageToSupport": "Hantar mesej kepada pasukan sokongan kami\nKami biasanya membalas dalam beberapa minit",
+    "@sendMessageToSupport": {
+        "description": "Empty chat state message"
+    },
+    "quickTips": "Petua Pantas",
+    "@quickTips": {
+        "description": "Quick tips label"
+    },
+    "askAboutBookingsAndServices": "Tanya tentang tempahan dan perkhidmatan",
+    "@askAboutBookingsAndServices": {
+        "description": "Tip 1"
+    },
+    "getHelpWithPayments": "Dapatkan bantuan dengan pembayaran",
+    "@getHelpWithPayments": {
+        "description": "Tip 2"
+    },
+    "reportAnyIssues": "Laporkan sebarang isu",
+    "@reportAnyIssues": {
+        "description": "Tip 3"
+    },
+    "typeYourMessage": "Taip mesej anda...",
+    "@typeYourMessage": {
+        "description": "Message input hint"
     }
 }
