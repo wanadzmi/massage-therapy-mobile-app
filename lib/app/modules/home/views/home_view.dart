@@ -144,7 +144,7 @@ class HomeView extends GetView<HomeController> {
                                   decoration: BoxDecoration(
                                     color: const Color(
                                       0xFFD4AF37,
-                                    ).withOpacity(0.15),
+                                    ).withValues(alpha: 0.15),
                                     borderRadius: BorderRadius.circular(6),
                                   ),
                                   child: Row(
@@ -317,7 +317,7 @@ class HomeView extends GetView<HomeController> {
                       end: Alignment.bottomCenter,
                       colors: [
                         Colors.transparent,
-                        Colors.black.withOpacity(0.7),
+                        Colors.black.withValues(alpha: 0.7),
                       ],
                     ),
                   ),
@@ -332,7 +332,7 @@ class HomeView extends GetView<HomeController> {
                     Container(
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFD4AF37).withOpacity(0.15),
+                        color: const Color(0xFFD4AF37).withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Icon(
@@ -370,7 +370,7 @@ class HomeView extends GetView<HomeController> {
                 child: Container(
                   padding: const EdgeInsets.all(6),
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.3),
+                    color: Colors.black.withValues(alpha: 0.3),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: const Icon(

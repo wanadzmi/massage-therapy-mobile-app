@@ -321,7 +321,7 @@ class ChatController extends GetxController {
         'Error',
         'Failed to load messages',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.8),
+        backgroundColor: Colors.red.withValues(alpha: 0.8),
         colorText: Colors.white,
       );
     }
@@ -403,7 +403,7 @@ class ChatController extends GetxController {
         'Error',
         'Failed to send message. ${response.error}',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.8),
+        backgroundColor: Colors.red.withValues(alpha: 0.8),
         colorText: Colors.white,
         mainButton: TextButton(
           onPressed: () {
@@ -463,7 +463,7 @@ class ChatController extends GetxController {
         'Error',
         'Failed to close chat',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.8),
+        backgroundColor: Colors.red.withValues(alpha: 0.8),
         colorText: Colors.white,
       );
     }

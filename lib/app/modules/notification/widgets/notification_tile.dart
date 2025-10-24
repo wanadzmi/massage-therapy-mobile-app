@@ -45,7 +45,7 @@ class NotificationTile extends StatelessWidget {
                 width: 48,
                 height: 48,
                 decoration: BoxDecoration(
-                  color: _getIconColor().withOpacity(0.15),
+                  color: _getIconColor().withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(_getIcon(), color: _getIconColor(), size: 24),

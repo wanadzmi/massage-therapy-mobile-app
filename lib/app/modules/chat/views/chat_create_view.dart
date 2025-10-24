@@ -4,7 +4,7 @@ import '../../../../l10n/app_localizations.dart';
 import '../controllers/chat_create_controller.dart';
 
 class ChatCreateView extends GetView<ChatCreateController> {
-  const ChatCreateView({Key? key}) : super(key: key);
+  const ChatCreateView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class ChatCreateView extends GetView<ChatCreateController> {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFD4AF37).withOpacity(0.15),
+                      color: const Color(0xFFD4AF37).withValues(alpha: 0.15),
                       shape: BoxShape.circle,
                     ),
                     child: const Icon(
@@ -160,7 +160,7 @@ class ChatCreateView extends GetView<ChatCreateController> {
                     vertical: 2,
                   ),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFD4AF37).withOpacity(0.2),
+                    color: const Color(0xFFD4AF37).withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: Text(
@@ -207,10 +207,10 @@ class ChatCreateView extends GetView<ChatCreateController> {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: const Color(0xFFD4AF37).withOpacity(0.1),
+                color: const Color(0xFFD4AF37).withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: const Color(0xFFD4AF37).withOpacity(0.3),
+                  color: const Color(0xFFD4AF37).withValues(alpha: 0.3),
                 ),
               ),
               child: Row(

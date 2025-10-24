@@ -56,7 +56,7 @@ class LoginView extends GetView<LoginController> {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: AppColors.primary.withOpacity(0.2),
+        color: AppColors.primary.withValues(alpha: 0.2),
         shape: BoxShape.circle,
         border: Border.all(color: AppColors.primary, width: 2),
       ),

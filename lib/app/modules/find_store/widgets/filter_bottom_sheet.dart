@@ -372,7 +372,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
           padding: const EdgeInsets.symmetric(vertical: 8),
           decoration: BoxDecoration(
             color: isSelected
-                ? const Color(0xFFD4AF37).withOpacity(0.15)
+                ? const Color(0xFFD4AF37).withValues(alpha: 0.15)
                 : Colors.transparent,
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
@@ -499,7 +499,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
           padding: const EdgeInsets.symmetric(vertical: 12),
           decoration: BoxDecoration(
             color: isSelected
-                ? const Color(0xFFD4AF37).withOpacity(0.15)
+                ? const Color(0xFFD4AF37).withValues(alpha: 0.15)
                 : const Color(0xFF0A0A0A),
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
@@ -569,7 +569,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: isSelected
-              ? const Color(0xFFD4AF37).withOpacity(0.15)
+              ? const Color(0xFFD4AF37).withValues(alpha: 0.15)
               : const Color(0xFF0A0A0A),
           borderRadius: BorderRadius.circular(12),
           border: Border.all(

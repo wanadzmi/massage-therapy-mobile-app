@@ -206,28 +206,15 @@ class StoreService extends BaseServices {
 
     if (response.isSuccess && response.data != null) {
       try {
-        print('📊 Raw reviews response: ${response.data}');
         final responseData = response.data['data'] ?? response.data;
-        print('📊 Response data after extraction: $responseData');
-        print('📊 Type of responseData: ${responseData.runtimeType}');
 
         if (responseData['statistics'] != null) {
-          print('📊 Statistics: ${responseData['statistics']}');
-          if (responseData['statistics']['ratingDistribution'] != null) {
-            print(
-              '📊 RatingDistribution type: ${responseData['statistics']['ratingDistribution'].runtimeType}',
-            );
-            print(
-              '📊 RatingDistribution content: ${responseData['statistics']['ratingDistribution']}',
-            );
-          }
+          if (responseData['statistics']['ratingDistribution'] != null) {}
         }
 
         final reviewData = ReviewData.fromJson(responseData);
         return MyResponse.complete(reviewData);
-      } catch (e, stackTrace) {
-        print('❌ Error parsing reviews: $e');
-        print('❌ Stack trace: $stackTrace');
+      } catch (e) {
         return MyResponse.error('Failed to parse reviews: $e');
       }
     }
@@ -245,41 +232,31 @@ class ReviewData {
   ReviewData({required this.reviews, this.statistics, this.pagination});
 
   factory ReviewData.fromJson(Map<String, dynamic> json) {
-    print('🔍 Parsing ReviewData from: $json');
-
     List<review_model.Review> reviews = [];
     if (json['reviews'] != null) {
-      print('🔍 Reviews list type: ${json['reviews'].runtimeType}');
-      print('🔍 Reviews list length: ${(json['reviews'] as List).length}');
       try {
         reviews = (json['reviews'] as List).map((e) {
-          print('🔍 Parsing review item type: ${e.runtimeType}');
           return review_model.Review.fromJson(e);
         }).toList();
       } catch (e) {
-        print('❌ Error parsing reviews list: $e');
         rethrow;
       }
     }
 
     ReviewStatistics? statistics;
     if (json['statistics'] != null) {
-      print('🔍 Parsing statistics: ${json['statistics']}');
       try {
         statistics = ReviewStatistics.fromJson(json['statistics']);
       } catch (e) {
-        print('❌ Error parsing statistics: $e');
         rethrow;
       }
     }
 
     ReviewPagination? pagination;
     if (json['pagination'] != null) {
-      print('🔍 Parsing pagination: ${json['pagination']}');
       try {
         pagination = ReviewPagination.fromJson(json['pagination']);
       } catch (e) {
-        print('❌ Error parsing pagination: $e');
         rethrow;
       }
     }
@@ -324,7 +301,6 @@ class ReviewStatistics {
           }
         });
       } catch (e) {
-        print('⚠️ Error parsing ratingDistribution: $e');
         ratingDistribution = null;
       }
     }

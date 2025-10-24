@@ -121,10 +121,10 @@ class BookingView extends GetView<BookingController> {
                         vertical: 8,
                       ),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFD4AF37).withOpacity(0.15),
+                        color: const Color(0xFFD4AF37).withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(
-                          color: const Color(0xFFD4AF37).withOpacity(0.3),
+                          color: const Color(0xFFD4AF37).withValues(alpha: 0.3),
                         ),
                       ),
                       child: Row(
@@ -288,7 +288,7 @@ class BookingView extends GetView<BookingController> {
                 Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFD4AF37).withOpacity(0.15),
+                    color: const Color(0xFFD4AF37).withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: const Icon(
@@ -351,9 +351,11 @@ class BookingView extends GetView<BookingController> {
                     vertical: 5,
                   ),
                   decoration: BoxDecoration(
-                    color: statusColor.withOpacity(0.15),
+                    color: statusColor.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: statusColor.withOpacity(0.3)),
+                    border: Border.all(
+                      color: statusColor.withValues(alpha: 0.3),
+                    ),
                   ),
                   child: Text(
                     statusLabel,
@@ -484,17 +486,29 @@ class BookingView extends GetView<BookingController> {
                           ),
                           decoration: BoxDecoration(
                             color: booking.payment!.method == 'wallet'
-                                ? const Color(0xFFD4AF37).withOpacity(0.15)
+                                ? const Color(
+                                    0xFFD4AF37,
+                                  ).withValues(alpha: 0.15)
                                 : booking.payment!.method == 'cash'
-                                ? const Color(0xFF4CAF50).withOpacity(0.15)
-                                : const Color(0xFF2196F3).withOpacity(0.15),
+                                ? const Color(
+                                    0xFF4CAF50,
+                                  ).withValues(alpha: 0.15)
+                                : const Color(
+                                    0xFF2196F3,
+                                  ).withValues(alpha: 0.15),
                             borderRadius: BorderRadius.circular(6),
                             border: Border.all(
                               color: booking.payment!.method == 'wallet'
-                                  ? const Color(0xFFD4AF37).withOpacity(0.3)
+                                  ? const Color(
+                                      0xFFD4AF37,
+                                    ).withValues(alpha: 0.3)
                                   : booking.payment!.method == 'cash'
-                                  ? const Color(0xFF4CAF50).withOpacity(0.3)
-                                  : const Color(0xFF2196F3).withOpacity(0.3),
+                                  ? const Color(
+                                      0xFF4CAF50,
+                                    ).withValues(alpha: 0.3)
+                                  : const Color(
+                                      0xFF2196F3,
+                                    ).withValues(alpha: 0.3),
                             ),
                           ),
                           child: Text(
@@ -770,7 +784,7 @@ class BookingView extends GetView<BookingController> {
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFD4AF37).withOpacity(0.15),
+                    color: const Color(0xFFD4AF37).withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: const Icon(
@@ -803,7 +817,7 @@ class BookingView extends GetView<BookingController> {
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       color: controller.selectedFilter == filter['value']
-                          ? const Color(0xFFD4AF37).withOpacity(0.15)
+                          ? const Color(0xFFD4AF37).withValues(alpha: 0.15)
                           : const Color(0xFF0A0A0A),
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
@@ -907,7 +921,7 @@ class _CancelBookingDialogState extends State<_CancelBookingDialog> {
                   Container(
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFE53E3E).withOpacity(0.15),
+                      color: const Color(0xFFE53E3E).withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: const Icon(

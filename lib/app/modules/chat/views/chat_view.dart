@@ -125,7 +125,7 @@ class ChatView extends GetView<ChatController> {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: const Color(0xFFD4AF37).withOpacity(0.15),
+                color: const Color(0xFFD4AF37).withValues(alpha: 0.15),
                 shape: BoxShape.circle,
               ),
               child: agentAvatar != null
@@ -532,7 +532,7 @@ class ChatView extends GetView<ChatController> {
           width: 6,
           height: 6,
           decoration: BoxDecoration(
-            color: Color(0xFFD4AF37).withOpacity(opacity),
+            color: Color(0xFFD4AF37).withValues(alpha: opacity),
             shape: BoxShape.circle,
           ),
         );

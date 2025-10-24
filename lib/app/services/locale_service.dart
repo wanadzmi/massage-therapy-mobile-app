@@ -25,15 +25,12 @@ class LocaleService extends GetxService {
         final locale = Locale(savedLocaleCode);
         _currentLocale.value = locale;
         Get.updateLocale(locale);
-        print('📱 Loaded saved locale: $savedLocaleCode');
       } else {
         // Default to English
         _currentLocale.value = const Locale('en');
         Get.updateLocale(const Locale('en'));
-        print('📱 No saved locale, defaulting to English');
       }
     } catch (e) {
-      print('❌ Error loading saved locale: $e');
       _currentLocale.value = const Locale('en');
     }
   }
@@ -45,10 +42,7 @@ class LocaleService extends GetxService {
       final locale = Locale(languageCode);
       _currentLocale.value = locale;
       Get.updateLocale(locale);
-      print('💾 Saved locale: $languageCode');
-    } catch (e) {
-      print('❌ Error saving locale: $e');
-    }
+    } catch (e) {}
   }
 
   /// Get saved locale code
@@ -59,6 +53,5 @@ class LocaleService extends GetxService {
   /// Clear saved locale
   Future<void> clearLocale() async {
     await _prefs?.remove(_localeKey);
-    print('🗑️ Cleared saved locale');
   }
 }

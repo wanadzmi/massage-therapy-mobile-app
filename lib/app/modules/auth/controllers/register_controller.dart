@@ -72,7 +72,7 @@ class RegisterController extends GetxController {
         'Error',
         'Please fill in all required fields',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.8),
+        backgroundColor: Colors.red.withValues(alpha: 0.8),
         colorText: Colors.white,
       );
       return;
@@ -83,7 +83,7 @@ class RegisterController extends GetxController {
         'Error',
         'Please agree to Terms & Conditions',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.8),
+        backgroundColor: Colors.red.withValues(alpha: 0.8),
         colorText: Colors.white,
       );
       return;
@@ -98,7 +98,7 @@ class RegisterController extends GetxController {
         'Invalid Email',
         'Please enter a valid email address',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.8),
+        backgroundColor: Colors.red.withValues(alpha: 0.8),
         colorText: Colors.white,
       );
       return;
@@ -110,7 +110,7 @@ class RegisterController extends GetxController {
         'Invalid Password',
         'Password must be at least 8 characters',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.8),
+        backgroundColor: Colors.red.withValues(alpha: 0.8),
         colorText: Colors.white,
       );
       return;
@@ -122,7 +122,7 @@ class RegisterController extends GetxController {
         'Password Mismatch',
         'Passwords do not match',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.8),
+        backgroundColor: Colors.red.withValues(alpha: 0.8),
         colorText: Colors.white,
       );
       return;
@@ -184,7 +184,7 @@ class RegisterController extends GetxController {
         'Registration Failed',
         errorMessage,
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.8),
+        backgroundColor: Colors.red.withValues(alpha: 0.8),
         colorText: Colors.white,
         duration: const Duration(seconds: 3),
       );

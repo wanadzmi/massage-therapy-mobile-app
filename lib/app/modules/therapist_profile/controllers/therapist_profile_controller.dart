@@ -29,17 +29,10 @@ class TherapistProfileController extends GetxController {
     try {
       isLoading.value = true;
 
-      print('📱 Loading therapist profile...');
       final response = await _therapistService.getProfile();
-
-      print('📦 Profile response - Success: ${response.isSuccess}');
-      print('📦 Profile response - Data: ${response.data}');
-      print('📦 Profile response - Error: ${response.error}');
 
       if (response.isSuccess && response.data != null) {
         final data = response.data!;
-
-        print('✅ Profile data received: $data');
 
         // Extract basic profile info
         therapistName.value = data['name'] ?? data['fullName'] ?? '';
@@ -51,8 +44,6 @@ class TherapistProfileController extends GetxController {
         final therapistInfo = data['therapistInfo'] as Map<String, dynamic>?;
 
         if (therapistInfo != null) {
-          print('🔍 TherapistInfo found: $therapistInfo');
-
           // Get specializations (array)
           final specializations = therapistInfo['specializations'] as List?;
           if (specializations != null && specializations.isNotEmpty) {
@@ -75,38 +66,23 @@ class TherapistProfileController extends GetxController {
         final bookingStats = data['bookingStats'] as Map<String, dynamic>?;
         if (bookingStats != null) {
           completedSessions.value = bookingStats['completedBookings'] ?? 0;
-          print(
-            '🔍 BookingStats: completedBookings = ${completedSessions.value}',
-          );
         }
-
-        print('✅ Profile loaded:');
-        print('   Name: ${therapistName.value}');
-        print('   Email: ${therapistEmail.value}');
-        print('   Phone: ${therapistPhone.value}');
-        print('   Specialization: ${therapistSpecialization.value}');
-        print('   Experience: ${experienceYears.value} years');
-        print('   Rating: ${rating.value}');
-        print('   Completed Sessions: ${completedSessions.value}');
       } else {
-        print('❌ Failed to load profile: ${response.error}');
         Get.snackbar(
           'Profile Error',
           response.error ?? 'Failed to load profile',
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red.withOpacity(0.8),
+          backgroundColor: Colors.red.withValues(alpha: 0.8),
           colorText: Colors.white,
           duration: const Duration(seconds: 4),
         );
       }
-    } catch (e, stackTrace) {
-      print('❌ Exception loading profile: $e');
-      print('❌ Stack trace: $stackTrace');
+    } catch (e) {
       Get.snackbar(
         'Error',
         'Failed to load profile: $e',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.8),
+        backgroundColor: Colors.red.withValues(alpha: 0.8),
         colorText: Colors.white,
         duration: const Duration(seconds: 4),
       );
@@ -150,10 +126,10 @@ class TherapistProfileController extends GetxController {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF4CAF50).withOpacity(0.1),
+                      color: const Color(0xFF4CAF50).withValues(alpha: 0.1),
                       shape: BoxShape.circle,
                       border: Border.all(
-                        color: const Color(0xFF4CAF50).withOpacity(0.3),
+                        color: const Color(0xFF4CAF50).withValues(alpha: 0.3),
                         width: 2,
                       ),
                     ),
@@ -205,7 +181,7 @@ class TherapistProfileController extends GetxController {
           'Error',
           response.error ?? 'Failed to upload photo',
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red.withOpacity(0.8),
+          backgroundColor: Colors.red.withValues(alpha: 0.8),
           colorText: Colors.white,
         );
       }
@@ -214,7 +190,7 @@ class TherapistProfileController extends GetxController {
         'Error',
         'An error occurred: $e',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.8),
+        backgroundColor: Colors.red.withValues(alpha: 0.8),
         colorText: Colors.white,
       );
     } finally {
@@ -259,7 +235,7 @@ class TherapistProfileController extends GetxController {
                 leading: Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF2196F3).withOpacity(0.1),
+                    color: const Color(0xFF2196F3).withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: const Icon(Icons.camera_alt, color: Color(0xFF2196F3)),
@@ -274,7 +250,7 @@ class TherapistProfileController extends GetxController {
                 leading: Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF4CAF50).withOpacity(0.1),
+                    color: const Color(0xFF4CAF50).withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: const Icon(
@@ -292,7 +268,7 @@ class TherapistProfileController extends GetxController {
                 leading: Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF808080).withOpacity(0.1),
+                    color: const Color(0xFF808080).withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: const Icon(Icons.close, color: Color(0xFF808080)),

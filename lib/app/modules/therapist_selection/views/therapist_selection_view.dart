@@ -282,7 +282,7 @@ class TherapistSelectionView extends GetView<TherapistSelectionController> {
                         margin: EdgeInsets.all(4),
                         decoration: BoxDecoration(
                           color: isAvailable
-                              ? Color(0xFFD4AF37).withOpacity(0.2)
+                              ? Color(0xFFD4AF37).withValues(alpha: 0.2)
                               : Colors.transparent,
                           shape: BoxShape.circle,
                           border: isAvailable
@@ -335,7 +335,7 @@ class TherapistSelectionView extends GetView<TherapistSelectionController> {
                         margin: EdgeInsets.all(4),
                         decoration: BoxDecoration(
                           color: isAvailable
-                              ? Color(0xFFD4AF37).withOpacity(0.3)
+                              ? Color(0xFFD4AF37).withValues(alpha: 0.3)
                               : Color(0xFF2A2A2A),
                           shape: BoxShape.circle,
                           border: Border.all(
@@ -438,7 +438,7 @@ class TherapistSelectionView extends GetView<TherapistSelectionController> {
           width: 16,
           height: 16,
           decoration: BoxDecoration(
-            color: color.withOpacity(0.3),
+            color: color.withValues(alpha: 0.3),
             shape: BoxShape.circle,
             border: Border.all(color: color, width: 1),
           ),
@@ -492,8 +492,9 @@ class TherapistSelectionView extends GetView<TherapistSelectionController> {
                 itemCount: selectedDay.slotDetails?.length ?? 0,
                 itemBuilder: (context, index) {
                   final slot = selectedDay.slotDetails![index];
-                  if ((slot.therapists?.length ?? 0) == 0)
+                  if ((slot.therapists?.length ?? 0) == 0) {
                     return const SizedBox();
+                  }
                   return Card(
                     color: const Color(0xFF1A1A1A),
                     child: InkWell(
@@ -565,7 +566,7 @@ class TherapistSelectionView extends GetView<TherapistSelectionController> {
                     width: 60,
                     height: 60,
                     decoration: BoxDecoration(
-                      color: const Color(0xFFD4AF37).withOpacity(0.1),
+                      color: const Color(0xFFD4AF37).withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: const Icon(
@@ -657,8 +658,9 @@ class TherapistSelectionView extends GetView<TherapistSelectionController> {
     final selectedTherapist = controller.selectedTherapist;
     if (selectedDate == null ||
         selectedSlot == null ||
-        selectedTherapist == null)
+        selectedTherapist == null) {
       return const SizedBox();
+    }
     return Builder(
       builder: (context) {
         final l10n = AppLocalizations.of(context)!;

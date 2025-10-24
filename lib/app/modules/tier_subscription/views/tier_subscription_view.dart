@@ -97,7 +97,7 @@ class TierSubscriptionView extends GetView<TierSubscriptionController> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: const Color(0xFFD4AF37).withOpacity(0.15),
+                color: const Color(0xFFD4AF37).withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: const Icon(
@@ -154,7 +154,7 @@ class TierSubscriptionView extends GetView<TierSubscriptionController> {
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: isCurrent
-              ? tierColor.withOpacity(0.5)
+              ? tierColor.withValues(alpha: 0.5)
               : const Color(0xFF2A2A2A),
           width: isCurrent ? 2 : 1,
         ),
@@ -166,7 +166,7 @@ class TierSubscriptionView extends GetView<TierSubscriptionController> {
           Container(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: tierColor.withOpacity(0.1),
+              color: tierColor.withValues(alpha: 0.1),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(16),
                 topRight: Radius.circular(16),
@@ -271,7 +271,7 @@ class TierSubscriptionView extends GetView<TierSubscriptionController> {
                         vertical: 6,
                       ),
                       decoration: BoxDecoration(
-                        color: tierColor.withOpacity(0.2),
+                        color: tierColor.withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Row(
@@ -379,7 +379,7 @@ class TierSubscriptionView extends GetView<TierSubscriptionController> {
       return ElevatedButton(
         onPressed: () => controller.subscribeTier(tier),
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.orange.withOpacity(0.2),
+          backgroundColor: Colors.orange.withValues(alpha: 0.2),
           foregroundColor: Colors.orange,
           padding: const EdgeInsets.symmetric(vertical: 14),
           side: const BorderSide(color: Colors.orange),

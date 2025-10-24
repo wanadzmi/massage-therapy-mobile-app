@@ -177,7 +177,7 @@ class NotificationPreferencesView
           height: 40,
           decoration: BoxDecoration(
             color: isEnabled
-                ? const Color(0xFFD4AF37).withOpacity(0.2)
+                ? const Color(0xFFD4AF37).withValues(alpha: 0.2)
                 : const Color(0xFF2A2A2A),
             borderRadius: BorderRadius.circular(8),
           ),
@@ -205,7 +205,7 @@ class NotificationPreferencesView
           value: isEnabled,
           onChanged: onChanged,
           activeColor: const Color(0xFFD4AF37),
-          activeTrackColor: const Color(0xFFD4AF37).withOpacity(0.3),
+          activeTrackColor: const Color(0xFFD4AF37).withValues(alpha: 0.3),
           inactiveThumbColor: const Color(0xFF707070),
           inactiveTrackColor: const Color(0xFF2A2A2A),
         ),
@@ -244,7 +244,9 @@ class NotificationPreferencesView
       decoration: BoxDecoration(
         color: const Color(0xFF1A1A1A),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: const Color(0xFFD4AF37).withOpacity(0.3)),
+        border: Border.all(
+          color: const Color(0xFFD4AF37).withValues(alpha: 0.3),
+        ),
       ),
       padding: const EdgeInsets.all(16),
       child: Row(
@@ -252,7 +254,7 @@ class NotificationPreferencesView
         children: [
           Icon(
             Icons.info_outline,
-            color: const Color(0xFFD4AF37).withOpacity(0.8),
+            color: const Color(0xFFD4AF37).withValues(alpha: 0.8),
             size: 20,
           ),
           const SizedBox(width: 12),

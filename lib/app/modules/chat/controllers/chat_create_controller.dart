@@ -44,7 +44,7 @@ class ChatCreateController extends GetxController {
         'Required Field',
         'Please enter your message',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.orange.withOpacity(0.8),
+        backgroundColor: Colors.orange.withValues(alpha: 0.8),
         colorText: Colors.white,
       );
       return;
@@ -55,7 +55,7 @@ class ChatCreateController extends GetxController {
         'Message Too Short',
         'Please provide more details (minimum 10 characters)',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.orange.withOpacity(0.8),
+        backgroundColor: Colors.orange.withValues(alpha: 0.8),
         colorText: Colors.white,
       );
       return;
@@ -105,7 +105,7 @@ class ChatCreateController extends GetxController {
         'Error',
         'Failed to create chat. Please try again.',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.8),
+        backgroundColor: Colors.red.withValues(alpha: 0.8),
         colorText: Colors.white,
       );
     }

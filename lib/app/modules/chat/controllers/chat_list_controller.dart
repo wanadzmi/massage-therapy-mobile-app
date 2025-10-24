@@ -27,13 +27,6 @@ class ChatListController extends GetxController {
     loadChats();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-    // Refresh when navigating back to this screen
-    print('🔄 ChatListView is ready, checking for updates...');
-  }
-
   Future<void> loadChats({bool refresh = false}) async {
     if (refresh) {
       _currentPage.value = 1;
@@ -53,12 +46,6 @@ class ChatListController extends GetxController {
       final statusFilter = _selectedFilter.value == 'all'
           ? null
           : _selectedFilter.value;
-      print(
-        '🔄 Loading chats - Filter: ${statusFilter ?? "all"}, Page: ${_currentPage.value}',
-      );
-      print(
-        '📡 API Query: status=${statusFilter ?? "(null)"}, page=${_currentPage.value}, limit=20',
-      );
 
       final response = await _chatService.getChats(
         status: statusFilter,
@@ -66,23 +53,14 @@ class ChatListController extends GetxController {
         limit: 20,
       );
 
-      print('📦 API Response - Success: ${response.isSuccess}');
-      if (response.error != null) {
-        print('❌ API Error: ${response.error}');
-      }
+      if (response.error != null) {}
 
       if (response.isSuccess && response.data != null) {
         final chatsData = response.data!;
-        print('💬 Received ${chatsData.chats?.length ?? 0} chats from API');
 
         // Log each chat's basic info
         if (chatsData.chats != null) {
-          for (var i = 0; i < chatsData.chats!.length; i++) {
-            final chat = chatsData.chats![i];
-            print(
-              '   Chat $i: ID=${chat.id}, Status=${chat.status}, Type=${chat.type}',
-            );
-          }
+          for (var i = 0; i < chatsData.chats!.length; i++) {}
         }
 
         if (chatsData.chats != null && chatsData.chats!.isNotEmpty) {
@@ -103,18 +81,9 @@ class ChatListController extends GetxController {
         } else {
           if (_currentPage.value == 1) {
             _chats.clear();
-            print('⚠️ Backend returned empty chat list!');
-            print('⚠️ This might be because:');
-            print(
-              '   - Chat status is "waiting" but backend only returns "active"/"closed"',
-            );
-            print('   - Database sync delay');
-            print('   - Filter mismatch');
           }
           _hasMore.value = false;
         }
-
-        print('✅ Loaded ${chatsData.chats?.length ?? 0} chats');
       } else {
         Get.snackbar(
           'Error',
@@ -125,7 +94,6 @@ class ChatListController extends GetxController {
         );
       }
     } catch (e) {
-      print('❌ Error loading chats: $e');
       Get.snackbar(
         'Error',
         'An error occurred while loading chats',
@@ -162,7 +130,6 @@ class ChatListController extends GetxController {
     final chatId = chat.chatId ?? chat.id;
 
     if (chatId == null) {
-      print('⚠️ Cannot open chat: both chatId and id are null');
       Get.snackbar(
         'Error',
         'Invalid chat ID',
@@ -172,8 +139,6 @@ class ChatListController extends GetxController {
       );
       return;
     }
-
-    print('📖 Opening chat with ID: $chatId');
 
     Get.to(
       () => const ChatView(),

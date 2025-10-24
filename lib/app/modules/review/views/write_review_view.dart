@@ -180,7 +180,7 @@ class _WriteReviewFormState extends State<_WriteReviewForm> {
                       backgroundColor: const Color(0xFFD4AF37),
                       disabledBackgroundColor: const Color(
                         0xFFD4AF37,
-                      ).withOpacity(0.5),
+                      ).withValues(alpha: 0.5),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -230,7 +230,7 @@ class _WriteReviewFormState extends State<_WriteReviewForm> {
               Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFD4AF37).withOpacity(0.15),
+                  color: const Color(0xFFD4AF37).withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: const Icon(
@@ -364,7 +364,7 @@ class _WriteReviewFormState extends State<_WriteReviewForm> {
               activeTrackColor: const Color(0xFFD4AF37),
               inactiveTrackColor: const Color(0xFF2A2A2A),
               thumbColor: const Color(0xFFD4AF37),
-              overlayColor: const Color(0xFFD4AF37).withOpacity(0.2),
+              overlayColor: const Color(0xFFD4AF37).withValues(alpha: 0.2),
               trackHeight: 4,
               thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 8),
             ),

@@ -21,35 +21,24 @@ class BannerService extends BaseServices {
           ? '/api/banners'
           : '/api/banners?$queryString';
 
-      print('🎯 BANNER ENDPOINT: GET $path');
-
       final response = await callAPI(
         HttpRequestType.GET,
         path,
         requiresAuth: false, // Public endpoint
       );
 
-      print('🎯 Banner API response success: ${response.isSuccess}');
-      print('🎯 RAW JSON RESPONSE:');
-      print('${response.data}');
-
       if (response.isSuccess && response.data != null) {
         final data = response.data as Map<String, dynamic>;
         final bannersJson = data['banners'] as List<dynamic>?;
-
-        print('🎯 Banners JSON: $bannersJson');
-        print('🎯 Number of banners: ${bannersJson?.length ?? 0}');
 
         if (bannersJson != null) {
           final banners = bannersJson
               .map((json) => BannerModel.fromJson(json as Map<String, dynamic>))
               .toList();
-          print('✅ Successfully parsed ${banners.length} banners');
           return MyResponse.complete(banners);
         }
       }
 
-      print('❌ Banner fetch failed: ${response.error}');
       return MyResponse.error(response.error ?? 'Failed to fetch banners');
     } catch (e) {
       return MyResponse.error('Error fetching banners: $e');

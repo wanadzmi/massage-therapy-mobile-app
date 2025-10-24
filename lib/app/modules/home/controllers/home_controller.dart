@@ -53,7 +53,6 @@ class HomeController extends GetxController {
 
   Future<void> loadBanners() async {
     try {
-      print('🎯 Starting to load banners...');
       _isBannersLoading.value = true;
       // Get user tier and role from auth if available
       final response = await _bannerService.getBanners(
@@ -61,16 +60,10 @@ class HomeController extends GetxController {
         userRole: 'customer', // Default to customer
       );
 
-      print('🎯 Banner response received - success: ${response.isSuccess}');
-
       if (response.isSuccess && response.data != null) {
         _banners.value = response.data!;
-        print('✅ Loaded ${_banners.length} banners to home controller');
-      } else {
-        print('❌ Failed to load banners: ${response.error}');
-      }
+      } else {}
     } catch (e) {
-      print('❌ Error loading banners: $e');
     } finally {
       _isBannersLoading.value = false;
     }

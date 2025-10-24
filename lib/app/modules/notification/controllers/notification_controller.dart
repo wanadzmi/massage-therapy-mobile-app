@@ -70,15 +70,10 @@ class NotificationController extends GetxController {
 
         _unreadCount.value = data.unreadCount;
         _hasMore.value = data.pagination.hasMore;
-
-        print('✅ Fetched ${data.notifications.length} notifications');
-        print('📊 Unread count: ${data.unreadCount}');
       } else {
-        print('❌ Failed to fetch notifications: ${response.error}');
         _showError('Failed to load notifications');
       }
     } catch (e) {
-      print('❌ Error fetching notifications: $e');
       _showError('An error occurred while loading notifications');
     } finally {
       _isLoading.value = false;
@@ -158,15 +153,9 @@ class NotificationController extends GetxController {
           // Update unread count
           _unreadCount.value = (_unreadCount.value - 1).clamp(0, 999);
           _notifications.refresh();
-
-          print('✅ Marked notification as read');
         }
-      } else {
-        print('❌ Failed to mark as read: ${response.error}');
-      }
-    } catch (e) {
-      print('❌ Error marking as read: $e');
-    }
+      } else {}
+    } catch (e) {}
   }
 
   /// Mark all notifications as read
@@ -224,14 +213,10 @@ class NotificationController extends GetxController {
           colorText: Colors.black,
           duration: const Duration(seconds: 2),
         );
-
-        print('✅ Marked all as read');
       } else {
-        print('❌ Failed to mark all as read: ${response.error}');
         _showError('Failed to mark all as read');
       }
     } catch (e) {
-      print('❌ Error marking all as read: $e');
       _showError('An error occurred');
     }
   }
@@ -240,10 +225,7 @@ class NotificationController extends GetxController {
   Future<void> trackClick(String notificationId) async {
     try {
       await _notificationService.trackClick(notificationId, actionTaken: true);
-      print('✅ Tracked notification click');
-    } catch (e) {
-      print('❌ Error tracking click: $e');
-    }
+    } catch (e) {}
   }
 
   /// Delete a notification
@@ -264,15 +246,11 @@ class NotificationController extends GetxController {
           if (wasUnread) {
             _unreadCount.value = (_unreadCount.value - 1).clamp(0, 999);
           }
-
-          print('✅ Notification deleted');
         }
       } else {
-        print('❌ Failed to delete notification: ${response.error}');
         _showError('Failed to delete notification');
       }
     } catch (e) {
-      print('❌ Error deleting notification: $e');
       _showError('An error occurred');
     }
   }
@@ -298,17 +276,13 @@ class NotificationController extends GetxController {
 
   /// Navigate to the appropriate screen based on action URL
   void _navigateToAction(String actionUrl, Map<String, dynamic>? actionData) {
-    print('🔗 Navigating to: $actionUrl');
-
     if (actionUrl.startsWith('/bookings/')) {
       // Navigate to activity tab (index 1) in main navigation
       Get.back(); // Close notification screen first
       try {
         final mainNavController = Get.find<MainNavigationController>();
         mainNavController.changePage(1); // Navigate to activity tab
-      } catch (e) {
-        print('⚠️ MainNavigationController not found: $e');
-      }
+      } catch (e) {}
     } else if (actionUrl == '/wallet') {
       Get.toNamed('/wallet-topup');
     } else if (actionUrl == '/loyalty') {
@@ -322,9 +296,7 @@ class NotificationController extends GetxController {
     } else if (actionUrl.startsWith('/')) {
       // Generic route navigation
       Get.toNamed(actionUrl);
-    } else {
-      print('⚠️ Unknown action URL: $actionUrl');
-    }
+    } else {}
   }
 
   /// Show error snackbar
@@ -333,7 +305,7 @@ class NotificationController extends GetxController {
       'Error',
       message,
       snackPosition: SnackPosition.BOTTOM,
-      backgroundColor: Colors.red.withOpacity(0.8),
+      backgroundColor: Colors.red.withValues(alpha: 0.8),
       colorText: Colors.white,
       duration: const Duration(seconds: 2),
     );
@@ -350,8 +322,6 @@ class NotificationController extends GetxController {
       if (response.isSuccess && response.data != null) {
         _unreadCount.value = response.data!.unreadCount;
       }
-    } catch (e) {
-      print('❌ Error updating unread count: $e');
-    }
+    } catch (e) {}
   }
 }

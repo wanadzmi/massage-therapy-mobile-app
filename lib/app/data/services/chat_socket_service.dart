@@ -29,16 +29,12 @@ class ChatSocketService extends GetxService {
       final token = prefs.getString('auth_token') ?? '';
 
       if (token.isEmpty) {
-        print('⚠️ No auth token found for socket connection');
         return;
       }
 
       // Disconnect existing socket if any
       _socket?.disconnect();
       _socket?.dispose();
-
-      print('🔌 Connecting to Socket.IO server...');
-      print('🔑 Token: ${token.substring(0, 20)}...');
 
       _socket = IO.io(
         'https://massage-therapy-backend.onrender.com',
@@ -56,73 +52,51 @@ class ChatSocketService extends GetxService {
 
       // Manually connect to Socket.IO server
       _socket?.connect();
-      print('⏳ Socket.IO connection initiated...');
-    } catch (e) {
-      print('❌ Socket connection error: $e');
-    }
+    } catch (e) {}
   }
 
   void _setupSocketListeners() {
     _socket?.onConnect((_) {
-      print('✅ Socket.IO connected successfully');
-      print('🔗 Socket ID: ${_socket?.id}');
       _isConnected.value = true;
 
       // Re-join chat if we were in one
       if (_currentChatId.value != null) {
-        print('🔄 Rejoining chat: ${_currentChatId.value}');
         joinChat(_currentChatId.value!);
       }
     });
 
     _socket?.onDisconnect((reason) {
-      print('❌ Socket.IO disconnected: $reason');
       _isConnected.value = false;
     });
 
     _socket?.onConnectError((error) {
-      print('❌ Socket.IO connection error: $error');
-      print('🔍 Error type: ${error.runtimeType}');
       _isConnected.value = false;
     });
 
-    _socket?.onError((error) {
-      print('❌ Socket.IO error: $error');
-    });
+    _socket?.onError((error) {});
 
     _socket?.onReconnect((attempt) {
-      print('🔄 Socket.IO reconnected (attempt $attempt)');
       _isConnected.value = true;
     });
 
-    _socket?.onReconnecting((attempt) {
-      print('🔄 Socket.IO reconnecting... (attempt $attempt)');
-    });
+    _socket?.onReconnecting((attempt) {});
 
-    _socket?.onReconnectError((error) {
-      print('❌ Socket.IO reconnection error: $error');
-    });
+    _socket?.onReconnectError((error) {});
 
-    _socket?.onReconnectFailed((_) {
-      print('❌ Socket.IO reconnection failed after all attempts');
-    });
+    _socket?.onReconnectFailed((_) {});
 
     // Listen for new messages
     _socket?.on('message:new', (data) {
-      print('📨 New message received: $data');
       try {
         if (data is Map<String, dynamic> && data['message'] != null) {
           final message = ChatMessage.fromJson(data['message']);
           newMessage.value = message;
         }
-      } catch (e) {
-        print('❌ Error parsing new message: $e');
-      }
+      } catch (e) {}
     });
 
     // Listen for read receipts
     _socket?.on('message:read_receipt', (data) {
-      print('👁️ Read receipt received: $data');
       if (data is Map<String, dynamic>) {
         readReceipt.value = data;
       }
@@ -130,7 +104,6 @@ class ChatSocketService extends GetxService {
 
     // Listen for typing indicators
     _socket?.on('typing:user_typing', (data) {
-      print('⌨️ Typing indicator received: $data');
       if (data is Map<String, dynamic>) {
         typingIndicator.value = data;
       }
@@ -138,7 +111,6 @@ class ChatSocketService extends GetxService {
 
     // Listen for chat assignments
     _socket?.on('chat:assigned', (data) {
-      print('👤 Chat assigned: $data');
       if (data is Map<String, dynamic>) {
         chatAssigned.value = data;
       }
@@ -146,7 +118,6 @@ class ChatSocketService extends GetxService {
 
     // Listen for chat closed events
     _socket?.on('chat:closed', (data) {
-      print('🔒 Chat closed: $data');
       if (data is Map<String, dynamic>) {
         chatClosed.value = data;
       }
@@ -156,18 +127,14 @@ class ChatSocketService extends GetxService {
   // Join a chat room
   void joinChat(String chatId) {
     if (_socket?.connected == true) {
-      print('👋 Joining chat: $chatId');
       _socket?.emit('chat:join', {'chatId': chatId});
       _currentChatId.value = chatId;
-    } else {
-      print('⚠️ Socket not connected, cannot join chat');
-    }
+    } else {}
   }
 
   // Leave a chat room
   void leaveChat(String chatId) {
     if (_socket?.connected == true) {
-      print('👋 Leaving chat: $chatId');
       _socket?.emit('chat:leave', {'chatId': chatId});
       _currentChatId.value = null;
     }
@@ -188,7 +155,6 @@ class ChatSocketService extends GetxService {
   // Disconnect socket
   void disconnect() {
     if (_socket?.connected == true) {
-      print('🔌 Disconnecting socket');
       _socket?.disconnect();
     }
   }

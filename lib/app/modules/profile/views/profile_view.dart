@@ -138,7 +138,7 @@ class ProfileView extends GetView<ProfileController> {
                           color: const Color(0xFF1A1A1A),
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            color: Colors.red.withOpacity(0.3),
+                            color: Colors.red.withValues(alpha: 0.3),
                             width: 1,
                           ),
                         ),
@@ -215,8 +215,8 @@ class ProfileView extends GetView<ProfileController> {
               border: Border.all(color: const Color(0xFFD4AF37), width: 2),
               gradient: LinearGradient(
                 colors: [
-                  const Color(0xFFD4AF37).withOpacity(0.3),
-                  const Color(0xFFD4AF37).withOpacity(0.1),
+                  const Color(0xFFD4AF37).withValues(alpha: 0.3),
+                  const Color(0xFFD4AF37).withValues(alpha: 0.1),
                 ],
               ),
             ),
@@ -382,7 +382,7 @@ class ProfileView extends GetView<ProfileController> {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFD4AF37).withOpacity(0.15),
+                  color: const Color(0xFFD4AF37).withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: const Icon(
@@ -465,7 +465,7 @@ class ProfileView extends GetView<ProfileController> {
                 Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFD4AF37).withOpacity(0.15),
+                    color: const Color(0xFFD4AF37).withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: const Icon(
@@ -615,7 +615,7 @@ class ProfileView extends GetView<ProfileController> {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                _getTierColor(controller.memberTier).withOpacity(0.2),
+                _getTierColor(controller.memberTier).withValues(alpha: 0.2),
                 const Color(0xFF1A1A1A),
               ],
               begin: Alignment.topLeft,
@@ -623,7 +623,9 @@ class ProfileView extends GetView<ProfileController> {
             ),
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
-              color: _getTierColor(controller.memberTier).withOpacity(0.3),
+              color: _getTierColor(
+                controller.memberTier,
+              ).withValues(alpha: 0.3),
               width: 1.5,
             ),
           ),
@@ -632,7 +634,9 @@ class ProfileView extends GetView<ProfileController> {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: _getTierColor(controller.memberTier).withOpacity(0.2),
+                  color: _getTierColor(
+                    controller.memberTier,
+                  ).withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(
@@ -732,7 +736,7 @@ class ProfileView extends GetView<ProfileController> {
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: const Color(0xFFD4AF37).withOpacity(0.15),
+                color: const Color(0xFFD4AF37).withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: const Icon(
@@ -836,7 +840,7 @@ class ProfileView extends GetView<ProfileController> {
                   color: const Color(0xFF0A0A0A),
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(
-                    color: const Color(0xFFD4AF37).withOpacity(0.3),
+                    color: const Color(0xFFD4AF37).withValues(alpha: 0.3),
                   ),
                 ),
                 child: Row(
@@ -965,7 +969,7 @@ class ProfileView extends GetView<ProfileController> {
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: const Color(0xFFD4AF37).withOpacity(0.15),
+                color: const Color(0xFFD4AF37).withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Icon(icon, color: const Color(0xFFD4AF37), size: 20),

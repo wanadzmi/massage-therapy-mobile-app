@@ -28,23 +28,21 @@ class TherapistBookingDetailController extends GetxController {
 
       if (response.isSuccess && response.data != null) {
         _booking.value = response.data;
-        print('✅ Loaded booking details successfully');
       } else {
         Get.snackbar(
           'Error',
           response.error ?? 'Failed to load booking details',
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red.withOpacity(0.8),
+          backgroundColor: Colors.red.withValues(alpha: 0.8),
           colorText: Colors.white,
         );
       }
     } catch (e) {
-      print('Error loading booking details: $e');
       Get.snackbar(
         'Error',
         'An error occurred: $e',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.8),
+        backgroundColor: Colors.red.withValues(alpha: 0.8),
         colorText: Colors.white,
       );
     } finally {

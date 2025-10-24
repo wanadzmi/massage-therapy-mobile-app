@@ -30,7 +30,7 @@ class SplashView extends GetView<SplashController> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xFFD4AF37).withOpacity(0.4),
+                    color: const Color(0xFFD4AF37).withValues(alpha: 0.4),
                     blurRadius: 30,
                     offset: const Offset(0, 8),
                   ),
@@ -57,7 +57,7 @@ class SplashView extends GetView<SplashController> {
               AppStrings.appTagline,
               style: TextStyle(
                 fontSize: 16,
-                color: const Color(0xFFB0B0B0).withOpacity(0.9),
+                color: const Color(0xFFB0B0B0).withValues(alpha: 0.9),
               ),
               textAlign: TextAlign.center,
             ),

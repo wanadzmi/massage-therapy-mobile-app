@@ -131,14 +131,14 @@ class TierDetailView extends GetView<TierDetailController> {
       decoration: BoxDecoration(
         color: const Color(0xFF1A1A1A),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: tierColor.withOpacity(0.3), width: 2),
+        border: Border.all(color: tierColor.withValues(alpha: 0.3), width: 2),
       ),
       child: Column(
         children: [
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: tierColor.withOpacity(0.15),
+              color: tierColor.withValues(alpha: 0.15),
               shape: BoxShape.circle,
             ),
             child: Icon(Icons.workspace_premium, size: 48, color: tierColor),
@@ -210,10 +210,10 @@ class TierDetailView extends GetView<TierDetailController> {
                 ),
                 decoration: BoxDecoration(
                   color: isActive
-                      ? const Color(0xFF4CAF50).withOpacity(0.2)
+                      ? const Color(0xFF4CAF50).withValues(alpha: 0.2)
                       : isCancelled
-                      ? Colors.orange.withOpacity(0.2)
-                      : Colors.red.withOpacity(0.2),
+                      ? Colors.orange.withValues(alpha: 0.2)
+                      : Colors.red.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
@@ -328,7 +328,7 @@ class TierDetailView extends GetView<TierDetailController> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
-              color: const Color(0xFFD4AF37).withOpacity(0.15),
+              color: const Color(0xFFD4AF37).withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Row(
@@ -609,8 +609,8 @@ class TierDetailView extends GetView<TierDetailController> {
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: tx.status == 'completed'
-                      ? const Color(0xFF4CAF50).withOpacity(0.2)
-                      : Colors.orange.withOpacity(0.2),
+                      ? const Color(0xFF4CAF50).withValues(alpha: 0.2)
+                      : Colors.orange.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: Text(
@@ -666,7 +666,7 @@ class TierDetailView extends GetView<TierDetailController> {
                   Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFD4AF37).withOpacity(0.15),
+                      color: const Color(0xFFD4AF37).withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: const Icon(

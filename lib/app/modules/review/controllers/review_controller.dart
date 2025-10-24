@@ -134,7 +134,7 @@ class ReviewController extends GetxController {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF4CAF50).withOpacity(0.2),
+                      color: const Color(0xFF4CAF50).withValues(alpha: 0.2),
                       shape: BoxShape.circle,
                     ),
                     child: const Icon(

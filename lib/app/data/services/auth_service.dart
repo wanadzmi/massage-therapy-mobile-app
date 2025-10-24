@@ -235,19 +235,10 @@ class AuthService extends BaseServices {
       // This will be available through the BaseServices authToken getter
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('auth_token', token);
-      print('✅ Token stored successfully');
-      print(
-        '🔑 Token (first 20 chars): ${token.substring(0, token.length > 20 ? 20 : token.length)}...',
-      );
 
       // Verify it was stored
-      final storedToken = prefs.getString('auth_token');
-      print(
-        '✅ Token verified in storage: ${storedToken != null && storedToken.isNotEmpty}',
-      );
-    } catch (e) {
-      print('❌ Error storing token: $e');
-    }
+      prefs.getString('auth_token');
+    } catch (e) {}
   }
 
   /// Clear authentication token locally
@@ -255,8 +246,6 @@ class AuthService extends BaseServices {
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.remove('auth_token');
-    } catch (e) {
-      print('Error clearing token: $e');
-    }
+    } catch (e) {}
   }
 }

@@ -89,9 +89,6 @@ class TherapistSelectionController extends GetxController {
       final storeTherapists = args['storeTherapists'] as List<dynamic>?;
       if (storeTherapists != null) {
         _availableTherapists.value = storeTherapists.cast<StoreTherapist>();
-        print(
-          '🏪 Store has ${_availableTherapists.length} therapists assigned',
-        );
       }
     }
 
@@ -112,10 +109,7 @@ class TherapistSelectionController extends GetxController {
 
     _isLoading.value = true;
 
-    print('🗓️ Loading availability calendar for service: ${service!.id}');
-    if (store != null) {
-      print('🏪 Filtering for store: ${store!.name} (ID: ${store!.id})');
-    }
+    if (store != null) {}
 
     final response = await _bookingDiscoveryService
         .getServiceAvailabilityCalendar(serviceId: service!.id!);
@@ -126,9 +120,6 @@ class TherapistSelectionController extends GetxController {
       calendarData = response.data;
       _availabilityCalendar.value = response.data!.availabilityCalendar ?? [];
 
-      print('✅ Loaded ${_availabilityCalendar.length} days with availability');
-      print('📊 Total days: ${response.data!.totalDaysWithAvailability}');
-
       if (_availabilityCalendar.isEmpty) {
         final l10n = AppLocalizations.of(Get.context!)!;
         Get.snackbar(
@@ -138,7 +129,6 @@ class TherapistSelectionController extends GetxController {
         );
       }
     } else {
-      print('❌ Error: ${response.error}');
       final l10n = AppLocalizations.of(Get.context!)!;
       Get.snackbar(
         l10n.errorTitle,
@@ -152,18 +142,15 @@ class TherapistSelectionController extends GetxController {
     _selectedTherapist.value = therapist;
     _selectedDate.value = null;
     _selectedSlot.value = null;
-    print('� Selected therapist: ${therapist.name} (${therapist.id})');
   }
 
   void selectDate(DayAvailability day) {
     _selectedDate.value = day;
     _selectedSlot.value = null;
-    print('📅 Selected date: ${day.displayDate}');
   }
 
   void selectSlot(SlotDetail slot) {
     _selectedSlot.value = slot;
-    print('⏰ Selected time: ${slot.time}');
   }
 
   void proceedToBooking() {
@@ -196,11 +183,6 @@ class TherapistSelectionController extends GetxController {
       );
       return;
     }
-
-    print('✅ Proceeding to booking:');
-    print('   Therapist: ${_selectedTherapist.value!.name}');
-    print('   Date: ${_selectedDate.value!.date}');
-    print('   Time: ${_selectedSlot.value!.time}');
 
     // Navigate to booking creation with all details
     Get.toNamed(

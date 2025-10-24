@@ -51,11 +51,8 @@ class TherapistHomeController extends GetxController {
         _sessionStartTimes[bookingId] = DateTime.fromMillisecondsSinceEpoch(
           startTimeMs,
         );
-        print('📱 Restored session timer for booking: $bookingId');
       }
-    } catch (e) {
-      print('Error loading persisted session start time: $e');
-    }
+    } catch (e) {}
   }
 
   /// Save session start time to shared preferences
@@ -70,10 +67,7 @@ class TherapistHomeController extends GetxController {
         'active_session_start_time',
         startTime.millisecondsSinceEpoch,
       );
-      print('💾 Persisted session timer for booking: $bookingId');
-    } catch (e) {
-      print('Error persisting session start time: $e');
-    }
+    } catch (e) {}
   }
 
   /// Clear persisted session start time from shared preferences
@@ -82,10 +76,7 @@ class TherapistHomeController extends GetxController {
       final prefs = await SharedPreferences.getInstance();
       await prefs.remove('active_session_booking_id');
       await prefs.remove('active_session_start_time');
-      print('🗑️ Cleared persisted session timer');
-    } catch (e) {
-      print('Error clearing persisted session start time: $e');
-    }
+    } catch (e) {}
   }
 
   Future<void> loadTherapistInfo() async {
@@ -94,9 +85,7 @@ class TherapistHomeController extends GetxController {
       if (response.isSuccess && response.data != null) {
         _therapistName.value = response.data!.name ?? 'Therapist';
       }
-    } catch (e) {
-      print('Error loading therapist info: $e');
-    }
+    } catch (e) {}
   }
 
   Future<void> loadBookings() async {
@@ -106,24 +95,22 @@ class TherapistHomeController extends GetxController {
 
       if (response.isSuccess && response.data != null) {
         _bookings.value = response.data!;
-        print('✅ Loaded ${_bookings.length} active bookings');
       } else {
         _bookings.value = [];
         Get.snackbar(
           'Error',
           response.error ?? 'Failed to load bookings',
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red.withOpacity(0.8),
+          backgroundColor: Colors.red.withValues(alpha: 0.8),
           colorText: Colors.white,
         );
       }
     } catch (e) {
-      print('Error loading bookings: $e');
       Get.snackbar(
         'Error',
         'An error occurred: $e',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.8),
+        backgroundColor: Colors.red.withValues(alpha: 0.8),
         colorText: Colors.white,
       );
     } finally {
@@ -147,7 +134,7 @@ class TherapistHomeController extends GetxController {
               Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFFF9800).withOpacity(0.15),
+                  color: const Color(0xFFFF9800).withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: const Icon(
@@ -181,10 +168,10 @@ class TherapistHomeController extends GetxController {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFFF9800).withOpacity(0.1),
+                  color: const Color(0xFFFF9800).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                    color: const Color(0xFFFF9800).withOpacity(0.3),
+                    color: const Color(0xFFFF9800).withValues(alpha: 0.3),
                   ),
                 ),
                 child: Row(
@@ -252,7 +239,7 @@ class TherapistHomeController extends GetxController {
           'Success',
           'Booking accepted successfully',
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: const Color(0xFF4CAF50).withOpacity(0.8),
+          backgroundColor: const Color(0xFF4CAF50).withValues(alpha: 0.8),
           colorText: Colors.white,
           duration: const Duration(seconds: 2),
         );
@@ -288,7 +275,7 @@ class TherapistHomeController extends GetxController {
             'Error',
             response.error ?? 'Failed to accept booking',
             snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: Colors.red.withOpacity(0.8),
+            backgroundColor: Colors.red.withValues(alpha: 0.8),
             colorText: Colors.white,
             duration: const Duration(seconds: 4),
           );
@@ -299,7 +286,7 @@ class TherapistHomeController extends GetxController {
         'Error',
         'An error occurred: $e',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.8),
+        backgroundColor: Colors.red.withValues(alpha: 0.8),
         colorText: Colors.white,
       );
     } finally {
@@ -389,7 +376,7 @@ class TherapistHomeController extends GetxController {
                             'Error',
                             'Please enter a reason for rejection',
                             snackPosition: SnackPosition.BOTTOM,
-                            backgroundColor: Colors.red.withOpacity(0.8),
+                            backgroundColor: Colors.red.withValues(alpha: 0.8),
                             colorText: Colors.white,
                           );
                           return;
@@ -431,7 +418,7 @@ class TherapistHomeController extends GetxController {
           'Success',
           'Booking rejected. Customer will be refunded.',
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: const Color(0xFF4CAF50).withOpacity(0.8),
+          backgroundColor: const Color(0xFF4CAF50).withValues(alpha: 0.8),
           colorText: Colors.white,
           duration: const Duration(seconds: 3),
         );
@@ -441,7 +428,7 @@ class TherapistHomeController extends GetxController {
           'Error',
           response.error ?? 'Failed to reject booking',
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red.withOpacity(0.8),
+          backgroundColor: Colors.red.withValues(alpha: 0.8),
           colorText: Colors.white,
           duration: const Duration(seconds: 4),
         );
@@ -451,7 +438,7 @@ class TherapistHomeController extends GetxController {
         'Error',
         'An error occurred: $e',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.8),
+        backgroundColor: Colors.red.withValues(alpha: 0.8),
         colorText: Colors.white,
       );
     } finally {
@@ -510,7 +497,7 @@ class TherapistHomeController extends GetxController {
           'Success',
           'Session started',
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: const Color(0xFF4CAF50).withOpacity(0.8),
+          backgroundColor: const Color(0xFF4CAF50).withValues(alpha: 0.8),
           colorText: Colors.white,
           duration: const Duration(seconds: 2),
         );
@@ -520,7 +507,7 @@ class TherapistHomeController extends GetxController {
           'Error',
           response.error ?? 'Failed to start session',
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red.withOpacity(0.8),
+          backgroundColor: Colors.red.withValues(alpha: 0.8),
           colorText: Colors.white,
           duration: const Duration(seconds: 4),
         );
@@ -530,7 +517,7 @@ class TherapistHomeController extends GetxController {
         'Error',
         'An error occurred: $e',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.8),
+        backgroundColor: Colors.red.withValues(alpha: 0.8),
         colorText: Colors.white,
       );
     } finally {
@@ -564,10 +551,10 @@ class TherapistHomeController extends GetxController {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF4CAF50).withOpacity(0.1),
+                      color: const Color(0xFF4CAF50).withValues(alpha: 0.1),
                       shape: BoxShape.circle,
                       border: Border.all(
-                        color: const Color(0xFF4CAF50).withOpacity(0.3),
+                        color: const Color(0xFF4CAF50).withValues(alpha: 0.3),
                         width: 2,
                       ),
                     ),
@@ -628,7 +615,7 @@ class TherapistHomeController extends GetxController {
           'Error',
           response.error ?? 'Failed to complete booking',
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red.withOpacity(0.8),
+          backgroundColor: Colors.red.withValues(alpha: 0.8),
           colorText: Colors.white,
           duration: const Duration(seconds: 4),
         );
@@ -638,7 +625,7 @@ class TherapistHomeController extends GetxController {
         'Error',
         'An error occurred: $e',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.8),
+        backgroundColor: Colors.red.withValues(alpha: 0.8),
         colorText: Colors.white,
       );
     } finally {
@@ -772,8 +759,6 @@ class TherapistHomeController extends GetxController {
     try {
       await _authRepository.logout();
       Get.offAllNamed('/login');
-    } catch (e) {
-      print('Error logging out: $e');
-    }
+    } catch (e) {}
   }
 }

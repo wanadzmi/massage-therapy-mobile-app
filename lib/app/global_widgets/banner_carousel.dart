@@ -75,7 +75,7 @@ class _BannerCarouselState extends State<BannerCarousel> {
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
+                      color: Colors.black.withValues(alpha: 0.2),
                       blurRadius: 12,
                       offset: const Offset(0, 4),
                     ),
@@ -95,7 +95,7 @@ class _BannerCarouselState extends State<BannerCarousel> {
                           child: Center(
                             child: CircularProgressIndicator(
                               valueColor: AlwaysStoppedAnimation<Color>(
-                                const Color(0xFFD4AF37).withOpacity(0.5),
+                                const Color(0xFFD4AF37).withValues(alpha: 0.5),
                               ),
                               strokeWidth: 2,
                             ),
@@ -135,7 +135,7 @@ class _BannerCarouselState extends State<BannerCarousel> {
                             end: Alignment.bottomCenter,
                             colors: [
                               Colors.transparent,
-                              Colors.black.withOpacity(0.5),
+                              Colors.black.withValues(alpha: 0.5),
                             ],
                             stops: const [0.5, 1.0],
                           ),

@@ -451,7 +451,7 @@ class FindStoreView extends GetView<FindStoreController> {
                 end: Alignment.bottomRight,
                 colors: [
                   Colors.transparent,
-                  Colors.white.withOpacity(0.05),
+                  Colors.white.withValues(alpha: 0.05),
                   Colors.transparent,
                 ],
                 stops: const [0.0, 0.5, 1.0],
@@ -512,7 +512,9 @@ class FindStoreView extends GetView<FindStoreController> {
                                 vertical: 4,
                               ),
                               decoration: BoxDecoration(
-                                color: const Color(0xFF4CAF50).withOpacity(0.9),
+                                color: const Color(
+                                  0xFF4CAF50,
+                                ).withValues(alpha: 0.9),
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               child: Row(
@@ -543,7 +545,9 @@ class FindStoreView extends GetView<FindStoreController> {
                                 vertical: 4,
                               ),
                               decoration: BoxDecoration(
-                                color: const Color(0xFFD4AF37).withOpacity(0.9),
+                                color: const Color(
+                                  0xFFD4AF37,
+                                ).withValues(alpha: 0.9),
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               child: Text(
@@ -588,7 +592,9 @@ class FindStoreView extends GetView<FindStoreController> {
                             vertical: 4,
                           ),
                           decoration: BoxDecoration(
-                            color: const Color(0xFFD4AF37).withOpacity(0.15),
+                            color: const Color(
+                              0xFFD4AF37,
+                            ).withValues(alpha: 0.15),
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Row(

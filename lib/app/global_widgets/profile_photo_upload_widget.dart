@@ -70,10 +70,10 @@ class _ProfilePhotoUploadWidgetState extends State<ProfilePhotoUploadWidget> {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF4CAF50).withOpacity(0.1),
+                      color: const Color(0xFF4CAF50).withValues(alpha: 0.1),
                       shape: BoxShape.circle,
                       border: Border.all(
-                        color: const Color(0xFF4CAF50).withOpacity(0.3),
+                        color: const Color(0xFF4CAF50).withValues(alpha: 0.3),
                         width: 2,
                       ),
                     ),
@@ -129,7 +129,7 @@ class _ProfilePhotoUploadWidgetState extends State<ProfilePhotoUploadWidget> {
           'Error',
           response.error ?? 'Failed to upload photo',
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red.withOpacity(0.8),
+          backgroundColor: Colors.red.withValues(alpha: 0.8),
           colorText: Colors.white,
         );
       }
@@ -139,7 +139,7 @@ class _ProfilePhotoUploadWidgetState extends State<ProfilePhotoUploadWidget> {
         'Error',
         'An error occurred: $e',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.8),
+        backgroundColor: Colors.red.withValues(alpha: 0.8),
         colorText: Colors.white,
       );
     } finally {
@@ -189,7 +189,7 @@ class _ProfilePhotoUploadWidgetState extends State<ProfilePhotoUploadWidget> {
                 leading: Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF2196F3).withOpacity(0.1),
+                    color: const Color(0xFF2196F3).withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: const Icon(Icons.camera_alt, color: Color(0xFF2196F3)),
@@ -204,7 +204,7 @@ class _ProfilePhotoUploadWidgetState extends State<ProfilePhotoUploadWidget> {
                 leading: Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF4CAF50).withOpacity(0.1),
+                    color: const Color(0xFF4CAF50).withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: const Icon(
@@ -222,7 +222,7 @@ class _ProfilePhotoUploadWidgetState extends State<ProfilePhotoUploadWidget> {
                 leading: Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF808080).withOpacity(0.1),
+                    color: const Color(0xFF808080).withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: const Icon(Icons.close, color: Color(0xFF808080)),
@@ -276,7 +276,7 @@ class _ProfilePhotoUploadWidgetState extends State<ProfilePhotoUploadWidget> {
               child: Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.black.withOpacity(0.6),
+                  color: Colors.black.withValues(alpha: 0.6),
                 ),
                 child: const Center(
                   child: CircularProgressIndicator(

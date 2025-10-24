@@ -152,7 +152,7 @@ class NotificationView extends GetView<NotificationController> {
               value: controller.unreadOnly,
               onChanged: (_) => controller.toggleUnreadOnly(),
               activeColor: const Color(0xFFD4AF37),
-              activeTrackColor: const Color(0xFFD4AF37).withOpacity(0.3),
+              activeTrackColor: const Color(0xFFD4AF37).withValues(alpha: 0.3),
               inactiveThumbColor: const Color(0xFF404040),
               inactiveTrackColor: const Color(0xFF2A2A2A),
             ),

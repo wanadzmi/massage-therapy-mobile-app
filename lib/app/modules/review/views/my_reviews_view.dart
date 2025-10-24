@@ -135,10 +135,10 @@ class MyReviewsView extends GetView<ReviewController> {
                 width: 48,
                 height: 48,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFD4AF37).withOpacity(0.15),
+                  color: const Color(0xFFD4AF37).withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(24),
                   border: Border.all(
-                    color: const Color(0xFFD4AF37).withOpacity(0.3),
+                    color: const Color(0xFFD4AF37).withValues(alpha: 0.3),
                   ),
                 ),
                 child: const Icon(
@@ -272,7 +272,7 @@ class MyReviewsView extends GetView<ReviewController> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: _getStatusColor(review.status).withOpacity(0.15),
+                  color: _getStatusColor(review.status).withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: Text(
@@ -301,8 +301,8 @@ class MyReviewsView extends GetView<ReviewController> {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       decoration: BoxDecoration(
         color: isPositive
-            ? const Color(0xFF4CAF50).withOpacity(0.15)
-            : const Color(0xFFE53E3E).withOpacity(0.15),
+            ? const Color(0xFF4CAF50).withValues(alpha: 0.15)
+            : const Color(0xFFE53E3E).withValues(alpha: 0.15),
         borderRadius: BorderRadius.circular(6),
       ),
       child: Row(

@@ -5,7 +5,7 @@ import '../controllers/store_detail_controller.dart';
 import '../../../data/services/store_service.dart';
 
 class StoreDetailView extends GetView<StoreDetailController> {
-  const StoreDetailView({Key? key}) : super(key: key);
+  const StoreDetailView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +130,7 @@ class StoreDetailView extends GetView<StoreDetailController> {
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFD4AF37).withOpacity(0.15),
+                    color: const Color(0xFFD4AF37).withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Row(
@@ -672,7 +672,9 @@ class StoreDetailView extends GetView<StoreDetailController> {
                               vertical: 2,
                             ),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFD4AF37).withOpacity(0.2),
+                              color: const Color(
+                                0xFFD4AF37,
+                              ).withValues(alpha: 0.2),
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: Text(
@@ -767,10 +769,10 @@ class StoreDetailView extends GetView<StoreDetailController> {
                     vertical: 4,
                   ),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF4CAF50).withOpacity(0.15),
+                    color: const Color(0xFF4CAF50).withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(6),
                     border: Border.all(
-                      color: const Color(0xFF4CAF50).withOpacity(0.3),
+                      color: const Color(0xFF4CAF50).withValues(alpha: 0.3),
                     ),
                   ),
                   child: Row(
@@ -810,10 +812,10 @@ class StoreDetailView extends GetView<StoreDetailController> {
                     vertical: 4,
                   ),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFFF9800).withOpacity(0.15),
+                    color: const Color(0xFFFF9800).withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(6),
                     border: Border.all(
-                      color: const Color(0xFFFF9800).withOpacity(0.3),
+                      color: const Color(0xFFFF9800).withValues(alpha: 0.3),
                     ),
                   ),
                   child: Row(

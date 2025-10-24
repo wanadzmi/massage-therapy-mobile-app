@@ -7,7 +7,7 @@ import '../controllers/chat_create_controller.dart';
 import '../views/chat_create_view.dart';
 
 class ChatListView extends GetView<ChatListController> {
-  const ChatListView({Key? key}) : super(key: key);
+  const ChatListView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class ChatListView extends GetView<ChatListController> {
             icon: Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: const Color(0xFFD4AF37).withOpacity(0.15),
+                color: const Color(0xFFD4AF37).withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: const Icon(Icons.add, color: Color(0xFFD4AF37), size: 20),
@@ -144,7 +144,7 @@ class ChatListView extends GetView<ChatListController> {
           padding: const EdgeInsets.symmetric(vertical: 10),
           decoration: BoxDecoration(
             color: isSelected
-                ? const Color(0xFFD4AF37).withOpacity(0.15)
+                ? const Color(0xFFD4AF37).withValues(alpha: 0.15)
                 : const Color(0xFF1A1A1A),
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
@@ -202,10 +202,10 @@ class ChatListView extends GetView<ChatListController> {
               width: 48,
               height: 48,
               decoration: BoxDecoration(
-                color: const Color(0xFFD4AF37).withOpacity(0.15),
+                color: const Color(0xFFD4AF37).withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(24),
                 border: Border.all(
-                  color: const Color(0xFFD4AF37).withOpacity(0.3),
+                  color: const Color(0xFFD4AF37).withValues(alpha: 0.3),
                 ),
               ),
               child: Icon(
@@ -291,7 +291,7 @@ class ChatListView extends GetView<ChatListController> {
                         decoration: BoxDecoration(
                           color: controller
                               .getChatStatusColor(chat.status)
-                              .withOpacity(0.15),
+                              .withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: Text(

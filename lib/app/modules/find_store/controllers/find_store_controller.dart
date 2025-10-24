@@ -173,13 +173,6 @@ class FindStoreController extends GetxController {
       if (location != null) {
         _currentLocation.value = location;
         // Print coordinates for backend setup
-        print('📍 YOUR CURRENT LOCATION:');
-        print('Latitude: ${location['latitude']}');
-        print('Longitude: ${location['longitude']}');
-        print('');
-        print('💡 To set stores within 10km of your location:');
-        print('Use these coordinates in your backend when creating stores.');
-        print('');
       }
     } finally {
       _isLoadingLocation.value = false;

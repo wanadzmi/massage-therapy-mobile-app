@@ -50,10 +50,10 @@ class _CashCollectionDialogState extends State<CashCollectionDialog> {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF4CAF50).withOpacity(0.1),
+                      color: const Color(0xFF4CAF50).withValues(alpha: 0.1),
                       shape: BoxShape.circle,
                       border: Border.all(
-                        color: const Color(0xFF4CAF50).withOpacity(0.3),
+                        color: const Color(0xFF4CAF50).withValues(alpha: 0.3),
                         width: 2,
                       ),
                     ),
@@ -108,7 +108,7 @@ class _CashCollectionDialogState extends State<CashCollectionDialog> {
           'Error',
           response.error ?? 'Failed to mark cash as received',
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red.withOpacity(0.8),
+          backgroundColor: Colors.red.withValues(alpha: 0.8),
           colorText: Colors.white,
         );
       }
@@ -117,7 +117,7 @@ class _CashCollectionDialogState extends State<CashCollectionDialog> {
         'Error',
         'An error occurred: $e',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.8),
+        backgroundColor: Colors.red.withValues(alpha: 0.8),
         colorText: Colors.white,
       );
     } finally {
@@ -145,10 +145,10 @@ class _CashCollectionDialogState extends State<CashCollectionDialog> {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: const Color(0xFFFF9800).withOpacity(0.1),
+                color: const Color(0xFFFF9800).withValues(alpha: 0.1),
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: const Color(0xFFFF9800).withOpacity(0.3),
+                  color: const Color(0xFFFF9800).withValues(alpha: 0.3),
                   width: 2,
                 ),
               ),
@@ -181,7 +181,7 @@ class _CashCollectionDialogState extends State<CashCollectionDialog> {
                 color: const Color(0xFF2A2A2A),
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: const Color(0xFFFF9800).withOpacity(0.3),
+                  color: const Color(0xFFFF9800).withValues(alpha: 0.3),
                 ),
               ),
               child: Column(

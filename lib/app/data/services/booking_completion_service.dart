@@ -76,15 +76,11 @@ class BookingCompletionService extends BaseServices {
 
     if (response.isSuccess && response.data != null) {
       try {
-        print('📥 Raw response data: ${response.data}');
         final therapistResponse = TherapistBookingsResponse.fromJson(
           response.data as Map<String, dynamic>,
         );
-        print('✅ Parsed ${therapistResponse.bookings.length} bookings');
         return MyResponse.complete(therapistResponse);
-      } catch (e, stackTrace) {
-        print('❌ Failed to parse bookings: $e');
-        print('Stack trace: $stackTrace');
+      } catch (e) {
         return MyResponse.error('Failed to parse bookings: $e');
       }
     }

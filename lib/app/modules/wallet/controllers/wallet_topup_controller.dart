@@ -231,7 +231,7 @@ class WalletTopUpController extends GetxController {
                     width: 64,
                     height: 64,
                     decoration: BoxDecoration(
-                      color: Colors.green.withOpacity(0.1),
+                      color: Colors.green.withValues(alpha: 0.1),
                       shape: BoxShape.circle,
                     ),
                     child: const Icon(
@@ -388,7 +388,7 @@ class WalletTopUpController extends GetxController {
                   width: 64,
                   height: 64,
                   decoration: BoxDecoration(
-                    color: Colors.green.withOpacity(0.1),
+                    color: Colors.green.withValues(alpha: 0.1),
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(
@@ -424,9 +424,7 @@ class WalletTopUpController extends GetxController {
                       try {
                         final homeController = Get.find<HomeController>();
                         homeController.refresh();
-                      } catch (e) {
-                        print('⚠️ HomeController not found: $e');
-                      }
+                      } catch (e) {}
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,

@@ -169,7 +169,7 @@ class ProfileController extends GetxController {
         'Error',
         'Failed to load profile',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.8),
+        backgroundColor: Colors.red.withValues(alpha: 0.8),
         colorText: Colors.white,
       );
     } finally {
@@ -202,7 +202,7 @@ class ProfileController extends GetxController {
         'Error',
         'Failed to load profile data',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.8),
+        backgroundColor: Colors.red.withValues(alpha: 0.8),
         colorText: Colors.white,
       );
     }
@@ -285,7 +285,7 @@ class ProfileController extends GetxController {
           'Error',
           response.error ?? 'Failed to update profile',
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red.withOpacity(0.8),
+          backgroundColor: Colors.red.withValues(alpha: 0.8),
           colorText: Colors.white,
         );
       }
@@ -295,7 +295,7 @@ class ProfileController extends GetxController {
         'Error',
         'Failed to update profile',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.8),
+        backgroundColor: Colors.red.withValues(alpha: 0.8),
         colorText: Colors.white,
       );
     } finally {
@@ -363,7 +363,7 @@ class ProfileController extends GetxController {
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: isSelected
-              ? const Color(0xFFD4AF37).withOpacity(0.15)
+              ? const Color(0xFFD4AF37).withValues(alpha: 0.15)
               : const Color(0xFF0A0A0A),
           borderRadius: BorderRadius.circular(12),
           border: Border.all(

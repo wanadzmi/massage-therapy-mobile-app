@@ -22,7 +22,6 @@ class TierSubscriptionController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    print('🎯 TierSubscriptionController initialized');
     loadTiers();
   }
 
@@ -43,37 +42,30 @@ class TierSubscriptionController extends GetxController {
   /// Load all available tiers
   Future<void> loadTiers() async {
     try {
-      print('📊 Loading tiers...');
       _isLoading.value = true;
       final response = await _tierService.getAllTiers();
-      print('📥 Tiers response: success=${response.isSuccess}');
 
       if (response.isSuccess && response.data != null) {
         _tiers.value = response.data!.data?.tiers ?? [];
         _currentTier.value = response.data!.data?.currentTier;
         _currentBalance.value = response.data!.data?.currentBalance ?? 0.0;
-        print(
-          '✅ Loaded ${_tiers.length} tiers, current tier: $_currentTier, balance: $_currentBalance',
-        );
       } else {
-        print('❌ Failed to load tiers: ${response.error}');
         final l10n = AppLocalizations.of(Get.context!)!;
         Get.snackbar(
           l10n.error,
           response.error ?? l10n.failedToLoadTiers,
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red.withOpacity(0.8),
+          backgroundColor: Colors.red.withValues(alpha: 0.8),
           colorText: Colors.white,
         );
       }
     } catch (e) {
-      print('💥 Error loading tiers: $e');
       final l10n = AppLocalizations.of(Get.context!)!;
       Get.snackbar(
         l10n.error,
         '${l10n.anErrorOccurred}: $e',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.8),
+        backgroundColor: Colors.red.withValues(alpha: 0.8),
         colorText: Colors.white,
       );
     } finally {
@@ -94,7 +86,7 @@ class TierSubscriptionController extends GetxController {
         l10n.cannotSubscribe,
         tier.isCurrent ? l10n.alreadyMember(tier.name) : l10n.tierNotAvailable,
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.orange.withOpacity(0.8),
+        backgroundColor: Colors.orange.withValues(alpha: 0.8),
         colorText: Colors.white,
       );
       return;
@@ -125,7 +117,7 @@ class TierSubscriptionController extends GetxController {
         l10n.error,
         '${l10n.anErrorOccurred}: $e',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.8),
+        backgroundColor: Colors.red.withValues(alpha: 0.8),
         colorText: Colors.white,
       );
     } finally {
@@ -147,10 +139,10 @@ class TierSubscriptionController extends GetxController {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: Colors.red.withOpacity(0.1),
+                  color: Colors.red.withValues(alpha: 0.1),
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: Colors.red.withOpacity(0.3),
+                    color: Colors.red.withValues(alpha: 0.3),
                     width: 2,
                   ),
                 ),
@@ -219,7 +211,6 @@ class TierSubscriptionController extends GetxController {
 
                         // If top-up was successful, refresh the tiers data
                         if (result != null && result['success'] == true) {
-                          print('💰 Top-up successful, refreshing tiers...');
                           await loadTiers();
                           _refreshOtherControllers();
                         }
@@ -258,10 +249,10 @@ class TierSubscriptionController extends GetxController {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: const Color(0xFFD4AF37).withOpacity(0.1),
+                color: const Color(0xFFD4AF37).withValues(alpha: 0.1),
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: const Color(0xFFD4AF37).withOpacity(0.3),
+                  color: const Color(0xFFD4AF37).withValues(alpha: 0.3),
                   width: 2,
                 ),
               ),
@@ -355,10 +346,10 @@ class TierSubscriptionController extends GetxController {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF4CAF50).withOpacity(0.1),
+                  color: const Color(0xFF4CAF50).withValues(alpha: 0.1),
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: const Color(0xFF4CAF50).withOpacity(0.3),
+                    color: const Color(0xFF4CAF50).withValues(alpha: 0.3),
                     width: 2,
                   ),
                 ),
@@ -448,7 +439,7 @@ class TierSubscriptionController extends GetxController {
       l10n.subscriptionFailed,
       message,
       snackPosition: SnackPosition.BOTTOM,
-      backgroundColor: Colors.red.withOpacity(0.8),
+      backgroundColor: Colors.red.withValues(alpha: 0.8),
       colorText: Colors.white,
       duration: const Duration(seconds: 3),
     );
@@ -465,27 +456,17 @@ class TierSubscriptionController extends GetxController {
 
   /// Refresh other controllers after balance/tier changes
   void _refreshOtherControllers() {
-    print('🔄 Refreshing other controllers...');
-
     // Refresh profile controller
     try {
       final profileController = Get.find<ProfileController>();
       profileController.refresh();
-      print('   ✅ Profile controller refreshed');
-    } catch (e) {
-      print('   ⚠️ Profile controller not found: $e');
-    }
+    } catch (e) {}
 
     // Refresh home controller
     try {
       final homeController = Get.find<HomeController>();
       homeController.refresh();
-      print('   ✅ Home controller refreshed');
-    } catch (e) {
-      print('   ⚠️ Home controller not found: $e');
-    }
-
-    print('🔄 Refresh complete');
+    } catch (e) {}
   }
 
   /// Navigate to current tier details

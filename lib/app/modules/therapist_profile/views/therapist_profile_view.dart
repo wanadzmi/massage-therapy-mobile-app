@@ -99,7 +99,7 @@ class TherapistProfileView extends GetView<TherapistProfileController> {
                     child: Container(
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.black.withOpacity(0.6),
+                        color: Colors.black.withValues(alpha: 0.6),
                       ),
                       child: const Center(
                         child: CircularProgressIndicator(
@@ -228,7 +228,7 @@ class TherapistProfileView extends GetView<TherapistProfileController> {
         Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: const Color(0xFFD4AF37).withOpacity(0.1),
+            color: const Color(0xFFD4AF37).withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Icon(icon, color: const Color(0xFFD4AF37), size: 20),

@@ -5,7 +5,7 @@ import '../../../../l10n/app_localizations.dart';
 import '../controllers/transaction_history_controller.dart';
 
 class TransactionHistoryView extends GetView<TransactionHistoryController> {
-  const TransactionHistoryView({Key? key}) : super(key: key);
+  const TransactionHistoryView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -163,7 +163,7 @@ class TransactionHistoryView extends GetView<TransactionHistoryController> {
       selected: isSelected,
       onSelected: (_) => controller.filterByType(value),
       backgroundColor: const Color(0xFF1A1A1A),
-      selectedColor: const Color(0xFFD4AF37).withOpacity(0.2),
+      selectedColor: const Color(0xFFD4AF37).withValues(alpha: 0.2),
       labelStyle: TextStyle(
         color: isSelected ? const Color(0xFFD4AF37) : const Color(0xFF808080),
         fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
@@ -203,7 +203,7 @@ class TransactionHistoryView extends GetView<TransactionHistoryController> {
                         (isCredit
                                 ? const Color(0xFF4CAF50)
                                 : const Color(0xFFFF5252))
-                            .withOpacity(0.15),
+                            .withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Center(
@@ -296,7 +296,7 @@ class TransactionHistoryView extends GetView<TransactionHistoryController> {
                       decoration: BoxDecoration(
                         color: _getStatusColor(
                           transaction.status,
-                        ).withOpacity(0.15),
+                        ).withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: Text(

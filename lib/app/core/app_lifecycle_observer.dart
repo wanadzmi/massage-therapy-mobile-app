@@ -16,17 +16,12 @@ class AppLifecycleObserver extends WidgetsBindingObserver {
   }
 
   void _onAppResumed() {
-    print('🔄 App resumed - refreshing notifications...');
-
     try {
       // Check if NotificationController exists and update it
       if (Get.isRegistered<NotificationController>()) {
         final notificationController = Get.find<NotificationController>();
         notificationController.updateUnreadCount();
-        print('✅ Notifications refreshed');
       }
-    } catch (e) {
-      print('⚠️ Failed to refresh notifications: $e');
-    }
+    } catch (e) {}
   }
 }

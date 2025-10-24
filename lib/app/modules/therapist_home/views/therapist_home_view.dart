@@ -119,7 +119,7 @@ class TherapistHomeView extends GetView<TherapistHomeController> {
         Icon(
           Icons.event_available,
           size: 80,
-          color: Colors.white.withOpacity(0.1),
+          color: Colors.white.withValues(alpha: 0.1),
         ),
         const SizedBox(height: 24),
         const Text(
@@ -189,10 +189,14 @@ class TherapistHomeView extends GetView<TherapistHomeController> {
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                    color: _getStatusColor(booking.status).withOpacity(0.15),
+                    color: _getStatusColor(
+                      booking.status,
+                    ).withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
-                      color: _getStatusColor(booking.status).withOpacity(0.3),
+                      color: _getStatusColor(
+                        booking.status,
+                      ).withValues(alpha: 0.3),
                     ),
                   ),
                   child: Row(
@@ -255,12 +259,12 @@ class TherapistHomeView extends GetView<TherapistHomeController> {
                       decoration: BoxDecoration(
                         color: _getTierColor(
                           booking.userMemberTier!,
-                        ).withOpacity(0.1),
+                        ).withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(6),
                         border: Border.all(
                           color: _getTierColor(
                             booking.userMemberTier!,
-                          ).withOpacity(0.3),
+                          ).withValues(alpha: 0.3),
                         ),
                       ),
                       child: Row(
@@ -319,10 +323,10 @@ class TherapistHomeView extends GetView<TherapistHomeController> {
                         vertical: 2,
                       ),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF4CAF50).withOpacity(0.1),
+                        color: const Color(0xFF4CAF50).withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(4),
                         border: Border.all(
-                          color: const Color(0xFF4CAF50).withOpacity(0.3),
+                          color: const Color(0xFF4CAF50).withValues(alpha: 0.3),
                         ),
                       ),
                       child: const Text(
@@ -345,10 +349,10 @@ class TherapistHomeView extends GetView<TherapistHomeController> {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF2196F3).withOpacity(0.1),
+                  color: const Color(0xFF2196F3).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                    color: const Color(0xFF2196F3).withOpacity(0.3),
+                    color: const Color(0xFF2196F3).withValues(alpha: 0.3),
                   ),
                 ),
                 child: Column(
@@ -396,10 +400,10 @@ class TherapistHomeView extends GetView<TherapistHomeController> {
                   return Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFD4AF37).withOpacity(0.1),
+                      color: const Color(0xFFD4AF37).withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(
-                        color: const Color(0xFFD4AF37).withOpacity(0.3),
+                        color: const Color(0xFFD4AF37).withValues(alpha: 0.3),
                       ),
                     ),
                     child: Column(
@@ -458,10 +462,14 @@ class TherapistHomeView extends GetView<TherapistHomeController> {
                             margin: const EdgeInsets.only(top: 4),
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFFF9800).withOpacity(0.15),
+                              color: const Color(
+                                0xFFFF9800,
+                              ).withValues(alpha: 0.15),
                               borderRadius: BorderRadius.circular(6),
                               border: Border.all(
-                                color: const Color(0xFFFF9800).withOpacity(0.4),
+                                color: const Color(
+                                  0xFFFF9800,
+                                ).withValues(alpha: 0.4),
                               ),
                             ),
                             child: Column(

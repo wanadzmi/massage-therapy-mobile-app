@@ -93,7 +93,7 @@ class TherapistBookingDetailView
           Icon(
             Icons.error_outline,
             size: 64,
-            color: Colors.white.withOpacity(0.3),
+            color: Colors.white.withValues(alpha: 0.3),
           ),
           const SizedBox(height: 16),
           const Text(
@@ -145,10 +145,14 @@ class TherapistBookingDetailView
                   vertical: 6,
                 ),
                 decoration: BoxDecoration(
-                  color: _getStatusColor(booking.status).withOpacity(0.15),
+                  color: _getStatusColor(
+                    booking.status,
+                  ).withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                    color: _getStatusColor(booking.status).withOpacity(0.3),
+                    color: _getStatusColor(
+                      booking.status,
+                    ).withValues(alpha: 0.3),
                   ),
                 ),
                 child: Text(
@@ -247,9 +251,9 @@ class TherapistBookingDetailView
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: color.withOpacity(0.3)),
+        border: Border.all(color: color.withValues(alpha: 0.3)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -288,7 +292,7 @@ class TherapistBookingDetailView
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFD4AF37).withOpacity(0.1),
+                  color: const Color(0xFFD4AF37).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: const Icon(
@@ -317,12 +321,12 @@ class TherapistBookingDetailView
                   decoration: BoxDecoration(
                     color: _getTierColor(
                       booking.userMemberTier!,
-                    ).withOpacity(0.1),
+                    ).withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
                       color: _getTierColor(
                         booking.userMemberTier!,
-                      ).withOpacity(0.3),
+                      ).withValues(alpha: 0.3),
                     ),
                   ),
                   child: Row(
@@ -406,7 +410,7 @@ class TherapistBookingDetailView
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF9C27B0).withOpacity(0.1),
+                  color: const Color(0xFF9C27B0).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: const Icon(
@@ -475,7 +479,7 @@ class TherapistBookingDetailView
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF4CAF50).withOpacity(0.1),
+                  color: const Color(0xFF4CAF50).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: const Icon(
@@ -531,10 +535,10 @@ class TherapistBookingDetailView
                       vertical: 4,
                     ),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF4CAF50).withOpacity(0.1),
+                      color: const Color(0xFF4CAF50).withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(6),
                       border: Border.all(
-                        color: const Color(0xFF4CAF50).withOpacity(0.3),
+                        color: const Color(0xFF4CAF50).withValues(alpha: 0.3),
                       ),
                     ),
                     child: const Text(
@@ -615,7 +619,7 @@ class TherapistBookingDetailView
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFD4AF37).withOpacity(0.1),
+                  color: const Color(0xFFD4AF37).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: const Icon(
@@ -672,10 +676,10 @@ class TherapistBookingDetailView
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: const Color(0xFFFF9800).withOpacity(0.1),
+                color: const Color(0xFFFF9800).withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                  color: const Color(0xFFFF9800).withOpacity(0.3),
+                  color: const Color(0xFFFF9800).withValues(alpha: 0.3),
                 ),
               ),
               child: Column(
@@ -789,7 +793,7 @@ class TherapistBookingDetailView
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF2196F3).withOpacity(0.1),
+                  color: const Color(0xFF2196F3).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: const Icon(

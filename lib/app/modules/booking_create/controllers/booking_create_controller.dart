@@ -66,13 +66,6 @@ class BookingCreateController extends GetxController {
       therapistGender = args['therapistGender'] as String?;
     }
 
-    print('📋 Booking Create - Received:');
-    print('   Date: $selectedDate');
-    print('   Time: $selectedTime');
-    print('   Therapist: $therapistName ($therapistId)');
-    print('   Gender: $therapistGender');
-    print('   Service: ${service?.name}');
-
     // Load wallet balance
     _loadWalletBalance();
   }
@@ -82,7 +75,6 @@ class BookingCreateController extends GetxController {
       final homeController = Get.find<HomeController>();
       _walletBalance.value = homeController.walletBalance;
     } catch (e) {
-      print('⚠️ Could not load wallet balance: $e');
       _walletBalance.value = 0.0;
     }
   }
@@ -254,9 +246,7 @@ class BookingCreateController extends GetxController {
                         final navController =
                             Get.find<MainNavigationController>();
                         navController.changePage(1);
-                      } catch (e) {
-                        print('⚠️ Could not switch to bookings tab: $e');
-                      }
+                      } catch (e) {}
                     });
                   },
                   style: ElevatedButton.styleFrom(
@@ -314,13 +304,6 @@ class BookingCreateController extends GetxController {
         paymentMethod.isEmpty) {
       final l10n = AppLocalizations.of(Get.context!)!;
 
-      print('❌ Missing booking information:');
-      print('   service: ${service != null ? "✓" : "✗"}');
-      print('   selectedDate: ${selectedDate != null ? "✓" : "✗"}');
-      print('   selectedTime: ${selectedTime != null ? "✓" : "✗"}');
-      print('   therapistId: ${therapistId != null ? "✓" : "✗"}');
-      print('   paymentMethod: ${paymentMethod.isNotEmpty ? "✓" : "✗"}');
-
       Get.snackbar(
         l10n.error,
         l10n.missingBookingInfo,
@@ -353,13 +336,6 @@ class BookingCreateController extends GetxController {
       preferences['focus'] = _focusAreas.toList();
     }
 
-    print('🎯 Creating booking with:');
-    print('   therapistId: $therapistId');
-    print('   serviceId: ${service!.id}');
-    print('   date: $selectedDate');
-    print('   startTime: $selectedTime');
-    print('   preferences: $preferences');
-
     final response = await _bookingService.createBooking(
       therapistId: therapistId!,
       serviceId: service!.id!,
@@ -374,11 +350,8 @@ class BookingCreateController extends GetxController {
     _isLoading.value = false;
 
     if (response.isSuccess && response.data != null) {
-      print('✅ Booking created successfully: ${response.data!.id}');
-
       _showBookingSuccessDialog();
     } else {
-      print('❌ Booking failed: ${response.error}');
       _showBookingErrorDialog(response.error);
     }
   }

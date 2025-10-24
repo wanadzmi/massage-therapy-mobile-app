@@ -64,10 +64,10 @@ class OTPVerificationView extends GetView<OTPVerificationController> {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: const Color(0xFFD4AF37).withOpacity(0.1),
+        color: const Color(0xFFD4AF37).withValues(alpha: 0.1),
         shape: BoxShape.circle,
         border: Border.all(
-          color: const Color(0xFFD4AF37).withOpacity(0.3),
+          color: const Color(0xFFD4AF37).withValues(alpha: 0.3),
           width: 2,
         ),
       ),
