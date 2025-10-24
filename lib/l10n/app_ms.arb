@@ -1217,5 +1217,78 @@
     "quickMenu": "Menu Pantas",
     "@quickMenu": {
         "description": "Quick menu section title"
+    },
+    "totalCredits": "Jumlah Kredit",
+    "@totalCredits": {
+        "description": "Total credits label in transaction summary"
+    },
+    "totalDebits": "Jumlah Debit",
+    "@totalDebits": {
+        "description": "Total debits label in transaction summary"
+    },
+    "transactionsCount": "{count} transaksi",
+    "@transactionsCount": {
+        "description": "Number of transactions count",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "payment": "Bayaran",
+    "@payment": {
+        "description": "Payment label"
+    },
+    "type": "Jenis",
+    "@type": {
+        "description": "Type label"
+    },
+    "category": "Kategori",
+    "@category": {
+        "description": "Category label"
+    },
+    "amount": "Jumlah",
+    "@amount": {
+        "description": "Amount label"
+    },
+    "status": "Status",
+    "@status": {
+        "description": "Status label"
+    },
+    "close": "Tutup",
+    "@close": {
+        "description": "Close button text"
+    },
+    "noTransactionsYetHistory": "Tiada Transaksi Lagi",
+    "@noTransactionsYetHistory": {
+        "description": "Empty state title for transaction history"
+    },
+    "transactionHistoryWillAppearHere": "Sejarah transaksi anda akan dipaparkan di sini",
+    "@transactionHistoryWillAppearHere": {
+        "description": "Empty state message for transaction history"
+    },
+    "transactionDetails": "Butiran Transaksi",
+    "@transactionDetails": {
+        "description": "Transaction details bottom sheet title"
+    },
+    "balanceBefore": "Baki Sebelum",
+    "@balanceBefore": {
+        "description": "Balance before transaction label"
+    },
+    "balanceAfter": "Baki Selepas",
+    "@balanceAfter": {
+        "description": "Balance after transaction label"
+    },
+    "gatewayId": "ID Gateway",
+    "@gatewayId": {
+        "description": "Payment gateway ID label"
+    },
+    "failedToLoadTransactions": "Gagal memuatkan transaksi",
+    "@failedToLoadTransactions": {
+        "description": "Error message when transactions fail to load"
+    },
+    "failedToLoadTransactionHistory": "Gagal memuatkan sejarah transaksi",
+    "@failedToLoadTransactionHistory": {
+        "description": "Error message when transaction history fails to load"
     }
 }

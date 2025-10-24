@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import '../../../data/models/transaction_model.dart';
 import '../../../data/services/transaction_service.dart';
+import '../../../../l10n/app_localizations.dart';
 
 class TransactionHistoryController extends GetxController {
   final TransactionService _transactionService = TransactionService();
@@ -44,19 +45,27 @@ class TransactionHistoryController extends GetxController {
         _pagination.value =
             response.data!['pagination'] as TransactionPagination;
       } else {
-        Get.snackbar(
-          'Error',
-          response.error?.toString() ?? 'Failed to load transactions',
-          snackPosition: SnackPosition.BOTTOM,
-        );
+        final context = Get.context;
+        if (context != null) {
+          final l10n = AppLocalizations.of(context)!;
+          Get.snackbar(
+            l10n.error,
+            response.error?.toString() ?? l10n.failedToLoadTransactions,
+            snackPosition: SnackPosition.BOTTOM,
+          );
+        }
       }
     } catch (e) {
       print('❌ Error loading transactions: $e');
-      Get.snackbar(
-        'Error',
-        'Failed to load transaction history',
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      final context = Get.context;
+      if (context != null) {
+        final l10n = AppLocalizations.of(context)!;
+        Get.snackbar(
+          l10n.error,
+          l10n.failedToLoadTransactionHistory,
+          snackPosition: SnackPosition.BOTTOM,
+        );
+      }
     } finally {
       _isLoading.value = false;
     }

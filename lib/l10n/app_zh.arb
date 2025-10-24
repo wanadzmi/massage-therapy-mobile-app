@@ -1217,5 +1217,78 @@
     "quickMenu": "快捷菜单",
     "@quickMenu": {
         "description": "Quick menu section title"
+    },
+    "totalCredits": "总收入",
+    "@totalCredits": {
+        "description": "Total credits label in transaction summary"
+    },
+    "totalDebits": "总支出",
+    "@totalDebits": {
+        "description": "Total debits label in transaction summary"
+    },
+    "transactionsCount": "{count} 笔交易",
+    "@transactionsCount": {
+        "description": "Number of transactions count",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "payment": "付款",
+    "@payment": {
+        "description": "Payment label"
+    },
+    "type": "类型",
+    "@type": {
+        "description": "Type label"
+    },
+    "category": "分类",
+    "@category": {
+        "description": "Category label"
+    },
+    "amount": "金额",
+    "@amount": {
+        "description": "Amount label"
+    },
+    "status": "状态",
+    "@status": {
+        "description": "Status label"
+    },
+    "close": "关闭",
+    "@close": {
+        "description": "Close button text"
+    },
+    "noTransactionsYetHistory": "暂无交易记录",
+    "@noTransactionsYetHistory": {
+        "description": "Empty state title for transaction history"
+    },
+    "transactionHistoryWillAppearHere": "您的交易记录将显示在这里",
+    "@transactionHistoryWillAppearHere": {
+        "description": "Empty state message for transaction history"
+    },
+    "transactionDetails": "交易详情",
+    "@transactionDetails": {
+        "description": "Transaction details bottom sheet title"
+    },
+    "balanceBefore": "交易前余额",
+    "@balanceBefore": {
+        "description": "Balance before transaction label"
+    },
+    "balanceAfter": "交易后余额",
+    "@balanceAfter": {
+        "description": "Balance after transaction label"
+    },
+    "gatewayId": "网关编号",
+    "@gatewayId": {
+        "description": "Payment gateway ID label"
+    },
+    "failedToLoadTransactions": "加载交易失败",
+    "@failedToLoadTransactions": {
+        "description": "Error message when transactions fail to load"
+    },
+    "failedToLoadTransactionHistory": "加载交易记录失败",
+    "@failedToLoadTransactionHistory": {
+        "description": "Error message when transaction history fails to load"
     }
 }

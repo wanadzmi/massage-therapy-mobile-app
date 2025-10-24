@@ -903,4 +903,59 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get quickMenu => 'Quick Menu';
+
+  @override
+  String get totalCredits => 'Total Credits';
+
+  @override
+  String get totalDebits => 'Total Debits';
+
+  @override
+  String transactionsCount(int count) {
+    return '$count transactions';
+  }
+
+  @override
+  String get payment => 'Payment';
+
+  @override
+  String get type => 'Type';
+
+  @override
+  String get category => 'Category';
+
+  @override
+  String get amount => 'Amount';
+
+  @override
+  String get status => 'Status';
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String get noTransactionsYetHistory => 'No Transactions Yet';
+
+  @override
+  String get transactionHistoryWillAppearHere =>
+      'Your transaction history will appear here';
+
+  @override
+  String get transactionDetails => 'Transaction Details';
+
+  @override
+  String get balanceBefore => 'Balance Before';
+
+  @override
+  String get balanceAfter => 'Balance After';
+
+  @override
+  String get gatewayId => 'Gateway ID';
+
+  @override
+  String get failedToLoadTransactions => 'Failed to load transactions';
+
+  @override
+  String get failedToLoadTransactionHistory =>
+      'Failed to load transaction history';
 }

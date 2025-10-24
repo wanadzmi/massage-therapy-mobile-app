@@ -888,4 +888,57 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get quickMenu => '快捷菜单';
+
+  @override
+  String get totalCredits => '总收入';
+
+  @override
+  String get totalDebits => '总支出';
+
+  @override
+  String transactionsCount(int count) {
+    return '$count 笔交易';
+  }
+
+  @override
+  String get payment => '付款';
+
+  @override
+  String get type => '类型';
+
+  @override
+  String get category => '分类';
+
+  @override
+  String get amount => '金额';
+
+  @override
+  String get status => '状态';
+
+  @override
+  String get close => '关闭';
+
+  @override
+  String get noTransactionsYetHistory => '暂无交易记录';
+
+  @override
+  String get transactionHistoryWillAppearHere => '您的交易记录将显示在这里';
+
+  @override
+  String get transactionDetails => '交易详情';
+
+  @override
+  String get balanceBefore => '交易前余额';
+
+  @override
+  String get balanceAfter => '交易后余额';
+
+  @override
+  String get gatewayId => '网关编号';
+
+  @override
+  String get failedToLoadTransactions => '加载交易失败';
+
+  @override
+  String get failedToLoadTransactionHistory => '加载交易记录失败';
 }

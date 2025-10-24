@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../controllers/transaction_history_controller.dart';
 
 class TransactionHistoryView extends GetView<TransactionHistoryController> {
@@ -17,9 +18,9 @@ class TransactionHistoryView extends GetView<TransactionHistoryController> {
           icon: const Icon(Icons.arrow_back, color: Color(0xFFD4AF37)),
           onPressed: () => Get.back(),
         ),
-        title: const Text(
-          'Transaction History',
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context)!.transactionHistory,
+          style: const TextStyle(
             color: Color(0xFFE0E0E0),
             fontSize: 18,
             fontWeight: FontWeight.w600,
@@ -37,15 +38,15 @@ class TransactionHistoryView extends GetView<TransactionHistoryController> {
         return Column(
           children: [
             // Summary Card
-            if (controller.summary != null) _buildSummaryCard(),
+            if (controller.summary != null) _buildSummaryCard(context),
 
             // Filter Chips
-            _buildFilterChips(),
+            _buildFilterChips(context),
 
             // Transaction List
             Expanded(
               child: controller.transactions.isEmpty
-                  ? _buildEmptyState()
+                  ? _buildEmptyState(context)
                   : RefreshIndicator(
                       color: const Color(0xFFD4AF37),
                       backgroundColor: const Color(0xFF1A1A1A),
@@ -55,7 +56,7 @@ class TransactionHistoryView extends GetView<TransactionHistoryController> {
                         itemCount: controller.transactions.length,
                         itemBuilder: (context, index) {
                           final transaction = controller.transactions[index];
-                          return _buildTransactionCard(transaction);
+                          return _buildTransactionCard(context, transaction);
                         },
                       ),
                     ),
@@ -66,8 +67,9 @@ class TransactionHistoryView extends GetView<TransactionHistoryController> {
     );
   }
 
-  Widget _buildSummaryCard() {
+  Widget _buildSummaryCard(BuildContext context) {
     final summary = controller.summary!;
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.all(20),
@@ -82,19 +84,19 @@ class TransactionHistoryView extends GetView<TransactionHistoryController> {
             children: [
               Expanded(
                 child: _buildSummaryItem(
-                  'Total Credits',
+                  l10n.totalCredits,
                   '+RM${summary.totalCredits.toStringAsFixed(2)}',
                   const Color(0xFF4CAF50),
-                  '${summary.creditCount} transactions',
+                  l10n.transactionsCount(summary.creditCount),
                 ),
               ),
               Container(width: 1, height: 40, color: const Color(0xFF2A2A2A)),
               Expanded(
                 child: _buildSummaryItem(
-                  'Total Debits',
+                  l10n.totalDebits,
                   '-RM${summary.totalDebits.toStringAsFixed(2)}',
                   const Color(0xFFFF5252),
-                  '${summary.debitCount} transactions',
+                  l10n.transactionsCount(summary.debitCount),
                 ),
               ),
             ],
@@ -134,20 +136,21 @@ class TransactionHistoryView extends GetView<TransactionHistoryController> {
     );
   }
 
-  Widget _buildFilterChips() {
+  Widget _buildFilterChips(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       height: 50,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
-          Obx(() => _buildFilterChip('All', 'all')),
+          Obx(() => _buildFilterChip(l10n.all, 'all')),
           const SizedBox(width: 8),
-          Obx(() => _buildFilterChip('Top Up', 'top_up')),
+          Obx(() => _buildFilterChip(l10n.topUp, 'top_up')),
           const SizedBox(width: 8),
-          Obx(() => _buildFilterChip('Payment', 'payment')),
+          Obx(() => _buildFilterChip(l10n.payment, 'payment')),
           const SizedBox(width: 8),
-          Obx(() => _buildFilterChip('Cashback', 'cashback')),
+          Obx(() => _buildFilterChip(l10n.cashback, 'cashback')),
         ],
       ),
     );
@@ -171,7 +174,7 @@ class TransactionHistoryView extends GetView<TransactionHistoryController> {
     );
   }
 
-  Widget _buildTransactionCard(transaction) {
+  Widget _buildTransactionCard(BuildContext context, transaction) {
     final isCredit = transaction.direction == 'credit';
     final dateFormat = DateFormat('MMM dd, yyyy • HH:mm');
 
@@ -186,7 +189,7 @@ class TransactionHistoryView extends GetView<TransactionHistoryController> {
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
-          onTap: () => _showTransactionDetails(transaction),
+          onTap: () => _showTransactionDetails(context, transaction),
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Row(
@@ -315,7 +318,8 @@ class TransactionHistoryView extends GetView<TransactionHistoryController> {
     );
   }
 
-  Widget _buildEmptyState() {
+  Widget _buildEmptyState(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -335,18 +339,18 @@ class TransactionHistoryView extends GetView<TransactionHistoryController> {
             ),
           ),
           const SizedBox(height: 24),
-          const Text(
-            'No Transactions Yet',
-            style: TextStyle(
+          Text(
+            l10n.noTransactionsYetHistory,
+            style: const TextStyle(
               color: Color(0xFFE0E0E0),
               fontSize: 18,
               fontWeight: FontWeight.w600,
             ),
           ),
           const SizedBox(height: 8),
-          const Text(
-            'Your transaction history will appear here',
-            style: TextStyle(color: Color(0xFF808080), fontSize: 14),
+          Text(
+            l10n.transactionHistoryWillAppearHere,
+            style: const TextStyle(color: Color(0xFF808080), fontSize: 14),
             textAlign: TextAlign.center,
           ),
         ],
@@ -367,7 +371,8 @@ class TransactionHistoryView extends GetView<TransactionHistoryController> {
     }
   }
 
-  void _showTransactionDetails(transaction) {
+  void _showTransactionDetails(BuildContext context, transaction) {
+    final l10n = AppLocalizations.of(context)!;
     Get.bottomSheet(
       Container(
         decoration: const BoxDecoration(
@@ -391,42 +396,45 @@ class TransactionHistoryView extends GetView<TransactionHistoryController> {
                 ),
               ),
               const SizedBox(height: 24),
-              const Text(
-                'Transaction Details',
-                style: TextStyle(
+              Text(
+                l10n.transactionDetails,
+                style: const TextStyle(
                   color: Color(0xFFE0E0E0),
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
                 ),
               ),
               const SizedBox(height: 24),
-              _buildDetailRow('Transaction ID', transaction.transactionId),
-              _buildDetailRow('Type', transaction.type.toUpperCase()),
-              _buildDetailRow('Category', transaction.category.toUpperCase()),
-              _buildDetailRow('Amount', transaction.formattedAmount),
-              _buildDetailRow('Status', transaction.status.toUpperCase()),
+              _buildDetailRow(l10n.transactionId, transaction.transactionId),
+              _buildDetailRow(l10n.type, transaction.type.toUpperCase()),
               _buildDetailRow(
-                'Balance Before',
+                l10n.category,
+                transaction.category.toUpperCase(),
+              ),
+              _buildDetailRow(l10n.amount, transaction.formattedAmount),
+              _buildDetailRow(l10n.status, transaction.status.toUpperCase()),
+              _buildDetailRow(
+                l10n.balanceBefore,
                 'RM${transaction.balanceBefore.toStringAsFixed(2)}',
               ),
               _buildDetailRow(
-                'Balance After',
+                l10n.balanceAfter,
                 'RM${transaction.balanceAfter.toStringAsFixed(2)}',
               ),
               _buildDetailRow(
-                'Date',
+                l10n.date,
                 DateFormat(
                   'MMM dd, yyyy HH:mm:ss',
                 ).format(transaction.createdAt),
               ),
               if (transaction.topUp?.gatewayTransactionId != null)
                 _buildDetailRow(
-                  'Gateway ID',
+                  l10n.gatewayId,
                   transaction.topUp!.gatewayTransactionId!,
                 ),
               if (transaction.relatedPayment?.gateway?.transactionId != null)
                 _buildDetailRow(
-                  'Gateway ID',
+                  l10n.gatewayId,
                   transaction.relatedPayment!.gateway!.transactionId,
                 ),
               const SizedBox(height: 24),
@@ -442,9 +450,12 @@ class TransactionHistoryView extends GetView<TransactionHistoryController> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  child: const Text(
-                    'Close',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                  child: Text(
+                    l10n.close,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ),

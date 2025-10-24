@@ -903,4 +903,59 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get quickMenu => 'Menu Pantas';
+
+  @override
+  String get totalCredits => 'Jumlah Kredit';
+
+  @override
+  String get totalDebits => 'Jumlah Debit';
+
+  @override
+  String transactionsCount(int count) {
+    return '$count transaksi';
+  }
+
+  @override
+  String get payment => 'Bayaran';
+
+  @override
+  String get type => 'Jenis';
+
+  @override
+  String get category => 'Kategori';
+
+  @override
+  String get amount => 'Jumlah';
+
+  @override
+  String get status => 'Status';
+
+  @override
+  String get close => 'Tutup';
+
+  @override
+  String get noTransactionsYetHistory => 'Tiada Transaksi Lagi';
+
+  @override
+  String get transactionHistoryWillAppearHere =>
+      'Sejarah transaksi anda akan dipaparkan di sini';
+
+  @override
+  String get transactionDetails => 'Butiran Transaksi';
+
+  @override
+  String get balanceBefore => 'Baki Sebelum';
+
+  @override
+  String get balanceAfter => 'Baki Selepas';
+
+  @override
+  String get gatewayId => 'ID Gateway';
+
+  @override
+  String get failedToLoadTransactions => 'Gagal memuatkan transaksi';
+
+  @override
+  String get failedToLoadTransactionHistory =>
+      'Gagal memuatkan sejarah transaksi';
 }

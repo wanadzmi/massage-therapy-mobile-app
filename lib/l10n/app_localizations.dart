@@ -1803,6 +1803,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Quick Menu'**
   String get quickMenu;
+
+  /// Total credits label in transaction summary
+  ///
+  /// In en, this message translates to:
+  /// **'Total Credits'**
+  String get totalCredits;
+
+  /// Total debits label in transaction summary
+  ///
+  /// In en, this message translates to:
+  /// **'Total Debits'**
+  String get totalDebits;
+
+  /// Number of transactions count
+  ///
+  /// In en, this message translates to:
+  /// **'{count} transactions'**
+  String transactionsCount(int count);
+
+  /// Payment label
+  ///
+  /// In en, this message translates to:
+  /// **'Payment'**
+  String get payment;
+
+  /// Type label
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get type;
+
+  /// Category label
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get category;
+
+  /// Amount label
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get amount;
+
+  /// Status label
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get status;
+
+  /// Close button text
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
+
+  /// Empty state title for transaction history
+  ///
+  /// In en, this message translates to:
+  /// **'No Transactions Yet'**
+  String get noTransactionsYetHistory;
+
+  /// Empty state message for transaction history
+  ///
+  /// In en, this message translates to:
+  /// **'Your transaction history will appear here'**
+  String get transactionHistoryWillAppearHere;
+
+  /// Transaction details bottom sheet title
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction Details'**
+  String get transactionDetails;
+
+  /// Balance before transaction label
+  ///
+  /// In en, this message translates to:
+  /// **'Balance Before'**
+  String get balanceBefore;
+
+  /// Balance after transaction label
+  ///
+  /// In en, this message translates to:
+  /// **'Balance After'**
+  String get balanceAfter;
+
+  /// Payment gateway ID label
+  ///
+  /// In en, this message translates to:
+  /// **'Gateway ID'**
+  String get gatewayId;
+
+  /// Error message when transactions fail to load
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load transactions'**
+  String get failedToLoadTransactions;
+
+  /// Error message when transaction history fails to load
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load transaction history'**
+  String get failedToLoadTransactionHistory;
 }
 
 class _AppLocalizationsDelegate

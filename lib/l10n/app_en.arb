@@ -1217,5 +1217,78 @@
     "quickMenu": "Quick Menu",
     "@quickMenu": {
         "description": "Quick menu section title"
+    },
+    "totalCredits": "Total Credits",
+    "@totalCredits": {
+        "description": "Total credits label in transaction summary"
+    },
+    "totalDebits": "Total Debits",
+    "@totalDebits": {
+        "description": "Total debits label in transaction summary"
+    },
+    "transactionsCount": "{count} transactions",
+    "@transactionsCount": {
+        "description": "Number of transactions count",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "payment": "Payment",
+    "@payment": {
+        "description": "Payment label"
+    },
+    "type": "Type",
+    "@type": {
+        "description": "Type label"
+    },
+    "category": "Category",
+    "@category": {
+        "description": "Category label"
+    },
+    "amount": "Amount",
+    "@amount": {
+        "description": "Amount label"
+    },
+    "status": "Status",
+    "@status": {
+        "description": "Status label"
+    },
+    "close": "Close",
+    "@close": {
+        "description": "Close button text"
+    },
+    "noTransactionsYetHistory": "No Transactions Yet",
+    "@noTransactionsYetHistory": {
+        "description": "Empty state title for transaction history"
+    },
+    "transactionHistoryWillAppearHere": "Your transaction history will appear here",
+    "@transactionHistoryWillAppearHere": {
+        "description": "Empty state message for transaction history"
+    },
+    "transactionDetails": "Transaction Details",
+    "@transactionDetails": {
+        "description": "Transaction details bottom sheet title"
+    },
+    "balanceBefore": "Balance Before",
+    "@balanceBefore": {
+        "description": "Balance before transaction label"
+    },
+    "balanceAfter": "Balance After",
+    "@balanceAfter": {
+        "description": "Balance after transaction label"
+    },
+    "gatewayId": "Gateway ID",
+    "@gatewayId": {
+        "description": "Payment gateway ID label"
+    },
+    "failedToLoadTransactions": "Failed to load transactions",
+    "@failedToLoadTransactions": {
+        "description": "Error message when transactions fail to load"
+    },
+    "failedToLoadTransactionHistory": "Failed to load transaction history",
+    "@failedToLoadTransactionHistory": {
+        "description": "Error message when transaction history fails to load"
     }
 }
