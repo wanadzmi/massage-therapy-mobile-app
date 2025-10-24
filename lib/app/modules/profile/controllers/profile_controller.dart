@@ -164,7 +164,6 @@ class ProfileController extends GetxController {
         // print('📅 Date of Birth loaded: ${_dateOfBirth.value}');
       }
     } catch (e) {
-      print('❌ Error loading profile: $e');
       Get.snackbar(
         'Error',
         'Failed to load profile',
@@ -263,14 +262,8 @@ class ProfileController extends GetxController {
       );
 
       if (response.isSuccess && response.data != null) {
-        print(
-          '✅ PUT response received - user gender: ${response.data?.gender}',
-        );
-
         // Reload profile to get updated data
         await loadUserProfile();
-
-        print('🔄 After loadUserProfile - controller gender: $_gender.value');
 
         Get.snackbar(
           'Success',
@@ -290,7 +283,6 @@ class ProfileController extends GetxController {
         );
       }
     } catch (e) {
-      print('❌ Error updating profile: $e');
       Get.snackbar(
         'Error',
         'Failed to update profile',

@@ -6,7 +6,7 @@ import '../../../data/models/booking_model.dart';
 import '../controllers/review_controller.dart';
 
 class WriteReviewView extends GetView<ReviewController> {
-  const WriteReviewView({Key? key}) : super(key: key);
+  const WriteReviewView({super.key});
 
   @override
   Widget build(BuildContext context) {

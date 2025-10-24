@@ -143,11 +143,6 @@ class RegisterController extends GetxController {
     if (response.isSuccess && response.data != null) {
       final registrationData = response.data!;
 
-      print('✅ Registration successful');
-      print('   Phone: ${registrationData.data?.phone}');
-      print('   Next Step: ${registrationData.data?.nextStep}');
-      print('   Dev OTP: ${registrationData.data?.devOTP}');
-
       // Show success message
       Get.snackbar(
         'Success',
@@ -170,8 +165,6 @@ class RegisterController extends GetxController {
         },
       );
     } else {
-      print('❌ Registration failed: ${response.error}');
-
       // Parse error message
       String errorMessage = 'Registration failed. Please try again.';
       if (response.error is Map<String, dynamic>) {

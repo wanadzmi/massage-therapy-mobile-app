@@ -7,7 +7,7 @@ import '../../../routes/app_pages.dart';
 import '../controllers/booking_controller.dart';
 
 class BookingView extends GetView<BookingController> {
-  const BookingView({Key? key}) : super(key: key);
+  const BookingView({super.key});
 
   @override
   Widget build(BuildContext context) {

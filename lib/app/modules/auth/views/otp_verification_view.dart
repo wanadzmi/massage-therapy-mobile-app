@@ -6,7 +6,7 @@ import '../../../global_widgets/custom_button.dart';
 import '../../../core/theme/app_colors.dart';
 
 class OTPVerificationView extends GetView<OTPVerificationController> {
-  const OTPVerificationView({Key? key}) : super(key: key);
+  const OTPVerificationView({super.key});
 
   @override
   Widget build(BuildContext context) {

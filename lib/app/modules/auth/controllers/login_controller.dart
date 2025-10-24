@@ -192,9 +192,7 @@ class LoginController extends GetxController {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('remembered_email', emailController.text.trim());
       await prefs.setBool('remember_me', true);
-    } catch (e) {
-      print('Error storing credentials: $e');
-    }
+    } catch (e) {}
   }
 
   Future<void> loadRememberedCredentials() async {
@@ -207,9 +205,7 @@ class LoginController extends GetxController {
         emailController.text = rememberedEmail;
         _rememberMe.value = true;
       }
-    } catch (e) {
-      print('Error loading credentials: $e');
-    }
+    } catch (e) {}
   }
 
   void navigateToRegister() {

@@ -19,13 +19,11 @@ class CurrencyService {
     if (_cachedUsdToMyr != null && _cacheTime != null) {
       final age = DateTime.now().difference(_cacheTime!);
       if (age.inHours < 1) {
-        print('📦 Using cached USD to MYR rate: $_cachedUsdToMyr');
         return _cachedUsdToMyr!;
       }
     }
 
     try {
-      print('🌐 Fetching USD to MYR exchange rate...');
       final response = await _dio.get('$_baseUrl/USD');
 
       if (response.statusCode == 200) {
@@ -37,14 +35,11 @@ class CurrencyService {
         _cachedUsdToMyr = usdToMyr;
         _cacheTime = DateTime.now();
 
-        print('✅ USD to MYR rate: $usdToMyr');
         return usdToMyr;
       } else {
-        print('❌ Failed to fetch exchange rate: ${response.statusCode}');
         return _getFallbackRate();
       }
     } catch (e) {
-      print('❌ Error fetching exchange rate: $e');
       return _getFallbackRate();
     }
   }
@@ -63,7 +58,6 @@ class CurrencyService {
 
   /// Fallback rate if API fails (approximate rate as of 2024)
   double _getFallbackRate() {
-    print('⚠️ Using fallback USD to MYR rate: 4.50');
     _cachedUsdToMyr = 4.50;
     _cacheTime = DateTime.now();
     return 4.50;

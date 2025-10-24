@@ -4,7 +4,7 @@ import '../../../l10n/app_localizations.dart';
 import 'main_navigation_controller.dart';
 
 class MainNavigationView extends GetView<MainNavigationController> {
-  const MainNavigationView({Key? key}) : super(key: key);
+  const MainNavigationView({super.key});
 
   @override
   Widget build(BuildContext context) {

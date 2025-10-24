@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../controllers/services_controller.dart';
 
 class ServicesView extends GetView<ServicesController> {
-  const ServicesView({Key? key}) : super(key: key);
+  const ServicesView({super.key});
 
   @override
   Widget build(BuildContext context) {

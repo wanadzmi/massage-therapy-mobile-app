@@ -6,7 +6,7 @@ import '../../../global_widgets/custom_button.dart';
 import '../../../core/theme/app_colors.dart';
 
 class RegisterView extends GetView<RegisterController> {
-  const RegisterView({Key? key}) : super(key: key);
+  const RegisterView({super.key});
 
   @override
   Widget build(BuildContext context) {

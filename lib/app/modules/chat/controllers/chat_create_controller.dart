@@ -75,19 +75,14 @@ class ChatCreateController extends GetxController {
 
     if (response.isSuccess && response.data != null) {
       final chatId = response.data!.chatId ?? response.data!.id;
-      print('✅ Chat created successfully with ID: $chatId');
-      print('📋 Chat data: ${response.data!.toJson()}');
 
       Get.back(); // Close create screen
 
       // Try to refresh chat list if it exists
       try {
         final chatListController = Get.find<ChatListController>();
-        print('🔄 Refreshing chat list after creation...');
         chatListController.refreshChats();
-      } catch (e) {
-        print('⚠️ ChatListController not found, skipping refresh: $e');
-      }
+      } catch (e) {}
 
       // Navigate to the new chat
       Get.toNamed('/chat', arguments: {'chatId': chatId});

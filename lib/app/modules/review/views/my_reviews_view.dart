@@ -5,7 +5,7 @@ import '../../../data/models/review_model.dart';
 import '../../../../l10n/app_localizations.dart';
 
 class MyReviewsView extends GetView<ReviewController> {
-  const MyReviewsView({Key? key}) : super(key: key);
+  const MyReviewsView({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -41,7 +41,6 @@ class MainNavigationController extends GetxController {
       }
     } catch (e) {
       // Controller not found, it's okay
-      print('⚠️ Controller not found for tab $index: $e');
     }
   }
 }

@@ -8,7 +8,7 @@ import '../../chat/bindings/chat_list_binding.dart';
 import '../../../global_widgets/banner_carousel.dart';
 
 class HomeView extends GetView<HomeController> {
-  const HomeView({Key? key}) : super(key: key);
+  const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {

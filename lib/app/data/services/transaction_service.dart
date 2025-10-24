@@ -47,7 +47,6 @@ class TransactionService extends BaseServices {
         );
       }
     } catch (e) {
-      print('❌ Error fetching transactions: $e');
       return MyResponse.error(e.toString());
     }
   }

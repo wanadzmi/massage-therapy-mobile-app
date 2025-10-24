@@ -72,11 +72,6 @@ class StoreDetailController extends GetxController {
       _therapists.value = data.therapists;
       _totalTherapists.value = data.totalTherapists;
       _activeTherapists.value = data.activeTherapists;
-
-      print('✅ Loaded ${data.services.length} services for store');
-      print(
-        '👥 ${data.activeTherapists}/${data.totalTherapists} therapists available',
-      );
     } else {
       Get.snackbar(
         'Error',
@@ -101,12 +96,9 @@ class StoreDetailController extends GetxController {
     if (response.isSuccess && response.data != null) {
       _recentReviews.value = response.data!.reviews;
       _reviewStats.value = response.data!.statistics;
-
-      print('✅ Loaded ${response.data!.reviews.length} recent reviews');
     } else {
       // Backend error - don't show error to user, just log it
       // Reviews section will show "No reviews yet" instead
-      print('⚠️ Failed to load reviews: ${response.error}');
       _recentReviews.value = [];
       _reviewStats.value = null;
     }

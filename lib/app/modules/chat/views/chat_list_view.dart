@@ -47,7 +47,6 @@ class ChatListView extends GetView<ChatListController> {
                 }),
               );
               // Refresh chat list when returning
-              print('🔄 Returned from chat creation, refreshing list...');
               controller.refreshChats();
             },
             tooltip: AppLocalizations.of(context)!.newChat,

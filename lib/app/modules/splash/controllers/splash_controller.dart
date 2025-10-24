@@ -57,27 +57,18 @@ class SplashController extends GetxController {
               // print('✅ Navigating to therapist home');
               Get.offAllNamed('/therapist-home');
               return;
-            } else {
-              print('❌ User role not supported: ${user.role}');
-            }
-          } else {
-            print('❌ Profile response failed: ${profileResponse.error}');
-          }
+            } else {}
+          } else {}
         } catch (e) {
           // If profile fetch fails, clear token and go to login
-          print('❌ Profile fetch failed: $e');
           await _authRepository.logout();
         }
-      } else {
-        print('❌ No token found');
-      }
+      } else {}
 
       // Navigate to login if not authenticated or not a customer
-      print('🔄 Navigating to login');
       Get.off(() => const LoginView(), binding: LoginBinding());
     } catch (e) {
       // On any error, navigate to login
-      print('❌ Splash error: $e');
       Get.off(() => const LoginView(), binding: LoginBinding());
     }
   }
@@ -106,12 +97,9 @@ class SplashController extends GetxController {
 
       if (response.isSuccess) {
         // print('✅ Device registered successfully');
-      } else {
-        print('⚠️ Device registration failed: ${response.error}');
-      }
+      } else {}
     } catch (e) {
       // Don't block app launch if device registration fails
-      print('⚠️ Device registration error (non-critical): $e');
     }
   }
 }

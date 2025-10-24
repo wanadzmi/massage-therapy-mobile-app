@@ -71,10 +71,6 @@ class OTPVerificationController extends GetxController {
           args['verificationType'] as String? ?? 'phone_verification';
     }
 
-    print('📱 OTP Verification initialized');
-    print('   Phone: $phone');
-    print('   Dev OTP: $devOTP');
-
     // Start countdown timer
     _startCountdown();
   }
@@ -206,9 +202,6 @@ class OTPVerificationController extends GetxController {
     if (response.isSuccess && response.data != null) {
       final otpData = response.data!;
 
-      print('✅ OTP verified successfully');
-      print('   Token received: ${otpData.data?.token != null}');
-
       // Parse and save user data
       if (otpData.data?.user != null) {
         try {
@@ -220,13 +213,7 @@ class OTPVerificationController extends GetxController {
           await prefs.setString('user_name', user.name ?? '');
           await prefs.setString('user_email', user.email ?? '');
           await prefs.setString('user_phone', user.phone ?? '');
-
-          print('   User: ${user.name}');
-          print('   Email: ${user.email}');
-          print('   Phone Verified: ${user.isPhoneVerified}');
-        } catch (e) {
-          print('⚠️ Error parsing user data: $e');
-        }
+        } catch (e) {}
       }
 
       Get.snackbar(
@@ -245,8 +232,6 @@ class OTPVerificationController extends GetxController {
         binding: MainNavigationBinding(),
       );
     } else {
-      print('❌ OTP verification failed: ${response.error}');
-
       // Parse error message
       String errorMessage = 'Invalid or expired OTP. Please try again.';
       if (response.error is Map<String, dynamic>) {

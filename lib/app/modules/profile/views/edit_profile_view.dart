@@ -5,7 +5,7 @@ import '../../../../l10n/app_localizations.dart';
 import '../controllers/profile_controller.dart';
 
 class EditProfileView extends StatefulWidget {
-  const EditProfileView({Key? key}) : super(key: key);
+  const EditProfileView({super.key});
 
   @override
   State<EditProfileView> createState() => _EditProfileViewState();
@@ -35,10 +35,6 @@ class _EditProfileViewState extends State<EditProfileView> {
     selectedGender =
         (controller.gender.isNotEmpty ? controller.gender : null).obs;
     selectedDateOfBirth = controller.dateOfBirth.obs;
-
-    print('🔧 EditProfileView initialized');
-    print('👤 Controller gender: ${controller.gender}');
-    print('👤 Selected gender: ${selectedGender.value}');
   }
 
   @override

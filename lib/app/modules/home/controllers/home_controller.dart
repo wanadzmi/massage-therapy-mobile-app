@@ -63,7 +63,6 @@ class HomeController extends GetxController {
       if (response.isSuccess && response.data != null) {
         _banners.value = response.data!;
       } else {}
-    } catch (e) {
     } finally {
       _isBannersLoading.value = false;
     }
@@ -148,21 +147,10 @@ class HomeController extends GetxController {
   }
 
   /// Public refresh method that can be called from other screens
+  @override
   Future<void> refresh() async {
     await loadUserData();
     await loadBanners();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-    // Called after the widget is rendered on screen
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-    // Clean up resources
   }
 
   // Methods

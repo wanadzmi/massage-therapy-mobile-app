@@ -92,6 +92,7 @@ class BookingController extends GetxController {
     await loadBookings();
   }
 
+  @override
   Future<void> refresh() async {
     await loadBookings(refresh: true);
   }

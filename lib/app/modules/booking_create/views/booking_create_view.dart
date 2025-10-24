@@ -4,7 +4,7 @@ import '../controllers/booking_create_controller.dart';
 import '../../../../l10n/app_localizations.dart';
 
 class BookingCreateView extends GetView<BookingCreateController> {
-  const BookingCreateView({Key? key}) : super(key: key);
+  const BookingCreateView({super.key});
 
   @override
   Widget build(BuildContext context) {

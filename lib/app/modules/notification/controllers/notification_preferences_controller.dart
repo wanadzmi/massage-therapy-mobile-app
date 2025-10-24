@@ -28,13 +28,10 @@ class NotificationPreferencesController extends GetxController {
 
       if (response.isSuccess && response.data != null) {
         _preferences.value = response.data;
-        print('✅ Loaded notification preferences');
       } else {
-        print('❌ Failed to load preferences: ${response.error}');
         _showError('Failed to load preferences');
       }
     } catch (e) {
-      print('❌ Error loading preferences: $e');
       _showError('An error occurred');
     } finally {
       _isLoading.value = false;
@@ -62,14 +59,10 @@ class NotificationPreferencesController extends GetxController {
           colorText: Colors.black,
           duration: const Duration(seconds: 2),
         );
-
-        print('✅ Preferences saved');
       } else {
-        print('❌ Failed to save preferences: ${response.error}');
         _showError('Failed to save preferences');
       }
     } catch (e) {
-      print('❌ Error saving preferences: $e');
       _showError('An error occurred');
     } finally {
       _isSaving.value = false;

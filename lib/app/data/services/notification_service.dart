@@ -25,7 +25,6 @@ class NotificationService extends BaseServices {
         final data = NotificationListResponse.fromJson(response.data['data']);
         return MyResponse.complete(data);
       } catch (e) {
-        print('❌ Error parsing notifications: $e');
         return MyResponse.error('Failed to parse notifications: $e');
       }
     }
@@ -47,7 +46,6 @@ class NotificationService extends BaseServices {
       try {
         return MyResponse.complete(response.data['data']);
       } catch (e) {
-        print('❌ Error marking as read: $e');
         return MyResponse.error('Failed to mark as read: $e');
       }
     }
@@ -74,7 +72,6 @@ class NotificationService extends BaseServices {
       try {
         return MyResponse.complete(response.data['data']);
       } catch (e) {
-        print('❌ Error marking all as read: $e');
         return MyResponse.error('Failed to mark all as read: $e');
       }
     }
@@ -97,7 +94,6 @@ class NotificationService extends BaseServices {
       try {
         return MyResponse.complete(response.data['data']);
       } catch (e) {
-        print('❌ Error tracking click: $e');
         return MyResponse.error('Failed to track click: $e');
       }
     }
@@ -118,7 +114,6 @@ class NotificationService extends BaseServices {
       try {
         return MyResponse.complete(response.data['data']);
       } catch (e) {
-        print('❌ Error deleting notification: $e');
         return MyResponse.error('Failed to delete notification: $e');
       }
     }
@@ -141,7 +136,6 @@ class NotificationService extends BaseServices {
         );
         return MyResponse.complete(preferences);
       } catch (e) {
-        print('❌ Error fetching preferences: $e');
         return MyResponse.error('Failed to fetch preferences: $e');
       }
     }
@@ -166,7 +160,6 @@ class NotificationService extends BaseServices {
         );
         return MyResponse.complete(updatedPreferences);
       } catch (e) {
-        print('❌ Error updating preferences: $e');
         return MyResponse.error('Failed to update preferences: $e');
       }
     }
@@ -196,7 +189,6 @@ class NotificationService extends BaseServices {
       try {
         return MyResponse.complete(response.data['data']);
       } catch (e) {
-        print('❌ Error registering device: $e');
         return MyResponse.error('Failed to register device: $e');
       }
     }
@@ -219,7 +211,6 @@ class NotificationService extends BaseServices {
       try {
         return MyResponse.complete(response.data['data']);
       } catch (e) {
-        print('❌ Error sending test notification: $e');
         return MyResponse.error('Failed to send test notification: $e');
       }
     }

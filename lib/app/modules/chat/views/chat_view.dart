@@ -6,7 +6,7 @@ import '../controllers/chat_controller.dart';
 import '../../../data/models/chat_model.dart';
 
 class ChatView extends GetView<ChatController> {
-  const ChatView({Key? key}) : super(key: key);
+  const ChatView({super.key});
 
   @override
   Widget build(BuildContext context) {

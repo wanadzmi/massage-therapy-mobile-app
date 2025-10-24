@@ -5,23 +5,17 @@ class TierService extends BaseServices {
 
   /// Get all available tiers
   Future<MyResponse<TiersResponse?, dynamic>> getAllTiers() async {
-    print('🎯 TierService: Calling GET $_tierEndpoint');
     final response = await callAPI(HttpRequestType.GET, _tierEndpoint);
-    print('📥 TierService: Response success=${response.isSuccess}');
 
     if (response.isSuccess && response.data != null) {
       try {
-        print('🔄 TierService: Parsing response data...');
         final tiersResponse = TiersResponse.fromJson(response.data);
-        print('✅ TierService: Successfully parsed tier data');
         return MyResponse.complete(tiersResponse);
       } catch (e) {
-        print('❌ TierService: Parse error: $e');
         return MyResponse.error('Failed to parse tiers response: $e');
       }
     }
 
-    print('❌ TierService: API error: ${response.error}');
     return MyResponse.error(response.error);
   }
 

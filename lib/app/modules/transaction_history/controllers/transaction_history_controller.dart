@@ -56,7 +56,6 @@ class TransactionHistoryController extends GetxController {
         }
       }
     } catch (e) {
-      print('❌ Error loading transactions: $e');
       final context = Get.context;
       if (context != null) {
         final l10n = AppLocalizations.of(context)!;
