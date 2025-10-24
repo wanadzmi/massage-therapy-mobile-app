@@ -3,12 +3,14 @@ import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../controllers/therapist_selection_controller.dart';
 import '../../../data/services/booking_discovery_service.dart';
+import '../../../../l10n/app_localizations.dart';
 
 class TherapistSelectionView extends GetView<TherapistSelectionController> {
   const TherapistSelectionView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: const Color(0xFF0A0A0A),
       appBar: AppBar(
@@ -24,8 +26,8 @@ class TherapistSelectionView extends GetView<TherapistSelectionController> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Confirm Booking',
+                Text(
+                  l10n.confirmBooking,
                   style: TextStyle(
                     color: Color(0xFFD4AF37),
                     fontSize: 20,
@@ -47,8 +49,8 @@ class TherapistSelectionView extends GetView<TherapistSelectionController> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Select Time',
+                Text(
+                  l10n.selectTime,
                   style: TextStyle(
                     color: Color(0xFFD4AF37),
                     fontSize: 20,
@@ -70,8 +72,8 @@ class TherapistSelectionView extends GetView<TherapistSelectionController> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Select Date',
+                Text(
+                  l10n.selectDate,
                   style: TextStyle(
                     color: Color(0xFFD4AF37),
                     fontSize: 20,
@@ -93,8 +95,8 @@ class TherapistSelectionView extends GetView<TherapistSelectionController> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Select Therapist',
+                Text(
+                  l10n.selectTherapist,
                   style: TextStyle(
                     color: Color(0xFFD4AF37),
                     fontSize: 20,
@@ -134,15 +136,20 @@ class TherapistSelectionView extends GetView<TherapistSelectionController> {
         if (controller.selectedTherapist != null) {
           // Show calendar filtered by therapist
           if (controller.availabilityCalendar.isEmpty) {
-            return const Center(
-              child: Padding(
-                padding: EdgeInsets.all(24.0),
-                child: Text(
-                  'No availability found for selected therapist in the next 30 days',
-                  style: TextStyle(color: Colors.white70),
-                  textAlign: TextAlign.center,
-                ),
-              ),
+            return Builder(
+              builder: (context) {
+                final l10n = AppLocalizations.of(context)!;
+                return Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Text(
+                      l10n.noAvailabilityForTherapist,
+                      style: const TextStyle(color: Colors.white70),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                );
+              },
             );
           }
           return _buildDateSelection();
@@ -185,223 +192,242 @@ class TherapistSelectionView extends GetView<TherapistSelectionController> {
     final firstDay = firstAvailable ?? DateTime.now();
     final lastDay = lastAvailable ?? DateTime.now().add(Duration(days: 60));
 
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Legend
-          Padding(
-            padding: const EdgeInsets.only(bottom: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _buildLegendItem('Available', Color(0xFFD4AF37)),
-                SizedBox(width: 24),
-                _buildLegendItem('Not Available', Colors.white24),
-              ],
-            ),
-          ),
-
-          // Calendar
-          Container(
-            decoration: BoxDecoration(
-              color: const Color(0xFF1A1A1A),
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: Color(0xFF2A2A2A)),
-            ),
-            child: TableCalendar(
-              firstDay: firstDay,
-              lastDay: lastDay,
-              focusedDay: focusedDay,
-              calendarFormat: CalendarFormat.month,
-              startingDayOfWeek: StartingDayOfWeek.monday,
-              availableGestures: AvailableGestures.horizontalSwipe,
-              selectedDayPredicate: (day) => false,
-              onDaySelected: (selectedDay, focusedDay) {
-                final normalizedDay = DateTime(
-                  selectedDay.year,
-                  selectedDay.month,
-                  selectedDay.day,
-                );
-                final dayAvailability = availabilityMap[normalizedDay];
-                if (dayAvailability != null) {
-                  controller.selectDate(dayAvailability);
-                }
-              },
-              calendarStyle: const CalendarStyle(
-                // Today
-                todayDecoration: BoxDecoration(
-                  color: Color(0x4DD4AF37),
-                  shape: BoxShape.circle,
+    return Builder(
+      builder: (context) {
+        final l10n = AppLocalizations.of(context)!;
+        return SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Legend
+              Padding(
+                padding: const EdgeInsets.only(bottom: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _buildLegendItem(l10n.available, const Color(0xFFD4AF37)),
+                    const SizedBox(width: 24),
+                    _buildLegendItem(l10n.notAvailableLabel, Colors.white24),
+                  ],
                 ),
-                todayTextStyle: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-
-                // Default days
-                defaultTextStyle: TextStyle(color: Colors.white70),
-                weekendTextStyle: TextStyle(color: Colors.white70),
-
-                // Outside days (other months)
-                outsideTextStyle: TextStyle(color: Colors.white24),
-
-                // Disabled days
-                disabledTextStyle: TextStyle(color: Colors.white24),
-
-                // Remove default decorations
-                defaultDecoration: BoxDecoration(),
-                weekendDecoration: BoxDecoration(),
-                outsideDecoration: BoxDecoration(),
-                disabledDecoration: BoxDecoration(),
               ),
-              calendarBuilders: CalendarBuilders(
-                defaultBuilder: (context, day, focusedDay) {
-                  final normalizedDay = DateTime(day.year, day.month, day.day);
-                  final dayAvailability = availabilityMap[normalizedDay];
-                  final isAvailable =
-                      dayAvailability != null &&
-                      (dayAvailability.totalAvailableSlots ?? 0) > 0;
 
-                  return Container(
-                    margin: EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      color: isAvailable
-                          ? Color(0xFFD4AF37).withOpacity(0.2)
-                          : Colors.transparent,
+              // Calendar
+              Container(
+                decoration: BoxDecoration(
+                  color: const Color(0xFF1A1A1A),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: Color(0xFF2A2A2A)),
+                ),
+                child: TableCalendar(
+                  firstDay: firstDay,
+                  lastDay: lastDay,
+                  focusedDay: focusedDay,
+                  calendarFormat: CalendarFormat.month,
+                  startingDayOfWeek: StartingDayOfWeek.monday,
+                  availableGestures: AvailableGestures.horizontalSwipe,
+                  selectedDayPredicate: (day) => false,
+                  onDaySelected: (selectedDay, focusedDay) {
+                    final normalizedDay = DateTime(
+                      selectedDay.year,
+                      selectedDay.month,
+                      selectedDay.day,
+                    );
+                    final dayAvailability = availabilityMap[normalizedDay];
+                    if (dayAvailability != null) {
+                      controller.selectDate(dayAvailability);
+                    }
+                  },
+                  calendarStyle: const CalendarStyle(
+                    // Today
+                    todayDecoration: BoxDecoration(
+                      color: Color(0x4DD4AF37),
                       shape: BoxShape.circle,
-                      border: isAvailable
-                          ? Border.all(color: Color(0xFFD4AF37), width: 1)
-                          : null,
                     ),
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            '${day.day}',
-                            style: TextStyle(
-                              color: isAvailable
-                                  ? Colors.white
-                                  : Colors.white38,
-                              fontWeight: isAvailable
-                                  ? FontWeight.w600
-                                  : FontWeight.normal,
-                            ),
-                          ),
-                          if (isAvailable) ...[
-                            SizedBox(height: 2),
-                            Container(
-                              width: 4,
-                              height: 4,
-                              decoration: BoxDecoration(
-                                color: Color(0xFFD4AF37),
-                                shape: BoxShape.circle,
+                    todayTextStyle: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+
+                    // Default days
+                    defaultTextStyle: TextStyle(color: Colors.white70),
+                    weekendTextStyle: TextStyle(color: Colors.white70),
+
+                    // Outside days (other months)
+                    outsideTextStyle: TextStyle(color: Colors.white24),
+
+                    // Disabled days
+                    disabledTextStyle: TextStyle(color: Colors.white24),
+
+                    // Remove default decorations
+                    defaultDecoration: BoxDecoration(),
+                    weekendDecoration: BoxDecoration(),
+                    outsideDecoration: BoxDecoration(),
+                    disabledDecoration: BoxDecoration(),
+                  ),
+                  calendarBuilders: CalendarBuilders(
+                    defaultBuilder: (context, day, focusedDay) {
+                      final normalizedDay = DateTime(
+                        day.year,
+                        day.month,
+                        day.day,
+                      );
+                      final dayAvailability = availabilityMap[normalizedDay];
+                      final isAvailable =
+                          dayAvailability != null &&
+                          (dayAvailability.totalAvailableSlots ?? 0) > 0;
+
+                      return Container(
+                        margin: EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          color: isAvailable
+                              ? Color(0xFFD4AF37).withOpacity(0.2)
+                              : Colors.transparent,
+                          shape: BoxShape.circle,
+                          border: isAvailable
+                              ? Border.all(color: Color(0xFFD4AF37), width: 1)
+                              : null,
+                        ),
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                '${day.day}',
+                                style: TextStyle(
+                                  color: isAvailable
+                                      ? Colors.white
+                                      : Colors.white38,
+                                  fontWeight: isAvailable
+                                      ? FontWeight.w600
+                                      : FontWeight.normal,
+                                ),
                               ),
-                            ),
-                          ],
-                        ],
-                      ),
-                    ),
-                  );
-                },
-                todayBuilder: (context, day, focusedDay) {
-                  final normalizedDay = DateTime(day.year, day.month, day.day);
-                  final dayAvailability = availabilityMap[normalizedDay];
-                  final isAvailable =
-                      dayAvailability != null &&
-                      (dayAvailability.totalAvailableSlots ?? 0) > 0;
-
-                  return Container(
-                    margin: EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      color: isAvailable
-                          ? Color(0xFFD4AF37).withOpacity(0.3)
-                          : Color(0xFF2A2A2A),
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: isAvailable ? Color(0xFFD4AF37) : Colors.white38,
-                        width: 2,
-                      ),
-                    ),
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            '${day.day}',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
+                              if (isAvailable) ...[
+                                SizedBox(height: 2),
+                                Container(
+                                  width: 4,
+                                  height: 4,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFFD4AF37),
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ],
+                            ],
                           ),
-                          if (isAvailable) ...[
-                            SizedBox(height: 2),
-                            Container(
-                              width: 4,
-                              height: 4,
-                              decoration: BoxDecoration(
-                                color: Color(0xFFD4AF37),
-                                shape: BoxShape.circle,
+                        ),
+                      );
+                    },
+                    todayBuilder: (context, day, focusedDay) {
+                      final normalizedDay = DateTime(
+                        day.year,
+                        day.month,
+                        day.day,
+                      );
+                      final dayAvailability = availabilityMap[normalizedDay];
+                      final isAvailable =
+                          dayAvailability != null &&
+                          (dayAvailability.totalAvailableSlots ?? 0) > 0;
+
+                      return Container(
+                        margin: EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          color: isAvailable
+                              ? Color(0xFFD4AF37).withOpacity(0.3)
+                              : Color(0xFF2A2A2A),
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: isAvailable
+                                ? Color(0xFFD4AF37)
+                                : Colors.white38,
+                            width: 2,
+                          ),
+                        ),
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                '${day.day}',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                          ],
-                        ],
-                      ),
+                              if (isAvailable) ...[
+                                SizedBox(height: 2),
+                                Container(
+                                  width: 4,
+                                  height: 4,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFFD4AF37),
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ],
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  headerStyle: const HeaderStyle(
+                    formatButtonVisible: false,
+                    titleCentered: true,
+                    titleTextStyle: TextStyle(
+                      color: Color(0xFFD4AF37),
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
                     ),
-                  );
-                },
+                    leftChevronIcon: Icon(
+                      Icons.chevron_left,
+                      color: Color(0xFFD4AF37),
+                    ),
+                    rightChevronIcon: Icon(
+                      Icons.chevron_right,
+                      color: Color(0xFFD4AF37),
+                    ),
+                    headerPadding: EdgeInsets.symmetric(vertical: 16),
+                  ),
+                  daysOfWeekStyle: const DaysOfWeekStyle(
+                    weekdayStyle: TextStyle(
+                      color: Color(0xFFD4AF37),
+                      fontWeight: FontWeight.w600,
+                    ),
+                    weekendStyle: TextStyle(
+                      color: Color(0xFFD4AF37),
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  enabledDayPredicate: (day) {
+                    final normalizedDay = DateTime(
+                      day.year,
+                      day.month,
+                      day.day,
+                    );
+                    final dayAvailability = availabilityMap[normalizedDay];
+                    return dayAvailability != null &&
+                        (dayAvailability.totalAvailableSlots ?? 0) > 0;
+                  },
+                ),
               ),
-              headerStyle: const HeaderStyle(
-                formatButtonVisible: false,
-                titleCentered: true,
-                titleTextStyle: TextStyle(
-                  color: Color(0xFFD4AF37),
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-                leftChevronIcon: Icon(
-                  Icons.chevron_left,
-                  color: Color(0xFFD4AF37),
-                ),
-                rightChevronIcon: Icon(
-                  Icons.chevron_right,
-                  color: Color(0xFFD4AF37),
-                ),
-                headerPadding: EdgeInsets.symmetric(vertical: 16),
-              ),
-              daysOfWeekStyle: const DaysOfWeekStyle(
-                weekdayStyle: TextStyle(
-                  color: Color(0xFFD4AF37),
-                  fontWeight: FontWeight.w600,
-                ),
-                weekendStyle: TextStyle(
-                  color: Color(0xFFD4AF37),
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              enabledDayPredicate: (day) {
-                final normalizedDay = DateTime(day.year, day.month, day.day);
-                final dayAvailability = availabilityMap[normalizedDay];
-                return dayAvailability != null &&
-                    (dayAvailability.totalAvailableSlots ?? 0) > 0;
-              },
-            ),
-          ),
 
-          SizedBox(height: 16),
+              const SizedBox(height: 16),
 
-          // Instruction text
-          Center(
-            child: Text(
-              'Tap on a highlighted date to view available time slots',
-              style: TextStyle(color: Colors.white54, fontSize: 14),
-              textAlign: TextAlign.center,
-            ),
+              // Instruction text
+              Center(
+                child: Text(
+                  l10n.tapHighlightedDate,
+                  style: const TextStyle(color: Colors.white54, fontSize: 14),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -426,87 +452,96 @@ class TherapistSelectionView extends GetView<TherapistSelectionController> {
   Widget _buildTimeSlotSelection() {
     final selectedDay = controller.selectedDate;
     if (selectedDay == null) return const SizedBox();
-    return Column(
-      children: [
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(16),
-          color: const Color(0xFF1A1A1A),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                selectedDay.displayDate ?? '',
-                style: const TextStyle(
-                  color: Color(0xFFD4AF37),
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                '${selectedDay.totalAvailableSlots ?? 0} slots available',
-                style: const TextStyle(color: Colors.white60, fontSize: 14),
-              ),
-            ],
-          ),
-        ),
-        Expanded(
-          child: GridView.builder(
-            padding: const EdgeInsets.all(16),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
-              childAspectRatio: 1.5,
-            ),
-            itemCount: selectedDay.slotDetails?.length ?? 0,
-            itemBuilder: (context, index) {
-              final slot = selectedDay.slotDetails![index];
-              if ((slot.therapists?.length ?? 0) == 0) return const SizedBox();
-              return Card(
-                color: const Color(0xFF1A1A1A),
-                child: InkWell(
-                  onTap: () => controller.selectSlot(slot),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 10,
+    return Builder(
+      builder: (context) {
+        final l10n = AppLocalizations.of(context)!;
+        return Column(
+          children: [
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(16),
+              color: const Color(0xFF1A1A1A),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    selectedDay.displayDate ?? '',
+                    style: const TextStyle(
+                      color: Color(0xFFD4AF37),
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
                     ),
-                    child: Center(
-                      child: Text(
-                        slot.time ?? '',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    l10n.slotsAvailable(selectedDay.totalAvailableSlots ?? 0),
+                    style: const TextStyle(color: Colors.white60, fontSize: 14),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: GridView.builder(
+                padding: const EdgeInsets.all(16),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
+                  childAspectRatio: 1.5,
+                ),
+                itemCount: selectedDay.slotDetails?.length ?? 0,
+                itemBuilder: (context, index) {
+                  final slot = selectedDay.slotDetails![index];
+                  if ((slot.therapists?.length ?? 0) == 0)
+                    return const SizedBox();
+                  return Card(
+                    color: const Color(0xFF1A1A1A),
+                    child: InkWell(
+                      onTap: () => controller.selectSlot(slot),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 10,
+                        ),
+                        child: Center(
+                          child: Text(
+                            slot.time ?? '',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-              );
-            },
-          ),
-        ),
-      ],
+                  );
+                },
+              ),
+            ),
+          ],
+        );
+      },
     );
-  }
-
-  // OLD METHOD REMOVED - using _buildBookingConfirmation below instead
+  } // OLD METHOD REMOVED - using _buildBookingConfirmation below instead
 
   /// NEW: Show therapist list first
   Widget _buildTherapistList() {
     if (controller.availableTherapists.isEmpty) {
-      return const Center(
-        child: Padding(
-          padding: EdgeInsets.all(24.0),
-          child: Text(
-            'No therapists available for this service',
-            style: TextStyle(color: Colors.white70),
-            textAlign: TextAlign.center,
-          ),
-        ),
+      return Builder(
+        builder: (context) {
+          final l10n = AppLocalizations.of(context)!;
+          return Center(
+            child: Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Text(
+                l10n.noTherapistsAvailable,
+                style: const TextStyle(color: Colors.white70),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          );
+        },
       );
     }
 
@@ -514,6 +549,7 @@ class TherapistSelectionView extends GetView<TherapistSelectionController> {
       padding: const EdgeInsets.all(16),
       itemCount: controller.availableTherapists.length,
       itemBuilder: (context, index) {
+        final l10n = AppLocalizations.of(context)!;
         final therapist = controller.availableTherapists[index];
         return Card(
           color: const Color(0xFF1A1A1A),
@@ -575,8 +611,8 @@ class TherapistSelectionView extends GetView<TherapistSelectionController> {
                                 size: 16,
                               ),
                               const SizedBox(width: 4),
-                              const Text(
-                                'Verified',
+                              Text(
+                                l10n.verified,
                                 style: TextStyle(
                                   color: Color(0xFF4CAF50),
                                   fontSize: 12,
@@ -623,153 +659,157 @@ class TherapistSelectionView extends GetView<TherapistSelectionController> {
         selectedSlot == null ||
         selectedTherapist == null)
       return const SizedBox();
-    return Column(
-      children: [
-        Expanded(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Booking Summary',
-                  style: TextStyle(
-                    color: Color(0xFFD4AF37),
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Card(
-                  color: const Color(0xFF1A1A1A),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            const Icon(
-                              Icons.calendar_today,
-                              color: Color(0xFFD4AF37),
-                              size: 20,
-                            ),
-                            const SizedBox(width: 12),
-                            const Text(
-                              'Date & Time',
-                              style: TextStyle(
-                                color: Colors.white70,
-                                fontSize: 14,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 12),
-                        Text(
-                          selectedDate.displayDate ?? '',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          selectedSlot.time ?? '',
-                          style: const TextStyle(
-                            color: Colors.white70,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ],
+    return Builder(
+      builder: (context) {
+        final l10n = AppLocalizations.of(context)!;
+        return Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      l10n.bookingSummary,
+                      style: TextStyle(
+                        color: Color(0xFFD4AF37),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Card(
-                  color: const Color(0xFF1A1A1A),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
+                    const SizedBox(height: 16),
+                    Card(
+                      color: const Color(0xFF1A1A1A),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Icon(
-                              Icons.person,
-                              color: Color(0xFFD4AF37),
-                              size: 20,
+                            Row(
+                              children: [
+                                const Icon(
+                                  Icons.calendar_today,
+                                  color: Color(0xFFD4AF37),
+                                  size: 20,
+                                ),
+                                const SizedBox(width: 12),
+                                Text(
+                                  l10n.dateAndTime,
+                                  style: TextStyle(
+                                    color: Colors.white70,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ],
                             ),
-                            const SizedBox(width: 12),
-                            const Text(
-                              'Your Therapist',
-                              style: TextStyle(
-                                color: Colors.white70,
-                                fontSize: 14,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 12),
-                        Text(
-                          selectedTherapist.name,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            const Icon(
-                              Icons.star,
-                              color: Color(0xFFD4AF37),
-                              size: 16,
-                            ),
-                            const SizedBox(width: 4),
+                            const SizedBox(height: 12),
                             Text(
-                              (selectedTherapist.rating ?? 0.0).toStringAsFixed(
-                                1,
+                              selectedDate.displayDate ?? '',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
                               ),
+                            ),
+                            Text(
+                              selectedSlot.time ?? '',
                               style: const TextStyle(
                                 color: Colors.white70,
-                                fontSize: 14,
+                                fontSize: 16,
                               ),
                             ),
                           ],
                         ),
-                      ],
+                      ),
                     ),
-                  ),
+                    const SizedBox(height: 16),
+                    Card(
+                      color: const Color(0xFF1A1A1A),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                const Icon(
+                                  Icons.person,
+                                  color: Color(0xFFD4AF37),
+                                  size: 20,
+                                ),
+                                const SizedBox(width: 12),
+                                Text(
+                                  l10n.yourTherapist,
+                                  style: TextStyle(
+                                    color: Colors.white70,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 12),
+                            Text(
+                              selectedTherapist.name,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                const Icon(
+                                  Icons.star,
+                                  color: Color(0xFFD4AF37),
+                                  size: 16,
+                                ),
+                                const SizedBox(width: 4),
+                                Text(
+                                  (selectedTherapist.rating ?? 0.0)
+                                      .toStringAsFixed(1),
+                                  style: const TextStyle(
+                                    color: Colors.white70,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.all(16),
-          color: const Color(0xFF1A1A1A),
-          child: SafeArea(
-            child: SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: controller.proceedToBooking,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFD4AF37),
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                ),
-                child: const Text(
-                  'Proceed to Booking',
-                  style: TextStyle(
-                    color: Color(0xFF0A0A0A),
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+            Container(
+              padding: const EdgeInsets.all(16),
+              color: const Color(0xFF1A1A1A),
+              child: SafeArea(
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: controller.proceedToBooking,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFD4AF37),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                    ),
+                    child: Text(
+                      l10n.proceedToBooking,
+                      style: const TextStyle(
+                        color: Color(0xFF0A0A0A),
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ),
-      ],
+          ],
+        );
+      },
     );
   }
 }

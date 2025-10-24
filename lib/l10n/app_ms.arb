@@ -1458,5 +1458,418 @@
     "typeYourMessage": "Taip mesej anda...",
     "@typeYourMessage": {
         "description": "Message input hint"
+    },
+    "searchStoresByName": "Cari kedai mengikut nama...",
+    "@searchStoresByName": {
+        "description": "Store search hint"
+    },
+    "clearAll": "Kosongkan Semua",
+    "@clearAll": {
+        "description": "Clear all filters button"
+    },
+    "noStoresMatchYourFilters": "Tiada kedai sepadan dengan penapis anda",
+    "@noStoresMatchYourFilters": {
+        "description": "Empty state title when filters applied"
+    },
+    "noStoresFound": "Tiada kedai dijumpai",
+    "@noStoresFound": {
+        "description": "Empty state title"
+    },
+    "tryAdjustingOrClearingFilters": "Cuba laraskan atau kosongkan penapis anda",
+    "@tryAdjustingOrClearingFilters": {
+        "description": "Empty state subtitle when filters applied"
+    },
+    "noStoresAvailableAtTheMoment": "Tiada kedai tersedia pada masa ini",
+    "@noStoresAvailableAtTheMoment": {
+        "description": "Empty state subtitle"
+    },
+    "clearAllFilters": "Kosongkan Semua Penapis",
+    "@clearAllFilters": {
+        "description": "Clear filters button"
+    },
+    "verified": "Disahkan",
+    "@verified": {
+        "description": "Verified badge"
+    },
+    "openNow": "Buka",
+    "@openNow": {
+        "description": "Open status badge"
+    },
+    "unknownStore": "Kedai Tidak Dikenali",
+    "@unknownStore": {
+        "description": "Default store name"
+    },
+    "serviceSingular": "perkhidmatan",
+    "@serviceSingular": {
+        "description": "Singular service count"
+    },
+    "servicesPlural": "perkhidmatan",
+    "@servicesPlural": {
+        "description": "Plural services count"
+    },
+    "getDirections": "Dapatkan Arah",
+    "@getDirections": {
+        "description": "Get directions button"
+    },
+    "storeFoundSingular": "kedai dijumpai",
+    "@storeFoundSingular": {
+        "description": "Results text singular"
+    },
+    "storesFoundPlural": "kedai dijumpai",
+    "@storesFoundPlural": {
+        "description": "Results text plural"
+    },
+    "showingOfStores": "Menunjukkan {showing} daripada {total} kedai • Halaman {currentPage} dari {totalPages}",
+    "@showingOfStores": {
+        "description": "Results pagination text",
+        "placeholders": {
+            "showing": {
+                "type": "int"
+            },
+            "total": {
+                "type": "int"
+            },
+            "currentPage": {
+                "type": "int"
+            },
+            "totalPages": {
+                "type": "int"
+            }
+        }
+    },
+    "filteredLocation": "di {city}",
+    "@filteredLocation": {
+        "description": "Filter summary for city",
+        "placeholders": {
+            "city": {
+                "type": "String"
+            }
+        }
+    },
+    "withinRadius": "dalam {radius}km",
+    "@withinRadius": {
+        "description": "Filter summary for radius",
+        "placeholders": {
+            "radius": {
+                "type": "int"
+            }
+        }
+    },
+    "minRating": "{rating}+ bintang",
+    "@minRating": {
+        "description": "Filter summary for rating",
+        "placeholders": {
+            "rating": {
+                "type": "String"
+            }
+        }
+    },
+    "nearbyKm": "Berdekatan {radius}km",
+    "@nearbyKm": {
+        "description": "Nearby filter chip label",
+        "placeholders": {
+            "radius": {
+                "type": "int"
+            }
+        }
+    },
+    "budget": "Bajet",
+    "@budget": {
+        "description": "Budget price range"
+    },
+    "standard": "Standard",
+    "@standard": {
+        "description": "Standard price range"
+    },
+    "premium": "Premium",
+    "@premium": {
+        "description": "Premium price range"
+    },
+    "priceLowToHigh": "Harga: Rendah-Tinggi",
+    "@priceLowToHigh": {
+        "description": "Sort option"
+    },
+    "priceHighToLow": "Harga: Tinggi-Rendah",
+    "@priceHighToLow": {
+        "description": "Sort option"
+    },
+    "ratingLowToHigh": "Penilaian: Rendah-Tinggi",
+    "@ratingLowToHigh": {
+        "description": "Sort option"
+    },
+    "ratingHighToLow": "Penilaian: Tinggi-Rendah",
+    "@ratingHighToLow": {
+        "description": "Sort option"
+    },
+    "distanceNearest": "Jarak: Terdekat",
+    "@distanceNearest": {
+        "description": "Sort option"
+    },
+    "awayDistance": "{distance} jauhnya",
+    "@awayDistance": {
+        "description": "Distance to store",
+        "placeholders": {
+            "distance": {
+                "type": "String"
+            }
+        }
+    },
+    "pleasCheckInternetConnection": "Sila semak sambungan internet anda\ndan cuba lagi",
+    "@pleasCheckInternetConnection": {
+        "description": "Error state message"
+    },
+    "retry": "Cuba Lagi",
+    "@retry": {
+        "description": "Retry button"
+    },
+    "filters": "Penapis",
+    "@filters": {
+        "description": "Filters bottom sheet title"
+    },
+    "location": "Lokasi",
+    "@location": {
+        "description": "Location section title"
+    },
+    "priceRange": "Julat Harga",
+    "@priceRange": {
+        "description": "Price range section title"
+    },
+    "minimumRating": "Penilaian Minimum",
+    "@minimumRating": {
+        "description": "Rating section title"
+    },
+    "amenities": "Kemudahan",
+    "@amenities": {
+        "description": "Amenities section title"
+    },
+    "sortBy": "Susun Mengikut",
+    "@sortBy": {
+        "description": "Sort section title"
+    },
+    "applyWithCount": "Gunakan ({count})",
+    "@applyWithCount": {
+        "description": "Apply button with count",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "apply": "Gunakan",
+    "@apply": {
+        "description": "Apply button"
+    },
+    "useCurrentLocation": "Gunakan Lokasi Semasa",
+    "@useCurrentLocation": {
+        "description": "Location toggle label"
+    },
+    "searchRadius": "Jejari Carian",
+    "@searchRadius": {
+        "description": "Radius label"
+    },
+    "kmUnit": "{value} km",
+    "@kmUnit": {
+        "description": "Kilometer unit",
+        "placeholders": {
+            "value": {
+                "type": "int"
+            }
+        }
+    },
+    "allRatings": "Semua",
+    "@allRatings": {
+        "description": "All ratings option"
+    },
+    "recommended": "Disyorkan",
+    "@recommended": {
+        "description": "Recommended sort option"
+    },
+    "distanceNearestFirst": "Jarak: Terdekat Dahulu",
+    "@distanceNearestFirst": {
+        "description": "Sort by distance option"
+    },
+    "storeDetails": "Butiran Kedai",
+    "@storeDetails": {
+        "description": "Store detail page title"
+    },
+    "availableServices": "Perkhidmatan Tersedia",
+    "@availableServices": {
+        "description": "Services section title"
+    },
+    "storeName": "Nama Kedai",
+    "@storeName": {
+        "description": "Default store name"
+    },
+    "serviceName": "Nama Perkhidmatan",
+    "@serviceName": {
+        "description": "Default service name"
+    },
+    "bookNow": "Tempah Sekarang",
+    "@bookNow": {
+        "description": "Book now button"
+    },
+    "noServicesAvailable": "Tiada perkhidmatan tersedia",
+    "@noServicesAvailable": {
+        "description": "Empty services state"
+    },
+    "reviewsAndRatings": "Ulasan & Penilaian",
+    "@reviewsAndRatings": {
+        "description": "Reviews section title"
+    },
+    "reviewsCount": "{count} ulasan",
+    "@reviewsCount": {
+        "description": "Review count",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "noReviewsYetStore": "Tiada ulasan lagi",
+    "@noReviewsYetStore": {
+        "description": "Empty reviews state in store"
+    },
+    "recentReviews": "Ulasan Terkini",
+    "@recentReviews": {
+        "description": "Recent reviews label"
+    },
+    "foundThisHelpful": "{count} mendapati ini membantu",
+    "@foundThisHelpful": {
+        "description": "Helpful count",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "storeResponse": "Respons Kedai",
+    "@storeResponse": {
+        "description": "Store response label"
+    },
+    "locationError": "Ralat Lokasi",
+    "@locationError": {
+        "description": "Location error title"
+    },
+    "storeLocationNotAvailable": "Lokasi kedai tidak tersedia",
+    "@storeLocationNotAvailable": {
+        "description": "Location error message"
+    },
+    "errorTitle": "Ralat",
+    "@errorTitle": {
+        "description": "Generic error title"
+    },
+    "couldNotOpenGoogleMaps": "Tidak dapat membuka Google Maps",
+    "@couldNotOpenGoogleMaps": {
+        "description": "Google Maps error"
+    },
+    "couldNotOpenWaze": "Tidak dapat membuka Waze",
+    "@couldNotOpenWaze": {
+        "description": "Waze error"
+    },
+    "wazeNotAvailable": "Waze Tidak Tersedia",
+    "@wazeNotAvailable": {
+        "description": "Waze not available title"
+    },
+    "pleaseInstallWaze": "Sila pasang aplikasi Waze atau gunakan Google Maps",
+    "@pleaseInstallWaze": {
+        "description": "Waze installation prompt"
+    },
+    "navigateUsingGoogleMaps": "Navigasi menggunakan Google Maps",
+    "@navigateUsingGoogleMaps": {
+        "description": "Google Maps navigation option"
+    },
+    "navigateUsingWaze": "Navigasi menggunakan Waze",
+    "@navigateUsingWaze": {
+        "description": "Waze navigation option"
+    },
+    "@_THERAPIST_SELECTION": {},
+    "confirmBooking": "Sahkan Tempahan",
+    "@confirmBooking": {
+        "description": "Confirm booking page title"
+    },
+    "selectTime": "Pilih Masa",
+    "@selectTime": {
+        "description": "Select time page title"
+    },
+    "selectDate": "Pilih Tarikh",
+    "@selectDate": {
+        "description": "Select date page title"
+    },
+    "selectTherapist": "Pilih Ahli Terapi",
+    "@selectTherapist": {
+        "description": "Select therapist page title"
+    },
+    "noAvailabilityForTherapist": "Tiada ketersediaan untuk ahli terapi yang dipilih dalam 30 hari akan datang",
+    "@noAvailabilityForTherapist": {
+        "description": "No availability message for therapist"
+    },
+    "noTherapistsAvailable": "Tiada ahli terapi tersedia untuk perkhidmatan ini",
+    "@noTherapistsAvailable": {
+        "description": "No therapists message"
+    },
+    "available": "Tersedia",
+    "@available": {
+        "description": "Available legend label"
+    },
+    "notAvailableLabel": "Tidak Tersedia",
+    "@notAvailableLabel": {
+        "description": "Not available legend label"
+    },
+    "tapHighlightedDate": "Ketik pada tarikh yang diserlahkan untuk melihat slot masa yang tersedia",
+    "@tapHighlightedDate": {
+        "description": "Calendar instruction text"
+    },
+    "slotsAvailable": "{count} slot tersedia",
+    "@slotsAvailable": {
+        "description": "Slots available count",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "bookingSummary": "Ringkasan Tempahan",
+    "@bookingSummary": {
+        "description": "Booking summary title"
+    },
+    "dateAndTime": "Tarikh & Masa",
+    "@dateAndTime": {
+        "description": "Date and time label"
+    },
+    "yourTherapist": "Ahli Terapi Anda",
+    "@yourTherapist": {
+        "description": "Your therapist label"
+    },
+    "proceedToBooking": "Teruskan ke Tempahan",
+    "@proceedToBooking": {
+        "description": "Proceed button text"
+    },
+    "serviceInfoMissing": "Maklumat perkhidmatan tiada",
+    "@serviceInfoMissing": {
+        "description": "Service info error"
+    },
+    "noAvailability": "Tiada Ketersediaan",
+    "@noAvailability": {
+        "description": "No availability error title"
+    },
+    "noAvailableDatesMessage": "Tiada tarikh tersedia untuk perkhidmatan ini dalam 30 hari akan datang.",
+    "@noAvailableDatesMessage": {
+        "description": "No availability error message"
+    },
+    "failedToLoadAvailability": "Gagal memuatkan kalendar ketersediaan",
+    "@failedToLoadAvailability": {
+        "description": "Failed to load availability error"
+    },
+    "pleaseSelectTherapist": "Sila pilih ahli terapi",
+    "@pleaseSelectTherapist": {
+        "description": "Select therapist validation"
+    },
+    "pleaseSelectDate": "Sila pilih tarikh",
+    "@pleaseSelectDate": {
+        "description": "Select date validation"
+    },
+    "pleaseSelectTimeSlot": "Sila pilih slot masa",
+    "@pleaseSelectTimeSlot": {
+        "description": "Select time slot validation"
     }
 }

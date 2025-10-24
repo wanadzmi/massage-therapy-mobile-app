@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../controllers/find_store_controller.dart';
 import '../../../services/location_service.dart';
 
@@ -96,6 +97,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       decoration: const BoxDecoration(
         color: Color(0xFF1A1A1A),
@@ -119,8 +121,8 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Filters',
+                  Text(
+                    l10n.filters,
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -145,31 +147,31 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Location Section
-                    _buildSectionTitle('Location'),
+                    _buildSectionTitle(l10n.location),
                     const SizedBox(height: 12),
                     _buildLocationSection(),
                     const SizedBox(height: 24),
 
                     // Price Range Section
-                    _buildSectionTitle('Price Range'),
+                    _buildSectionTitle(l10n.priceRange),
                     const SizedBox(height: 12),
-                    _buildPriceRangeSection(),
+                    _buildPriceRangeSection(context),
                     const SizedBox(height: 24),
 
                     // Rating Section
-                    _buildSectionTitle('Minimum Rating'),
+                    _buildSectionTitle(l10n.minimumRating),
                     const SizedBox(height: 12),
-                    _buildRatingSection(),
+                    _buildRatingSection(context),
                     const SizedBox(height: 24),
 
                     // Amenities Section
-                    _buildSectionTitle('Amenities'),
+                    _buildSectionTitle(l10n.amenities),
                     const SizedBox(height: 12),
 
                     const SizedBox(height: 24),
 
                     // Sort Section
-                    _buildSectionTitle('Sort By'),
+                    _buildSectionTitle(l10n.sortBy),
                     const SizedBox(height: 12),
                     _buildSortSection(),
                     const SizedBox(height: 80), // Space for bottom buttons
@@ -201,9 +203,9 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      child: const Text(
-                        'Clear All',
-                        style: TextStyle(
+                      child: Text(
+                        l10n.clearAll,
+                        style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
                         ),
@@ -227,8 +229,8 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                       ),
                       child: Text(
                         _getActiveFilterCount() > 0
-                            ? 'Apply (${_getActiveFilterCount()})'
-                            : 'Apply',
+                            ? l10n.applyWithCount(_getActiveFilterCount())
+                            : l10n.apply,
                         style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
@@ -257,99 +259,107 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
   }
 
   Widget _buildLocationSection() {
-    return Column(
-      children: [
-        // Use Current Location Toggle
-        Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: const Color(0xFF0A0A0A),
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: useLocation
-                  ? const Color(0xFFD4AF37)
-                  : const Color(0xFF2A2A2A),
-            ),
-          ),
-          child: Row(
-            children: [
-              Icon(
-                Icons.my_location,
-                color: useLocation
-                    ? const Color(0xFFD4AF37)
-                    : const Color(0xFF606060),
-                size: 20,
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  'Use Current Location',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: useLocation
-                        ? const Color(0xFFE0E0E0)
-                        : const Color(0xFF808080),
-                  ),
+    return Builder(
+      builder: (context) {
+        final l10n = AppLocalizations.of(context)!;
+        return Column(
+          children: [
+            // Use Current Location Toggle
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: const Color(0xFF0A0A0A),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: useLocation
+                      ? const Color(0xFFD4AF37)
+                      : const Color(0xFF2A2A2A),
                 ),
               ),
-              Switch(
-                value: useLocation,
-                onChanged: (value) {
-                  setState(() {
-                    useLocation = value;
-                  });
-                },
-                activeColor: const Color(0xFFD4AF37),
-              ),
-            ],
-          ),
-        ),
-
-        if (useLocation) ...[
-          const SizedBox(height: 12),
-          // Radius Selector
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: const Color(0xFF0A0A0A),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: const Color(0xFF2A2A2A)),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Search Radius',
-                      style: TextStyle(fontSize: 13, color: Color(0xFF808080)),
-                    ),
-                    Text(
-                      '${radius.toInt()} km',
-                      style: const TextStyle(
-                        fontSize: 13,
-                        color: Color(0xFFD4AF37),
-                        fontWeight: FontWeight.w600,
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.my_location,
+                    color: useLocation
+                        ? const Color(0xFFD4AF37)
+                        : const Color(0xFF606060),
+                    size: 20,
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      l10n.useCurrentLocation,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: useLocation
+                            ? const Color(0xFFE0E0E0)
+                            : const Color(0xFF808080),
                       ),
                     ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    _buildRadiusChip(5),
-                    const SizedBox(width: 8),
-                    _buildRadiusChip(10),
-                    const SizedBox(width: 8),
-                    _buildRadiusChip(20),
-                  ],
-                ),
-              ],
+                  ),
+                  Switch(
+                    value: useLocation,
+                    onChanged: (value) {
+                      setState(() {
+                        useLocation = value;
+                      });
+                    },
+                    activeColor: const Color(0xFFD4AF37),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
-      ],
+
+            if (useLocation) ...[
+              const SizedBox(height: 12),
+              // Radius Selector
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF0A0A0A),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: const Color(0xFF2A2A2A)),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          l10n.searchRadius,
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: Color(0xFF808080),
+                          ),
+                        ),
+                        Text(
+                          l10n.kmUnit(radius.toInt()),
+                          style: const TextStyle(
+                            fontSize: 13,
+                            color: Color(0xFFD4AF37),
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        _buildRadiusChip(5),
+                        const SizedBox(width: 8),
+                        _buildRadiusChip(10),
+                        const SizedBox(width: 8),
+                        _buildRadiusChip(20),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ],
+        );
+      },
     );
   }
 
@@ -387,7 +397,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
     );
   }
 
-  Widget _buildPriceRangeSection() {
+  Widget _buildPriceRangeSection(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -465,10 +475,11 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
     );
   }
 
-  Widget _buildRatingSection() {
+  Widget _buildRatingSection(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Row(
       children: [
-        _buildRatingChip('All', null),
+        _buildRatingChip(l10n.allRatings, null),
         const SizedBox(width: 8),
         _buildRatingChip('3+', 3),
         const SizedBox(width: 8),
@@ -521,22 +532,27 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
   }
 
   Widget _buildSortSection() {
-    return Column(
-      children: [
-        _buildSortOption('Recommended', 'rating', 'desc'),
-        const SizedBox(height: 8),
-        _buildSortOption('Rating: High to Low', 'rating', 'desc'),
-        const SizedBox(height: 8),
-        _buildSortOption('Rating: Low to High', 'rating', 'asc'),
-        const SizedBox(height: 8),
-        _buildSortOption('Price: Low to High', 'price', 'asc'),
-        const SizedBox(height: 8),
-        _buildSortOption('Price: High to Low', 'price', 'desc'),
-        if (useLocation) ...[
-          const SizedBox(height: 8),
-          _buildSortOption('Distance: Nearest First', 'distance', 'asc'),
-        ],
-      ],
+    return Builder(
+      builder: (context) {
+        final l10n = AppLocalizations.of(context)!;
+        return Column(
+          children: [
+            _buildSortOption(l10n.recommended, 'rating', 'desc'),
+            const SizedBox(height: 8),
+            _buildSortOption(l10n.ratingHighToLow, 'rating', 'desc'),
+            const SizedBox(height: 8),
+            _buildSortOption(l10n.ratingLowToHigh, 'rating', 'asc'),
+            const SizedBox(height: 8),
+            _buildSortOption(l10n.priceLowToHigh, 'price', 'asc'),
+            const SizedBox(height: 8),
+            _buildSortOption(l10n.priceHighToLow, 'price', 'desc'),
+            if (useLocation) ...[
+              const SizedBox(height: 8),
+              _buildSortOption(l10n.distanceNearestFirst, 'distance', 'asc'),
+            ],
+          ],
+        );
+      },
     );
   }
 

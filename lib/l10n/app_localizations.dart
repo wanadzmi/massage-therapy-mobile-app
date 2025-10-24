@@ -2157,6 +2157,533 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Type your message...'**
   String get typeYourMessage;
+
+  /// Store search hint
+  ///
+  /// In en, this message translates to:
+  /// **'Search stores by name...'**
+  String get searchStoresByName;
+
+  /// Clear all filters button
+  ///
+  /// In en, this message translates to:
+  /// **'Clear All'**
+  String get clearAll;
+
+  /// Empty state title when filters applied
+  ///
+  /// In en, this message translates to:
+  /// **'No stores match your filters'**
+  String get noStoresMatchYourFilters;
+
+  /// Empty state title
+  ///
+  /// In en, this message translates to:
+  /// **'No stores found'**
+  String get noStoresFound;
+
+  /// Empty state subtitle when filters applied
+  ///
+  /// In en, this message translates to:
+  /// **'Try adjusting or clearing your filters'**
+  String get tryAdjustingOrClearingFilters;
+
+  /// Empty state subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'No stores available at the moment'**
+  String get noStoresAvailableAtTheMoment;
+
+  /// Clear filters button
+  ///
+  /// In en, this message translates to:
+  /// **'Clear All Filters'**
+  String get clearAllFilters;
+
+  /// Verified badge
+  ///
+  /// In en, this message translates to:
+  /// **'Verified'**
+  String get verified;
+
+  /// Open status badge
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get openNow;
+
+  /// Default store name
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown Store'**
+  String get unknownStore;
+
+  /// Singular service count
+  ///
+  /// In en, this message translates to:
+  /// **'service'**
+  String get serviceSingular;
+
+  /// Plural services count
+  ///
+  /// In en, this message translates to:
+  /// **'services'**
+  String get servicesPlural;
+
+  /// Get directions button
+  ///
+  /// In en, this message translates to:
+  /// **'Get Directions'**
+  String get getDirections;
+
+  /// Results text singular
+  ///
+  /// In en, this message translates to:
+  /// **'store found'**
+  String get storeFoundSingular;
+
+  /// Results text plural
+  ///
+  /// In en, this message translates to:
+  /// **'stores found'**
+  String get storesFoundPlural;
+
+  /// Results pagination text
+  ///
+  /// In en, this message translates to:
+  /// **'Showing {showing} of {total} stores • Page {currentPage} of {totalPages}'**
+  String showingOfStores(
+    int showing,
+    int total,
+    int currentPage,
+    int totalPages,
+  );
+
+  /// Filter summary for city
+  ///
+  /// In en, this message translates to:
+  /// **'in {city}'**
+  String filteredLocation(String city);
+
+  /// Filter summary for radius
+  ///
+  /// In en, this message translates to:
+  /// **'within {radius}km'**
+  String withinRadius(int radius);
+
+  /// Filter summary for rating
+  ///
+  /// In en, this message translates to:
+  /// **'{rating}+ stars'**
+  String minRating(String rating);
+
+  /// Nearby filter chip label
+  ///
+  /// In en, this message translates to:
+  /// **'Nearby {radius}km'**
+  String nearbyKm(int radius);
+
+  /// Budget price range
+  ///
+  /// In en, this message translates to:
+  /// **'Budget'**
+  String get budget;
+
+  /// Standard price range
+  ///
+  /// In en, this message translates to:
+  /// **'Standard'**
+  String get standard;
+
+  /// Premium price range
+  ///
+  /// In en, this message translates to:
+  /// **'Premium'**
+  String get premium;
+
+  /// Sort option
+  ///
+  /// In en, this message translates to:
+  /// **'Price: Low-High'**
+  String get priceLowToHigh;
+
+  /// Sort option
+  ///
+  /// In en, this message translates to:
+  /// **'Price: High-Low'**
+  String get priceHighToLow;
+
+  /// Sort option
+  ///
+  /// In en, this message translates to:
+  /// **'Rating: Low-High'**
+  String get ratingLowToHigh;
+
+  /// Sort option
+  ///
+  /// In en, this message translates to:
+  /// **'Rating: High-Low'**
+  String get ratingHighToLow;
+
+  /// Sort option
+  ///
+  /// In en, this message translates to:
+  /// **'Distance: Nearest'**
+  String get distanceNearest;
+
+  /// Distance to store
+  ///
+  /// In en, this message translates to:
+  /// **'{distance} away'**
+  String awayDistance(String distance);
+
+  /// Error state message
+  ///
+  /// In en, this message translates to:
+  /// **'Please check your internet connection\nand try again'**
+  String get pleasCheckInternetConnection;
+
+  /// Retry button
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
+
+  /// Filters bottom sheet title
+  ///
+  /// In en, this message translates to:
+  /// **'Filters'**
+  String get filters;
+
+  /// Location section title
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get location;
+
+  /// Price range section title
+  ///
+  /// In en, this message translates to:
+  /// **'Price Range'**
+  String get priceRange;
+
+  /// Rating section title
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum Rating'**
+  String get minimumRating;
+
+  /// Amenities section title
+  ///
+  /// In en, this message translates to:
+  /// **'Amenities'**
+  String get amenities;
+
+  /// Sort section title
+  ///
+  /// In en, this message translates to:
+  /// **'Sort By'**
+  String get sortBy;
+
+  /// Apply button with count
+  ///
+  /// In en, this message translates to:
+  /// **'Apply ({count})'**
+  String applyWithCount(int count);
+
+  /// Apply button
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get apply;
+
+  /// Location toggle label
+  ///
+  /// In en, this message translates to:
+  /// **'Use Current Location'**
+  String get useCurrentLocation;
+
+  /// Radius label
+  ///
+  /// In en, this message translates to:
+  /// **'Search Radius'**
+  String get searchRadius;
+
+  /// Kilometer unit
+  ///
+  /// In en, this message translates to:
+  /// **'{value} km'**
+  String kmUnit(int value);
+
+  /// All ratings option
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get allRatings;
+
+  /// Recommended sort option
+  ///
+  /// In en, this message translates to:
+  /// **'Recommended'**
+  String get recommended;
+
+  /// Sort by distance option
+  ///
+  /// In en, this message translates to:
+  /// **'Distance: Nearest First'**
+  String get distanceNearestFirst;
+
+  /// Store detail page title
+  ///
+  /// In en, this message translates to:
+  /// **'Store Details'**
+  String get storeDetails;
+
+  /// Services section title
+  ///
+  /// In en, this message translates to:
+  /// **'Available Services'**
+  String get availableServices;
+
+  /// Default store name
+  ///
+  /// In en, this message translates to:
+  /// **'Store Name'**
+  String get storeName;
+
+  /// Default service name
+  ///
+  /// In en, this message translates to:
+  /// **'Service Name'**
+  String get serviceName;
+
+  /// Book now button
+  ///
+  /// In en, this message translates to:
+  /// **'Book Now'**
+  String get bookNow;
+
+  /// Empty services state
+  ///
+  /// In en, this message translates to:
+  /// **'No services available'**
+  String get noServicesAvailable;
+
+  /// Reviews section title
+  ///
+  /// In en, this message translates to:
+  /// **'Reviews & Ratings'**
+  String get reviewsAndRatings;
+
+  /// Review count
+  ///
+  /// In en, this message translates to:
+  /// **'{count} reviews'**
+  String reviewsCount(int count);
+
+  /// Empty reviews state in store
+  ///
+  /// In en, this message translates to:
+  /// **'No reviews yet'**
+  String get noReviewsYetStore;
+
+  /// Recent reviews label
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Reviews'**
+  String get recentReviews;
+
+  /// Helpful count
+  ///
+  /// In en, this message translates to:
+  /// **'{count} found this helpful'**
+  String foundThisHelpful(int count);
+
+  /// Store response label
+  ///
+  /// In en, this message translates to:
+  /// **'Store Response'**
+  String get storeResponse;
+
+  /// Location error title
+  ///
+  /// In en, this message translates to:
+  /// **'Location Error'**
+  String get locationError;
+
+  /// Location error message
+  ///
+  /// In en, this message translates to:
+  /// **'Store location not available'**
+  String get storeLocationNotAvailable;
+
+  /// Generic error title
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get errorTitle;
+
+  /// Google Maps error
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open Google Maps'**
+  String get couldNotOpenGoogleMaps;
+
+  /// Waze error
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open Waze'**
+  String get couldNotOpenWaze;
+
+  /// Waze not available title
+  ///
+  /// In en, this message translates to:
+  /// **'Waze Not Available'**
+  String get wazeNotAvailable;
+
+  /// Waze installation prompt
+  ///
+  /// In en, this message translates to:
+  /// **'Please install Waze app or use Google Maps'**
+  String get pleaseInstallWaze;
+
+  /// Google Maps navigation option
+  ///
+  /// In en, this message translates to:
+  /// **'Navigate using Google Maps'**
+  String get navigateUsingGoogleMaps;
+
+  /// Waze navigation option
+  ///
+  /// In en, this message translates to:
+  /// **'Navigate using Waze'**
+  String get navigateUsingWaze;
+
+  /// Confirm booking page title
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Booking'**
+  String get confirmBooking;
+
+  /// Select time page title
+  ///
+  /// In en, this message translates to:
+  /// **'Select Time'**
+  String get selectTime;
+
+  /// Select date page title
+  ///
+  /// In en, this message translates to:
+  /// **'Select Date'**
+  String get selectDate;
+
+  /// Select therapist page title
+  ///
+  /// In en, this message translates to:
+  /// **'Select Therapist'**
+  String get selectTherapist;
+
+  /// No availability message for therapist
+  ///
+  /// In en, this message translates to:
+  /// **'No availability found for selected therapist in the next 30 days'**
+  String get noAvailabilityForTherapist;
+
+  /// No therapists message
+  ///
+  /// In en, this message translates to:
+  /// **'No therapists available for this service'**
+  String get noTherapistsAvailable;
+
+  /// Available legend label
+  ///
+  /// In en, this message translates to:
+  /// **'Available'**
+  String get available;
+
+  /// Not available legend label
+  ///
+  /// In en, this message translates to:
+  /// **'Not Available'**
+  String get notAvailableLabel;
+
+  /// Calendar instruction text
+  ///
+  /// In en, this message translates to:
+  /// **'Tap on a highlighted date to view available time slots'**
+  String get tapHighlightedDate;
+
+  /// Slots available count
+  ///
+  /// In en, this message translates to:
+  /// **'{count} slots available'**
+  String slotsAvailable(int count);
+
+  /// Booking summary title
+  ///
+  /// In en, this message translates to:
+  /// **'Booking Summary'**
+  String get bookingSummary;
+
+  /// Date and time label
+  ///
+  /// In en, this message translates to:
+  /// **'Date & Time'**
+  String get dateAndTime;
+
+  /// Your therapist label
+  ///
+  /// In en, this message translates to:
+  /// **'Your Therapist'**
+  String get yourTherapist;
+
+  /// Proceed button text
+  ///
+  /// In en, this message translates to:
+  /// **'Proceed to Booking'**
+  String get proceedToBooking;
+
+  /// Service info error
+  ///
+  /// In en, this message translates to:
+  /// **'Service information is missing'**
+  String get serviceInfoMissing;
+
+  /// No availability error title
+  ///
+  /// In en, this message translates to:
+  /// **'No Availability'**
+  String get noAvailability;
+
+  /// No availability error message
+  ///
+  /// In en, this message translates to:
+  /// **'No available dates for this service in the next 30 days.'**
+  String get noAvailableDatesMessage;
+
+  /// Failed to load availability error
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load availability calendar'**
+  String get failedToLoadAvailability;
+
+  /// Select therapist validation
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a therapist'**
+  String get pleaseSelectTherapist;
+
+  /// Select date validation
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a date'**
+  String get pleaseSelectDate;
+
+  /// Select time slot validation
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a time slot'**
+  String get pleaseSelectTimeSlot;
 }
 
 class _AppLocalizationsDelegate

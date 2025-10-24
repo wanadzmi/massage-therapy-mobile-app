@@ -3,6 +3,7 @@ import '../../../data/models/store_model.dart';
 import '../../../data/models/service_model.dart' as service_model;
 import '../../../data/services/booking_discovery_service.dart';
 import '../../../data/services/store_service.dart';
+import '../../../../l10n/app_localizations.dart';
 
 class TherapistSelectionController extends GetxController {
   final BookingDiscoveryService _bookingDiscoveryService =
@@ -100,9 +101,10 @@ class TherapistSelectionController extends GetxController {
 
   Future<void> loadAvailabilityCalendar() async {
     if (service?.id == null) {
+      final l10n = AppLocalizations.of(Get.context!)!;
       Get.snackbar(
-        'Error',
-        'Service information is missing',
+        l10n.errorTitle,
+        l10n.serviceInfoMissing,
         snackPosition: SnackPosition.BOTTOM,
       );
       return;
@@ -128,17 +130,19 @@ class TherapistSelectionController extends GetxController {
       print('📊 Total days: ${response.data!.totalDaysWithAvailability}');
 
       if (_availabilityCalendar.isEmpty) {
+        final l10n = AppLocalizations.of(Get.context!)!;
         Get.snackbar(
-          'No Availability',
-          'No available dates for this service in the next 30 days.',
+          l10n.noAvailability,
+          l10n.noAvailableDatesMessage,
           snackPosition: SnackPosition.BOTTOM,
         );
       }
     } else {
       print('❌ Error: ${response.error}');
+      final l10n = AppLocalizations.of(Get.context!)!;
       Get.snackbar(
-        'Error',
-        response.error ?? 'Failed to load availability calendar',
+        l10n.errorTitle,
+        response.error ?? l10n.failedToLoadAvailability,
         snackPosition: SnackPosition.BOTTOM,
       );
     }
@@ -164,27 +168,30 @@ class TherapistSelectionController extends GetxController {
 
   void proceedToBooking() {
     if (_selectedTherapist.value == null) {
+      final l10n = AppLocalizations.of(Get.context!)!;
       Get.snackbar(
-        'Error',
-        'Please select a therapist',
+        l10n.errorTitle,
+        l10n.pleaseSelectTherapist,
         snackPosition: SnackPosition.BOTTOM,
       );
       return;
     }
 
     if (_selectedDate.value == null) {
+      final l10n = AppLocalizations.of(Get.context!)!;
       Get.snackbar(
-        'Error',
-        'Please select a date',
+        l10n.errorTitle,
+        l10n.pleaseSelectDate,
         snackPosition: SnackPosition.BOTTOM,
       );
       return;
     }
 
     if (_selectedSlot.value == null) {
+      final l10n = AppLocalizations.of(Get.context!)!;
       Get.snackbar(
-        'Error',
-        'Please select a time slot',
+        l10n.errorTitle,
+        l10n.pleaseSelectTimeSlot,
         snackPosition: SnackPosition.BOTTOM,
       );
       return;

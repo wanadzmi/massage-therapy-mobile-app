@@ -1088,4 +1088,299 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get typeYourMessage => 'Type your message...';
+
+  @override
+  String get searchStoresByName => 'Search stores by name...';
+
+  @override
+  String get clearAll => 'Clear All';
+
+  @override
+  String get noStoresMatchYourFilters => 'No stores match your filters';
+
+  @override
+  String get noStoresFound => 'No stores found';
+
+  @override
+  String get tryAdjustingOrClearingFilters =>
+      'Try adjusting or clearing your filters';
+
+  @override
+  String get noStoresAvailableAtTheMoment =>
+      'No stores available at the moment';
+
+  @override
+  String get clearAllFilters => 'Clear All Filters';
+
+  @override
+  String get verified => 'Verified';
+
+  @override
+  String get openNow => 'Open';
+
+  @override
+  String get unknownStore => 'Unknown Store';
+
+  @override
+  String get serviceSingular => 'service';
+
+  @override
+  String get servicesPlural => 'services';
+
+  @override
+  String get getDirections => 'Get Directions';
+
+  @override
+  String get storeFoundSingular => 'store found';
+
+  @override
+  String get storesFoundPlural => 'stores found';
+
+  @override
+  String showingOfStores(
+    int showing,
+    int total,
+    int currentPage,
+    int totalPages,
+  ) {
+    return 'Showing $showing of $total stores • Page $currentPage of $totalPages';
+  }
+
+  @override
+  String filteredLocation(String city) {
+    return 'in $city';
+  }
+
+  @override
+  String withinRadius(int radius) {
+    return 'within ${radius}km';
+  }
+
+  @override
+  String minRating(String rating) {
+    return '$rating+ stars';
+  }
+
+  @override
+  String nearbyKm(int radius) {
+    return 'Nearby ${radius}km';
+  }
+
+  @override
+  String get budget => 'Budget';
+
+  @override
+  String get standard => 'Standard';
+
+  @override
+  String get premium => 'Premium';
+
+  @override
+  String get priceLowToHigh => 'Price: Low-High';
+
+  @override
+  String get priceHighToLow => 'Price: High-Low';
+
+  @override
+  String get ratingLowToHigh => 'Rating: Low-High';
+
+  @override
+  String get ratingHighToLow => 'Rating: High-Low';
+
+  @override
+  String get distanceNearest => 'Distance: Nearest';
+
+  @override
+  String awayDistance(String distance) {
+    return '$distance away';
+  }
+
+  @override
+  String get pleasCheckInternetConnection =>
+      'Please check your internet connection\nand try again';
+
+  @override
+  String get retry => 'Retry';
+
+  @override
+  String get filters => 'Filters';
+
+  @override
+  String get location => 'Location';
+
+  @override
+  String get priceRange => 'Price Range';
+
+  @override
+  String get minimumRating => 'Minimum Rating';
+
+  @override
+  String get amenities => 'Amenities';
+
+  @override
+  String get sortBy => 'Sort By';
+
+  @override
+  String applyWithCount(int count) {
+    return 'Apply ($count)';
+  }
+
+  @override
+  String get apply => 'Apply';
+
+  @override
+  String get useCurrentLocation => 'Use Current Location';
+
+  @override
+  String get searchRadius => 'Search Radius';
+
+  @override
+  String kmUnit(int value) {
+    return '$value km';
+  }
+
+  @override
+  String get allRatings => 'All';
+
+  @override
+  String get recommended => 'Recommended';
+
+  @override
+  String get distanceNearestFirst => 'Distance: Nearest First';
+
+  @override
+  String get storeDetails => 'Store Details';
+
+  @override
+  String get availableServices => 'Available Services';
+
+  @override
+  String get storeName => 'Store Name';
+
+  @override
+  String get serviceName => 'Service Name';
+
+  @override
+  String get bookNow => 'Book Now';
+
+  @override
+  String get noServicesAvailable => 'No services available';
+
+  @override
+  String get reviewsAndRatings => 'Reviews & Ratings';
+
+  @override
+  String reviewsCount(int count) {
+    return '$count reviews';
+  }
+
+  @override
+  String get noReviewsYetStore => 'No reviews yet';
+
+  @override
+  String get recentReviews => 'Recent Reviews';
+
+  @override
+  String foundThisHelpful(int count) {
+    return '$count found this helpful';
+  }
+
+  @override
+  String get storeResponse => 'Store Response';
+
+  @override
+  String get locationError => 'Location Error';
+
+  @override
+  String get storeLocationNotAvailable => 'Store location not available';
+
+  @override
+  String get errorTitle => 'Error';
+
+  @override
+  String get couldNotOpenGoogleMaps => 'Could not open Google Maps';
+
+  @override
+  String get couldNotOpenWaze => 'Could not open Waze';
+
+  @override
+  String get wazeNotAvailable => 'Waze Not Available';
+
+  @override
+  String get pleaseInstallWaze => 'Please install Waze app or use Google Maps';
+
+  @override
+  String get navigateUsingGoogleMaps => 'Navigate using Google Maps';
+
+  @override
+  String get navigateUsingWaze => 'Navigate using Waze';
+
+  @override
+  String get confirmBooking => 'Confirm Booking';
+
+  @override
+  String get selectTime => 'Select Time';
+
+  @override
+  String get selectDate => 'Select Date';
+
+  @override
+  String get selectTherapist => 'Select Therapist';
+
+  @override
+  String get noAvailabilityForTherapist =>
+      'No availability found for selected therapist in the next 30 days';
+
+  @override
+  String get noTherapistsAvailable =>
+      'No therapists available for this service';
+
+  @override
+  String get available => 'Available';
+
+  @override
+  String get notAvailableLabel => 'Not Available';
+
+  @override
+  String get tapHighlightedDate =>
+      'Tap on a highlighted date to view available time slots';
+
+  @override
+  String slotsAvailable(int count) {
+    return '$count slots available';
+  }
+
+  @override
+  String get bookingSummary => 'Booking Summary';
+
+  @override
+  String get dateAndTime => 'Date & Time';
+
+  @override
+  String get yourTherapist => 'Your Therapist';
+
+  @override
+  String get proceedToBooking => 'Proceed to Booking';
+
+  @override
+  String get serviceInfoMissing => 'Service information is missing';
+
+  @override
+  String get noAvailability => 'No Availability';
+
+  @override
+  String get noAvailableDatesMessage =>
+      'No available dates for this service in the next 30 days.';
+
+  @override
+  String get failedToLoadAvailability => 'Failed to load availability calendar';
+
+  @override
+  String get pleaseSelectTherapist => 'Please select a therapist';
+
+  @override
+  String get pleaseSelectDate => 'Please select a date';
+
+  @override
+  String get pleaseSelectTimeSlot => 'Please select a time slot';
 }

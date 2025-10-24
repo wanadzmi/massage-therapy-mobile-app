@@ -1067,4 +1067,292 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get typeYourMessage => '输入您的消息...';
+
+  @override
+  String get searchStoresByName => '按名称搜索店铺...';
+
+  @override
+  String get clearAll => '全部清除';
+
+  @override
+  String get noStoresMatchYourFilters => '没有店铺符合您的筛选条件';
+
+  @override
+  String get noStoresFound => '未找到店铺';
+
+  @override
+  String get tryAdjustingOrClearingFilters => '尝试调整或清除筛选条件';
+
+  @override
+  String get noStoresAvailableAtTheMoment => '目前没有可用的店铺';
+
+  @override
+  String get clearAllFilters => '清除所有筛选';
+
+  @override
+  String get verified => '已验证';
+
+  @override
+  String get openNow => '营业中';
+
+  @override
+  String get unknownStore => '未知店铺';
+
+  @override
+  String get serviceSingular => '项服务';
+
+  @override
+  String get servicesPlural => '项服务';
+
+  @override
+  String get getDirections => '获取路线';
+
+  @override
+  String get storeFoundSingular => '找到店铺';
+
+  @override
+  String get storesFoundPlural => '找到店铺';
+
+  @override
+  String showingOfStores(
+    int showing,
+    int total,
+    int currentPage,
+    int totalPages,
+  ) {
+    return '显示 $showing / $total 店铺 • 第 $currentPage / $totalPages 页';
+  }
+
+  @override
+  String filteredLocation(String city) {
+    return '在 $city';
+  }
+
+  @override
+  String withinRadius(int radius) {
+    return '$radius公里内';
+  }
+
+  @override
+  String minRating(String rating) {
+    return '$rating+ 星';
+  }
+
+  @override
+  String nearbyKm(int radius) {
+    return '附近 $radius公里';
+  }
+
+  @override
+  String get budget => '经济型';
+
+  @override
+  String get standard => '标准型';
+
+  @override
+  String get premium => '高级型';
+
+  @override
+  String get priceLowToHigh => '价格：低到高';
+
+  @override
+  String get priceHighToLow => '价格：高到低';
+
+  @override
+  String get ratingLowToHigh => '评分：低到高';
+
+  @override
+  String get ratingHighToLow => '评分：高到低';
+
+  @override
+  String get distanceNearest => '距离：最近';
+
+  @override
+  String awayDistance(String distance) {
+    return '$distance 距离';
+  }
+
+  @override
+  String get pleasCheckInternetConnection => '请检查您的网络连接\n然后重试';
+
+  @override
+  String get retry => '重试';
+
+  @override
+  String get filters => '筛选';
+
+  @override
+  String get location => '位置';
+
+  @override
+  String get priceRange => '价格范围';
+
+  @override
+  String get minimumRating => '最低评分';
+
+  @override
+  String get amenities => '设施';
+
+  @override
+  String get sortBy => '排序方式';
+
+  @override
+  String applyWithCount(int count) {
+    return '应用 ($count)';
+  }
+
+  @override
+  String get apply => '应用';
+
+  @override
+  String get useCurrentLocation => '使用当前位置';
+
+  @override
+  String get searchRadius => '搜索半径';
+
+  @override
+  String kmUnit(int value) {
+    return '$value 公里';
+  }
+
+  @override
+  String get allRatings => '全部';
+
+  @override
+  String get recommended => '推荐';
+
+  @override
+  String get distanceNearestFirst => '距离：最近优先';
+
+  @override
+  String get storeDetails => '店铺详情';
+
+  @override
+  String get availableServices => '可用服务';
+
+  @override
+  String get storeName => '店铺名称';
+
+  @override
+  String get serviceName => '服务名称';
+
+  @override
+  String get bookNow => '立即预订';
+
+  @override
+  String get noServicesAvailable => '没有可用服务';
+
+  @override
+  String get reviewsAndRatings => '评价与评分';
+
+  @override
+  String reviewsCount(int count) {
+    return '$count 条评价';
+  }
+
+  @override
+  String get noReviewsYetStore => '暂无评价';
+
+  @override
+  String get recentReviews => '最近评价';
+
+  @override
+  String foundThisHelpful(int count) {
+    return '$count 人觉得有帮助';
+  }
+
+  @override
+  String get storeResponse => '店铺回复';
+
+  @override
+  String get locationError => '位置错误';
+
+  @override
+  String get storeLocationNotAvailable => '店铺位置不可用';
+
+  @override
+  String get errorTitle => '错误';
+
+  @override
+  String get couldNotOpenGoogleMaps => '无法打开 Google Maps';
+
+  @override
+  String get couldNotOpenWaze => '无法打开 Waze';
+
+  @override
+  String get wazeNotAvailable => 'Waze 不可用';
+
+  @override
+  String get pleaseInstallWaze => '请安装 Waze 应用或使用 Google Maps';
+
+  @override
+  String get navigateUsingGoogleMaps => '使用 Google Maps 导航';
+
+  @override
+  String get navigateUsingWaze => '使用 Waze 导航';
+
+  @override
+  String get confirmBooking => '确认预约';
+
+  @override
+  String get selectTime => '选择时间';
+
+  @override
+  String get selectDate => '选择日期';
+
+  @override
+  String get selectTherapist => '选择治疗师';
+
+  @override
+  String get noAvailabilityForTherapist => '未来30天内未找到所选治疗师的可用时段';
+
+  @override
+  String get noTherapistsAvailable => '此服务暂无可用治疗师';
+
+  @override
+  String get available => '可用';
+
+  @override
+  String get notAvailableLabel => '不可用';
+
+  @override
+  String get tapHighlightedDate => '点击突出显示的日期以查看可用时段';
+
+  @override
+  String slotsAvailable(int count) {
+    return '有$count个可用时段';
+  }
+
+  @override
+  String get bookingSummary => '预约摘要';
+
+  @override
+  String get dateAndTime => '日期和时间';
+
+  @override
+  String get yourTherapist => '您的治疗师';
+
+  @override
+  String get proceedToBooking => '前往预约';
+
+  @override
+  String get serviceInfoMissing => '缺少服务信息';
+
+  @override
+  String get noAvailability => '无可用时段';
+
+  @override
+  String get noAvailableDatesMessage => '未来30天内此服务无可用日期。';
+
+  @override
+  String get failedToLoadAvailability => '无法加载可用日历';
+
+  @override
+  String get pleaseSelectTherapist => '请选择治疗师';
+
+  @override
+  String get pleaseSelectDate => '请选择日期';
+
+  @override
+  String get pleaseSelectTimeSlot => '请选择时段';
 }

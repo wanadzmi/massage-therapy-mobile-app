@@ -1090,4 +1090,302 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get typeYourMessage => 'Taip mesej anda...';
+
+  @override
+  String get searchStoresByName => 'Cari kedai mengikut nama...';
+
+  @override
+  String get clearAll => 'Kosongkan Semua';
+
+  @override
+  String get noStoresMatchYourFilters =>
+      'Tiada kedai sepadan dengan penapis anda';
+
+  @override
+  String get noStoresFound => 'Tiada kedai dijumpai';
+
+  @override
+  String get tryAdjustingOrClearingFilters =>
+      'Cuba laraskan atau kosongkan penapis anda';
+
+  @override
+  String get noStoresAvailableAtTheMoment =>
+      'Tiada kedai tersedia pada masa ini';
+
+  @override
+  String get clearAllFilters => 'Kosongkan Semua Penapis';
+
+  @override
+  String get verified => 'Disahkan';
+
+  @override
+  String get openNow => 'Buka';
+
+  @override
+  String get unknownStore => 'Kedai Tidak Dikenali';
+
+  @override
+  String get serviceSingular => 'perkhidmatan';
+
+  @override
+  String get servicesPlural => 'perkhidmatan';
+
+  @override
+  String get getDirections => 'Dapatkan Arah';
+
+  @override
+  String get storeFoundSingular => 'kedai dijumpai';
+
+  @override
+  String get storesFoundPlural => 'kedai dijumpai';
+
+  @override
+  String showingOfStores(
+    int showing,
+    int total,
+    int currentPage,
+    int totalPages,
+  ) {
+    return 'Menunjukkan $showing daripada $total kedai • Halaman $currentPage dari $totalPages';
+  }
+
+  @override
+  String filteredLocation(String city) {
+    return 'di $city';
+  }
+
+  @override
+  String withinRadius(int radius) {
+    return 'dalam ${radius}km';
+  }
+
+  @override
+  String minRating(String rating) {
+    return '$rating+ bintang';
+  }
+
+  @override
+  String nearbyKm(int radius) {
+    return 'Berdekatan ${radius}km';
+  }
+
+  @override
+  String get budget => 'Bajet';
+
+  @override
+  String get standard => 'Standard';
+
+  @override
+  String get premium => 'Premium';
+
+  @override
+  String get priceLowToHigh => 'Harga: Rendah-Tinggi';
+
+  @override
+  String get priceHighToLow => 'Harga: Tinggi-Rendah';
+
+  @override
+  String get ratingLowToHigh => 'Penilaian: Rendah-Tinggi';
+
+  @override
+  String get ratingHighToLow => 'Penilaian: Tinggi-Rendah';
+
+  @override
+  String get distanceNearest => 'Jarak: Terdekat';
+
+  @override
+  String awayDistance(String distance) {
+    return '$distance jauhnya';
+  }
+
+  @override
+  String get pleasCheckInternetConnection =>
+      'Sila semak sambungan internet anda\ndan cuba lagi';
+
+  @override
+  String get retry => 'Cuba Lagi';
+
+  @override
+  String get filters => 'Penapis';
+
+  @override
+  String get location => 'Lokasi';
+
+  @override
+  String get priceRange => 'Julat Harga';
+
+  @override
+  String get minimumRating => 'Penilaian Minimum';
+
+  @override
+  String get amenities => 'Kemudahan';
+
+  @override
+  String get sortBy => 'Susun Mengikut';
+
+  @override
+  String applyWithCount(int count) {
+    return 'Gunakan ($count)';
+  }
+
+  @override
+  String get apply => 'Gunakan';
+
+  @override
+  String get useCurrentLocation => 'Gunakan Lokasi Semasa';
+
+  @override
+  String get searchRadius => 'Jejari Carian';
+
+  @override
+  String kmUnit(int value) {
+    return '$value km';
+  }
+
+  @override
+  String get allRatings => 'Semua';
+
+  @override
+  String get recommended => 'Disyorkan';
+
+  @override
+  String get distanceNearestFirst => 'Jarak: Terdekat Dahulu';
+
+  @override
+  String get storeDetails => 'Butiran Kedai';
+
+  @override
+  String get availableServices => 'Perkhidmatan Tersedia';
+
+  @override
+  String get storeName => 'Nama Kedai';
+
+  @override
+  String get serviceName => 'Nama Perkhidmatan';
+
+  @override
+  String get bookNow => 'Tempah Sekarang';
+
+  @override
+  String get noServicesAvailable => 'Tiada perkhidmatan tersedia';
+
+  @override
+  String get reviewsAndRatings => 'Ulasan & Penilaian';
+
+  @override
+  String reviewsCount(int count) {
+    return '$count ulasan';
+  }
+
+  @override
+  String get noReviewsYetStore => 'Tiada ulasan lagi';
+
+  @override
+  String get recentReviews => 'Ulasan Terkini';
+
+  @override
+  String foundThisHelpful(int count) {
+    return '$count mendapati ini membantu';
+  }
+
+  @override
+  String get storeResponse => 'Respons Kedai';
+
+  @override
+  String get locationError => 'Ralat Lokasi';
+
+  @override
+  String get storeLocationNotAvailable => 'Lokasi kedai tidak tersedia';
+
+  @override
+  String get errorTitle => 'Ralat';
+
+  @override
+  String get couldNotOpenGoogleMaps => 'Tidak dapat membuka Google Maps';
+
+  @override
+  String get couldNotOpenWaze => 'Tidak dapat membuka Waze';
+
+  @override
+  String get wazeNotAvailable => 'Waze Tidak Tersedia';
+
+  @override
+  String get pleaseInstallWaze =>
+      'Sila pasang aplikasi Waze atau gunakan Google Maps';
+
+  @override
+  String get navigateUsingGoogleMaps => 'Navigasi menggunakan Google Maps';
+
+  @override
+  String get navigateUsingWaze => 'Navigasi menggunakan Waze';
+
+  @override
+  String get confirmBooking => 'Sahkan Tempahan';
+
+  @override
+  String get selectTime => 'Pilih Masa';
+
+  @override
+  String get selectDate => 'Pilih Tarikh';
+
+  @override
+  String get selectTherapist => 'Pilih Ahli Terapi';
+
+  @override
+  String get noAvailabilityForTherapist =>
+      'Tiada ketersediaan untuk ahli terapi yang dipilih dalam 30 hari akan datang';
+
+  @override
+  String get noTherapistsAvailable =>
+      'Tiada ahli terapi tersedia untuk perkhidmatan ini';
+
+  @override
+  String get available => 'Tersedia';
+
+  @override
+  String get notAvailableLabel => 'Tidak Tersedia';
+
+  @override
+  String get tapHighlightedDate =>
+      'Ketik pada tarikh yang diserlahkan untuk melihat slot masa yang tersedia';
+
+  @override
+  String slotsAvailable(int count) {
+    return '$count slot tersedia';
+  }
+
+  @override
+  String get bookingSummary => 'Ringkasan Tempahan';
+
+  @override
+  String get dateAndTime => 'Tarikh & Masa';
+
+  @override
+  String get yourTherapist => 'Ahli Terapi Anda';
+
+  @override
+  String get proceedToBooking => 'Teruskan ke Tempahan';
+
+  @override
+  String get serviceInfoMissing => 'Maklumat perkhidmatan tiada';
+
+  @override
+  String get noAvailability => 'Tiada Ketersediaan';
+
+  @override
+  String get noAvailableDatesMessage =>
+      'Tiada tarikh tersedia untuk perkhidmatan ini dalam 30 hari akan datang.';
+
+  @override
+  String get failedToLoadAvailability =>
+      'Gagal memuatkan kalendar ketersediaan';
+
+  @override
+  String get pleaseSelectTherapist => 'Sila pilih ahli terapi';
+
+  @override
+  String get pleaseSelectDate => 'Sila pilih tarikh';
+
+  @override
+  String get pleaseSelectTimeSlot => 'Sila pilih slot masa';
 }

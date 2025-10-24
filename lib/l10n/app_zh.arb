@@ -1458,5 +1458,418 @@
     "typeYourMessage": "输入您的消息...",
     "@typeYourMessage": {
         "description": "Message input hint"
+    },
+    "searchStoresByName": "按名称搜索店铺...",
+    "@searchStoresByName": {
+        "description": "Store search hint"
+    },
+    "clearAll": "全部清除",
+    "@clearAll": {
+        "description": "Clear all filters button"
+    },
+    "noStoresMatchYourFilters": "没有店铺符合您的筛选条件",
+    "@noStoresMatchYourFilters": {
+        "description": "Empty state title when filters applied"
+    },
+    "noStoresFound": "未找到店铺",
+    "@noStoresFound": {
+        "description": "Empty state title"
+    },
+    "tryAdjustingOrClearingFilters": "尝试调整或清除筛选条件",
+    "@tryAdjustingOrClearingFilters": {
+        "description": "Empty state subtitle when filters applied"
+    },
+    "noStoresAvailableAtTheMoment": "目前没有可用的店铺",
+    "@noStoresAvailableAtTheMoment": {
+        "description": "Empty state subtitle"
+    },
+    "clearAllFilters": "清除所有筛选",
+    "@clearAllFilters": {
+        "description": "Clear filters button"
+    },
+    "verified": "已验证",
+    "@verified": {
+        "description": "Verified badge"
+    },
+    "openNow": "营业中",
+    "@openNow": {
+        "description": "Open status badge"
+    },
+    "unknownStore": "未知店铺",
+    "@unknownStore": {
+        "description": "Default store name"
+    },
+    "serviceSingular": "项服务",
+    "@serviceSingular": {
+        "description": "Singular service count"
+    },
+    "servicesPlural": "项服务",
+    "@servicesPlural": {
+        "description": "Plural services count"
+    },
+    "getDirections": "获取路线",
+    "@getDirections": {
+        "description": "Get directions button"
+    },
+    "storeFoundSingular": "找到店铺",
+    "@storeFoundSingular": {
+        "description": "Results text singular"
+    },
+    "storesFoundPlural": "找到店铺",
+    "@storesFoundPlural": {
+        "description": "Results text plural"
+    },
+    "showingOfStores": "显示 {showing} / {total} 店铺 • 第 {currentPage} / {totalPages} 页",
+    "@showingOfStores": {
+        "description": "Results pagination text",
+        "placeholders": {
+            "showing": {
+                "type": "int"
+            },
+            "total": {
+                "type": "int"
+            },
+            "currentPage": {
+                "type": "int"
+            },
+            "totalPages": {
+                "type": "int"
+            }
+        }
+    },
+    "filteredLocation": "在 {city}",
+    "@filteredLocation": {
+        "description": "Filter summary for city",
+        "placeholders": {
+            "city": {
+                "type": "String"
+            }
+        }
+    },
+    "withinRadius": "{radius}公里内",
+    "@withinRadius": {
+        "description": "Filter summary for radius",
+        "placeholders": {
+            "radius": {
+                "type": "int"
+            }
+        }
+    },
+    "minRating": "{rating}+ 星",
+    "@minRating": {
+        "description": "Filter summary for rating",
+        "placeholders": {
+            "rating": {
+                "type": "String"
+            }
+        }
+    },
+    "nearbyKm": "附近 {radius}公里",
+    "@nearbyKm": {
+        "description": "Nearby filter chip label",
+        "placeholders": {
+            "radius": {
+                "type": "int"
+            }
+        }
+    },
+    "budget": "经济型",
+    "@budget": {
+        "description": "Budget price range"
+    },
+    "standard": "标准型",
+    "@standard": {
+        "description": "Standard price range"
+    },
+    "premium": "高级型",
+    "@premium": {
+        "description": "Premium price range"
+    },
+    "priceLowToHigh": "价格：低到高",
+    "@priceLowToHigh": {
+        "description": "Sort option"
+    },
+    "priceHighToLow": "价格：高到低",
+    "@priceHighToLow": {
+        "description": "Sort option"
+    },
+    "ratingLowToHigh": "评分：低到高",
+    "@ratingLowToHigh": {
+        "description": "Sort option"
+    },
+    "ratingHighToLow": "评分：高到低",
+    "@ratingHighToLow": {
+        "description": "Sort option"
+    },
+    "distanceNearest": "距离：最近",
+    "@distanceNearest": {
+        "description": "Sort option"
+    },
+    "awayDistance": "{distance} 距离",
+    "@awayDistance": {
+        "description": "Distance to store",
+        "placeholders": {
+            "distance": {
+                "type": "String"
+            }
+        }
+    },
+    "pleasCheckInternetConnection": "请检查您的网络连接\n然后重试",
+    "@pleasCheckInternetConnection": {
+        "description": "Error state message"
+    },
+    "retry": "重试",
+    "@retry": {
+        "description": "Retry button"
+    },
+    "filters": "筛选",
+    "@filters": {
+        "description": "Filters bottom sheet title"
+    },
+    "location": "位置",
+    "@location": {
+        "description": "Location section title"
+    },
+    "priceRange": "价格范围",
+    "@priceRange": {
+        "description": "Price range section title"
+    },
+    "minimumRating": "最低评分",
+    "@minimumRating": {
+        "description": "Rating section title"
+    },
+    "amenities": "设施",
+    "@amenities": {
+        "description": "Amenities section title"
+    },
+    "sortBy": "排序方式",
+    "@sortBy": {
+        "description": "Sort section title"
+    },
+    "applyWithCount": "应用 ({count})",
+    "@applyWithCount": {
+        "description": "Apply button with count",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "apply": "应用",
+    "@apply": {
+        "description": "Apply button"
+    },
+    "useCurrentLocation": "使用当前位置",
+    "@useCurrentLocation": {
+        "description": "Location toggle label"
+    },
+    "searchRadius": "搜索半径",
+    "@searchRadius": {
+        "description": "Radius label"
+    },
+    "kmUnit": "{value} 公里",
+    "@kmUnit": {
+        "description": "Kilometer unit",
+        "placeholders": {
+            "value": {
+                "type": "int"
+            }
+        }
+    },
+    "allRatings": "全部",
+    "@allRatings": {
+        "description": "All ratings option"
+    },
+    "recommended": "推荐",
+    "@recommended": {
+        "description": "Recommended sort option"
+    },
+    "distanceNearestFirst": "距离：最近优先",
+    "@distanceNearestFirst": {
+        "description": "Sort by distance option"
+    },
+    "storeDetails": "店铺详情",
+    "@storeDetails": {
+        "description": "Store detail page title"
+    },
+    "availableServices": "可用服务",
+    "@availableServices": {
+        "description": "Services section title"
+    },
+    "storeName": "店铺名称",
+    "@storeName": {
+        "description": "Default store name"
+    },
+    "serviceName": "服务名称",
+    "@serviceName": {
+        "description": "Default service name"
+    },
+    "bookNow": "立即预订",
+    "@bookNow": {
+        "description": "Book now button"
+    },
+    "noServicesAvailable": "没有可用服务",
+    "@noServicesAvailable": {
+        "description": "Empty services state"
+    },
+    "reviewsAndRatings": "评价与评分",
+    "@reviewsAndRatings": {
+        "description": "Reviews section title"
+    },
+    "reviewsCount": "{count} 条评价",
+    "@reviewsCount": {
+        "description": "Review count",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "noReviewsYetStore": "暂无评价",
+    "@noReviewsYetStore": {
+        "description": "Empty reviews state in store"
+    },
+    "recentReviews": "最近评价",
+    "@recentReviews": {
+        "description": "Recent reviews label"
+    },
+    "foundThisHelpful": "{count} 人觉得有帮助",
+    "@foundThisHelpful": {
+        "description": "Helpful count",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "storeResponse": "店铺回复",
+    "@storeResponse": {
+        "description": "Store response label"
+    },
+    "locationError": "位置错误",
+    "@locationError": {
+        "description": "Location error title"
+    },
+    "storeLocationNotAvailable": "店铺位置不可用",
+    "@storeLocationNotAvailable": {
+        "description": "Location error message"
+    },
+    "errorTitle": "错误",
+    "@errorTitle": {
+        "description": "Generic error title"
+    },
+    "couldNotOpenGoogleMaps": "无法打开 Google Maps",
+    "@couldNotOpenGoogleMaps": {
+        "description": "Google Maps error"
+    },
+    "couldNotOpenWaze": "无法打开 Waze",
+    "@couldNotOpenWaze": {
+        "description": "Waze error"
+    },
+    "wazeNotAvailable": "Waze 不可用",
+    "@wazeNotAvailable": {
+        "description": "Waze not available title"
+    },
+    "pleaseInstallWaze": "请安装 Waze 应用或使用 Google Maps",
+    "@pleaseInstallWaze": {
+        "description": "Waze installation prompt"
+    },
+    "navigateUsingGoogleMaps": "使用 Google Maps 导航",
+    "@navigateUsingGoogleMaps": {
+        "description": "Google Maps navigation option"
+    },
+    "navigateUsingWaze": "使用 Waze 导航",
+    "@navigateUsingWaze": {
+        "description": "Waze navigation option"
+    },
+    "@_THERAPIST_SELECTION": {},
+    "confirmBooking": "确认预约",
+    "@confirmBooking": {
+        "description": "Confirm booking page title"
+    },
+    "selectTime": "选择时间",
+    "@selectTime": {
+        "description": "Select time page title"
+    },
+    "selectDate": "选择日期",
+    "@selectDate": {
+        "description": "Select date page title"
+    },
+    "selectTherapist": "选择治疗师",
+    "@selectTherapist": {
+        "description": "Select therapist page title"
+    },
+    "noAvailabilityForTherapist": "未来30天内未找到所选治疗师的可用时段",
+    "@noAvailabilityForTherapist": {
+        "description": "No availability message for therapist"
+    },
+    "noTherapistsAvailable": "此服务暂无可用治疗师",
+    "@noTherapistsAvailable": {
+        "description": "No therapists message"
+    },
+    "available": "可用",
+    "@available": {
+        "description": "Available legend label"
+    },
+    "notAvailableLabel": "不可用",
+    "@notAvailableLabel": {
+        "description": "Not available legend label"
+    },
+    "tapHighlightedDate": "点击突出显示的日期以查看可用时段",
+    "@tapHighlightedDate": {
+        "description": "Calendar instruction text"
+    },
+    "slotsAvailable": "有{count}个可用时段",
+    "@slotsAvailable": {
+        "description": "Slots available count",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "bookingSummary": "预约摘要",
+    "@bookingSummary": {
+        "description": "Booking summary title"
+    },
+    "dateAndTime": "日期和时间",
+    "@dateAndTime": {
+        "description": "Date and time label"
+    },
+    "yourTherapist": "您的治疗师",
+    "@yourTherapist": {
+        "description": "Your therapist label"
+    },
+    "proceedToBooking": "前往预约",
+    "@proceedToBooking": {
+        "description": "Proceed button text"
+    },
+    "serviceInfoMissing": "缺少服务信息",
+    "@serviceInfoMissing": {
+        "description": "Service info error"
+    },
+    "noAvailability": "无可用时段",
+    "@noAvailability": {
+        "description": "No availability error title"
+    },
+    "noAvailableDatesMessage": "未来30天内此服务无可用日期。",
+    "@noAvailableDatesMessage": {
+        "description": "No availability error message"
+    },
+    "failedToLoadAvailability": "无法加载可用日历",
+    "@failedToLoadAvailability": {
+        "description": "Failed to load availability error"
+    },
+    "pleaseSelectTherapist": "请选择治疗师",
+    "@pleaseSelectTherapist": {
+        "description": "Select therapist validation"
+    },
+    "pleaseSelectDate": "请选择日期",
+    "@pleaseSelectDate": {
+        "description": "Select date validation"
+    },
+    "pleaseSelectTimeSlot": "请选择时段",
+    "@pleaseSelectTimeSlot": {
+        "description": "Select time slot validation"
     }
 }

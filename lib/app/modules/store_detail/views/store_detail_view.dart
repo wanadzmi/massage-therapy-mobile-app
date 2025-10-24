@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../controllers/store_detail_controller.dart';
 import '../../../data/services/store_service.dart';
 
@@ -8,6 +9,7 @@ class StoreDetailView extends GetView<StoreDetailController> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: const Color(0xFF0A0A0A),
       appBar: AppBar(
@@ -19,7 +21,7 @@ class StoreDetailView extends GetView<StoreDetailController> {
         ),
         title: Obx(
           () => Text(
-            controller.store?.name ?? 'Store Details',
+            controller.store?.name ?? l10n.storeDetails,
             style: const TextStyle(
               color: Color(0xFFE0E0E0),
               fontWeight: FontWeight.w500,
@@ -38,7 +40,7 @@ class StoreDetailView extends GetView<StoreDetailController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Store Header
-                    if (controller.store != null) _buildStoreHeader(),
+                    if (controller.store != null) _buildStoreHeader(context),
 
                     const SizedBox(height: 24),
 
@@ -46,7 +48,7 @@ class StoreDetailView extends GetView<StoreDetailController> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Text(
-                        'Available Services',
+                        l10n.availableServices,
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
@@ -79,7 +81,7 @@ class StoreDetailView extends GetView<StoreDetailController> {
                               itemCount: controller.services.length,
                               itemBuilder: (context, index) {
                                 final service = controller.services[index];
-                                return _buildServiceCard(service);
+                                return _buildServiceCard(service, context);
                               },
                             ),
                     ),
@@ -97,7 +99,8 @@ class StoreDetailView extends GetView<StoreDetailController> {
     );
   }
 
-  Widget _buildStoreHeader() {
+  Widget _buildStoreHeader(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final store = controller.store!;
     return Container(
       padding: const EdgeInsets.all(20),
@@ -112,7 +115,7 @@ class StoreDetailView extends GetView<StoreDetailController> {
             children: [
               Expanded(
                 child: Text(
-                  store.name ?? 'Store Name',
+                  store.name ?? l10n.storeName,
                   style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w600,
@@ -190,7 +193,8 @@ class StoreDetailView extends GetView<StoreDetailController> {
     );
   }
 
-  Widget _buildServiceCard(service) {
+  Widget _buildServiceCard(service, BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return GestureDetector(
       onTap: () => controller.navigateToServiceBooking(service),
       child: Container(
@@ -212,7 +216,7 @@ class StoreDetailView extends GetView<StoreDetailController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        service.name ?? 'Service Name',
+                        service.name ?? l10n.serviceName,
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
@@ -320,9 +324,9 @@ class StoreDetailView extends GetView<StoreDetailController> {
                     color: const Color(0xFFD4AF37),
                     borderRadius: BorderRadius.circular(6),
                   ),
-                  child: const Text(
-                    'Book Now',
-                    style: TextStyle(
+                  child: Text(
+                    l10n.bookNow,
+                    style: const TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
                       color: Colors.black,
@@ -338,135 +342,149 @@ class StoreDetailView extends GetView<StoreDetailController> {
   }
 
   Widget _buildEmptyState() {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                color: const Color(0xFF1A1A1A),
-                shape: BoxShape.circle,
-                border: Border.all(color: const Color(0xFF2A2A2A)),
-              ),
-              child: const Icon(
-                Icons.spa_outlined,
-                size: 48,
-                color: Color(0xFF505050),
-              ),
+    return Builder(
+      builder: (context) {
+        final l10n = AppLocalizations.of(context)!;
+        return Center(
+          child: Padding(
+            padding: const EdgeInsets.all(32.0),
+            child: Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(24),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF1A1A1A),
+                    shape: BoxShape.circle,
+                    border: Border.all(color: const Color(0xFF2A2A2A)),
+                  ),
+                  child: const Icon(
+                    Icons.spa_outlined,
+                    size: 48,
+                    color: Color(0xFF505050),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  l10n.noServicesAvailable,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Color(0xFF808080),
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 20),
-            const Text(
-              'No services available',
-              style: TextStyle(
-                fontSize: 16,
-                color: Color(0xFF808080),
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 
   Widget _buildReviewsSection() {
-    return Obx(() {
-      final stats = controller.reviewStats;
-      final reviews = controller.recentReviews;
+    return Builder(
+      builder: (context) {
+        final l10n = AppLocalizations.of(context)!;
+        return Obx(() {
+          final stats = controller.reviewStats;
+          final reviews = controller.recentReviews;
 
-      return Container(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Section Header
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          return Container(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Reviews & Ratings',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFFE0E0E0),
-                  ),
-                ),
-                if (stats != null &&
-                    stats.totalReviews != null &&
-                    stats.totalReviews! > 0)
-                  Text(
-                    '${stats.totalReviews} reviews',
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Color(0xFF808080),
+                // Section Header
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      l10n.reviewsAndRatings,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFFE0E0E0),
+                      ),
                     ),
+                    if (stats != null &&
+                        stats.totalReviews != null &&
+                        stats.totalReviews! > 0)
+                      Text(
+                        l10n.reviewsCount(stats.totalReviews!),
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Color(0xFF808080),
+                        ),
+                      ),
+                  ],
+                ),
+
+                const SizedBox(height: 16),
+
+                // Rating Summary
+                if (stats != null) _buildRatingSummary(stats, context),
+
+                const SizedBox(height: 24),
+
+                // Recent Reviews
+                if (controller.isLoadingReviews)
+                  const Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(32.0),
+                      child: CircularProgressIndicator(
+                        color: Color(0xFFD4AF37),
+                      ),
+                    ),
+                  )
+                else if (reviews.isEmpty)
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(32.0),
+                      child: Column(
+                        children: [
+                          const Icon(
+                            Icons.rate_review_outlined,
+                            size: 48,
+                            color: Color(0xFF505050),
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            l10n.noReviewsYetStore,
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Color(0xFF808080),
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                else
+                  Column(
+                    children: [
+                      Text(
+                        l10n.recentReviews,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFFE0E0E0),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      ...reviews
+                          .take(10)
+                          .map((review) => _buildReviewCard(review, context)),
+                    ],
                   ),
               ],
             ),
-
-            const SizedBox(height: 16),
-
-            // Rating Summary
-            if (stats != null) _buildRatingSummary(stats),
-
-            const SizedBox(height: 24),
-
-            // Recent Reviews
-            if (controller.isLoadingReviews)
-              const Center(
-                child: Padding(
-                  padding: EdgeInsets.all(32.0),
-                  child: CircularProgressIndicator(color: Color(0xFFD4AF37)),
-                ),
-              )
-            else if (reviews.isEmpty)
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(32.0),
-                  child: Column(
-                    children: [
-                      const Icon(
-                        Icons.rate_review_outlined,
-                        size: 48,
-                        color: Color(0xFF505050),
-                      ),
-                      const SizedBox(height: 16),
-                      const Text(
-                        'No reviews yet',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Color(0xFF808080),
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              )
-            else
-              Column(
-                children: [
-                  const Text(
-                    'Recent Reviews',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFFE0E0E0),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  ...reviews.take(10).map((review) => _buildReviewCard(review)),
-                ],
-              ),
-          ],
-        ),
-      );
-    });
+          );
+        });
+      },
+    );
   }
 
-  Widget _buildRatingSummary(ReviewStatistics stats) {
+  Widget _buildRatingSummary(ReviewStatistics stats, BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -500,7 +518,9 @@ class StoreDetailView extends GetView<StoreDetailController> {
               ),
               const SizedBox(height: 4),
               Text(
-                '${stats.totalReviews ?? 0} reviews',
+                AppLocalizations.of(
+                  context,
+                )!.reviewsCount(stats.totalReviews ?? 0),
                 style: const TextStyle(fontSize: 12, color: Color(0xFF808080)),
               ),
             ],
@@ -595,7 +615,8 @@ class StoreDetailView extends GetView<StoreDetailController> {
     );
   }
 
-  Widget _buildReviewCard(review) {
+  Widget _buildReviewCard(review, BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(16),
@@ -830,7 +851,7 @@ class StoreDetailView extends GetView<StoreDetailController> {
                 ),
                 const SizedBox(width: 6),
                 Text(
-                  '${review.helpful!.count} found this helpful',
+                  l10n.foundThisHelpful(review.helpful!.count!),
                   style: const TextStyle(
                     fontSize: 12,
                     color: Color(0xFF606060),
@@ -861,8 +882,8 @@ class StoreDetailView extends GetView<StoreDetailController> {
                         color: Color(0xFFD4AF37),
                       ),
                       const SizedBox(width: 6),
-                      const Text(
-                        'Store Response',
+                      Text(
+                        l10n.storeResponse,
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w600,

@@ -100,7 +100,7 @@ class FindStoreView extends GetView<FindStoreController> {
                 controller: searchController,
                 style: const TextStyle(color: Color(0xFFE0E0E0)),
                 decoration: InputDecoration(
-                  hintText: 'Search stores by name...',
+                  hintText: l10n.searchStoresByName,
                   hintStyle: const TextStyle(color: Color(0xFF606060)),
                   prefixIcon: const Icon(
                     Icons.search,
@@ -146,7 +146,7 @@ class FindStoreView extends GetView<FindStoreController> {
                     children: [
                       Expanded(
                         child: Text(
-                          _getResultsText(),
+                          _getResultsText(context),
                           style: const TextStyle(
                             fontSize: 13,
                             color: Color(0xFF808080),
@@ -158,7 +158,7 @@ class FindStoreView extends GetView<FindStoreController> {
                           onTap: () => controller.clearFilters(),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
-                            children: const [
+                            children: [
                               Icon(
                                 Icons.filter_alt_off,
                                 size: 14,
@@ -166,7 +166,7 @@ class FindStoreView extends GetView<FindStoreController> {
                               ),
                               SizedBox(width: 4),
                               Text(
-                                'Clear All',
+                                l10n.clearAll,
                                 style: TextStyle(
                                   fontSize: 13,
                                   color: Color(0xFFD4AF37),
@@ -183,7 +183,7 @@ class FindStoreView extends GetView<FindStoreController> {
                     Padding(
                       padding: const EdgeInsets.only(top: 4),
                       child: Text(
-                        _getFilterSummary(),
+                        _getFilterSummary(context),
                         style: const TextStyle(
                           fontSize: 11,
                           color: Color(0xFF606060),
@@ -205,7 +205,7 @@ class FindStoreView extends GetView<FindStoreController> {
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       padding: const EdgeInsets.symmetric(horizontal: 20),
-                      children: _buildActiveFilterChips(),
+                      children: _buildActiveFilterChips(context),
                     ),
                   )
                 : const SizedBox(height: 16),
@@ -243,8 +243,8 @@ class FindStoreView extends GetView<FindStoreController> {
                           const SizedBox(height: 20),
                           Text(
                             controller.selectedFilters.isNotEmpty
-                                ? 'No stores match your filters'
-                                : 'No stores found',
+                                ? l10n.noStoresMatchYourFilters
+                                : l10n.noStoresFound,
                             style: const TextStyle(
                               fontSize: 15,
                               color: Color(0xFF808080),
@@ -254,8 +254,8 @@ class FindStoreView extends GetView<FindStoreController> {
                           const SizedBox(height: 8),
                           Text(
                             controller.selectedFilters.isNotEmpty
-                                ? 'Try adjusting or clearing your filters'
-                                : 'No stores available at the moment',
+                                ? l10n.tryAdjustingOrClearingFilters
+                                : l10n.noStoresAvailableAtTheMoment,
                             style: const TextStyle(
                               fontSize: 13,
                               color: Color(0xFF606060),
@@ -267,7 +267,7 @@ class FindStoreView extends GetView<FindStoreController> {
                             ElevatedButton.icon(
                               onPressed: () => controller.clearFilters(),
                               icon: const Icon(Icons.filter_alt_off, size: 18),
-                              label: const Text('Clear All Filters'),
+                              label: Text(l10n.clearAllFilters),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xFF1A1A1A),
                                 foregroundColor: const Color(0xFFD4AF37),
@@ -320,7 +320,7 @@ class FindStoreView extends GetView<FindStoreController> {
                               );
                             }
                             final store = controller.stores[index];
-                            return _buildStoreCard(store);
+                            return _buildStoreCard(store, context);
                           },
                         ),
                       ),
@@ -466,7 +466,8 @@ class FindStoreView extends GetView<FindStoreController> {
     );
   }
 
-  Widget _buildStoreCard(store) {
+  Widget _buildStoreCard(store, BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return GestureDetector(
       onTap: () => controller.navigateToStoreDetail(store),
       child: Container(
@@ -514,7 +515,7 @@ class FindStoreView extends GetView<FindStoreController> {
                                 color: const Color(0xFF4CAF50).withOpacity(0.9),
                                 borderRadius: BorderRadius.circular(6),
                               ),
-                              child: const Row(
+                              child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Icon(
@@ -524,7 +525,7 @@ class FindStoreView extends GetView<FindStoreController> {
                                   ),
                                   SizedBox(width: 4),
                                   Text(
-                                    'Verified',
+                                    l10n.verified,
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 10,
@@ -545,8 +546,8 @@ class FindStoreView extends GetView<FindStoreController> {
                                 color: const Color(0xFFD4AF37).withOpacity(0.9),
                                 borderRadius: BorderRadius.circular(6),
                               ),
-                              child: const Text(
-                                'Open',
+                              child: Text(
+                                l10n.openNow,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 10,
@@ -572,7 +573,7 @@ class FindStoreView extends GetView<FindStoreController> {
                     children: [
                       Expanded(
                         child: Text(
-                          store.name ?? 'Unknown Store',
+                          store.name ?? l10n.unknownStore,
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
@@ -709,7 +710,7 @@ class FindStoreView extends GetView<FindStoreController> {
                           border: Border.all(color: const Color(0xFF2A2A2A)),
                         ),
                         child: Text(
-                          '${store.services?.length ?? 0} ${(store.services?.length ?? 0) == 1 ? "service" : "services"}',
+                          '${store.services?.length ?? 0} ${(store.services?.length ?? 0) == 1 ? l10n.serviceSingular : l10n.servicesPlural}',
                           style: const TextStyle(
                             fontSize: 11,
                             color: Color(0xFF808080),
@@ -777,7 +778,7 @@ class FindStoreView extends GetView<FindStoreController> {
                           onPressed: () =>
                               controller.showNavigationOptions(store),
                           icon: const Icon(Icons.directions, size: 18),
-                          label: const Text('Get Directions'),
+                          label: Text(l10n.getDirections),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF2A2A2A),
                             foregroundColor: const Color(0xFFD4AF37),
@@ -800,36 +801,40 @@ class FindStoreView extends GetView<FindStoreController> {
     );
   }
 
-  String _getResultsText() {
+  String _getResultsText(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final total = controller.totalStores;
     final showing = controller.stores.length;
     final currentPage = controller.currentPage;
     final totalPages = controller.totalPages;
 
     if (total == 0) {
-      return 'No stores found';
+      return l10n.noStoresFound;
     } else if (showing == total) {
-      return '$total ${total == 1 ? "store" : "stores"} found';
+      return '$total ${total == 1 ? l10n.storeFoundSingular : l10n.storesFoundPlural}';
     } else {
-      return 'Showing $showing of $total stores • Page $currentPage of $totalPages';
+      return l10n.showingOfStores(showing, total, currentPage, totalPages);
     }
   }
 
-  String _getFilterSummary() {
+  String _getFilterSummary(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final filters = controller.selectedFilters;
     final List<String> summaries = [];
 
     if (filters['city'] != null) {
-      summaries.add('in ${filters['city']}');
+      summaries.add(l10n.filteredLocation(filters['city']));
     }
     if (filters['useLocation'] == true) {
-      summaries.add('within ${filters['radius']?.toInt() ?? 10}km');
+      summaries.add(l10n.withinRadius(filters['radius']?.toInt() ?? 10));
     }
     if (filters['rating'] != null) {
-      summaries.add('${filters['rating']}+ stars');
+      summaries.add(l10n.minRating(filters['rating'].toString()));
     }
     if (filters['priceRange'] != null) {
-      summaries.add(_getPriceRangeLabel(filters['priceRange']).toLowerCase());
+      summaries.add(
+        _getPriceRangeLabel(filters['priceRange'], context).toLowerCase(),
+      );
     }
 
     if (summaries.isEmpty) return '';
@@ -853,7 +858,8 @@ class FindStoreView extends GetView<FindStoreController> {
     }
   }
 
-  List<Widget> _buildActiveFilterChips() {
+  List<Widget> _buildActiveFilterChips(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final List<Widget> chips = [];
     final filters = controller.selectedFilters;
 
@@ -894,7 +900,7 @@ class FindStoreView extends GetView<FindStoreController> {
     if (filters['useLocation'] == true) {
       chips.add(
         _buildActiveChip(
-          label: 'Nearby ${filters['radius']?.toInt() ?? 10}km',
+          label: l10n.nearbyKm(filters['radius']?.toInt() ?? 10),
           icon: Icons.my_location,
           onRemove: () {
             final newFilters = Map<String, dynamic>.from(filters);
@@ -911,7 +917,7 @@ class FindStoreView extends GetView<FindStoreController> {
     if (filters['rating'] != null) {
       chips.add(
         _buildActiveChip(
-          label: '${filters['rating']}+ ⭐',
+          label: l10n.minRating(filters['rating'].toString()),
           onRemove: () {
             final newFilters = Map<String, dynamic>.from(filters);
             newFilters.remove('rating');
@@ -924,7 +930,7 @@ class FindStoreView extends GetView<FindStoreController> {
 
     // Price Range filter
     if (filters['priceRange'] != null) {
-      final priceLabel = _getPriceRangeLabel(filters['priceRange']);
+      final priceLabel = _getPriceRangeLabel(filters['priceRange'], context);
       chips.add(
         _buildActiveChip(
           label: priceLabel,
@@ -966,7 +972,11 @@ class FindStoreView extends GetView<FindStoreController> {
 
     // Sort filter (only show if not default)
     if (filters['sortBy'] != null && filters['sortBy'] != 'rating') {
-      final sortLabel = _getSortLabel(filters['sortBy'], filters['sortOrder']);
+      final sortLabel = _getSortLabel(
+        filters['sortBy'],
+        filters['sortOrder'],
+        context,
+      );
       chips.add(
         _buildActiveChip(
           label: sortLabel,
@@ -985,26 +995,32 @@ class FindStoreView extends GetView<FindStoreController> {
     return chips;
   }
 
-  String _getPriceRangeLabel(String priceRange) {
+  String _getPriceRangeLabel(String priceRange, BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     switch (priceRange) {
       case '30-70':
-        return 'Budget';
+        return l10n.budget;
       case '70-120':
-        return 'Standard';
+        return l10n.standard;
       case '120-200':
-        return 'Premium';
+        return l10n.premium;
       default:
         return 'RM$priceRange';
     }
   }
 
-  String _getSortLabel(String? sortBy, String? sortOrder) {
+  String _getSortLabel(
+    String? sortBy,
+    String? sortOrder,
+    BuildContext context,
+  ) {
+    final l10n = AppLocalizations.of(context)!;
     if (sortBy == 'price') {
-      return sortOrder == 'asc' ? 'Price: Low-High' : 'Price: High-Low';
+      return sortOrder == 'asc' ? l10n.priceLowToHigh : l10n.priceHighToLow;
     } else if (sortBy == 'rating') {
-      return sortOrder == 'asc' ? 'Rating: Low-High' : 'Rating: High-Low';
+      return sortOrder == 'asc' ? l10n.ratingLowToHigh : l10n.ratingHighToLow;
     } else if (sortBy == 'distance') {
-      return 'Distance: Nearest';
+      return l10n.distanceNearest;
     }
     return 'Sort: $sortBy';
   }
@@ -1068,61 +1084,69 @@ class FindStoreView extends GetView<FindStoreController> {
   }
 
   Widget _buildErrorState() {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: const Color(0xFF1A1A1A),
-                shape: BoxShape.circle,
-                border: Border.all(color: const Color(0xFF2A2A2A)),
-              ),
-              child: const Icon(
-                Icons.wifi_off_outlined,
-                size: 48,
-                color: Color(0xFFE53E3E),
-              ),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              controller.errorMessage,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: Color(0xFFE0E0E0),
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              'Please check your internet connection\nand try again',
-              style: TextStyle(fontSize: 14, color: Color(0xFF808080)),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 24),
-            ElevatedButton.icon(
-              onPressed: controller.retryLoadStores,
-              icon: const Icon(Icons.refresh, size: 20),
-              label: const Text('Retry'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFD4AF37),
-                foregroundColor: const Color(0xFF0A0A0A),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 12,
+    return Builder(
+      builder: (context) {
+        final l10n = AppLocalizations.of(context)!;
+        return Center(
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF1A1A1A),
+                    shape: BoxShape.circle,
+                    border: Border.all(color: const Color(0xFF2A2A2A)),
+                  ),
+                  child: const Icon(
+                    Icons.wifi_off_outlined,
+                    size: 48,
+                    color: Color(0xFFE53E3E),
+                  ),
                 ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+                const SizedBox(height: 20),
+                Text(
+                  controller.errorMessage,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFFE0E0E0),
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-              ),
+                const SizedBox(height: 8),
+                Text(
+                  l10n.pleasCheckInternetConnection,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color(0xFF808080),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 24),
+                ElevatedButton.icon(
+                  onPressed: controller.retryLoadStores,
+                  icon: const Icon(Icons.refresh, size: 20),
+                  label: Text(l10n.retry),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFD4AF37),
+                    foregroundColor: const Color(0xFF0A0A0A),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 12,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

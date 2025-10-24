@@ -1458,5 +1458,418 @@
     "typeYourMessage": "Type your message...",
     "@typeYourMessage": {
         "description": "Message input hint"
+    },
+    "searchStoresByName": "Search stores by name...",
+    "@searchStoresByName": {
+        "description": "Store search hint"
+    },
+    "clearAll": "Clear All",
+    "@clearAll": {
+        "description": "Clear all filters button"
+    },
+    "noStoresMatchYourFilters": "No stores match your filters",
+    "@noStoresMatchYourFilters": {
+        "description": "Empty state title when filters applied"
+    },
+    "noStoresFound": "No stores found",
+    "@noStoresFound": {
+        "description": "Empty state title"
+    },
+    "tryAdjustingOrClearingFilters": "Try adjusting or clearing your filters",
+    "@tryAdjustingOrClearingFilters": {
+        "description": "Empty state subtitle when filters applied"
+    },
+    "noStoresAvailableAtTheMoment": "No stores available at the moment",
+    "@noStoresAvailableAtTheMoment": {
+        "description": "Empty state subtitle"
+    },
+    "clearAllFilters": "Clear All Filters",
+    "@clearAllFilters": {
+        "description": "Clear filters button"
+    },
+    "verified": "Verified",
+    "@verified": {
+        "description": "Verified badge"
+    },
+    "openNow": "Open",
+    "@openNow": {
+        "description": "Open status badge"
+    },
+    "unknownStore": "Unknown Store",
+    "@unknownStore": {
+        "description": "Default store name"
+    },
+    "serviceSingular": "service",
+    "@serviceSingular": {
+        "description": "Singular service count"
+    },
+    "servicesPlural": "services",
+    "@servicesPlural": {
+        "description": "Plural services count"
+    },
+    "getDirections": "Get Directions",
+    "@getDirections": {
+        "description": "Get directions button"
+    },
+    "storeFoundSingular": "store found",
+    "@storeFoundSingular": {
+        "description": "Results text singular"
+    },
+    "storesFoundPlural": "stores found",
+    "@storesFoundPlural": {
+        "description": "Results text plural"
+    },
+    "showingOfStores": "Showing {showing} of {total} stores • Page {currentPage} of {totalPages}",
+    "@showingOfStores": {
+        "description": "Results pagination text",
+        "placeholders": {
+            "showing": {
+                "type": "int"
+            },
+            "total": {
+                "type": "int"
+            },
+            "currentPage": {
+                "type": "int"
+            },
+            "totalPages": {
+                "type": "int"
+            }
+        }
+    },
+    "filteredLocation": "in {city}",
+    "@filteredLocation": {
+        "description": "Filter summary for city",
+        "placeholders": {
+            "city": {
+                "type": "String"
+            }
+        }
+    },
+    "withinRadius": "within {radius}km",
+    "@withinRadius": {
+        "description": "Filter summary for radius",
+        "placeholders": {
+            "radius": {
+                "type": "int"
+            }
+        }
+    },
+    "minRating": "{rating}+ stars",
+    "@minRating": {
+        "description": "Filter summary for rating",
+        "placeholders": {
+            "rating": {
+                "type": "String"
+            }
+        }
+    },
+    "nearbyKm": "Nearby {radius}km",
+    "@nearbyKm": {
+        "description": "Nearby filter chip label",
+        "placeholders": {
+            "radius": {
+                "type": "int"
+            }
+        }
+    },
+    "budget": "Budget",
+    "@budget": {
+        "description": "Budget price range"
+    },
+    "standard": "Standard",
+    "@standard": {
+        "description": "Standard price range"
+    },
+    "premium": "Premium",
+    "@premium": {
+        "description": "Premium price range"
+    },
+    "priceLowToHigh": "Price: Low-High",
+    "@priceLowToHigh": {
+        "description": "Sort option"
+    },
+    "priceHighToLow": "Price: High-Low",
+    "@priceHighToLow": {
+        "description": "Sort option"
+    },
+    "ratingLowToHigh": "Rating: Low-High",
+    "@ratingLowToHigh": {
+        "description": "Sort option"
+    },
+    "ratingHighToLow": "Rating: High-Low",
+    "@ratingHighToLow": {
+        "description": "Sort option"
+    },
+    "distanceNearest": "Distance: Nearest",
+    "@distanceNearest": {
+        "description": "Sort option"
+    },
+    "awayDistance": "{distance} away",
+    "@awayDistance": {
+        "description": "Distance to store",
+        "placeholders": {
+            "distance": {
+                "type": "String"
+            }
+        }
+    },
+    "pleasCheckInternetConnection": "Please check your internet connection\nand try again",
+    "@pleasCheckInternetConnection": {
+        "description": "Error state message"
+    },
+    "retry": "Retry",
+    "@retry": {
+        "description": "Retry button"
+    },
+    "filters": "Filters",
+    "@filters": {
+        "description": "Filters bottom sheet title"
+    },
+    "location": "Location",
+    "@location": {
+        "description": "Location section title"
+    },
+    "priceRange": "Price Range",
+    "@priceRange": {
+        "description": "Price range section title"
+    },
+    "minimumRating": "Minimum Rating",
+    "@minimumRating": {
+        "description": "Rating section title"
+    },
+    "amenities": "Amenities",
+    "@amenities": {
+        "description": "Amenities section title"
+    },
+    "sortBy": "Sort By",
+    "@sortBy": {
+        "description": "Sort section title"
+    },
+    "applyWithCount": "Apply ({count})",
+    "@applyWithCount": {
+        "description": "Apply button with count",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "apply": "Apply",
+    "@apply": {
+        "description": "Apply button"
+    },
+    "useCurrentLocation": "Use Current Location",
+    "@useCurrentLocation": {
+        "description": "Location toggle label"
+    },
+    "searchRadius": "Search Radius",
+    "@searchRadius": {
+        "description": "Radius label"
+    },
+    "kmUnit": "{value} km",
+    "@kmUnit": {
+        "description": "Kilometer unit",
+        "placeholders": {
+            "value": {
+                "type": "int"
+            }
+        }
+    },
+    "allRatings": "All",
+    "@allRatings": {
+        "description": "All ratings option"
+    },
+    "recommended": "Recommended",
+    "@recommended": {
+        "description": "Recommended sort option"
+    },
+    "distanceNearestFirst": "Distance: Nearest First",
+    "@distanceNearestFirst": {
+        "description": "Sort by distance option"
+    },
+    "storeDetails": "Store Details",
+    "@storeDetails": {
+        "description": "Store detail page title"
+    },
+    "availableServices": "Available Services",
+    "@availableServices": {
+        "description": "Services section title"
+    },
+    "storeName": "Store Name",
+    "@storeName": {
+        "description": "Default store name"
+    },
+    "serviceName": "Service Name",
+    "@serviceName": {
+        "description": "Default service name"
+    },
+    "bookNow": "Book Now",
+    "@bookNow": {
+        "description": "Book now button"
+    },
+    "noServicesAvailable": "No services available",
+    "@noServicesAvailable": {
+        "description": "Empty services state"
+    },
+    "reviewsAndRatings": "Reviews & Ratings",
+    "@reviewsAndRatings": {
+        "description": "Reviews section title"
+    },
+    "reviewsCount": "{count} reviews",
+    "@reviewsCount": {
+        "description": "Review count",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "noReviewsYetStore": "No reviews yet",
+    "@noReviewsYetStore": {
+        "description": "Empty reviews state in store"
+    },
+    "recentReviews": "Recent Reviews",
+    "@recentReviews": {
+        "description": "Recent reviews label"
+    },
+    "foundThisHelpful": "{count} found this helpful",
+    "@foundThisHelpful": {
+        "description": "Helpful count",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "storeResponse": "Store Response",
+    "@storeResponse": {
+        "description": "Store response label"
+    },
+    "locationError": "Location Error",
+    "@locationError": {
+        "description": "Location error title"
+    },
+    "storeLocationNotAvailable": "Store location not available",
+    "@storeLocationNotAvailable": {
+        "description": "Location error message"
+    },
+    "errorTitle": "Error",
+    "@errorTitle": {
+        "description": "Generic error title"
+    },
+    "couldNotOpenGoogleMaps": "Could not open Google Maps",
+    "@couldNotOpenGoogleMaps": {
+        "description": "Google Maps error"
+    },
+    "couldNotOpenWaze": "Could not open Waze",
+    "@couldNotOpenWaze": {
+        "description": "Waze error"
+    },
+    "wazeNotAvailable": "Waze Not Available",
+    "@wazeNotAvailable": {
+        "description": "Waze not available title"
+    },
+    "pleaseInstallWaze": "Please install Waze app or use Google Maps",
+    "@pleaseInstallWaze": {
+        "description": "Waze installation prompt"
+    },
+    "navigateUsingGoogleMaps": "Navigate using Google Maps",
+    "@navigateUsingGoogleMaps": {
+        "description": "Google Maps navigation option"
+    },
+    "navigateUsingWaze": "Navigate using Waze",
+    "@navigateUsingWaze": {
+        "description": "Waze navigation option"
+    },
+    "@_THERAPIST_SELECTION": {},
+    "confirmBooking": "Confirm Booking",
+    "@confirmBooking": {
+        "description": "Confirm booking page title"
+    },
+    "selectTime": "Select Time",
+    "@selectTime": {
+        "description": "Select time page title"
+    },
+    "selectDate": "Select Date",
+    "@selectDate": {
+        "description": "Select date page title"
+    },
+    "selectTherapist": "Select Therapist",
+    "@selectTherapist": {
+        "description": "Select therapist page title"
+    },
+    "noAvailabilityForTherapist": "No availability found for selected therapist in the next 30 days",
+    "@noAvailabilityForTherapist": {
+        "description": "No availability message for therapist"
+    },
+    "noTherapistsAvailable": "No therapists available for this service",
+    "@noTherapistsAvailable": {
+        "description": "No therapists message"
+    },
+    "available": "Available",
+    "@available": {
+        "description": "Available legend label"
+    },
+    "notAvailableLabel": "Not Available",
+    "@notAvailableLabel": {
+        "description": "Not available legend label"
+    },
+    "tapHighlightedDate": "Tap on a highlighted date to view available time slots",
+    "@tapHighlightedDate": {
+        "description": "Calendar instruction text"
+    },
+    "slotsAvailable": "{count} slots available",
+    "@slotsAvailable": {
+        "description": "Slots available count",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "bookingSummary": "Booking Summary",
+    "@bookingSummary": {
+        "description": "Booking summary title"
+    },
+    "dateAndTime": "Date & Time",
+    "@dateAndTime": {
+        "description": "Date and time label"
+    },
+    "yourTherapist": "Your Therapist",
+    "@yourTherapist": {
+        "description": "Your therapist label"
+    },
+    "proceedToBooking": "Proceed to Booking",
+    "@proceedToBooking": {
+        "description": "Proceed button text"
+    },
+    "serviceInfoMissing": "Service information is missing",
+    "@serviceInfoMissing": {
+        "description": "Service info error"
+    },
+    "noAvailability": "No Availability",
+    "@noAvailability": {
+        "description": "No availability error title"
+    },
+    "noAvailableDatesMessage": "No available dates for this service in the next 30 days.",
+    "@noAvailableDatesMessage": {
+        "description": "No availability error message"
+    },
+    "failedToLoadAvailability": "Failed to load availability calendar",
+    "@failedToLoadAvailability": {
+        "description": "Failed to load availability error"
+    },
+    "pleaseSelectTherapist": "Please select a therapist",
+    "@pleaseSelectTherapist": {
+        "description": "Select therapist validation"
+    },
+    "pleaseSelectDate": "Please select a date",
+    "@pleaseSelectDate": {
+        "description": "Select date validation"
+    },
+    "pleaseSelectTimeSlot": "Please select a time slot",
+    "@pleaseSelectTimeSlot": {
+        "description": "Select time slot validation"
     }
 }

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../data/models/store_model.dart' hide Duration;
 import '../../../data/repositories/store_repository.dart';
 import '../../../services/location_service.dart';
@@ -270,9 +271,10 @@ class FindStoreController extends GetxController {
         await launchUrl(googleMapsWebUrl, mode: LaunchMode.externalApplication);
       }
     } catch (e) {
+      final l10n = AppLocalizations.of(Get.context!)!;
       Get.snackbar(
-        'Error',
-        'Could not open Google Maps',
+        l10n.errorTitle,
+        l10n.couldNotOpenGoogleMaps,
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red.withAlpha(200),
         colorText: Colors.white,
@@ -283,9 +285,10 @@ class FindStoreController extends GetxController {
   Future<void> openWaze(Store store) async {
     if (store.location?.coordinates == null ||
         store.location!.coordinates!.length < 2) {
+      final l10n = AppLocalizations.of(Get.context!)!;
       Get.snackbar(
-        'Location Error',
-        'Store location not available',
+        l10n.locationError,
+        l10n.storeLocationNotAvailable,
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red.withAlpha(200),
         colorText: Colors.white,
@@ -302,18 +305,20 @@ class FindStoreController extends GetxController {
       if (await canLaunchUrl(wazeUrl)) {
         await launchUrl(wazeUrl, mode: LaunchMode.externalApplication);
       } else {
+        final l10n = AppLocalizations.of(Get.context!)!;
         Get.snackbar(
-          'Waze Not Available',
-          'Please install Waze app or use Google Maps',
+          l10n.wazeNotAvailable,
+          l10n.pleaseInstallWaze,
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.orange.withAlpha(200),
           colorText: Colors.white,
         );
       }
     } catch (e) {
+      final l10n = AppLocalizations.of(Get.context!)!;
       Get.snackbar(
-        'Error',
-        'Could not open Waze',
+        l10n.errorTitle,
+        l10n.couldNotOpenWaze,
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red.withAlpha(200),
         colorText: Colors.white,
@@ -370,8 +375,8 @@ class FindStoreController extends GetxController {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                subtitle: const Text(
-                  'Navigate using Google Maps',
+                subtitle: Text(
+                  AppLocalizations.of(Get.context!)!.navigateUsingGoogleMaps,
                   style: TextStyle(color: Color(0xFF808080), fontSize: 12),
                 ),
                 onTap: () {
@@ -395,8 +400,8 @@ class FindStoreController extends GetxController {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                subtitle: const Text(
-                  'Navigate using Waze',
+                subtitle: Text(
+                  AppLocalizations.of(Get.context!)!.navigateUsingWaze,
                   style: TextStyle(color: Color(0xFF808080), fontSize: 12),
                 ),
                 onTap: () {
