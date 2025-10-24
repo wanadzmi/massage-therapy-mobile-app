@@ -455,6 +455,68 @@ class BookingView extends GetView<BookingController> {
                       ],
                     ),
                   ],
+                  if (booking.payment?.method != null) ...[
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Icon(
+                          booking.payment!.method == 'wallet'
+                              ? Icons.account_balance_wallet_outlined
+                              : booking.payment!.method == 'cash'
+                              ? Icons.money
+                              : Icons.credit_card_outlined,
+                          size: 16,
+                          color: Color(0xFF808080),
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          l10n.paymentMethod,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Color(0xFF606060),
+                          ),
+                        ),
+                        const Spacer(),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            color: booking.payment!.method == 'wallet'
+                                ? const Color(0xFFD4AF37).withOpacity(0.15)
+                                : booking.payment!.method == 'cash'
+                                ? const Color(0xFF4CAF50).withOpacity(0.15)
+                                : const Color(0xFF2196F3).withOpacity(0.15),
+                            borderRadius: BorderRadius.circular(6),
+                            border: Border.all(
+                              color: booking.payment!.method == 'wallet'
+                                  ? const Color(0xFFD4AF37).withOpacity(0.3)
+                                  : booking.payment!.method == 'cash'
+                                  ? const Color(0xFF4CAF50).withOpacity(0.3)
+                                  : const Color(0xFF2196F3).withOpacity(0.3),
+                            ),
+                          ),
+                          child: Text(
+                            booking.payment!.method == 'wallet'
+                                ? l10n.wallet
+                                : booking.payment!.method == 'cash'
+                                ? l10n.cash
+                                : booking.payment!.method!.toUpperCase(),
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: booking.payment!.method == 'wallet'
+                                  ? const Color(0xFFD4AF37)
+                                  : booking.payment!.method == 'cash'
+                                  ? const Color(0xFF4CAF50)
+                                  : const Color(0xFF2196F3),
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ],
               ),
             ),
