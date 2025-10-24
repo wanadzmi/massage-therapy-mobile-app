@@ -65,205 +65,218 @@ class HomeView extends GetView<HomeController> {
       body: Obx(
         () => controller.isLoading
             ? const Center(child: CircularProgressIndicator())
-            : SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 8),
-                    // Header
-                    RichText(
-                      text: TextSpan(
-                        style: const TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.w300,
-                          color: Color(0xFFE0E0E0),
-                          height: 1.2,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: '${AppLocalizations.of(context)!.discover}\n',
+            : RefreshIndicator(
+                color: const Color(0xFFD4AF37),
+                backgroundColor: const Color(0xFF1A1A1A),
+                onRefresh: () async {
+                  await controller.refresh();
+                },
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 8),
+                      // Header
+                      RichText(
+                        text: TextSpan(
+                          style: const TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.w300,
+                            color: Color(0xFFE0E0E0),
+                            height: 1.2,
                           ),
-                          TextSpan(
-                            text: '${AppLocalizations.of(context)!.wellness} ',
-                            style: const TextStyle(
-                              color: Color(0xFFD4AF37),
-                              fontWeight: FontWeight.w600,
+                          children: [
+                            TextSpan(
+                              text:
+                                  '${AppLocalizations.of(context)!.discover}\n',
                             ),
-                          ),
-                          TextSpan(text: AppLocalizations.of(context)!.withUs),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 32),
-
-                    // Wallet Balance Card
-                    Container(
-                      padding: const EdgeInsets.all(20.0),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF1A1A1A),
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(
-                          color: const Color(0xFF2A2A2A),
-                          width: 1,
+                            TextSpan(
+                              text:
+                                  '${AppLocalizations.of(context)!.wellness} ',
+                              style: const TextStyle(
+                                color: Color(0xFFD4AF37),
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            TextSpan(
+                              text: AppLocalizations.of(context)!.withUs,
+                            ),
+                          ],
                         ),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                AppLocalizations.of(
-                                  context,
-                                )!.hello(controller.userName),
-                                style: const TextStyle(
-                                  color: Color(0xFF808080),
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                  letterSpacing: 0.5,
-                                ),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                  vertical: 4,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: const Color(
-                                    0xFFD4AF37,
-                                  ).withOpacity(0.15),
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    const Icon(
-                                      Icons.account_balance_wallet,
-                                      color: Color(0xFFD4AF37),
-                                      size: 14,
-                                    ),
-                                    const SizedBox(width: 4),
-                                    Text(
-                                      AppLocalizations.of(context)!.wallet,
-                                      style: const TextStyle(
-                                        color: Color(0xFFD4AF37),
-                                        fontSize: 11,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-                          Text(
-                            '${controller.currency} ${controller.walletBalance.toStringAsFixed(2)}',
-                            style: const TextStyle(
-                              color: Color(0xFFD4AF37),
-                              fontSize: 32,
-                              fontWeight: FontWeight.w600,
-                              letterSpacing: 0.5,
-                            ),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            AppLocalizations.of(context)!.availableBalance,
-                            style: const TextStyle(
-                              color: Color(0xFF606060),
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          const SizedBox(height: 20),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: _buildActionButton(
-                                  AppLocalizations.of(context)!.topUp,
-                                  Icons.add,
-                                  true,
-                                  () async {
-                                    final result = await Get.toNamed(
-                                      '/wallet-topup',
-                                    );
-                                    // Refresh wallet balance when returning from top-up
-                                    if (result != null &&
-                                        result['success'] == true) {
-                                      controller.loadUserData();
-                                    }
-                                  },
-                                ),
-                              ),
-                              const SizedBox(width: 12),
-                              Expanded(
-                                child: _buildActionButton(
-                                  AppLocalizations.of(context)!.history,
-                                  Icons.receipt_long,
-                                  false,
-                                  () async {
-                                    final result = await Get.toNamed(
-                                      '/transaction-history',
-                                    );
-                                    // Refresh if needed when returning
-                                    if (result != null && result == true) {
-                                      controller.loadUserData();
-                                    }
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 32),
-
-                    // Banner Carousel
-                    if (controller.banners.isNotEmpty)
-                      BannerCarousel(
-                        banners: controller.banners,
-                        onView: (bannerId) =>
-                            controller.recordBannerView(bannerId),
-                        onTap: (banner) => controller.handleBannerClick(banner),
-                      ),
-                    if (controller.banners.isNotEmpty)
                       const SizedBox(height: 32),
 
-                    // Section Header
-                    Text(
-                      AppLocalizations.of(context)!.quickMenu,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFFE0E0E0),
-                        letterSpacing: 0.3,
+                      // Wallet Balance Card
+                      Container(
+                        padding: const EdgeInsets.all(20.0),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF1A1A1A),
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
+                            color: const Color(0xFF2A2A2A),
+                            width: 1,
+                          ),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.hello(controller.userName),
+                                  style: const TextStyle(
+                                    color: Color(0xFF808080),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
+                                    letterSpacing: 0.5,
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                    vertical: 4,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: const Color(
+                                      0xFFD4AF37,
+                                    ).withOpacity(0.15),
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const Icon(
+                                        Icons.account_balance_wallet,
+                                        color: Color(0xFFD4AF37),
+                                        size: 14,
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        AppLocalizations.of(context)!.wallet,
+                                        style: const TextStyle(
+                                          color: Color(0xFFD4AF37),
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 16),
+                            Text(
+                              '${controller.currency} ${controller.walletBalance.toStringAsFixed(2)}',
+                              style: const TextStyle(
+                                color: Color(0xFFD4AF37),
+                                fontSize: 32,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 0.5,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              AppLocalizations.of(context)!.availableBalance,
+                              style: const TextStyle(
+                                color: Color(0xFF606060),
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: _buildActionButton(
+                                    AppLocalizations.of(context)!.topUp,
+                                    Icons.add,
+                                    true,
+                                    () async {
+                                      final result = await Get.toNamed(
+                                        '/wallet-topup',
+                                      );
+                                      // Refresh wallet balance when returning from top-up
+                                      if (result != null &&
+                                          result['success'] == true) {
+                                        controller.loadUserData();
+                                      }
+                                    },
+                                  ),
+                                ),
+                                const SizedBox(width: 12),
+                                Expanded(
+                                  child: _buildActionButton(
+                                    AppLocalizations.of(context)!.history,
+                                    Icons.receipt_long,
+                                    false,
+                                    () async {
+                                      final result = await Get.toNamed(
+                                        '/transaction-history',
+                                      );
+                                      // Refresh if needed when returning
+                                      if (result != null && result == true) {
+                                        controller.loadUserData();
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 16),
+                      const SizedBox(height: 32),
 
-                    _buildQuickActionCard(
-                      AppLocalizations.of(context)!.findStore,
-                      Icons.store,
-                      Colors.blue,
-                      AppLocalizations.of(context)!.discoverNearestStores,
-                      () => controller.navigateToFindStore(),
-                    ),
-                    const SizedBox(height: 16),
+                      // Banner Carousel
+                      if (controller.banners.isNotEmpty)
+                        BannerCarousel(
+                          banners: controller.banners,
+                          onView: (bannerId) =>
+                              controller.recordBannerView(bannerId),
+                          onTap: (banner) =>
+                              controller.handleBannerClick(banner),
+                        ),
+                      if (controller.banners.isNotEmpty)
+                        const SizedBox(height: 32),
 
-                    // Commented out Find Therapist for now
-                    // _buildQuickActionCard(
-                    //   AppLocalizations.of(context)!.findTherapist,
-                    //   Icons.home_work,
-                    //   Colors.purple,
-                    //   AppLocalizations.of(context)!.browseAvailableTherapists,
-                    //   () => controller.navigateToFindTherapist(),
-                    // ),
-                    // const SizedBox(height: 16),
-                    const SizedBox(height: 16),
-                  ],
+                      // Section Header
+                      Text(
+                        AppLocalizations.of(context)!.quickMenu,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFFE0E0E0),
+                          letterSpacing: 0.3,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+
+                      _buildQuickActionCard(
+                        AppLocalizations.of(context)!.findStore,
+                        Icons.store,
+                        Colors.blue,
+                        AppLocalizations.of(context)!.discoverNearestStores,
+                        () => controller.navigateToFindStore(),
+                      ),
+                      const SizedBox(height: 16),
+
+                      // Commented out Find Therapist for now
+                      // _buildQuickActionCard(
+                      //   AppLocalizations.of(context)!.findTherapist,
+                      //   Icons.home_work,
+                      //   Colors.purple,
+                      //   AppLocalizations.of(context)!.browseAvailableTherapists,
+                      //   () => controller.navigateToFindTherapist(),
+                      // ),
+                      // const SizedBox(height: 16),
+                      const SizedBox(height: 16),
+                    ],
+                  ),
                 ),
               ),
       ),
