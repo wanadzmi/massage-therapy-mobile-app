@@ -1160,5 +1160,62 @@
     "failedToLoadHistory": "无法加载交易历史",
     "@failedToLoadHistory": {
         "description": "Failed to load transaction history error"
+    },
+    "noReviewsYet": "暂无评论",
+    "@noReviewsYet": {
+        "description": "No reviews empty state title"
+    },
+    "reviewsWillAppearHere": "完成预订后，您的评论将显示在此处",
+    "@reviewsWillAppearHere": {
+        "description": "No reviews empty state message"
+    },
+    "pros": "优点",
+    "@pros": {
+        "description": "Pros label"
+    },
+    "cons": "缺点",
+    "@cons": {
+        "description": "Cons label"
+    },
+    "approved": "已批准",
+    "@approved": {
+        "description": "Approved status"
+    },
+    "flagged": "已标记",
+    "@flagged": {
+        "description": "Flagged status"
+    },
+    "rejected": "已拒绝",
+    "@rejected": {
+        "description": "Rejected status"
+    },
+    "discover": "发现",
+    "@discover": {
+        "description": "Discover header text"
+    },
+    "wellness": "健康",
+    "@wellness": {
+        "description": "Wellness text"
+    },
+    "withUs": "与我们一起！",
+    "@withUs": {
+        "description": "With us text"
+    },
+    "hello": "您好，{name}",
+    "@hello": {
+        "description": "Hello greeting with name",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "availableBalance": "可用余额",
+    "@availableBalance": {
+        "description": "Available balance label"
+    },
+    "quickMenu": "快捷菜单",
+    "@quickMenu": {
+        "description": "Quick menu section title"
     }
 }

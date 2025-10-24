@@ -80,15 +80,17 @@ class HomeView extends GetView<HomeController> {
                           height: 1.2,
                         ),
                         children: [
-                          const TextSpan(text: 'Discover\n'),
                           TextSpan(
-                            text: 'wellness ',
-                            style: TextStyle(
-                              color: const Color(0xFFD4AF37),
+                            text: '${AppLocalizations.of(context)!.discover}\n',
+                          ),
+                          TextSpan(
+                            text: '${AppLocalizations.of(context)!.wellness} ',
+                            style: const TextStyle(
+                              color: Color(0xFFD4AF37),
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          const TextSpan(text: 'with us!'),
+                          TextSpan(text: AppLocalizations.of(context)!.withUs),
                         ],
                       ),
                     ),
@@ -112,7 +114,9 @@ class HomeView extends GetView<HomeController> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Hello, ${controller.userName}',
+                                AppLocalizations.of(
+                                  context,
+                                )!.hello(controller.userName),
                                 style: const TextStyle(
                                   color: Color(0xFF808080),
                                   fontSize: 12,
@@ -131,18 +135,18 @@ class HomeView extends GetView<HomeController> {
                                   ).withOpacity(0.15),
                                   borderRadius: BorderRadius.circular(6),
                                 ),
-                                child: const Row(
+                                child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Icon(
+                                    const Icon(
                                       Icons.account_balance_wallet,
                                       color: Color(0xFFD4AF37),
                                       size: 14,
                                     ),
-                                    SizedBox(width: 4),
+                                    const SizedBox(width: 4),
                                     Text(
-                                      'Wallet',
-                                      style: TextStyle(
+                                      AppLocalizations.of(context)!.wallet,
+                                      style: const TextStyle(
                                         color: Color(0xFFD4AF37),
                                         fontSize: 11,
                                         fontWeight: FontWeight.w600,
@@ -164,9 +168,9 @@ class HomeView extends GetView<HomeController> {
                             ),
                           ),
                           const SizedBox(height: 4),
-                          const Text(
-                            'Available Balance',
-                            style: TextStyle(
+                          Text(
+                            AppLocalizations.of(context)!.availableBalance,
+                            style: const TextStyle(
                               color: Color(0xFF606060),
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
@@ -177,7 +181,7 @@ class HomeView extends GetView<HomeController> {
                             children: [
                               Expanded(
                                 child: _buildActionButton(
-                                  'Top Up',
+                                  AppLocalizations.of(context)!.topUp,
                                   Icons.add,
                                   true,
                                   () async {
@@ -195,7 +199,7 @@ class HomeView extends GetView<HomeController> {
                               const SizedBox(width: 12),
                               Expanded(
                                 child: _buildActionButton(
-                                  'History',
+                                  AppLocalizations.of(context)!.history,
                                   Icons.receipt_long,
                                   false,
                                   () async {
@@ -217,9 +221,9 @@ class HomeView extends GetView<HomeController> {
                     const SizedBox(height: 32),
 
                     // Section Header
-                    const Text(
-                      'Quick Menu',
-                      style: TextStyle(
+                    Text(
+                      AppLocalizations.of(context)!.quickMenu,
+                      style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
                         color: Color(0xFFE0E0E0),

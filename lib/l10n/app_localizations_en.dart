@@ -861,4 +861,46 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get failedToLoadHistory => 'Failed to load transaction history';
+
+  @override
+  String get noReviewsYet => 'No Reviews Yet';
+
+  @override
+  String get reviewsWillAppearHere =>
+      'Your reviews will appear here after you complete a booking';
+
+  @override
+  String get pros => 'Pros';
+
+  @override
+  String get cons => 'Cons';
+
+  @override
+  String get approved => 'approved';
+
+  @override
+  String get flagged => 'flagged';
+
+  @override
+  String get rejected => 'rejected';
+
+  @override
+  String get discover => 'Discover';
+
+  @override
+  String get wellness => 'wellness';
+
+  @override
+  String get withUs => 'with us!';
+
+  @override
+  String hello(String name) {
+    return 'Hello, $name';
+  }
+
+  @override
+  String get availableBalance => 'Available Balance';
+
+  @override
+  String get quickMenu => 'Quick Menu';
 }

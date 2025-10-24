@@ -1160,5 +1160,62 @@
     "failedToLoadHistory": "Failed to load transaction history",
     "@failedToLoadHistory": {
         "description": "Failed to load transaction history error"
+    },
+    "noReviewsYet": "No Reviews Yet",
+    "@noReviewsYet": {
+        "description": "No reviews empty state title"
+    },
+    "reviewsWillAppearHere": "Your reviews will appear here after you complete a booking",
+    "@reviewsWillAppearHere": {
+        "description": "No reviews empty state message"
+    },
+    "pros": "Pros",
+    "@pros": {
+        "description": "Pros label"
+    },
+    "cons": "Cons",
+    "@cons": {
+        "description": "Cons label"
+    },
+    "approved": "approved",
+    "@approved": {
+        "description": "Approved status"
+    },
+    "flagged": "flagged",
+    "@flagged": {
+        "description": "Flagged status"
+    },
+    "rejected": "rejected",
+    "@rejected": {
+        "description": "Rejected status"
+    },
+    "discover": "Discover",
+    "@discover": {
+        "description": "Discover header text"
+    },
+    "wellness": "wellness",
+    "@wellness": {
+        "description": "Wellness text"
+    },
+    "withUs": "with us!",
+    "@withUs": {
+        "description": "With us text"
+    },
+    "hello": "Hello, {name}",
+    "@hello": {
+        "description": "Hello greeting with name",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "availableBalance": "Available Balance",
+    "@availableBalance": {
+        "description": "Available balance label"
+    },
+    "quickMenu": "Quick Menu",
+    "@quickMenu": {
+        "description": "Quick menu section title"
     }
 }

@@ -847,4 +847,45 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get failedToLoadHistory => '无法加载交易历史';
+
+  @override
+  String get noReviewsYet => '暂无评论';
+
+  @override
+  String get reviewsWillAppearHere => '完成预订后，您的评论将显示在此处';
+
+  @override
+  String get pros => '优点';
+
+  @override
+  String get cons => '缺点';
+
+  @override
+  String get approved => '已批准';
+
+  @override
+  String get flagged => '已标记';
+
+  @override
+  String get rejected => '已拒绝';
+
+  @override
+  String get discover => '发现';
+
+  @override
+  String get wellness => '健康';
+
+  @override
+  String get withUs => '与我们一起！';
+
+  @override
+  String hello(String name) {
+    return '您好，$name';
+  }
+
+  @override
+  String get availableBalance => '可用余额';
+
+  @override
+  String get quickMenu => '快捷菜单';
 }

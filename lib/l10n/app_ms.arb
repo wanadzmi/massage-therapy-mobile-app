@@ -1160,5 +1160,62 @@
     "failedToLoadHistory": "Gagal memuatkan sejarah transaksi",
     "@failedToLoadHistory": {
         "description": "Failed to load transaction history error"
+    },
+    "noReviewsYet": "Belum Ada Ulasan",
+    "@noReviewsYet": {
+        "description": "No reviews empty state title"
+    },
+    "reviewsWillAppearHere": "Ulasan anda akan muncul di sini selepas anda menyelesaikan tempahan",
+    "@reviewsWillAppearHere": {
+        "description": "No reviews empty state message"
+    },
+    "pros": "Kelebihan",
+    "@pros": {
+        "description": "Pros label"
+    },
+    "cons": "Kekurangan",
+    "@cons": {
+        "description": "Cons label"
+    },
+    "approved": "diluluskan",
+    "@approved": {
+        "description": "Approved status"
+    },
+    "flagged": "dibenderakan",
+    "@flagged": {
+        "description": "Flagged status"
+    },
+    "rejected": "ditolak",
+    "@rejected": {
+        "description": "Rejected status"
+    },
+    "discover": "Teroka",
+    "@discover": {
+        "description": "Discover header text"
+    },
+    "wellness": "kesihatan",
+    "@wellness": {
+        "description": "Wellness text"
+    },
+    "withUs": "bersama kami!",
+    "@withUs": {
+        "description": "With us text"
+    },
+    "hello": "Hai, {name}",
+    "@hello": {
+        "description": "Hello greeting with name",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "availableBalance": "Baki Tersedia",
+    "@availableBalance": {
+        "description": "Available balance label"
+    },
+    "quickMenu": "Menu Pantas",
+    "@quickMenu": {
+        "description": "Quick menu section title"
     }
 }

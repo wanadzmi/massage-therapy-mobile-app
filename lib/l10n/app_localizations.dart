@@ -1725,6 +1725,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Failed to load transaction history'**
   String get failedToLoadHistory;
+
+  /// No reviews empty state title
+  ///
+  /// In en, this message translates to:
+  /// **'No Reviews Yet'**
+  String get noReviewsYet;
+
+  /// No reviews empty state message
+  ///
+  /// In en, this message translates to:
+  /// **'Your reviews will appear here after you complete a booking'**
+  String get reviewsWillAppearHere;
+
+  /// Pros label
+  ///
+  /// In en, this message translates to:
+  /// **'Pros'**
+  String get pros;
+
+  /// Cons label
+  ///
+  /// In en, this message translates to:
+  /// **'Cons'**
+  String get cons;
+
+  /// Approved status
+  ///
+  /// In en, this message translates to:
+  /// **'approved'**
+  String get approved;
+
+  /// Flagged status
+  ///
+  /// In en, this message translates to:
+  /// **'flagged'**
+  String get flagged;
+
+  /// Rejected status
+  ///
+  /// In en, this message translates to:
+  /// **'rejected'**
+  String get rejected;
+
+  /// Discover header text
+  ///
+  /// In en, this message translates to:
+  /// **'Discover'**
+  String get discover;
+
+  /// Wellness text
+  ///
+  /// In en, this message translates to:
+  /// **'wellness'**
+  String get wellness;
+
+  /// With us text
+  ///
+  /// In en, this message translates to:
+  /// **'with us!'**
+  String get withUs;
+
+  /// Hello greeting with name
+  ///
+  /// In en, this message translates to:
+  /// **'Hello, {name}'**
+  String hello(String name);
+
+  /// Available balance label
+  ///
+  /// In en, this message translates to:
+  /// **'Available Balance'**
+  String get availableBalance;
+
+  /// Quick menu section title
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Menu'**
+  String get quickMenu;
 }
 
 class _AppLocalizationsDelegate

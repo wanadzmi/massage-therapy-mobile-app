@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/review_controller.dart';
 import '../../../data/models/review_model.dart';
+import '../../../../l10n/app_localizations.dart';
 
 class MyReviewsView extends GetView<ReviewController> {
   const MyReviewsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       backgroundColor: const Color(0xFF0A0A0A),
       appBar: AppBar(
@@ -17,8 +20,8 @@ class MyReviewsView extends GetView<ReviewController> {
           icon: const Icon(Icons.arrow_back, color: Color(0xFFE0E0E0)),
           onPressed: () => Get.back(),
         ),
-        title: const Text(
-          'My Reviews',
+        title: Text(
+          l10n.myReviews,
           style: TextStyle(
             color: Color(0xFFE0E0E0),
             fontWeight: FontWeight.w500,
@@ -34,7 +37,7 @@ class MyReviewsView extends GetView<ReviewController> {
         }
 
         if (controller.myReviews.isEmpty) {
-          return _buildEmptyState();
+          return _buildEmptyState(context);
         }
 
         return RefreshIndicator(
@@ -60,7 +63,7 @@ class MyReviewsView extends GetView<ReviewController> {
                 return const SizedBox(height: 20);
               }
 
-              return _buildReviewCard(controller.myReviews[index]);
+              return _buildReviewCard(controller.myReviews[index], context);
             },
           ),
         );
@@ -68,7 +71,9 @@ class MyReviewsView extends GetView<ReviewController> {
     );
   }
 
-  Widget _buildEmptyState() {
+  Widget _buildEmptyState(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -87,19 +92,19 @@ class MyReviewsView extends GetView<ReviewController> {
             ),
           ),
           const SizedBox(height: 24),
-          const Text(
-            'No Reviews Yet',
-            style: TextStyle(
+          Text(
+            l10n.noReviewsYet,
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w600,
               color: Color(0xFFE0E0E0),
             ),
           ),
           const SizedBox(height: 8),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 40),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40),
             child: Text(
-              'Your reviews will appear here after you complete a booking',
+              l10n.reviewsWillAppearHere,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 14, color: Color(0xFF808080)),
             ),
@@ -109,7 +114,9 @@ class MyReviewsView extends GetView<ReviewController> {
     );
   }
 
-  Widget _buildReviewCard(Review review) {
+  Widget _buildReviewCard(Review review, BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(16),
@@ -224,6 +231,7 @@ class MyReviewsView extends GetView<ReviewController> {
                         Icons.thumb_up,
                         review.review!.pros!.length.toString(),
                         true,
+                        l10n,
                       ),
                     ),
                   if (review.review?.pros != null &&
@@ -238,6 +246,7 @@ class MyReviewsView extends GetView<ReviewController> {
                         Icons.thumb_down,
                         review.review!.cons!.length.toString(),
                         false,
+                        l10n,
                       ),
                     ),
                 ],
@@ -267,7 +276,7 @@ class MyReviewsView extends GetView<ReviewController> {
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: Text(
-                  review.status ?? 'pending',
+                  _getStatusText(review.status, l10n),
                   style: TextStyle(
                     fontSize: 11,
                     fontWeight: FontWeight.w600,
@@ -282,7 +291,12 @@ class MyReviewsView extends GetView<ReviewController> {
     );
   }
 
-  Widget _buildProConChip(IconData icon, String count, bool isPositive) {
+  Widget _buildProConChip(
+    IconData icon,
+    String count,
+    bool isPositive,
+    AppLocalizations l10n,
+  ) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       decoration: BoxDecoration(
@@ -303,7 +317,7 @@ class MyReviewsView extends GetView<ReviewController> {
           ),
           const SizedBox(width: 4),
           Text(
-            '$count ${isPositive ? 'Pros' : 'Cons'}',
+            '$count ${isPositive ? l10n.pros : l10n.cons}',
             style: TextStyle(
               fontSize: 12,
               color: isPositive
@@ -327,6 +341,21 @@ class MyReviewsView extends GetView<ReviewController> {
         return const Color(0xFFE53E3E);
       default:
         return const Color(0xFF808080);
+    }
+  }
+
+  String _getStatusText(String? status, AppLocalizations l10n) {
+    switch (status?.toLowerCase()) {
+      case 'approved':
+        return l10n.approved;
+      case 'pending':
+        return l10n.pending;
+      case 'flagged':
+        return l10n.flagged;
+      case 'rejected':
+        return l10n.rejected;
+      default:
+        return status ?? l10n.pending;
     }
   }
 

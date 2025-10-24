@@ -861,4 +861,46 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get failedToLoadHistory => 'Gagal memuatkan sejarah transaksi';
+
+  @override
+  String get noReviewsYet => 'Belum Ada Ulasan';
+
+  @override
+  String get reviewsWillAppearHere =>
+      'Ulasan anda akan muncul di sini selepas anda menyelesaikan tempahan';
+
+  @override
+  String get pros => 'Kelebihan';
+
+  @override
+  String get cons => 'Kekurangan';
+
+  @override
+  String get approved => 'diluluskan';
+
+  @override
+  String get flagged => 'dibenderakan';
+
+  @override
+  String get rejected => 'ditolak';
+
+  @override
+  String get discover => 'Teroka';
+
+  @override
+  String get wellness => 'kesihatan';
+
+  @override
+  String get withUs => 'bersama kami!';
+
+  @override
+  String hello(String name) {
+    return 'Hai, $name';
+  }
+
+  @override
+  String get availableBalance => 'Baki Tersedia';
+
+  @override
+  String get quickMenu => 'Menu Pantas';
 }
