@@ -5,6 +5,7 @@ import '../../../../l10n/app_localizations.dart';
 import '../controllers/home_controller.dart';
 import '../../chat/views/chat_list_view.dart';
 import '../../chat/bindings/chat_list_binding.dart';
+import '../../../global_widgets/banner_carousel.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
@@ -219,6 +220,17 @@ class HomeView extends GetView<HomeController> {
                       ),
                     ),
                     const SizedBox(height: 32),
+
+                    // Banner Carousel
+                    if (controller.banners.isNotEmpty)
+                      BannerCarousel(
+                        banners: controller.banners,
+                        onView: (bannerId) =>
+                            controller.recordBannerView(bannerId),
+                        onTap: (banner) => controller.handleBannerClick(banner),
+                      ),
+                    if (controller.banners.isNotEmpty)
+                      const SizedBox(height: 32),
 
                     // Section Header
                     Text(

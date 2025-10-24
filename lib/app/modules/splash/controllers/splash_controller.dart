@@ -24,21 +24,21 @@ class SplashController extends GetxController {
 
       // Check if user is already authenticated (just check token existence)
       final isAuthenticated = await _authRepository.isAuthenticated();
-      print('🔐 Is authenticated: $isAuthenticated');
+      // print('🔐 Is authenticated: $isAuthenticated');
 
       if (isAuthenticated) {
         // If token exists, try to validate it with profile API (with timeout)
         try {
-          print('🌐 Fetching user profile...');
+          // print('🌐 Fetching user profile...');
           final profileResponse = await _authRepository
               .getUserProfile()
               .timeout(const Duration(seconds: 5));
 
-          print('📊 Profile response success: ${profileResponse.isSuccess}');
+          // print('📊 Profile response success: ${profileResponse.isSuccess}');
 
           if (profileResponse.isSuccess && profileResponse.data != null) {
             final user = profileResponse.data!;
-            print('👤 User role: ${user.role}');
+            // print('👤 User role: ${user.role}');
 
             // Register device for notifications (non-blocking)
             _registerDevice();
@@ -46,7 +46,7 @@ class SplashController extends GetxController {
             // Navigate based on user role
             if (user.role == 'customer') {
               // Navigate to customer home
-              print('✅ Navigating to customer home');
+              // print('✅ Navigating to customer home');
               Get.off(
                 () => const MainNavigationView(),
                 binding: MainNavigationBinding(),
@@ -54,7 +54,7 @@ class SplashController extends GetxController {
               return;
             } else if (user.role == 'therapist') {
               // Navigate to therapist home
-              print('✅ Navigating to therapist home');
+              // print('✅ Navigating to therapist home');
               Get.offAllNamed('/therapist-home');
               return;
             } else {
@@ -86,7 +86,7 @@ class SplashController extends GetxController {
   /// This is called after successful authentication
   Future<void> _registerDevice() async {
     try {
-      print('📱 Registering device for notifications...');
+      // print('📱 Registering device for notifications...');
 
       final platform = DeviceRegistrationHelper.getPlatform();
       final deviceModel = DeviceRegistrationHelper.getDeviceModel();
@@ -105,7 +105,7 @@ class SplashController extends GetxController {
       );
 
       if (response.isSuccess) {
-        print('✅ Device registered successfully');
+        // print('✅ Device registered successfully');
       } else {
         print('⚠️ Device registration failed: ${response.error}');
       }

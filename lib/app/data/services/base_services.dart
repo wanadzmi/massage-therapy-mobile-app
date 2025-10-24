@@ -56,9 +56,9 @@ class BaseServices {
   Future<String> get authToken async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('auth_token') ?? '';
-    print(
-      '🔍 Retrieving auth token: ${token.isNotEmpty ? "Token found (${token.substring(0, token.length > 20 ? 20 : token.length)}...)" : "No token found"}',
-    );
+    // print(
+    //   '🔍 Retrieving auth token: ${token.isNotEmpty ? "Token found (${token.substring(0, token.length > 20 ? 20 : token.length)}...)" : "No token found"}',
+    // );
     return token.isNotEmpty ? 'Bearer $token' : '';
   }
 
@@ -109,8 +109,8 @@ class BaseServices {
     bool requiresAuth = true,
   }) async {
     try {
-      debugPrint('🚀 Making API call: ${requestType.name} $path');
-      debugPrint('📦 Request body: $postBody');
+      // debugPrint('🚀 Making API call: ${requestType.name} $path');
+      // debugPrint('📦 Request body: $postBody');
 
       dio?.options.contentType = Headers.jsonContentType;
       Response<dynamic>? response;
@@ -145,7 +145,7 @@ class BaseServices {
           );
       }
 
-      debugPrint('✅ Response: ${response?.statusCode}');
+      // debugPrint('✅ Response: ${response?.statusCode}');
 
       if (response?.statusCode == HttpStatus.ok ||
           response?.statusCode == HttpStatus.created) {
@@ -154,18 +154,18 @@ class BaseServices {
           headers: response?.headers.map,
         );
       } else {
-        debugPrint('❌ Unexpected status code: ${response?.statusCode}');
+        // debugPrint('❌ Unexpected status code: ${response?.statusCode}');
         return MyResponse.error(
           'HTTP ${response?.statusCode}: ${response?.statusMessage}',
         );
       }
     } catch (e) {
-      debugPrint('💥 API Error: $e');
+      // debugPrint('💥 API Error: $e');
       if (e is DioException) {
-        debugPrint('🔍 DioException type: ${e.type}');
-        debugPrint('🔍 DioException message: ${e.message}');
-        debugPrint('🔍 Response data: ${e.response?.data}');
-        debugPrint('🔍 Response status: ${e.response?.statusCode}');
+        // debugPrint('🔍 DioException type: ${e.type}');
+        // debugPrint('🔍 DioException message: ${e.message}');
+        // debugPrint('🔍 Response data: ${e.response?.data}');
+        // debugPrint('🔍 Response status: ${e.response?.statusCode}');
 
         if (e.response?.data != null && e.response?.data != '') {
           return MyResponse.error(

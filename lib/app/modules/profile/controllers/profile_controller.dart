@@ -159,9 +159,9 @@ class ProfileController extends GetxController {
         }
         _emergencyContact.value = user.emergencyContact;
 
-        print('✅ Profile loaded successfully');
-        print('👤 Gender loaded: ${_gender.value}');
-        print('📅 Date of Birth loaded: ${_dateOfBirth.value}');
+        // print('✅ Profile loaded successfully');
+        // print('👤 Gender loaded: ${_gender.value}');
+        // print('📅 Date of Birth loaded: ${_dateOfBirth.value}');
       }
     } catch (e) {
       print('❌ Error loading profile: $e');
