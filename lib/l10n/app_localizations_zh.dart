@@ -919,6 +919,30 @@ class AppLocalizationsZh extends AppLocalizations {
   String get close => '关闭';
 
   @override
+  String get markAllAsRead => '全部标为已读';
+
+  @override
+  String get transactional => '交易';
+
+  @override
+  String get promotional => '推广';
+
+  @override
+  String get reminder => '提醒';
+
+  @override
+  String get system => '系统';
+
+  @override
+  String get showUnreadOnly => '仅显示未读';
+
+  @override
+  String get noNotifications => '暂无通知';
+
+  @override
+  String get allCaughtUp => '您已查看所有通知！';
+
+  @override
   String get noTransactionsYetHistory => '暂无交易记录';
 
   @override

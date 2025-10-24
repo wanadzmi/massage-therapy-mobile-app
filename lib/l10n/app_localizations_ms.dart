@@ -934,6 +934,30 @@ class AppLocalizationsMs extends AppLocalizations {
   String get close => 'Tutup';
 
   @override
+  String get markAllAsRead => 'Tandakan semua sebagai dibaca';
+
+  @override
+  String get transactional => 'Transaksi';
+
+  @override
+  String get promotional => 'Promosi';
+
+  @override
+  String get reminder => 'Peringatan';
+
+  @override
+  String get system => 'Sistem';
+
+  @override
+  String get showUnreadOnly => 'Tunjukkan yang belum dibaca sahaja';
+
+  @override
+  String get noNotifications => 'Tiada notifikasi';
+
+  @override
+  String get allCaughtUp => 'Anda sudah kemas kini!';
+
+  @override
   String get noTransactionsYetHistory => 'Tiada Transaksi Lagi';
 
   @override

@@ -1858,6 +1858,54 @@ abstract class AppLocalizations {
   /// **'Close'**
   String get close;
 
+  /// Mark all notifications as read tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Mark all as read'**
+  String get markAllAsRead;
+
+  /// Transactional category label
+  ///
+  /// In en, this message translates to:
+  /// **'Transactional'**
+  String get transactional;
+
+  /// Promotional category label
+  ///
+  /// In en, this message translates to:
+  /// **'Promotional'**
+  String get promotional;
+
+  /// Reminder category label
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder'**
+  String get reminder;
+
+  /// System category label
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get system;
+
+  /// Toggle to show unread notifications only
+  ///
+  /// In en, this message translates to:
+  /// **'Show unread only'**
+  String get showUnreadOnly;
+
+  /// Empty state title for notifications
+  ///
+  /// In en, this message translates to:
+  /// **'No notifications'**
+  String get noNotifications;
+
+  /// Empty state message for notifications
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re all caught up!'**
+  String get allCaughtUp;
+
   /// Empty state title for transaction history
   ///
   /// In en, this message translates to:

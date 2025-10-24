@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../controllers/notification_controller.dart';
 import '../widgets/notification_tile.dart';
 
@@ -13,9 +14,9 @@ class NotificationView extends GetView<NotificationController> {
       appBar: AppBar(
         backgroundColor: const Color(0xFF1A1A1A),
         elevation: 0,
-        title: const Text(
-          'Notifications',
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context)!.notifications,
+          style: const TextStyle(
             color: Color(0xFFE0E0E0),
             fontSize: 20,
             fontWeight: FontWeight.w600,
@@ -50,19 +51,13 @@ class NotificationView extends GetView<NotificationController> {
             return const SizedBox.shrink();
           }),
 
-          // Settings button
-          IconButton(
-            icon: const Icon(Icons.settings, color: Color(0xFFE0E0E0)),
-            onPressed: () => Get.toNamed('/notification-preferences'),
-          ),
-
           // Mark all as read button
           Obx(() {
             if (controller.unreadCount > 0) {
               return IconButton(
                 icon: const Icon(Icons.done_all, color: Color(0xFFD4AF37)),
                 onPressed: controller.markAllAsRead,
-                tooltip: 'Mark all as read',
+                tooltip: AppLocalizations.of(context)!.markAllAsRead,
               );
             }
             return const SizedBox(width: 48);
@@ -72,10 +67,10 @@ class NotificationView extends GetView<NotificationController> {
       body: Column(
         children: [
           // Category filter tabs
-          _buildCategoryTabs(),
+          _buildCategoryTabs(context),
 
           // Unread only toggle
-          _buildUnreadToggle(),
+          _buildUnreadToggle(context),
 
           // Notifications list
           Expanded(
@@ -87,7 +82,7 @@ class NotificationView extends GetView<NotificationController> {
               }
 
               if (controller.notifications.isEmpty) {
-                return _buildEmptyState();
+                return _buildEmptyState(context);
               }
 
               return RefreshIndicator(
@@ -136,13 +131,14 @@ class NotificationView extends GetView<NotificationController> {
     );
   }
 
-  Widget _buildCategoryTabs() {
+  Widget _buildCategoryTabs(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final categories = [
-      {'key': 'all', 'label': 'All'},
-      {'key': 'transactional', 'label': 'Transactional'},
-      {'key': 'promotional', 'label': 'Promotional'},
-      {'key': 'reminder', 'label': 'Reminder'},
-      {'key': 'system', 'label': 'System'},
+      {'key': 'all', 'label': l10n.all},
+      {'key': 'transactional', 'label': l10n.transactional},
+      {'key': 'promotional', 'label': l10n.promotional},
+      {'key': 'reminder', 'label': l10n.reminder},
+      {'key': 'system', 'label': l10n.system},
     ];
 
     return Container(
@@ -196,7 +192,8 @@ class NotificationView extends GetView<NotificationController> {
     );
   }
 
-  Widget _buildUnreadToggle() {
+  Widget _buildUnreadToggle(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Obx(() {
       return Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -210,9 +207,9 @@ class NotificationView extends GetView<NotificationController> {
           children: [
             const Icon(Icons.filter_list, color: Color(0xFF808080), size: 18),
             const SizedBox(width: 8),
-            const Text(
-              'Show unread only',
-              style: TextStyle(color: Color(0xFFE0E0E0), fontSize: 14),
+            Text(
+              l10n.showUnreadOnly,
+              style: const TextStyle(color: Color(0xFFE0E0E0), fontSize: 14),
             ),
             const Spacer(),
             Switch(
@@ -229,7 +226,8 @@ class NotificationView extends GetView<NotificationController> {
     });
   }
 
-  Widget _buildEmptyState() {
+  Widget _buildEmptyState(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -248,18 +246,18 @@ class NotificationView extends GetView<NotificationController> {
             ),
           ),
           const SizedBox(height: 24),
-          const Text(
-            'No notifications',
-            style: TextStyle(
+          Text(
+            l10n.noNotifications,
+            style: const TextStyle(
               color: Color(0xFFE0E0E0),
               fontSize: 18,
               fontWeight: FontWeight.w600,
             ),
           ),
           const SizedBox(height: 8),
-          const Text(
-            'You\'re all caught up!',
-            style: TextStyle(color: Color(0xFF808080), fontSize: 14),
+          Text(
+            l10n.allCaughtUp,
+            style: const TextStyle(color: Color(0xFF808080), fontSize: 14),
           ),
         ],
       ),

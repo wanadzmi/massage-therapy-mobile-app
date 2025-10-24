@@ -934,6 +934,30 @@ class AppLocalizationsEn extends AppLocalizations {
   String get close => 'Close';
 
   @override
+  String get markAllAsRead => 'Mark all as read';
+
+  @override
+  String get transactional => 'Transactional';
+
+  @override
+  String get promotional => 'Promotional';
+
+  @override
+  String get reminder => 'Reminder';
+
+  @override
+  String get system => 'System';
+
+  @override
+  String get showUnreadOnly => 'Show unread only';
+
+  @override
+  String get noNotifications => 'No notifications';
+
+  @override
+  String get allCaughtUp => 'You\'re all caught up!';
+
+  @override
   String get noTransactionsYetHistory => 'No Transactions Yet';
 
   @override

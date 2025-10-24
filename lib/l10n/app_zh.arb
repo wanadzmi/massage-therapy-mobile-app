@@ -1259,6 +1259,38 @@
     "@close": {
         "description": "Close button text"
     },
+    "markAllAsRead": "全部标为已读",
+    "@markAllAsRead": {
+        "description": "Mark all notifications as read tooltip"
+    },
+    "transactional": "交易",
+    "@transactional": {
+        "description": "Transactional category label"
+    },
+    "promotional": "推广",
+    "@promotional": {
+        "description": "Promotional category label"
+    },
+    "reminder": "提醒",
+    "@reminder": {
+        "description": "Reminder category label"
+    },
+    "system": "系统",
+    "@system": {
+        "description": "System category label"
+    },
+    "showUnreadOnly": "仅显示未读",
+    "@showUnreadOnly": {
+        "description": "Toggle to show unread notifications only"
+    },
+    "noNotifications": "暂无通知",
+    "@noNotifications": {
+        "description": "Empty state title for notifications"
+    },
+    "allCaughtUp": "您已查看所有通知！",
+    "@allCaughtUp": {
+        "description": "Empty state message for notifications"
+    },
     "noTransactionsYetHistory": "暂无交易记录",
     "@noTransactionsYetHistory": {
         "description": "Empty state title for transaction history"

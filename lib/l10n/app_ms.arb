@@ -1259,6 +1259,38 @@
     "@close": {
         "description": "Close button text"
     },
+    "markAllAsRead": "Tandakan semua sebagai dibaca",
+    "@markAllAsRead": {
+        "description": "Mark all notifications as read tooltip"
+    },
+    "transactional": "Transaksi",
+    "@transactional": {
+        "description": "Transactional category label"
+    },
+    "promotional": "Promosi",
+    "@promotional": {
+        "description": "Promotional category label"
+    },
+    "reminder": "Peringatan",
+    "@reminder": {
+        "description": "Reminder category label"
+    },
+    "system": "Sistem",
+    "@system": {
+        "description": "System category label"
+    },
+    "showUnreadOnly": "Tunjukkan yang belum dibaca sahaja",
+    "@showUnreadOnly": {
+        "description": "Toggle to show unread notifications only"
+    },
+    "noNotifications": "Tiada notifikasi",
+    "@noNotifications": {
+        "description": "Empty state title for notifications"
+    },
+    "allCaughtUp": "Anda sudah kemas kini!",
+    "@allCaughtUp": {
+        "description": "Empty state message for notifications"
+    },
     "noTransactionsYetHistory": "Tiada Transaksi Lagi",
     "@noTransactionsYetHistory": {
         "description": "Empty state title for transaction history"

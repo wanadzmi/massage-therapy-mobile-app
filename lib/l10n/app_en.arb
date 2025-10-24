@@ -1259,6 +1259,38 @@
     "@close": {
         "description": "Close button text"
     },
+    "markAllAsRead": "Mark all as read",
+    "@markAllAsRead": {
+        "description": "Mark all notifications as read tooltip"
+    },
+    "transactional": "Transactional",
+    "@transactional": {
+        "description": "Transactional category label"
+    },
+    "promotional": "Promotional",
+    "@promotional": {
+        "description": "Promotional category label"
+    },
+    "reminder": "Reminder",
+    "@reminder": {
+        "description": "Reminder category label"
+    },
+    "system": "System",
+    "@system": {
+        "description": "System category label"
+    },
+    "showUnreadOnly": "Show unread only",
+    "@showUnreadOnly": {
+        "description": "Toggle to show unread notifications only"
+    },
+    "noNotifications": "No notifications",
+    "@noNotifications": {
+        "description": "Empty state title for notifications"
+    },
+    "allCaughtUp": "You're all caught up!",
+    "@allCaughtUp": {
+        "description": "Empty state message for notifications"
+    },
     "noTransactionsYetHistory": "No Transactions Yet",
     "@noTransactionsYetHistory": {
         "description": "Empty state title for transaction history"
